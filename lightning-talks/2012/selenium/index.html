@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Selenium</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Selenium</h1></header>
+            
+            
+            <section><p>Dan Poirier</p>
+<p>February 24, 2011</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Talk Overview</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What is Selenium?</li>
+<li>Drivers and languages</li>
+<li>Basic programming</li>
+<li>Examining pages</li>
+<li>Interacting</li>
+<li>Experience</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What is Selenium?</h1></header>
+            
+            
+            <section><p>Selenium has two parts:</p>
+<ul class="simple">
+<li>Selenium IDE - a Firefox plugin to record and playback interactions with a browser</li>
+<li>Selenium WebDriver - a library and browser tools to write programs in a variety of languages to drive browsers like a user</li>
+</ul>
+<p>This is about WebDriver, which is better suited to automating testing.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>WebDriver drivers</h1></header>
+            
+            
+            <section><p>WebDriver has drivers for Firefox, IE, Chrome, Opera, iPhone, and Android.</p>
+<p>It also has a purely internal browser emulator called HTMLUnit. It's faster than most of the real browser drivers, though obviously is no good for testing browser compatibility.</p>
+<p>It has APIs for Java, C#, Python, Ruby, Perl, and PHP.  I'll just be showing Python.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Basic Webdriver programming</h1></header>
+            
+            
+            <section><p>Create a new instance of the Firefox driver and go to google:</p>
+<pre class="literal-block">
+driver = webdriver.Firefox()
+driver.get(&quot;http://www.google.com&quot;)
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>programming (cont.)</h1></header>
+            
+            
+            <section><p>Enter a search and submit it:</p>
+<pre class="literal-block">
+inputElement = driver.find_element_by_name(&quot;q&quot;)
+inputElement.send_keys(&quot;Cheese!&quot;)
+inputElement.submit()
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>programming, continued</h1></header>
+            
+            
+            <section><p>Print the page title and quit:</p>
+<pre class="literal-block">
+|  print driver.title
+|  driver.quit()
+</pre>
+<p>(With drivers that start a new browser instance, like Chrome, you need .quit() or the browser instance hangs around.)</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Locating elements, basic</h1></header>
+            
+            
+            <section><p>You can inspect the page DOM to see if you got what you wanted.  Start by locating the element. There are multiple ways to do that:</p>
+<pre class="literal-block">
+| driver.find_element_by_id('myWidget')
+| driver.find_element_by_class_name('password_input')
+| driver.find_element_by_tag_name('iframe')
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Locating elements, more sophisticated</h1></header>
+            
+            
+            <section><p>Find &lt;input&gt; element with matching name attribute, link text, or partial link text:</p>
+<pre class="literal-block">
+| driver.find_element_by_name('cheese')
+| driver.find_element_by_link_text('Search for cheese')
+| driver.find_element_by_partial_link_text
+     ('cheese')
+</pre>
+<p>You can even find elements by CSS locator, XPATH, or executing arbitrary JavaScript.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Examining elements</h1></header>
+            
+            
+            <section><p>Once you have a reference to a page element, you can check it out:</p>
+<pre class="literal-block">
+| elt.tag_name
+| elt.text
+| elt.get_attribute('name')
+| elt.is_displayed()
+| elt.is_enabled()
+| elt.is_selected()
+| ...
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Interacting</h1></header>
+            
+            
+            <section><p>You can type into an element, click on it, or submit a form:</p>
+<pre class="literal-block">
+| elt.clear()
+| elt.send_keys(&quot;John Doe&quot;)
+| elt.click()
+| elt.submit()
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>More</h1></header>
+            
+            
+            <section><p>This is a sampling of what you can do with WebDriver.</p>
+<p>You can include any of this in a unit test. In Django 1.4, the test runner can start a server on a port that your webdriver test can interact with.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>My experience</h1></header>
+            
+            
+            <section><p>One of our clients is using Selenium for some of their testing and plans to expand that in the future.</p>
+<p>I had a lot of trouble getting this to work with bank and credit card sites (I wanted to automate downloading my statements), but I suspect those are a worst case of Javascript, popups, etc.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>More information</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Documentation, downloads: <a class="reference external" href="http://seleniumhq.org/">http://seleniumhq.org/</a></li>
+<li>Python bindings doc: <a class="reference external" href="http://selenium.googlecode.com/svn/trunk/docs/api/py/api.html">http://selenium.googlecode.com/svn/trunk/docs/api/py/api.html</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst">/home/copelco/projects/talks/lightning-talks/2012/selenium/selenium.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/14
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Selenium</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Talk Overview</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">What is Selenium?</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">WebDriver drivers</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Basic Webdriver programming</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">programming (cont.)</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">programming, continued</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Locating elements, basic</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Locating elements, more sophisticated</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Examining elements</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Interacting</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">More</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">My experience</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">More information</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
