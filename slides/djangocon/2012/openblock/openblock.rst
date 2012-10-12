@@ -73,7 +73,7 @@ EveryBlock.com
 .. http://www.holovaty.com/writing/knight-foundation-grant/
 .. http://www.knightfoundation.org/grants/20060885/
 
-.. image:: ../static/everyblock-logo.jpg
+.. image:: static/everyblock-logo.jpg
     :align: center
 
 - Adrian Holovaty founded a web startup, EveryBlock, with a team of six
@@ -93,7 +93,7 @@ Presenter Notes
 EveryBlock.com
 --------------
 
-.. image:: ../static/example-everyblock.png
+.. image:: static/example-everyblock.png
     :width: 100%
 
 Presenter Notes
@@ -128,7 +128,7 @@ OpenBlock
 
 .. http://www.knightfoundation.org/press-room/press-release/knight-foundation-expands-neighborhood-news/
 
-.. image:: ../static/openblock-logo.png
+.. image:: static/openblock-logo.png
     :align: center
 
 - **June 2010:** Knight Foundation launches OpenBlock Initiative grant
@@ -149,7 +149,7 @@ Presenter Notes
 OpenBlock Today
 ---------------
 
-.. image:: ../static/openblock-logo.png
+.. image:: static/openblock-logo.png
     :align: center
 
 - Easier to install and setup
@@ -177,7 +177,7 @@ Presenter Notes
 OpenBlock Architecture
 ----------------------
 
-.. image:: ../static/openblock-components.png
+.. image:: static/openblock-components.png
     :align: center
     :height: 40em
 
@@ -217,7 +217,7 @@ Presenter Notes
 Example City Streets
 --------------------
 
-.. image:: ../static/data-model-city.png
+.. image:: static/data-model-city.png
     :width: 100 %
 
 Presenter Notes
@@ -231,7 +231,7 @@ Presenter Notes
 Street Model
 ------------
 
-.. image:: ../static/data-model-street.png
+.. image:: static/data-model-street.png
     :width: 100 %
 
 Presenter Notes
@@ -245,7 +245,7 @@ Presenter Notes
 Block Model
 -----------
 
-.. image:: ../static/data-model-block.png
+.. image:: static/data-model-block.png
     :width: 100 %
 
 Presenter Notes
@@ -267,7 +267,7 @@ OpenBlock Sites
 OpenBlock Demo: Boston
 ----------------------
 
-.. image:: ../static/example-boston.png
+.. image:: static/example-boston.png
     :width: 100%
 
 Presenter Notes
@@ -282,7 +282,7 @@ Presenter Notes
 openCampus Kent
 ---------------
 
-.. image:: ../static/example-kent.png
+.. image:: static/example-kent.png
     :width: 100%
 
 Presenter Notes
@@ -297,7 +297,7 @@ Presenter Notes
 LarryvilleKU
 ------------
 
-.. image:: ../static/example-larryvilleku.png
+.. image:: static/example-larryvilleku.png
     :width: 100%
 
 Presenter Notes
@@ -329,7 +329,7 @@ OpenRural
 
 .. http://www.knightfoundation.org/grants/20110150/
 
-.. image:: ../static/unc.png
+.. image:: static/unc.png
     :width: 60%
     :align: center
 
@@ -352,7 +352,7 @@ Presenter Notes
 Columbus County, North Carolina
 -------------------------------
 
-.. image:: ../static/nc-columbus-county.png
+.. image:: static/nc-columbus-county.png
     :width: 100%
 
 Presenter Notes
@@ -367,7 +367,7 @@ Presenter Notes
 The News Reporter
 -----------------
 
-.. image:: ../static/whiteville-com.png
+.. image:: static/whiteville-com.png
     :width: 100%
 
 Presenter Notes
@@ -385,7 +385,7 @@ Experiences
 Columbus County, NC
 -------------------
 
-.. image:: ../static/columbus-county-map.png
+.. image:: static/columbus-county-map.png
     :width: 100 %
 
 ----
@@ -409,7 +409,7 @@ Sources for Street/Block Data
 "Cities" in Columbus County
 ---------------------------
 
-.. image:: ../static/nc-columbus-county-cities.png
+.. image:: static/nc-columbus-county-cities.png
     :width: 100%
 
 ----
@@ -450,7 +450,7 @@ Challenging Characteristics of Columbus County
 Missing Addresses
 -----------------
 
-.. image:: ../static/bad-data-missing-addresses.png
+.. image:: static/bad-data-missing-addresses.png
     :width: 100 %
 
 ----
@@ -458,7 +458,7 @@ Missing Addresses
 Changing Names
 --------------
 
-.. image:: ../static/bad-data-primary-names.png
+.. image:: static/bad-data-primary-names.png
     :width: 100 %
 
 ----
@@ -482,7 +482,7 @@ Changing Names
 Custom Data Availability in NC
 ------------------------------
 
-.. image:: ../static/Street_Centerline_Download_County.jpg
+.. image:: static/Street_Centerline_Download_County.jpg
     :width: 90 %
 
 ----
@@ -551,7 +551,7 @@ Presenter Notes
 The News Reporter: Public Records
 ---------------------------------
 
-.. image:: ../static/whiteville-com-openrural.png
+.. image:: static/whiteville-com-openrural.png
     :width: 100%
 
 Presenter Notes
@@ -564,7 +564,7 @@ Presenter Notes
 Property Transactions Scraper
 -----------------------------
 
-.. image:: ../static/scrapers-property.png
+.. image:: static/scrapers-property.png
     :width: 80 %
     :align: center
 
@@ -624,7 +624,7 @@ Presenter Notes
 Data Dashboard
 --------------
 
-.. image:: ../static/datadashboard-list.png
+.. image:: static/datadashboard-list.png
     :width: 100 %
 
 Presenter Notes
@@ -639,7 +639,7 @@ Presenter Notes
 Data Dashboard
 --------------
 
-.. image:: ../static/datadashboard-runs.png
+.. image:: static/datadashboard-runs.png
     :width: 100 %
 
 Presenter Notes
@@ -656,7 +656,7 @@ Presenter Notes
 Data Dashboard
 --------------
 
-.. image:: ../static/datadashboard-stats.png
+.. image:: static/datadashboard-stats.png
     :width: 100 %
 
 Presenter Notes
@@ -672,7 +672,7 @@ Presenter Notes
 Data Dashboard
 --------------
 
-.. image:: ../static/datadashboard-failures.png
+.. image:: static/datadashboard-failures.png
     :width: 100 %
 
 Presenter Notes
@@ -716,7 +716,7 @@ What's Next?
 Columbus County
 ---------------
 
-.. image:: ../static/nc-columbus-county.png
+.. image:: static/nc-columbus-county.png
     :width: 100%
 
 Presenter Notes
@@ -730,7 +730,7 @@ Presenter Notes
 Many Counties
 -------------
 
-.. image:: ../static/nc-14-counties.png
+.. image:: static/nc-14-counties.png
     :width: 100%
 
 Presenter Notes
