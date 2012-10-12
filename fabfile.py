@@ -20,15 +20,18 @@ CONFIG_OPTIONS = {
 
 
 @task
-def get_config(name):
-    config_file = os.path.join(CONF_ROOT, u'slides.cfg')
-    config = ConfigParser.SafeConfigParser(defaults=DEFAULTS)
-    config.read(config_file)
+def get_config(source='', name=''):
     options = {}
-    if config.has_section(name):
+    if name:
+        config_file = os.path.join(CONF_ROOT, u'slides.cfg')
+        config = ConfigParser.SafeConfigParser(defaults=DEFAULTS)
+        config.read(config_file)
         for option, type_ in CONFIG_OPTIONS.iteritems():
             func = getattr(config, type_)
             options[option] = func(name, option)
+    if source:
+        options = DEFAULTS.copy()
+        options['source'] = source
     options['source'] = os.path.join(PROJECT_ROOT, options['source'])
     options['destination'] = os.path.join(options['source'], 'index.html')
     return options
@@ -45,11 +48,13 @@ def landslide(options):
     args.append('-d {}'.format(options['destination']))
     args.append(options['source'])
     os.chdir(options['source'])
-    shutil.rmtree(os.path.join(options['source'], 'theme'))
+    theme_dir = os.path.join(options['source'], 'theme')
+    if os.path.exists(theme_dir):
+        shutil.rmtree(theme_dir)
     local('landslide {}'.format(' '.join(args)))
 
 
 @task
-def build(name):
-    options = get_config(name)
+def build(source='', name=''):
+    options = get_config(source, name)
     landslide(options)
