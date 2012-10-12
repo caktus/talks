@@ -17,17 +17,17 @@ Landslide
 Default configuration
 *********************
 
-* Create a new directory for your slides. Slides should have the ``.rst``
+Create a new directory for your slides. Slides should have the ``.rst``
   extension.
 
-* Build your slides with::
+Build your slides with::
 
     fab landslide:path/to/directory
 
 Custom configuration
 ********************
 
-* Add a new configuration section to ``conf/slides.cfg``, like::
+Add a new configuration section to ``conf/slides.cfg``, like::
 
     [djangocon-openblock]
     source = djangocon/2012/openblock
@@ -35,17 +35,17 @@ Custom configuration
 
 You can specify the standard landslide configuration options here.
 
-* Build your slides with::
+Build your slides with::
 
     fab landslide:name=djangocon-openblock
 
 Publishing your slides
 ----------------------
 
-* Add your slides to git and push up to GitHub::
+Add your slides to git and push up to GitHub::
 
     git add path/to/directory
     git commit
     git push
 
-* Visit http://talks.caktusgroup.com/path/to/directory
+Visit http://talks.caktusgroup.com/path/to/directory
