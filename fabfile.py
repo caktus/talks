@@ -29,7 +29,7 @@ def get_config(name):
         for option, type_ in CONFIG_OPTIONS.iteritems():
             func = getattr(config, type_)
             options[option] = func(name, option)
-    options['source'] = os.path.join(PROJECT_ROOT, 'slides', options['source'])
+    options['source'] = os.path.join(PROJECT_ROOT, options['source'])
     options['destination'] = os.path.join(options['source'], 'index.html')
     return options
 
