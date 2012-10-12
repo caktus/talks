@@ -18,7 +18,7 @@ Default configuration
 *********************
 
 Create a new directory for your slides. Slides should have the ``.rst``
-  extension.
+extension.
 
 Build your slides with::
 
