@@ -57,6 +57,15 @@ Build your slides with::
 
     fab landslide:name=djangocon-openblock
 
+RevealJS
+--------
+
+Create a new slide template with this command::
+
+    fab revealjs:path/to/new/directory
+
+This will create the new directories and add a fresh ``index.html`` file.
+
 Publishing your slides
 ----------------------
 
