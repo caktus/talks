@@ -1,12 +1,13 @@
 import ConfigParser
 import os
+import shutil
 
 from fabric.api import task, local
 
 PROJECT_ROOT = os.path.dirname(__file__)
 CONF_ROOT = os.path.join(PROJECT_ROOT, 'conf')
 DEFAULTS = {
-    'theme': os.path.join(CONF_ROOT, 'themes/caktus'),
+    'theme': os.path.join(CONF_ROOT, 'themes/caktus/'),
     'relative': 'True',
     'copy-theme': 'True',
 }
@@ -28,9 +29,8 @@ def get_config(name):
         for option, type_ in CONFIG_OPTIONS.iteritems():
             func = getattr(config, type_)
             options[option] = func(name, option)
-    options['destination'] = os.path.join(PROJECT_ROOT, 'html', name,
-                                          'index.html')
     options['source'] = os.path.join(PROJECT_ROOT, 'slides', options['source'])
+    options['destination'] = os.path.join(options['source'], 'index.html')
     return options
 
 
@@ -42,7 +42,10 @@ def landslide(options):
     if options.get('relative', False):
         args.append('-r')
     args.append('-t {}'.format(options['theme']))
+    args.append('-d {}'.format(options['destination']))
     args.append(options['source'])
+    os.chdir(options['source'])
+    shutil.rmtree(os.path.join(options['source'], 'theme'))
     local('landslide {}'.format(' '.join(args)))
 
 
