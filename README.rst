@@ -18,6 +18,7 @@ Directory
         * `FabulAWS <http://talks.caktusgroup.com/lightning-talks/2011/fabulaws>`_
         * `Service Page API <http://talks.caktusgroup.com/lightning-talks/2011/service-page-api>`_
         * `django-selectable <http://talks.caktusgroup.com/lightning-talks/2011/django-selectable>`_
+* `RevealJS Caktus Theme <http://talks.caktusgroup.com/revealjs/talks/example.html>`_
 
 Setup
 -----
