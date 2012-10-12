@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Service Page API</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Service Page API</h1></header>
+            
+            
+            <section><p>Calvin Spealman</p>
+<p>July 15, 2011</p>
+
+<h1>Project Overview</h1>
+<p><strong>&quot;What the heck are you talking about, Calvin?&quot;</strong></p>
+<p>The Service Page API is a common API for extensions that can be used in
+any browser, and which can added to existing browsers as a plugin or
+extension.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Motivation</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>I learned how to write Firefox extensions</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Motivation</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>I learned how to write Firefox extensions</li>
+<li>Jetpack extensions</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Motivation</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>I learned how to write Firefox extensins</li>
+<li>Jetpack extensions</li>
+<li>Chrome extensions</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Motivation</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>I learned how to write Firefox extensions</li>
+<li>Jetpack extensions</li>
+<li>Chrome extensions</li>
+<li>Each one was closer to writing a web page than the last...</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>So...</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>So...</h1></header>
+            
+            
+            <section><p>Why <em>isn't</em> it just writing a web page?</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What does it solve?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Writing extensions for multiple browsers is too difficult</li>
+<li>Writing extensions is too unfamiliar for web developers</li>
+<li>Websites cannot easily use extensions to enhance the UX</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Multiple browsers</h1></header>
+            
+            
+            <section><p>Extensions are mostly done with web technologies anyway. Why
+does it have to be browser specific?</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Unfamiliar APIs</h1></header>
+            
+            
+            <section><p>And if its so web-like, why isn't it more web-like?</p>
+<p>Is that redundant?</p>
+<p>So are the skillsets of website and browser extension development.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>How Does It Solve It?</h1></header>
+            
+            
+            <section><p>Service Pages are hidden webpages the browser opens to provide services
+to other pages the user visits.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Architecture</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Website registers the URL of a Service Page, identified by a type</li>
+<li>Other sites ask the browser to access a service, by type</li>
+<li>Browser acts as a proxy</li>
+<li>Requesting page doesn't need to know who it is talking to</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>The API</h1></header>
+            
+            
+            <section><p>The offerer of a service:</p>
+<pre class="literal-block">
+servicepage.register(&quot;status_update&quot;, &quot;http://sp.servicepage.org/status_update/&quot;);
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>The API</h1></header>
+            
+            
+            <section><p>The user of a service:</p>
+<pre class="literal-block">
+servicepage.getService(&quot;status_update&quot;, use_service);
+
+function use_service(S) {
+    S.do_update(&quot;I just used a Service Page!&quot;); }
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>My Goals</h1></header>
+            
+            
+            <section><p>First: pie-in-the-sky vaporware.</p>
+<p>Second:</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Chrome Prototype</h1></header>
+            
+            
+            <section><p>A chrome extension implementing the API demonstrates how it works and
+provides a (potential) large user base without any browser vendor
+support.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Firefox Version</h1></header>
+            
+            
+            <section><p>This will prove it isn't a one trick pony.</p>
+<p>I haven't started this yet.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Useful Service Set</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Useful set of service types</li>
+<li>Useful set of services offered from servicepage.org</li>
+<li>Jumpstart the concept</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>The World of Tomorrow</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Release the chrome extension</li>
+<li>Launch servicepage.org</li>
+<li>Publish the API draft</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst">/home/copelco/projects/talks/lightning-talks/2011/service-page-api/service-page-api.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Service Page API</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Motivation</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Motivation</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Motivation</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Motivation</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">So...</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">So...</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">What does it solve?</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Multiple browsers</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Unfamiliar APIs</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">How Does It Solve It?</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Architecture</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">The API</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">The API</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">My Goals</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Chrome Prototype</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Firefox Version</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Useful Service Set</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">The World of Tomorrow</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+Service Page API
+===================================
+
+Calvin Spealman
+
+July 15, 2011
+
+
+Project Overview
+-----------------------------------
+
+**"What the heck are you talking about, Calvin?"**
+
+The Service Page API is a common API for extensions that can be used in
+any browser, and which can added to existing browsers as a plugin or
+extension.
+
+----
+
+Motivation
+-----------------------------------
+
+* I learned how to write Firefox extensions
+
+----
+
+
+Motivation
+-----------------------------------
+
+* I learned how to write Firefox extensions
+
+* Jetpack extensions
+
+----
+
+
+Motivation
+-----------------------------------
+
+* I learned how to write Firefox extensins
+
+* Jetpack extensions
+
+* Chrome extensions
+
+----
+
+
+Motivation
+-----------------------------------
+
+* I learned how to write Firefox extensions
+
+* Jetpack extensions
+
+* Chrome extensions
+
+* Each one was closer to writing a web page than the last...
+
+----
+
+
+So...
+-----------------------------------
+
+----
+
+
+So...
+-----------------------------------
+
+Why *isn't* it just writing a web page?
+
+----
+
+
+What does it solve?
+-----------------------------------
+
+* Writing extensions for multiple browsers is too difficult
+* Writing extensions is too unfamiliar for web developers
+* Websites cannot easily use extensions to enhance the UX
+
+----
+
+
+Multiple browsers
+----------------------------------
+
+Extensions are mostly done with web technologies anyway. Why
+does it have to be browser specific?
+
+----
+
+
+Unfamiliar APIs
+----------------------------------
+
+And if its so web-like, why isn't it more web-like?
+
+Is that redundant?
+
+So are the skillsets of website and browser extension development.
+
+----
+
+
+How Does It Solve It?
+----------------------------------
+
+Service Pages are hidden webpages the browser opens to provide services
+to other pages the user visits.
+
+----
+
+
+Architecture
+----------------------------------
+
+* Website registers the URL of a Service Page, identified by a type
+* Other sites ask the browser to access a service, by type
+* Browser acts as a proxy
+* Requesting page doesn't need to know who it is talking to
+
+----
+
+
+The API
+---------------------------------
+
+The offerer of a service::
+
+    servicepage.register("status_update", "http://sp.servicepage.org/status_update/");
+
+----
+
+
+The API
+---------------------------------
+
+The user of a service::
+
+    servicepage.getService("status_update", use_service);
+
+    function use_service(S) {
+        S.do_update("I just used a Service Page!"); }
+
+----
+
+
+My Goals
+----------------------------------
+
+First: pie-in-the-sky vaporware.
+
+Second:
+
+----
+
+
+Chrome Prototype
+----------------------------------
+
+A chrome extension implementing the API demonstrates how it works and
+provides a (potential) large user base without any browser vendor
+support.
+
+----
+
+
+Firefox Version
+----------------------------------
+
+This will prove it isn't a one trick pony.
+
+I haven't started this yet.
+
+----
+
+
+Useful Service Set
+----------------------------------
+
+* Useful set of service types
+* Useful set of services offered from servicepage.org
+* Jumpstart the concept
+
+----
+
+
+The World of Tomorrow
+----------------------------------
+
+* Release the chrome extension
+* Launch servicepage.org
+* Publish the API draft

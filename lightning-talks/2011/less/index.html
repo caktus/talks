@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>LESS</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>LESS</h1></header>
+            
+            
+            <section><p>Julia Elman</p>
+<p>December 08, 2011</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Overview</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Overview</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What is LESS?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Overview</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What is LESS?</li>
+<li>Why would I want to use it?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Overview</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What is LESS?</li>
+<li>Why would I want to use it?</li>
+<li>Tools that make your life easier</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What is LESS?</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What is LESS?</h1></header>
+            
+            
+            <section><p>A dynamic stylesheet language that uses CSS syntax to create variables, mixins, operations and functions for your stylesheets.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What the heck does that mean?</h1></header>
+            
+            
+            <section><img alt="scratching-head.jpg" src="scratching-head.jpg" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Variables</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Variables</h1></header>
+            
+            
+            <section><p>Variables allow you to specify widely used values in a single place, and then re-use them throughout the style sheet, making global changes as easy as changing one line of code.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Variables example</h1></header>
+            
+            
+            <section><p>LESS Syntax</p>
+<blockquote>
+<p>&#64;blue: #0066CC;</p>
+<p>section { background-color: &#64;blue; }</p>
+<p>a { color: &#64;blue; }</p>
+</blockquote>
+<p>CSS Output</p>
+<blockquote>
+<p>section { background-color: #0066CC; }</p>
+<p>a { color: #0066CC; }</p>
+</blockquote></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Mixins</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Mixins</h1></header>
+            
+            
+            <section><p>Mixins allow you to embed all the properties of a class into another class by simply including the class name as one of its properties.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Mixins example</h1></header>
+            
+            
+            <section><p>LESS Syntax:</p>
+<pre class="literal-block">
+| .box-shadow(&#64;shadow:8px 5px 5px #ccc) {
+| -webkit-box-shadow: &#64;shadow;
+| -moz-box-shadow: &#64;shadow;
+| box-shadow: &#64;shadow; }
+
+section { .box-shadow; }
+
+section.place { .box-shadow(10px 5px 5px #ddd); }
+</pre>
+<p>CSS Output:</p>
+<pre class="literal-block">
+| section {
+|  -webkit-box-shadow: 8px 5px 5px #ccc;
+|  -moz-box-shadow: 8px 5px 5px #ccc;
+|  box-shadow: 8px 5px 5px #ccc;
+| }
+
+| section.place {
+| -webkit-box-shadow: 10px 5px 5px #ddd;
+| -moz-box-shadow: 10px 5px 5px #ddd;
+| box-shadow: 10px 5px 5px #ddd; }
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Nested Rules</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Nested Rules</h1></header>
+            
+            
+            <section><p>Rather than constructing long selector names to specify inheritance, in Less you can simply nest selectors inside other selectors. This makes inheritance clear and style sheets shorter.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Nested example</h1></header>
+            
+            
+            <section><p>LESS syntax:</p>
+<pre class="literal-block">
+header {
+   h1 {
+       | font-size: 26px;
+       | font-weight: bold; }
+       | p { font-size: 12px;
+       | a { text-decoration: none;
+       | &amp;:hover { border-width: 1px }
+   | } }
+   | }
+</pre>
+<p>CSS Output:</p>
+<pre class="literal-block">
+header h1 {
+   | font-size: 26px;
+   | font-weight: bold; }
+
+| header p { font-size: 12px; }
+| header p a { text-decoration: none; }
+| header p a:hover { border-width: 1px; }
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Operations</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Operations</h1></header>
+            
+            
+            <section><p>Are some elements in your style sheet proportional to other elements? Operations let you add, subtract, divide and multiply property values and colors, giving you the power to create complex relationships between properties.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Operations example</h1></header>
+            
+            
+            <section><p>LESS Syntax:</p>
+<pre class="literal-block">
+| &#64;the-border: 1px;
+| &#64;base-color: #111;
+| &#64;dark-red: #CD0000;
+| &#64;yellow: #FFFF00;
+
+section.operations {
+  | color: &#64;base-color * 3;
+  | border-left: &#64;the-border;
+  | border-right: &#64;the-border * 2;
+  | border-color: &#64;dark-red;
+  | background-color: &#64;yellow; }
+</pre>
+<p>CSS Output:</p>
+<pre class="literal-block">
+section.operations {
+   | color: #333333;
+   | border-left: 1px;
+   | border-right: 2px;
+   | border-color: #cd0000;
+   | background-color: #ffff00; }
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why would I want to use it?</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why would I want to use it?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Create &quot;less&quot; lines of code you have to write</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why would I want to use it?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Create &quot;less&quot; lines of code you have to write</li>
+<li>Passing off code to others is easier</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why would I want to use it?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Create &quot;less&quot; lines of code you have to write</li>
+<li>Passing off code to others is easier</li>
+<li>More readable</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>No more matrix-like stylesheets!</h1></header>
+            
+            
+            <section><img alt="matrix.jpg" src="matrix.jpg" style="width: 100%;" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Client side usage</h1></header>
+            
+            
+            <section><p>Place your less file and the less.js file in your head:</p>
+<pre class="literal-block">
+| &lt;link rel=&quot;stylesheet/less&quot; type=&quot;text/css&quot; href=&quot;styles.less&quot;&gt;
+| &lt;script src=&quot;less.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Server side usage - Django</h1></header>
+            
+            
+            <section><p>Install node.js and npm (<a class="reference external" href="http://npmjs.org/">http://npmjs.org/</a>)</p>
+<p>Install the command-line less compiler:</p>
+<pre class="literal-block">
+npm install --global less
+</pre>
+<p>Add lessc to COMPASS_PRECOMPILERS in your settings file:</p>
+<pre class="literal-block">
+COMPRESS_PRECOMPILERS = (
+ ('text/less', 'lessc {infile} {outfile}'),
+)
+</pre>
+<p>Example of usage in template:</p>
+<pre class="literal-block">
+{% load compress %}
+
+{% compress css %}
+&lt;link type=&quot;text/less&quot; rel=&quot;stylesheet&quot; href=&quot;/static/css/styles.less&quot; charset=&quot;utf-8&quot;&gt;
+{% endcompress %}
+
+// Which would be rendered into something like so:
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;/static/CACHE/css/8ccf8d877f18.css&quot; type=&quot;text/css&quot; charset=&quot;utf-8&quot;&gt;
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Or make your life even easier...</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>LESS.app <a class="reference external" href="http://incident57.com/less/">http://incident57.com/less/</a> (OSX only)</li>
+<li>Simpless <a class="reference external" href="http://wearekiss.com/simpless">http://wearekiss.com/simpless</a> (OSX, Windows and Linux!)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              28/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/less/less.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>References</h1></header>
+            
+            
+            <section><ul class="simple">
+<li><a class="reference external" href="http://lesscss.org">http://lesscss.org</a></li>
+<li><a class="reference external" href="http://django_compressor.readthedocs.org/en/latest/settings/#compress-precompilers">http://django_compressor.readthedocs.org/en/latest/settings/#compress-precompilers</a></li>
+<li><a class="reference external" href="http://stackoverflow.com/questions/6928914/django-mac-osx-how-to-use-less-css">http://stackoverflow.com/questions/6928914/django-mac-osx-how-to-use-less-css</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/less/less.rst">/home/copelco/projects/talks/lightning-talks/2011/less/less.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              29/29
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">LESS</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Overview</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Overview</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Overview</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Overview</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">What is LESS?</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">What is LESS?</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">What the heck does that mean?</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Variables</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Variables</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Variables example</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Mixins</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Mixins</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Mixins example</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Nested Rules</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Nested Rules</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Nested example</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Operations</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Operations</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">Operations example</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">Why would I want to use it?</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">Why would I want to use it?</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">Why would I want to use it?</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-24">
+        <th><a href="#slide24">Why would I want to use it?</a></th>
+        <td><a href="#slide24">24</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">No more matrix-like stylesheets!</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-26">
+        <th><a href="#slide26">Client side usage</a></th>
+        <td><a href="#slide26">26</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-27">
+        <th><a href="#slide27">Server side usage - Django</a></th>
+        <td><a href="#slide27">27</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-28">
+        <th><a href="#slide28">Or make your life even easier...</a></th>
+        <td><a href="#slide28">28</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-29">
+        <th><a href="#slide29">References</a></th>
+        <td><a href="#slide29">29</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
