@@ -26,7 +26,7 @@ Setup
 Create a new virtualenv and install the requirements::
 
     mkvirtualenv --distribute talks
-    pip install -r requirements.txt
+    pip install -r conf/requirements.txt
     
 Landslide
 ---------
