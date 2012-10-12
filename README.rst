@@ -6,6 +6,8 @@ Caktus Consulting Group, LLC
 Setup
 -----
 
+Create a new virtualenv and install the requirements::
+
     mkvirtualenv --distribute talks
     pip install -r requirements.txt
     
