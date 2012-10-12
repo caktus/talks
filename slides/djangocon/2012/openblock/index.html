@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>OpenBlock</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>OpenBlock</h1></header>
+            
+            
+            <section><h2>Overview &amp; Initial Experience</h2>
+<p>Karen Tracey, Colin Copeland</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Talk Outline</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What it is?</li>
+<li>Our experience with it</li>
+<li>Extensions inspired by our experience</li>
+<li>Future</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Introduction</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>What is OpenBlock?</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>&quot;Hyper-local news&quot; application framework</li>
+<li>Example news types<ul>
+<li>police incident reports</li>
+<li>property transactions</li>
+<li>restaurant inspections</li>
+<li>business registrations</li>
+</ul>
+</li>
+<li>Open source project<ul>
+<li>Web site: <a class="reference external" href="http://openblockproject.org/">http://openblockproject.org/</a></li>
+<li>Code: <a class="reference external" href="https://github.com/openplans/openblock">https://github.com/openplans/openblock</a></li>
+<li>Mailing list: <a class="reference external" href="http://groups.google.com/group/ebcode/">http://groups.google.com/group/ebcode/</a></li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>What Kinds of Sites Might Use OpenBlock?</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Sites with a local focus,</li>
+<li>which can benefit from automated news item generation,</li>
+<li>where news item sources already exist online,</li>
+<li>in some user-unfriendly, but regular, fashion</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>OpenBlock History</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Let's take a moment to learn where OpenBlock came from</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>EveryBlock.com</h2></header>
+            
+            
+            <section><!-- http://www.holovaty.com/writing/knight-foundation-grant/ -->
+<!-- http://www.knightfoundation.org/grants/20060885/ -->
+<img alt="static/everyblock-logo.jpg" class="align-center" src="static/everyblock-logo.jpg" />
+<ul class="simple">
+<li>Adrian Holovaty founded a web startup, EveryBlock, with a team of six</li>
+<li><strong>March 2007:</strong> Won Knight News Challenge program grant</li>
+<li><strong>Jan. 2008:</strong> Site launch with Chicago, New York, San Francisco</li>
+<li><strong>June 2008:</strong> Charlotte and Philadelphia added</li>
+<li><strong>Aug. 2009:</strong> Acquired by MSNBC</li>
+<li>Today in 16 cities, 3 more coming soon</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>EveryBlock was originally funded by a two-year grant from the Knight Foundation through its Knight News Challenge program.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>EveryBlock.com</h2></header>
+            
+            
+            <section><img alt="static/example-everyblock.png" src="static/example-everyblock.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Browse by neighborhoods, streets, zipcodes, or draw your own location</li>
+<li>Lots of public record information as well as community neighbor content</li>
+<li>Lots of community activity, especially in Chicago</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>EveryBlock Source Code</h2></header>
+            
+            
+            <section><!-- http://blog.everyblock.com/2009/jun/30/source/ -->
+<ul class="simple">
+<li><strong>July 2009:</strong> the EveryBlock team open sourced core functionality on Google Code</li>
+<li>7 tarballs available at <a class="reference external" href="http://code.google.com/p/ebcode/">http://code.google.com/p/ebcode/</a></li>
+<li>And then what happened?</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Great codebase, lots of potential, but no community around the code yet</li>
+<li>Hard to configure project requirements</li>
+<li>Code was fairly complex, hard for beginners to jump into the project</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>OpenBlock</h2></header>
+            
+            
+            <section><!-- http://www.knightfoundation.org/press-room/press-release/knight-foundation-expands-neighborhood-news/ -->
+<img alt="static/openblock-logo.png" class="align-center" src="static/openblock-logo.png" />
+<ul class="simple">
+<li><strong>June 2010:</strong> Knight Foundation launches OpenBlock Initiative grant<ul>
+<li><strong>OpenPlans:</strong> streamline and extend OpenBlock over 2 years</li>
+<li><strong>The Columbia Daily Tribune:</strong> install, test, and add new features in the context of a smaller newspaper</li>
+<li><strong>The Boston Globe:</strong> install, test, and add new features in the context of a larger newspaper</li>
+</ul>
+</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Limited adoption a year after being open sourced</li>
+<li>Very little traffic on the ebcode mailing list</li>
+<li>Grant goal to simplify and accelerate adoption of the open sourced EveryBlock code</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>OpenBlock Today</h2></header>
+            
+            
+            <section><img alt="static/openblock-logo.png" class="align-center" src="static/openblock-logo.png" />
+<ul class="simple">
+<li>Easier to install and setup</li>
+<li>Consolidated codebase into 4 core modules<ul>
+<li><cite>ebdata</cite></li>
+<li><cite>ebpub</cite></li>
+<li><cite>obadmin</cite></li>
+<li><cite>obdemo</cite></li>
+</ul>
+</li>
+<li>Current (v1.2) and previous versions are installable via PyPI</li>
+<li><strong>Code:</strong> <a class="reference external" href="https://github.com/openplans/openblock">https://github.com/openplans/openblock</a></li>
+<li><strong>Demo site:</strong> <a class="reference external" href="http://demo.openblockproject.org/">http://demo.openblockproject.org/</a></li>
+<li><strong>Documentation:</strong> <a class="reference external" href="http://openblockproject.org/docs/">http://openblockproject.org/docs/</a></li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Two years later, this is what OpenBlock looks like today</li>
+<li>Most important are ebpub and ebdata as they contain the geocoding, scraping, and display logic</li>
+<li>Take a moment to talk breifly about the architecture</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>OpenBlock Architecture</h2></header>
+            
+            
+            <section><img alt="static/openblock-components.png" class="align-center" src="static/openblock-components.png" style="height: 40em;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>OpenBlock architecture is comprised of 4 main components</li>
+<li>Touch briefly on data model</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Data Model</h2></header>
+            
+            
+            <section><!-- http://openblockproject.org/docs/packages/ebpub.streets.html#module-ebpub.streets.models -->
+<ul class="simple">
+<li>Primary News Models<ul>
+<li><strong>Schema:</strong> description of a particular data set, like &quot;Restaurant Inspection&quot;</li>
+<li><strong>NewsItem:</strong> individual piece of news associated with a schema</li>
+</ul>
+</li>
+<li>Primary Geocoder Models<ul>
+<li><strong>Street:</strong> a street with a unique name</li>
+<li><strong>Intersection:</strong> a point representing the meeting of two streets</li>
+<li><strong>Block:</strong> segment of a single street between two intersecting streets</li>
+</ul>
+</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Highlight the most important OpenBlock models, divided into two categories</li>
+<li>Blocks are a fundamental piece of the OpenBlock system</li>
+<li>Let's look at a few diagrams to illustrate the block model</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Example City Streets</h2></header>
+            
+            
+            <section><img alt="static/data-model-city.png" src="static/data-model-city.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Example city</li>
+<li>Main St divided by 1st and 2nd street</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Street Model</h2></header>
+            
+            
+            <section><img alt="static/data-model-street.png" src="static/data-model-street.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Street model represents an entire street</li>
+<li>So you can see the entire length of Main St highlighted here</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Block Model</h2></header>
+            
+            
+            <section><img alt="static/data-model-block.png" src="static/data-model-block.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>One segment of a street, including the left and right address ranges for that segment</li>
+<li>Blocks are a fundamental piece of the OpenBlock system</li>
+<li>They're core to geocoding and are browsable on the Web UI</li>
+<li>We'll talk more about blocks later, but I wanted to famliarize them with you now</li>
+<li>Now, let's look at some OpenBlock sites</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>OpenBlock Sites</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>OpenBlock Demo: Boston</h2></header>
+            
+            
+            <section><img alt="static/example-boston.png" src="static/example-boston.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Flagship demo for OpenBlock in Boston, MA</li>
+<li>Ideal example for OpenBlock (large city, similar to EveryBlock)</li>
+<li>Very recent data, including restaurant inspections and police reports</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>openCampus Kent</h2></header>
+            
+            
+            <section><img alt="static/example-kent.png" src="static/example-kent.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Kent State University in Ohio</li>
+<li>Simple site only using a few OpenBlock views (no detail views)</li>
+<li>Crime reports, reviews from Yelp, News feed from campus newspaper</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>LarryvilleKU</h2></header>
+            
+            
+            <section><img alt="static/example-larryvilleku.png" src="static/example-larryvilleku.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>University of Kansas</li>
+<li>Twitter integration and accident reports</li>
+<li>Joint venture of the School of Journalism and the student newspaper</li>
+<li>Newspaper partnership is related to what we've been doing with OpenRural</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>OpenRural</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Taking OpenBlock and using it in rural North Carolina communities</li>
+<li>Small towns and small news organizations</li>
+<li>Newspapers don't have a lot of digitial resources</li>
+<li>And they lack the resources to make public data digestible on the web</li>
+<li>Quite different than typical OpenBlock setup in a big city with larger infrastructure</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>OpenRural</h2></header>
+            
+            
+            <section><!-- http://www.knightfoundation.org/grants/20110150/ -->
+<img alt="static/unc.png" class="align-center" src="static/unc.png" style="width: 60%;" />
+<ul class="simple">
+<li><strong>June 2011:</strong> OpenRural funded by a three-year Knight News Challenge grant</li>
+<li>Ryan Thornburg, professor at School of Journalism and Mass Communication at UNC</li>
+<li>Caktus is helping develop and deploy OpenRural for these NC communities</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Goals:<ul>
+<li>Apply same OpenBlock tools to rural North Carolina communities</li>
+<li>Increase access to local public records</li>
+<li>Do this by helping local newspapers leverage OpenBlock</li>
+<li>&quot;Help Rural Newspapers Get Access to Public Data&quot;</li>
+</ul>
+</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Columbus County, North Carolina</h2></header>
+            
+            
+            <section><img alt="static/nc-columbus-county.png" src="static/nc-columbus-county.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Our initial focus is on Columbus County, NC</li>
+<li>Small county in the south eastern part of the state with 50k residents</li>
+<li>Working with a local newspaper to incorporate public records onto their site</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>The News Reporter</h2></header>
+            
+            
+            <section><img alt="static/whiteville-com.png" src="static/whiteville-com.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>The online version of the paper serving Whiteville and Columbus County</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Experiences</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Columbus County, NC</h2></header>
+            
+            
+            <section><img alt="static/columbus-county-map.png" src="static/columbus-county-map.png" style="width: 100%;" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Sources for Street/Block Data</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Shapefiles contain location data and metadata<ul>
+<li>Census (Tiger)</li>
+<li>County</li>
+<li>State</li>
+</ul>
+</li>
+<li>How to measure accuracy &amp; completeness?<ul>
+<li>Columbus County GIS has addresses file</li>
+<li>~38,000 valid addresses in the county</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>&quot;Cities&quot; in Columbus County</h2></header>
+            
+            
+            <section><img alt="static/nc-columbus-county-cities.png" src="static/nc-columbus-county-cities.png" style="width: 100%;" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              28/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Challenging Characteristics of Columbus County</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Multiple &quot;cities&quot;<ul>
+<li>Supported by OpenBlock, but not &quot;default&quot;</li>
+<li>Different urlpatterns single- vs. multi-city</li>
+<li>Multi-city urlpatterns include &quot;city slug&quot;</li>
+</ul>
+</li>
+<li>Unincorporated areas<ul>
+<li>Lots of space not in any town/city</li>
+<li>These places need names to be navigable</li>
+<li>Can use census &quot;county subdivision&quot; names</li>
+<li>...but these are not meaningful to residents</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              29/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>1st Approach: Census Files for OpenBlock Data</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Advantages<ul>
+<li>Code already exists in OpenBlock to use these files</li>
+<li>Generalizable to other NC counties</li>
+</ul>
+</li>
+<li>Disadvantages<ul>
+<li>Incomplete/incorrect data</li>
+<li>70% success rate geocoding ~38,000 Columbus County addresses</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              30/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Missing Addresses</h2></header>
+            
+            
+            <section><img alt="static/bad-data-missing-addresses.png" src="static/bad-data-missing-addresses.png" style="width: 100%;" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              31/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Changing Names</h2></header>
+            
+            
+            <section><img alt="static/bad-data-primary-names.png" src="static/bad-data-primary-names.png" style="width: 100%;" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              32/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>2nd Approach: County GIS Department Data</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Advantages<ul>
+<li>More complete/accurate</li>
+<li>~38,000 address geocode success rate improved to 93%</li>
+</ul>
+</li>
+<li>Disadvantages<ul>
+<li>Custom code to load this data (custom BlockImporter)</li>
+<li>Not generalizable to other counties</li>
+<li>This data not available for all counties</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              33/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Custom Data Availability in NC</h2></header>
+            
+            
+            <section><img alt="static/Street_Centerline_Download_County.jpg" src="static/Street_Centerline_Download_County.jpg" style="width: 90%;" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              34/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Geocoding is Still Difficult</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Geocoding is a hard problem to solve</li>
+<li>String parsing<ul>
+<li>number</li>
+<li>predir</li>
+<li>street name</li>
+<li>street type</li>
+<li>postdir</li>
+</ul>
+</li>
+<li>Streets can have multiple names (misspellings table can help)</li>
+<li>3rd-party geocoder fallback?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              35/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Scrapers</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              36/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>What are they?</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Scripts that extract information from online data sources</li>
+<li>The process is conceptually simple:<ul>
+<li>Download some data from the web</li>
+<li>Create one or more NewsItems whose fields are populated with that data</li>
+<li>Save the NewsItem(s) to the database</li>
+</ul>
+</li>
+<li>The grunt work is in extracting the data you need</li>
+<li>Scrapers sometimes require more than a single data source<ul>
+<li>CSV/Excel/Navy DIF</li>
+<li>Shapefile</li>
+<li>Download multiple files and stitch them together locally</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              37/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Scrapers for The News Reporter</h2></header>
+            
+            
+            <section><ul class="simple">
+<li><strong>Corporation Filings:</strong> scraped from the NC Secretary of State website</li>
+<li><strong>Restaurant Inspections:</strong> scraped from large Crystal Report exports from the NC Department of Health and Human Services</li>
+<li><strong>Property Transactions:</strong> scraped from the Columbus County Tax and GIS offices</li>
+<li><strong>Geocoded News Articles:</strong> scraped from whiteville.com</li>
+<li>Notably missing: police incident reports</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Working with newspaper and government staff to scrape and collect online data</li>
+<li>Local staff has been very helpful</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              38/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>The News Reporter: Public Records</h2></header>
+            
+            
+            <section><img alt="static/whiteville-com-openrural.png" src="static/whiteville-com-openrural.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Plan to launch production environment by Nov. 1, 2012</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              39/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Property Transactions Scraper</h2></header>
+            
+            
+            <section><img alt="static/scrapers-property.png" class="align-center" src="static/scrapers-property.png" style="width: 80%;" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              40/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>OpenRural Stack</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Automated <tt class="docutils literal">fabric</tt> server provisioning and deployment. Testable with <tt class="docutils literal">vagrant</tt>.</li>
+<li>Using Celery and RabbitMQ for asynchronous tasks (scrapers and maintenance tasks)</li>
+<li>Modified fork for OpenBlock that includes <tt class="docutils literal">staticfiles</tt> changes.</li>
+<li>Production runs nginx and gunicorn on a small Amazon EC2 instance.</li>
+<li>Most issues fixed on OpenBlock core are pushed back to the official repository</li>
+<li>Everything is completely open source</li>
+<li><a class="reference external" href="https://github.com/openrural">https://github.com/openrural</a></li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Atypical OpenBlock setup</li>
+<li>Local development instructions are included</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              41/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Extensions</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>So we've highlighted our experience and how we've used it for OpenRural</li>
+<li>Now we'll cover how we've extended and added features to OpenBlock</li>
+<li>OpenBlock handles scraping and public viewing, but is missing review and analysis</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              42/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>The Missing Piece: Data Review and Analysis</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>How successful was the geocoder?</li>
+<li>How many news items were added?</li>
+<li>Why is my scraper failing to run?</li>
+<li>Why did this address fail to geocode? How can I correct it?</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>We found ourselves asking...</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              43/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Data Dashboard</h2></header>
+            
+            
+            <section><img alt="static/datadashboard-list.png" src="static/datadashboard-list.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>We created what we call the Data Dashboard</li>
+<li>Simple extension to the OpenBlock scraper architecture</li>
+<li>Provides statistics related to each run</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              44/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Data Dashboard</h2></header>
+            
+            
+            <section><img alt="static/datadashboard-runs.png" src="static/datadashboard-runs.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Keeps track of each run for every scraper, including execution time and status</li>
+<li>Since this scraper runs multiple times a day, it doesn't always injest new data</li>
+<li>Filtered here to only show the runs that updated data</li>
+<li>2 min run was a full import after resetting the NewsItems</li>
+<li>5 sec run was for when it found new news items a few days later</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              45/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Data Dashboard</h2></header>
+            
+            
+            <section><img alt="static/datadashboard-stats.png" src="static/datadashboard-stats.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>High level statistics for each run</li>
+<li>Includes geocoding exceptions</li>
+<li>Support for custom counters</li>
+<li>Option field to record comments</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              46/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Data Dashboard</h2></header>
+            
+            
+            <section><img alt="static/datadashboard-failures.png" src="static/datadashboard-failures.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Detailed list of failures</li>
+<li>Date of failure, location or string that failed to geocode</li>
+<li>Geocoding exception, and a link to the admin to fix the error</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              47/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Data Dashboard</h2></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">openrural.data_dashboard.scrapers</span> <span class="kn">import</span> <span class="n">DashboardMixin</span>
+<span class="kn">from</span> <span class="nn">openrural.retrieval.base.scraperwiki</span> <span class="kn">import</span> <span class="n">ScraperWikiScraper</span>
+
+<span class="hll"><span class="k">class</span> <span class="nc">CorporationsScraper</span><span class="p">(</span><span class="n">DashboardMixin</span><span class="p">,</span> <span class="n">ScraperWikiScraper</span><span class="p">):</span>
+</span>
+    <span class="c"># scraper settings</span>
+    <span class="n">logname</span> <span class="o">=</span> <span class="s">&#39;corporations&#39;</span>
+    <span class="n">schema_slugs</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;corporations&#39;</span><span class="p">,)</span>
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Simple Mix-in class to use Data Dashboard</li>
+<li>Handles all stats and metrics by default, but you can add more</li>
+<li>Nice addition to the OpenBlock suite of tools</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              48/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What's Next?</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              49/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Columbus County</h2></header>
+            
+            
+            <section><img alt="static/nc-columbus-county.png" src="static/nc-columbus-county.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Currently in Columbus County</li>
+<li>Grant stipulates scaling up to multiple counties</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              50/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Many Counties</h2></header>
+            
+            
+            <section><img alt="static/nc-14-counties.png" src="static/nc-14-counties.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>We're hoping to expand into a dozen or more counties in NC</li>
+<li>Grant also stipulates that we develop a profitable solution</li>
+<li>So we have to weigh options moving forward</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              51/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Considerations</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Improving the geocoder is tough and, therefore, expensive<ul>
+<li>Possibly fallback to 3rd party geocoder</li>
+</ul>
+</li>
+<li>Web UI code is hard to use and extend<ul>
+<li>JavaScript libraries for interacting with slippy maps have come a long way</li>
+<li>Rewrite would make our lives easier in the future</li>
+</ul>
+</li>
+<li>Sustainability as we scale<ul>
+<li>Would it be more efficient to build a single system to power all counties?</li>
+<li>In our case, each OpenBlock install will be very similar</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              52/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>OpenBlock Community</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>OpenBlock has largely been developed through grant funding</li>
+<li>Paul Winkler of OpenPlans has been very helpful and active in the community</li>
+<li>However, Knight funding has ended and OpenPlans is no longer actively working on the project</li>
+<li>Future of the community is unknown</li>
+<li>OpenBlock needs an organic online community to survive</li>
+<li>If you're interested in OpenBlock, come speak to us!</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              53/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Questions?</h2></header>
+            
+            
+            <section><ul class="simple">
+<li><strong>Slides:</strong> <a class="reference external" href="http://caktus.github.com/openblock-djangocon-talk">http://caktus.github.com/openblock-djangocon-talk</a></li>
+<li>Karen Tracey - &#64;km_tracey</li>
+<li>Colin Copeland - &#64;copelco</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst">/home/copelco/projects/talks/slides/djangocon/2012/openblock/openblock.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              54/54
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">OpenBlock</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Talk Outline</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Introduction</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">What is OpenBlock?</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+        <tr id="toc-row-5" class="sub">
+          <th><a href="#slide5">What Kinds of Sites Might Use OpenBlock?</a></th>
+          <td><a href="#slide5">5</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">OpenBlock History</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">EveryBlock.com</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">EveryBlock.com</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">EveryBlock Source Code</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+        <tr id="toc-row-10" class="sub">
+          <th><a href="#slide10">OpenBlock</a></th>
+          <td><a href="#slide10">10</a></td>
+        </tr>
+        
+        <tr id="toc-row-11" class="sub">
+          <th><a href="#slide11">OpenBlock Today</a></th>
+          <td><a href="#slide11">11</a></td>
+        </tr>
+        
+        <tr id="toc-row-12" class="sub">
+          <th><a href="#slide12">OpenBlock Architecture</a></th>
+          <td><a href="#slide12">12</a></td>
+        </tr>
+        
+        <tr id="toc-row-13" class="sub">
+          <th><a href="#slide13">Data Model</a></th>
+          <td><a href="#slide13">13</a></td>
+        </tr>
+        
+        <tr id="toc-row-14" class="sub">
+          <th><a href="#slide14">Example City Streets</a></th>
+          <td><a href="#slide14">14</a></td>
+        </tr>
+        
+        <tr id="toc-row-15" class="sub">
+          <th><a href="#slide15">Street Model</a></th>
+          <td><a href="#slide15">15</a></td>
+        </tr>
+        
+        <tr id="toc-row-16" class="sub">
+          <th><a href="#slide16">Block Model</a></th>
+          <td><a href="#slide16">16</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">OpenBlock Sites</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-18" class="sub">
+          <th><a href="#slide18">OpenBlock Demo: Boston</a></th>
+          <td><a href="#slide18">18</a></td>
+        </tr>
+        
+        <tr id="toc-row-19" class="sub">
+          <th><a href="#slide19">openCampus Kent</a></th>
+          <td><a href="#slide19">19</a></td>
+        </tr>
+        
+        <tr id="toc-row-20" class="sub">
+          <th><a href="#slide20">LarryvilleKU</a></th>
+          <td><a href="#slide20">20</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">OpenRural</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-22" class="sub">
+          <th><a href="#slide22">OpenRural</a></th>
+          <td><a href="#slide22">22</a></td>
+        </tr>
+        
+        <tr id="toc-row-23" class="sub">
+          <th><a href="#slide23">Columbus County, North Carolina</a></th>
+          <td><a href="#slide23">23</a></td>
+        </tr>
+        
+        <tr id="toc-row-24" class="sub">
+          <th><a href="#slide24">The News Reporter</a></th>
+          <td><a href="#slide24">24</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">Experiences</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-26" class="sub">
+          <th><a href="#slide26">Columbus County, NC</a></th>
+          <td><a href="#slide26">26</a></td>
+        </tr>
+        
+        <tr id="toc-row-27" class="sub">
+          <th><a href="#slide27">Sources for Street/Block Data</a></th>
+          <td><a href="#slide27">27</a></td>
+        </tr>
+        
+        <tr id="toc-row-28" class="sub">
+          <th><a href="#slide28">&quot;Cities&quot; in Columbus County</a></th>
+          <td><a href="#slide28">28</a></td>
+        </tr>
+        
+        <tr id="toc-row-29" class="sub">
+          <th><a href="#slide29">Challenging Characteristics of Columbus County</a></th>
+          <td><a href="#slide29">29</a></td>
+        </tr>
+        
+        <tr id="toc-row-30" class="sub">
+          <th><a href="#slide30">1st Approach: Census Files for OpenBlock Data</a></th>
+          <td><a href="#slide30">30</a></td>
+        </tr>
+        
+        <tr id="toc-row-31" class="sub">
+          <th><a href="#slide31">Missing Addresses</a></th>
+          <td><a href="#slide31">31</a></td>
+        </tr>
+        
+        <tr id="toc-row-32" class="sub">
+          <th><a href="#slide32">Changing Names</a></th>
+          <td><a href="#slide32">32</a></td>
+        </tr>
+        
+        <tr id="toc-row-33" class="sub">
+          <th><a href="#slide33">2nd Approach: County GIS Department Data</a></th>
+          <td><a href="#slide33">33</a></td>
+        </tr>
+        
+        <tr id="toc-row-34" class="sub">
+          <th><a href="#slide34">Custom Data Availability in NC</a></th>
+          <td><a href="#slide34">34</a></td>
+        </tr>
+        
+        <tr id="toc-row-35" class="sub">
+          <th><a href="#slide35">Geocoding is Still Difficult</a></th>
+          <td><a href="#slide35">35</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-36">
+        <th><a href="#slide36">Scrapers</a></th>
+        <td><a href="#slide36">36</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-37" class="sub">
+          <th><a href="#slide37">What are they?</a></th>
+          <td><a href="#slide37">37</a></td>
+        </tr>
+        
+        <tr id="toc-row-38" class="sub">
+          <th><a href="#slide38">Scrapers for The News Reporter</a></th>
+          <td><a href="#slide38">38</a></td>
+        </tr>
+        
+        <tr id="toc-row-39" class="sub">
+          <th><a href="#slide39">The News Reporter: Public Records</a></th>
+          <td><a href="#slide39">39</a></td>
+        </tr>
+        
+        <tr id="toc-row-40" class="sub">
+          <th><a href="#slide40">Property Transactions Scraper</a></th>
+          <td><a href="#slide40">40</a></td>
+        </tr>
+        
+        <tr id="toc-row-41" class="sub">
+          <th><a href="#slide41">OpenRural Stack</a></th>
+          <td><a href="#slide41">41</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-42">
+        <th><a href="#slide42">Extensions</a></th>
+        <td><a href="#slide42">42</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-43" class="sub">
+          <th><a href="#slide43">The Missing Piece: Data Review and Analysis</a></th>
+          <td><a href="#slide43">43</a></td>
+        </tr>
+        
+        <tr id="toc-row-44" class="sub">
+          <th><a href="#slide44">Data Dashboard</a></th>
+          <td><a href="#slide44">44</a></td>
+        </tr>
+        
+        <tr id="toc-row-45" class="sub">
+          <th><a href="#slide45">Data Dashboard</a></th>
+          <td><a href="#slide45">45</a></td>
+        </tr>
+        
+        <tr id="toc-row-46" class="sub">
+          <th><a href="#slide46">Data Dashboard</a></th>
+          <td><a href="#slide46">46</a></td>
+        </tr>
+        
+        <tr id="toc-row-47" class="sub">
+          <th><a href="#slide47">Data Dashboard</a></th>
+          <td><a href="#slide47">47</a></td>
+        </tr>
+        
+        <tr id="toc-row-48" class="sub">
+          <th><a href="#slide48">Data Dashboard</a></th>
+          <td><a href="#slide48">48</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-49">
+        <th><a href="#slide49">What's Next?</a></th>
+        <td><a href="#slide49">49</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-50" class="sub">
+          <th><a href="#slide50">Columbus County</a></th>
+          <td><a href="#slide50">50</a></td>
+        </tr>
+        
+        <tr id="toc-row-51" class="sub">
+          <th><a href="#slide51">Many Counties</a></th>
+          <td><a href="#slide51">51</a></td>
+        </tr>
+        
+        <tr id="toc-row-52" class="sub">
+          <th><a href="#slide52">Considerations</a></th>
+          <td><a href="#slide52">52</a></td>
+        </tr>
+        
+        <tr id="toc-row-53" class="sub">
+          <th><a href="#slide53">OpenBlock Community</a></th>
+          <td><a href="#slide53">53</a></td>
+        </tr>
+        
+        <tr id="toc-row-54" class="sub">
+          <th><a href="#slide54">Questions?</a></th>
+          <td><a href="#slide54">54</a></td>
+        </tr>
+        
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
