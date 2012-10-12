@@ -1,0 +1,408 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		
+		<title>reveal.js - HTML5 Presentations</title>
+
+		<meta name="description" content="An easy to use CSS 3D slideshow tool for quickly creating good looking HTML presentations.">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+		<link rel="stylesheet" href="../../../conf/themes/revealjs/css/reset.css">
+		<link rel="stylesheet" href="../../../conf/themes/revealjs/css/main.css">
+		<link rel="stylesheet" href="../../../conf/themes/revealjs/css/print.css" type="text/css" media="print">
+
+		<link rel="stylesheet" href="../../../conf/themes/revealjs/css/caktus.css">
+		
+
+		<link rel="stylesheet" href="../../../conf/themes/revealjs/lib/css/zenburn.css">
+
+	</head>
+	
+	<body>
+
+        <style>
+            #canvas-wrapper {
+                position: absolute;
+                left: 25px;
+                top: 50%;
+            }
+            #canvas {
+                margin-top: -50%;
+            }
+            pre code {
+                background-color: rgba(100, 100, 100, 0.5);
+            }
+        </style>
+        <div id=canvas-wrapper>
+            <canvas id=canvas width=500 height=500></canvas>
+        </div>
+		
+		<div class="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+
+			<aside class="logo">
+				<img src="../../../conf/themes/revealjs/img/caktus-logo.png">
+			</aside>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>HTML5 Game Dev</h1>
+                    <h3 class=inverted>&lt;canvas&gt; tags</h3>
+                    <h3 class=inverted>fast Javascript</h3>
+                    <h3 class=inverted>and why you should care!</h3>
+					<script>
+						// Delicously hacky. Look away.
+						if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+					</script>
+				</section>
+				
+				<section>
+					<h2>I'm gonna learn you:</h2>
+                    <ul>
+                        <li class=fragment>A prefresher course on the (not so) new &lt;canvas&gt; tag
+                        <li class=fragment>Concerns for optimizing Javascript code
+                        <li class=fragment>Design of a game engine
+                        <li class=fragment>Why this is a good exercise even if you don't want to make games
+                    </ul>
+				</section>
+
+                <section>
+                    <h1>&lt;canvas&gt;</h1>
+
+                    <p class=fragment>
+                        A blank slate to draw on. No longer limiting web pages to composing pre-created parts.
+                    </p>
+                    <b>TODO: Add one or more example outputs of canvas tools</b>
+                </section>
+
+                <section data-state=canvas-1 class=canvas-slide>
+                    <pre><code>
+                        &lt;canvas id="canvas" width=500 height=500&gt;
+                    </code></pre>
+                    <pre><code id=canvas-1-code>
+                        <span class=fragment>
+                        var c = document.getElementById('canvas');
+                        var ctx = c.getContext('2d');
+                        </span>
+                        <span class=fragment>
+                        ctx.fillStyle = "black";
+                        ctx.fillRect(0, 0, 500, 500);
+                        </span>
+                        <span class=fragment>
+                        loop(function(){
+                            ctx.fillStyle = "grey";
+                            ctx.fillRect(
+                                Math.random() * 450,
+                                Math.random() * 450,
+                                Math.random() * 50,
+                                Math.random() * 50
+                            );
+                        });
+                        </span>
+                    </code></pre>
+                </section>
+
+                <section data-state=canvas-2 class=canvas-slide>
+                    <pre><code id=canvas-2-code>
+                        ctx.fillStyle = "white";
+                        ctx.fillRect(0, 0, 500, 500);
+                        for (i=0;i &lt; 10;i++) {
+                            ctx.lineWidth = 1+i;
+                            ctx.beginPath();
+                            ctx.moveTo(50+i*40,5);
+                            ctx.lineTo(50+i*40,450);
+                            ctx.stroke();
+                        }
+                        ctx.strokeStyle = "blue";
+                        ctx.moveTo(250, 250);
+                        ctx.beginPath();
+                        ctx.arc(150,150,200,0,2*Math.PI);
+                        ctx.stroke();
+                    </code></pre>
+                </section>
+
+                <section data-state=canvas-3 class=canvas-slide>
+                    <pre><code id=canvas-3-code>
+                        function drawCat() {
+                            var x = Math.random() * 400;
+                            var y = Math.random() * 400;
+                            var s = Math.random() * 100;
+                            ctx.drawImage(cat, x, y, s, s);
+                            loop(drawCat);
+                        }
+                        var cat = new Image();
+                        cat.onload = drawCat;
+                        cat.src = "lime-cat.jpg";
+                    </code></pre>
+                </section>
+
+                <section data-state=canvas-4 class=canvas-slide>
+                    <h3>WebGL</h3>
+                    <img src="webgl-example.jpg">
+                    <pre style="display: none;"><code id=canvas-4-code>
+                        ctx.fillStyle = "black";
+                        ctx.fillRect(0, 0, 500, 500);
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h3>setInterval() is no longer alone</h3>
+                    <ul>
+                        <li>setInterval() is limited
+                        <li>rate limited between 10-100ms
+                        <li>more when a tab is inactive, on some browsers
+                        <li>requestRenderFrame(callback) is just right
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>PlayNow</h1>
+                    <br />
+                    <h3 class=fragment>or, NowPlay</h3>
+                    <p class=fragment>I kept mixing them up...</p>
+                </section>
+
+                <section>
+                    <h2>Goals</h2>
+                    <br />
+                    <ul>
+                        <li class=fragment>Asset management
+                        <li class=fragment>Scene management
+                        <li class=fragment>Event dispatch
+                        <li class=fragment>Entities and Behaviors
+                        <li class=fragment>and, of course, rendering
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Assets</h2>
+                    <br />
+                    <ul>
+                        <li>Entities reference an asset by URI
+                        <li>Scene prep finds references, creates Image() objects
+                        <li>Waits for all to load before rendering
+                        <li class=fragment>Scary internal errors if you are impatient!
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>Scenes and Viewports</h2>
+                    </section>
+                    <section>
+                        <h2>Viewport</h2>
+                        <br />
+                        <ul class=half>
+                            <li>Viewport attaches to the canvas element
+                            <li class=fragment>Listens for input events from the DOM
+                            <li class=fragment>Tells renderer where to render
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Scene</h2>
+                        <br />
+                        <ul class=half>
+                            <li class=fragment>Scene collects entities and behaviors for one part of a game
+                            <li class=fragment>Can be swapped out
+                            <li class=fragment>One active scene per viewport
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Events</h1>
+                        <p>Ohhhh man, let me tell you about <i>events</i></p>
+                        <p class=fragment>Like, DOM events, right?</p>
+                        <p class=fragment>
+                            <img src="nelson.gif">
+                        </p>
+                    </section>
+                    <section>
+                        <h2>All on your own</h2>
+                        <ul>
+                            <li>Everything is inside a single element!
+                            <li>An element bubbling event dispatcher is useless
+                            <li>So I wrote one
+                        </ul>
+                        <img class=fragment src="frink.png">
+                    </section>
+                    <section>
+                        <h2>nowplay.events.js</h2>
+                        <pre><code>
+                            var o = {};
+                            o.__proto__ = new EventHandling();
+                            o.bind('playermove', callback);
+                            o.bind('playermove.jump', jump_callback);
+                            o.trigger('playermove');
+                            scene.propagate('key', 'player');
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <section>
+                        <h1>Entities and Behaviors</h1>
+                    </section>
+                    <section>
+                        <h3>Behaviors</h3>
+                        <ul>
+                            <li>Behaviors act on entities with required properties
+                            <li>Force acts on entities with "position" and "velocity"
+                            <li>Behaviors can proxy events for entities
+                            <li>Behaviors tick throughout the gameplay
+                        </ul>
+                    </section>
+                    <section>
+                        <h3>Entities</h3>
+                        <ul>
+                            <li>Property bags, essentially
+                            <li>Behaviors and renderers act on them based on properties
+                            <li>Are event handlers
+                            <li>Created at the start of a scene, even if hidden
+                            <li>Recycles, rather than destroyed
+                        </ul>
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Behaviors attach to a scene
+                            <li>Entities are added to the scene
+                            <li>Behaviors monitor additions and attach to appropriate entities
+                        </ul>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>Why?</h2>
+                    <em class=fragment>Now that I've already wasted your time...</em>
+                    <ul>
+                        <li class=fragment>Exercise your skills and mind with something unfamiliar
+                        <li class=fragment>but, Near enough to find your way through
+                        <li class=fragment>Practice Javascript constraints and goals you normally don't have
+                        <li class=fragment>Bring back what you learned to every day stuff
+                        <li class=fragment>Have fun!
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Goals</h2>
+
+                    <p>Continue to develop the engine through a series of classic-style arcade games</p>
+
+                    <p>Release the engine and work on a Big Game</p>
+
+                    <p>Run a web-game development competition. PyWeek for Javascript</p>
+                </section>
+
+			</div>
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+
+		<!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
+		<script src="../../../conf/themes/revealjs/lib/js/head.min.js"></script>
+
+		<script>
+			// Load the main reveal.js script
+			head.js( '../../../conf/themes/revealjs/js/reveal.js', function() {
+				// Parse the query string into a key/value object
+				var query = {};
+
+				location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+					query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+				} );
+
+				// Fires each time a new slide is activated
+				Reveal.addEventListener( 'slidechanged', function( event ) {
+					// event.previousSlide, event.currentSlide, event.indexh, event.indexv
+				} );
+
+				Reveal.initialize({
+					// Display controls in the bottom right corner
+					controls: true,
+
+					// Display a presentation progress bar
+					progress: true,
+
+					// If true; each slide will be pushed to the browser history
+					history: true,
+
+					// Loops the presentation, defaults to false
+					loop: false,
+
+					// Flags if mouse wheel navigation should be enabled
+					mouseWheel: true,
+
+					// Apply a 3D roll to links on hover
+					rollingLinks: true,
+
+					// UI style
+					theme: query.theme || 'default', // default/neon/beige
+
+					// Transition style
+					transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+				});
+
+                var canvas = document.getElementById('canvas');
+                var ctx = canvas.getContext('2d');
+
+                function loop(func, t) {
+                    if (window.loopInterval) {
+                        window.clearInterval(window.loopInterval);
+                    }
+                    window.loopInterval = window.setInterval(func, t || 100);
+                }
+
+                function show_and_run() {
+                    if (window.loopInterval) {
+                        window.clearInterval(window.loopInterval);
+                    }
+                    window.setTimeout(function(){
+                        var slide = document.getElementsByClassName('present')[0];
+                        var code = document.getElementById(slide.getAttribute('data-state') + '-code').textContent;
+                        eval(code);
+                    }, 1000);
+                }
+
+                var canvas_slides = document.getElementsByClassName('canvas-slide');
+                for (var i=0; i < canvas_slides.length; i++) {
+                    Reveal.addEventListener(canvas_slides[i].getAttribute('data-state'), show_and_run);
+                }
+			} );
+			
+			// Load third party scripts
+			head.js( '../../../conf/themes/revealjs/lib/js/classList.js' );
+			head.js( '../../../conf/themes/revealjs/lib/js/highlight.js', function() {
+				// Fire off syntax highlighting for potential code samples in the slides
+				hljs.initHighlightingOnLoad();
+			} );
+
+			// If we're runnning the notes server we need to include some additional JS
+			// TODO Is there a better way to determine if we're running the notes server?
+			if( window.location.host === 'localhost:1947' ) {
+				head.js( 'socket.io/socket.io.js', 'plugin/speakernotes/client.js' );
+			}
+		</script>
+		
+	</body>
+</html>
