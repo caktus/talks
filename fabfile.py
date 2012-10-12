@@ -38,7 +38,7 @@ def get_config(source='', name=''):
 
 
 @task
-def landslide(options):
+def landslide_build(options):
     args = []
     if options.get('copy-theme', False):
         args.append('-c')
@@ -55,6 +55,6 @@ def landslide(options):
 
 
 @task
-def build(source='', name=''):
+def landslide(source='', name=''):
     options = get_config(source, name)
-    landslide(options)
+    landslide_build(options)
