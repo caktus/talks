@@ -1,7 +1,23 @@
-Talks and Presentations
-=======================
+Caktus Talks and Presentations
+==============================
 
 Caktus Consulting Group, LLC
+
+Directory
+---------
+
+* DjangoCon
+    * `OpenBlock: Overview and Initial Experience <http://talks.caktusgroup.com/djangocon/2012/openblock>`_
+* Lightning Talks
+    * 2012
+        * `django-template-debug <http://talks.caktusgroup.com/lightning-talks/2012/django-template-debug>`_
+        * `Selenium <http://talks.caktusgroup.com/lightning-talks/2012/selenium>`_
+        * `KDE <http://talks.caktusgroup.com/lightning-talks/2012/kde>`_
+    * 2011
+        * `LESS <http://talks.caktusgroup.com/lightning-talks/2011/less>`_
+        * `FabulAWS <http://talks.caktusgroup.com/lightning-talks/2011/fabulaws>`_
+        * `Service Page API <http://talks.caktusgroup.com/lightning-talks/2011/service-page-api>`_
+        * `django-selectable <http://talks.caktusgroup.com/lightning-talks/2011/django-selectable>`_
 
 Setup
 -----
