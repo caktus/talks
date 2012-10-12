@@ -58,3 +58,12 @@ def landslide_build(options):
 def landslide(source='', name=''):
     options = get_config(source, name)
     landslide_build(options)
+
+
+@task
+def revealjs(path):
+    path = os.path.join(PROJECT_ROOT, path)
+    os.makedirs(path)
+    template = os.path.join(CONF_ROOT, 'themes', 'revealjs', 'template.html')
+    dest = os.path.join(path, 'index.html')
+    shutil.copyfile(template, dest)
