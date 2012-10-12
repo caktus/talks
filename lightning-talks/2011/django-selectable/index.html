@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Django-Selectable</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Django-Selectable</h1></header>
+            
+            
+            <section><p>Mark Lavin</p>
+<p>June 17, 2011</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Talk Overview</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What is django-selectable?</li>
+<li>How does it work?</li>
+<li>Where is it going?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Project Overview</h1></header>
+            
+            
+            <section><p>Django-Selectable is a Django app for auto-completion widgets built on
+jQuery UI.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Motivation</h1></header>
+            
+            
+            <section><p>When I started this project most if not all auto-complete apps were using
+the <a class="reference external" href="http://bassistance.de/jquery-plugins/jquery-plug-in-auto-complete/">bassistance jQuery auto-complete plug-in</a>.
+In June 2010 this plug-in was deprecated in favor of jQuery UI's auto-complete plug-in.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>My Goals</h1></header>
+            
+            
+            <section><p>Other than just upgrading the plug-in, I had a couple goals in
+starting this project...</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Build on Django Forms</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>No custom templates</li>
+<li>No additional HTML in Python</li>
+<li>No inline JS</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>More than Just Basic Text</h1></header>
+            
+            
+            <section><ul>
+<li><dl class="first docutils">
+<dt>Foreign key selection</dt>
+<dd><ul class="first last simple">
+<li>With adding new items</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">Multiple selects</p>
+</li>
+<li><p class="first">Combo-boxes</p>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Easy to Write Views</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Simple definitions for AJAX views</li>
+<li>Extendable with sane defaults</li>
+<li>No large settings dictionaries</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>More than Just Code</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Good documentation</li>
+<li>Working examples</li>
+<li>Tests</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Did I Meet My Goals?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Form fields and widgets extend from built-in Django forms</li>
+<li>Views are defined as lookup classes with a registration pattern</li>
+<li>Documentation and working test suite</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>A Working Example</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Can This Get More Awesome?</h1></header>
+            
+            
+            <section><p>Yes it can!</p>
+<ul class="simple">
+<li>Additional widget types/styles</li>
+<li>Improved lookup API</li>
+<li>Client-side tests</li>
+<li>Better documentation and examples</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Questions?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Code: <a class="reference external" href="https://bitbucket.org/mlavin/django-selectable">https://bitbucket.org/mlavin/django-selectable</a></li>
+<li>Issues: <a class="reference external" href="https://bitbucket.org/mlavin/django-selectable/issues">https://bitbucket.org/mlavin/django-selectable/issues</a></li>
+<li>Documentation: <a class="reference external" href="http://django-selectable.readthedocs.org/">http://django-selectable.readthedocs.org/</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst">/home/copelco/projects/talks/lightning-talks/2011/django-selectable/django-selectable.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Django-Selectable</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Talk Overview</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Project Overview</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Motivation</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">My Goals</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Build on Django Forms</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">More than Just Basic Text</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Easy to Write Views</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">More than Just Code</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Did I Meet My Goals?</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">A Working Example</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Can This Get More Awesome?</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Questions?</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>
