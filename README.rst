@@ -10,6 +10,7 @@ Directory
     * `OpenBlock: Overview and Initial Experience <http://talks.caktusgroup.com/djangocon/2012/openblock>`_
 * Lightning Talks
     * 2012
+        * `HTML5 Game Development <http://talks.caktusgroup.com/lightning-talks/2012/html5-game-development>`_
         * `django-template-debug <http://talks.caktusgroup.com/lightning-talks/2012/django-template-debug>`_
         * `Selenium <http://talks.caktusgroup.com/lightning-talks/2012/selenium>`_
         * `KDE <http://talks.caktusgroup.com/lightning-talks/2012/kde>`_
