@@ -65,3 +65,5 @@ Add your slides to git and push up to GitHub::
     git push
 
 Visit http://talks.caktusgroup.com/path/to/directory
+
+Add your slide URL to the list in this README.
