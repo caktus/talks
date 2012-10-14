@@ -399,7 +399,8 @@ Presenter Notes
 ---------------
 
 - OpenBlock is fairly city-focused
-- We're opperating at the county level
+- In this instace of OpenRural we're opperating at the county level
+- The green here is the county and the blue shapes are the towns and cities
 - We have multiple cities surrounded by large unincorporated areas
 
 ----
@@ -471,13 +472,13 @@ Presenter Notes
 
 - Some roads (SR) run though multiple cities
 - In the cities, they may have a primary name of "Main St."
-- Geocoding 50 Main St. would fail in this example
+- Geocoding SR 100 would fail in this example
 - No solution for this currently in OpenBlock, but we have ideas to help fix this
 
 ----
 
-2nd Approach: County GIS Department Data
-----------------------------------------
+2nd Approach: County
+--------------------
 
 - Advantages
 
@@ -490,6 +491,12 @@ Presenter Notes
   - Not generalizable to other counties
   - This data not available online for all counties
 
+Presenter Notes
+---------------
+
+- The CC GIS department has shapefiles available on their website
+- 
+
 ----
 
 Geocoding Conclusion
@@ -497,11 +504,13 @@ Geocoding Conclusion
 
 - Geocoding is a hard problem to solve
 - String parsing
+
   - number
   - predir
   - street name
   - street type
   - postdir
+
 - Streets can have multiple names
 - 100% success rate is very hard to achieve
 
@@ -785,6 +794,9 @@ OpenBlock Community
 Questions?
 ----------
 
-- **Slides:** http://caktus.github.com/openblock-djangocon-talk
-- Karen Tracey - @km_tracey
+- **Slides:** http://talks.caktusgroup.com/open-data-day/openrural
 - Colin Copeland - @copelco
+
+.. image:: static/caktus-logo-tag-RGB.jpg
+    :align: center
+    :height: 350px
