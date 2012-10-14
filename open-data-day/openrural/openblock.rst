@@ -163,6 +163,8 @@ Presenter Notes
 ---------------
 
 - Limited adoption a year after being open sourced
+- Easier to use, easier to install
+- Documentation
 - Take a moment to talk breifly about the architecture
 
 ----
