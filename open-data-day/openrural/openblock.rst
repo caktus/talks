@@ -15,7 +15,7 @@ Presenter Notes
 * Thanks to Scott Barnwell and Dave Michelson. Scott found me through a blog post I had written about OpenBlock
 * After some conversatoins, we decided that Dave and I should team up for this workshop
 * We think it's a cool project and would like to raise awarness of it
-* I'm glad to be apart of Open Data Day and hope everyone here is excited to see what we've done with data and what you can do with OpenBlock
+* I'm glad to be apart of Open Data Day and hope everyone here is excited to see what we've done with open data and what you can do with OpenBlock
 
 ----
 
@@ -553,6 +553,7 @@ Presenter Notes
 
 - Working with newspaper and government staff to scrape and collect online data
 - Local staff has been very helpful
+- Making open data available and accessible is very valuable. Making it easier to get to helps tools like OpenBlock present the information to the public.
 
 ----
 
@@ -707,7 +708,8 @@ Presenter Notes
 ---------------
 
 - Currently in Columbus County
-- Grant stipulates scaling up to multiple counties
+- Grant stipulates scaling up
+- We're hoping to expand into a dozen or more counties in NC
 
 ----
 
@@ -720,48 +722,17 @@ Many Counties
 Presenter Notes
 ---------------
 
-- We're hoping to expand into a dozen or more counties in NC
-- Grant also stipulates that we develop a profitable solution
-- So we have to weigh options moving forward
+- Counties with the technical capacity to do this on their own can definitely leverage OpenBlock. We hope to provide a service to smaller counties who may or may not have technical resources
+- Make it as easy as possible to get started through a simple SaaS model. And we hope to find a sustainable solution moving forward by partnering with more local newspapers
+- I hope this provided a brief overview of OpenBlock and what it can do with open data (and the problems we encountered). Open data is very valuable and providing access let us build this project.
 
 ----
 
-Considerations
---------------
-
-- Improving the geocoder is tough and, therefore, expensive
-
-  - Possibly fallback to 3rd party geocoder
-
-- Web UI code is hard to use and extend
-
-  - JavaScript libraries for interacting with slippy maps have come a long way
-  - Rewrite would make our lives easier in the future
-
-- Sustainability as we scale
-
-  - Would it be more efficient to build a single system to power all counties?
-  - In our case, each OpenBlock install will be very similar
-
-=======
-
-OpenBlock Community
--------------------
-
-- OpenBlock has largely been developed through grant funding
-- Paul Winkler of OpenPlans has been very helpful and active in the community
-- However, Knight funding has ended and OpenPlans is no longer actively working on the project
-- Future of the community is unknown
-- OpenBlock needs an organic online community to survive
-- If you're interested in OpenBlock, come speak to us!
-
-----
-
-Questions?
-----------
+The End
+-------
 
 - **Slides:** http://talks.caktusgroup.com/open-data-day/openrural
-- Colin Copeland - @copelco
+- Colin Copeland - @copelco / copelco@caktusgroup.com
 
 .. image:: static/caktus-logo-tag-RGB.jpg
     :align: center
