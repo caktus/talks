@@ -2,7 +2,6 @@
 OpenBlock
 =========
 
------------------------------
 Overview & Initial Experience
 -----------------------------
 
@@ -10,13 +9,21 @@ Colin Copeland
 
 (Original talk presented at DjangoCon '12 with Karen Tracey)
 
+Presenter Notes
+---------------
+
+* Thanks to Scott Barnwell and Dave Michelson. Scott found me through a blog post I had written about OpenBlock
+* After some conversatoins, we decided that Dave and I should team up for this workshop
+* We think it's a cool project and would like to raise awarness of it
+* I'm glad to be apart of Open Data Day and hope everyone here is excited to see what we've done with data and what you can do with OpenBlock
+
 ----
 
 Talk Outline
-============
+------------
 
 - What is OpenBlock?
-- Our experience with OpenBlock in North Carolina
+- Our experience with OpenBlock in North Carolina (OpenRural)
 - Extensions inspired by our experience
 - Future plans for the project
 
@@ -40,9 +47,7 @@ Presenter Notes
 * We use Django for all of our projects
 * OpenBlock is written in Django, so that's how we came across it
 
-
 ----
-
 
 What is OpenBlock?
 ------------------
@@ -65,30 +70,10 @@ What is OpenBlock?
 Presenter Notes
 ---------------
 
-* Taken directly from the OpenBlock website
-* Aggregates and displays news at a very local level, like your neighborhood block
-* Case of larceny down the street, purchase price of houses in your neighborhood
-* Restaurant inspection score of your local diner
+* Taken directly from the OpenBlock website. Aggregates and displays news at a very local level, like your neighborhood block
+* It takes raw data, injests it, and puts it on map. It's not for breaking news, but rather a way to browse to see what's going on in your neighborhood
+* Case of larceny down the street, purchase price of houses in your neighborhood. Restaurant inspection score of your local diner
 
-----
-
-What Kinds of Sites Might Use OpenBlock?
-----------------------------------------
-
-- Sites with a local focus,
-- which can benefit from automated news item generation,
-- where news item sources already exist online,
-- in some user-unfriendly, but regular, fashion
-
-----
-
-OpenBlock History
-=================
-
-Presenter Notes
----------------
-
-- Let's take a moment to learn where OpenBlock came from
 
 ----
 
@@ -111,6 +96,7 @@ EveryBlock.com
 Presenter Notes
 ---------------
 
+* Let's take a moment to learn where OpenBlock came from
 * EveryBlock was originally funded by a two-year grant from the Knight Foundation through its Knight News Challenge program.
 
 ----
@@ -142,6 +128,7 @@ EveryBlock Source Code
 Presenter Notes
 ---------------
 
+- EveryBlock continued to be developed, they didn't continue to update the open sourced version
 - Great codebase, lots of potential, but no community around the code yet
 - Hard to configure project requirements
 - Code was fairly complex, hard for beginners to jump into the project
@@ -158,6 +145,7 @@ OpenBlock
 
 - **June 2010:** Knight Foundation launches OpenBlock Initiative grant
 - Goal: simplify and accelerate adoption of the open sourced EveryBlock code
+    - OpenPlans
 
 Presenter Notes
 ---------------
@@ -180,6 +168,7 @@ Presenter Notes
 ---------------
 
 - OpenBlock architecture is comprised of 4 main components
+- Geocoder uses centerline shapefiles to create resource for geocoding
 - Touch briefly on data model
 
 ----
@@ -230,7 +219,7 @@ Presenter Notes
 ----
 
 OpenBlock Sites
-===============
+---------------
 
 ----
 
@@ -281,7 +270,7 @@ Presenter Notes
 ----
 
 OpenRural
-=========
+---------
 
 Presenter Notes
 ---------------
@@ -346,11 +335,6 @@ Presenter Notes
 
 ----
 
-Experiences
-===========
-
-----
-
 Columbus County, NC
 -------------------
 
@@ -362,7 +346,7 @@ Presenter Notes
 
 - Outline of Columbus County in Google Maps
 - Fairly rural with a few small cities and towns
-- You can see the larger roads and streets
+- You can see the larger roads and streets. This is what the geocoder is powered from.
 - You may wonder how this information is loaded into OpenBlock
 
 ----
@@ -407,8 +391,8 @@ Presenter Notes
 
 ----
 
-Challenging Characteristics of Columbus County
-----------------------------------------------
+Challenging Characteristics
+---------------------------
 
 - Multiple "cities"
 
@@ -432,8 +416,8 @@ Presenter Notes
 
 ----
 
-1st Approach: Census Files for OpenBlock Data
----------------------------------------------
+1st Approach: Census
+--------------------
 
 - Advantages
 
@@ -525,14 +509,18 @@ Presenter Notes
 ----
 
 Scrapers
-========
+--------
+
+Presenter Notes
+---------------
+
+- The geocoder is used heavily by OpenBlock scrapers
+- If you remember from before, scripts that extract information from online data sources
 
 ----
 
 What are they?
 --------------
-
-- Scripts that extract information from online data sources
 
 - The process is conceptually simple:
 
@@ -590,32 +578,8 @@ Property Transactions Scraper
 
 ----
 
-OpenRural Stack
----------------
-
-- Automated ``fabric`` server provisioning and deployment. Testable with ``vagrant``.
-- Using Celery and RabbitMQ for asynchronous tasks (scrapers and maintenance tasks)
-- Modified fork for OpenBlock that includes ``staticfiles`` changes.
-- Production runs nginx and gunicorn on a small Amazon EC2 instance.
-- Most issues fixed on OpenBlock core are pushed back to the official repository
-
-- Everything is completely open source
-- https://github.com/openrural
-
-Presenter Notes
----------------
-
-- Atypical OpenBlock setup
-- Local development instructions are included
-
-----
-
-.. common problems: stale data, no community aspect
-
-
-
 Extensions
-==========
+----------
 
 Presenter Notes
 ---------------
@@ -626,7 +590,7 @@ Presenter Notes
 
 ----
 
-The Missing Piece: Data Review and Analysis
+Missing: Data Review and Analysis
 -------------------------------------------
 
 - How successful was the geocoder?
@@ -729,7 +693,7 @@ Presenter Notes
 ----
 
 What's Next?
-============
+------------
 
 ----
 
