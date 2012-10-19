@@ -19,6 +19,10 @@ Directory
         * `FabulAWS <http://talks.caktusgroup.com/lightning-talks/2011/fabulaws>`_
         * `Service Page API <http://talks.caktusgroup.com/lightning-talks/2011/service-page-api>`_
         * `django-selectable <http://talks.caktusgroup.com/lightning-talks/2011/django-selectable>`_
+* PyCarolinas
+    * 2012
+        * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating_designers_into_dev_cycle>`_
+        * `Maintaining Your Sanity While Maintaining Your Open Source App <http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity>`_
 
 Setup
 -----
