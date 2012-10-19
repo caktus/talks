@@ -634,8 +634,8 @@ Info
 
 Slides
 
-- HTML: http://mlavin.github.com/sanity-talk/
-- Source: https://github.com/mlavin/sanity-talk
+- HTML: http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity/
+- Source: https://github.com/caktus/talks
 
 Me
 
