@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Maintaining Your Sanity</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Maintaining Your Sanity</h1></header>
+            
+            
+            <section><h1>While Maintaining Your Open Source App</h1>
+<p>Mark Lavin</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What This Talk is About</h1></header>
+            
+            
+            <section><p>Things that you won't find in the Django docs about writing an app</p>
+<ul class="simple">
+<li>Packaging an app</li>
+<li>Documenting an app</li>
+<li>Testing an app</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Who Am I?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Developer at Caktus Group in Carrboro, NC</li>
+</ul>
+<img alt="./images/caktus-logo.png" class="align-center" src="./images/caktus-logo.png" style="height: 200px;" />
+<ul class="simple">
+<li>Founder/Developer for brewedbyus.com</li>
+</ul>
+<img alt="./images/bbus-logo.png" class="align-center" src="./images/bbus-logo.png" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>I think this is where I'm supposed to convince you I know what I'm talking about</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Apps I've Open Sourced</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>django-selectable</li>
+<li>django-email-bandit</li>
+<li>django-ad-code</li>
+<li>django-all-access</li>
+<li>django-scribbler</li>
+<li>django-responsive</li>
+<li>django-hilbert</li>
+<li>django-lastfm-auth</li>
+<li>django-meetup-auth</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Not everyone of these projects fits these perfectly</li>
+<li>These are ideas which have evolved from releasing more app</li>
+<li>Some of these things I wish I had done sooner</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Non-Work Me</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Husband/Dad</li>
+<li>Runner/Triathlete</li>
+<li>Homebrewer</li>
+</ul>
+<img alt="./images/20120714-_DSC5334.jpg" class="align-center" src="./images/20120714-_DSC5334.jpg" style="height: 407px;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>These tools help you manage your time better</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Packaging</h1></header>
+            
+            
+            <section><img alt="./images/1411998505_20c38def70_z.jpg" class="align-center" src="./images/1411998505_20c38def70_z.jpg" />
+<p><a class="reference external" href="http://www.flickr.com/photos/feesta/1411998505/">http://www.flickr.com/photos/feesta/1411998505/</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Packaging Insanity</h1></header>
+            
+            
+            <section><blockquote>
+<p>This app is so easy to install! You just checkout out the repo then add the app source directory to your Python path.</p>
+<p class="attribution">&mdash;No one ever</p>
+</blockquote></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Packaging Sanity</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Package your app to work with pip (setuptools/distribute)</li>
+<li>Direct potential users to install with pip</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Keep the installation instructions simple and don't give choices</li>
+<li><cite>pip install django-something</cite></li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Setup.py</h1></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">setuptools</span> <span class="kn">import</span> <span class="n">setup</span><span class="p">,</span> <span class="n">find_packages</span>
+
+<span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s">&#39;django-something&#39;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="nb">__import__</span><span class="p">(</span><span class="s">&#39;something&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span>
+    <span class="n">author</span><span class="o">=</span><span class="s">&#39;Mark Lavin&#39;</span><span class="p">,</span>
+    <span class="n">author_email</span><span class="o">=</span><span class="s">&#39;mlavin@caktusgroup.com&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(),</span>
+    <span class="n">include_package_data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="s">&#39;https://github.com/mlavin/django-something&#39;</span><span class="p">,</span>
+    <span class="n">license</span><span class="o">=</span><span class="s">&#39;BSD&#39;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s">u&#39;An app which does something&#39;</span><span class="p">,</span>
+    <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
+        <span class="s">&#39;Topic :: Internet :: WWW/HTTP :: Dynamic Content&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Intended Audience :: Developers&#39;</span><span class="p">,</span>
+        <span class="s">&#39;License :: OSI Approved :: BSD License&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Programming Language :: Python&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Programming Language :: Python :: 2.6&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Programming Language :: Python :: 2.7&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Framework :: Django&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Topic :: Software Development :: Libraries :: Python Modules&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Development Status :: 4 - Beta&#39;</span><span class="p">,</span>
+        <span class="s">&#39;Operating System :: OS Independent&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+    <span class="n">long_description</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="s">&#39;README.rst&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">(),</span>
+    <span class="n">zip_safe</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="c"># If you have static resources</span>
+<span class="p">)</span>
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>It's pretty readable when you look at it</li>
+<li>Full list of classifiers is available on the PyPi site</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Application Version</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Follow PEP386</li>
+<li>Try to be consistent in what your versions mean (new features/bug fixes)</li>
+</ul>
+<pre><span class="c"># something.__init__.py</span>
+<span class="s">&quot;Short description of django-something.&quot;</span>
+
+<span class="n">__version__</span> <span class="o">=</span> <span class="s">&#39;1.0.0&#39;</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>MANIFEST.in</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Includes non-Python resources in your source distribution</li>
+</ul>
+<pre><span class="n">include</span> <span class="n">README</span><span class="o">.</span><span class="n">rst</span>
+<span class="n">recursive</span><span class="o">-</span><span class="n">include</span> <span class="n">something</span><span class="o">/</span><span class="n">static</span> <span class="o">*</span>
+<span class="n">recursive</span><span class="o">-</span><span class="n">include</span> <span class="n">something</span><span class="o">/</span><span class="n">templates</span> <span class="o">*</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Register and Upload Your Package</h1></header>
+            
+            
+            <section><pre>python setup.py register
+python setup.py sdist upload
+<span class="c"># Write more code</span>
+<span class="c"># Write more docs</span>
+<span class="c"># Update version</span>
+python setup.py sdist upload
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Your package is now installable with pip!</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Documentation</h1></header>
+            
+            
+            <section><img alt="./images/4294079_e959b6104d.jpg" class="align-center" src="./images/4294079_e959b6104d.jpg" />
+<p><a class="reference external" href="http://www.flickr.com/photos/plindberg/4294079/">http://www.flickr.com/photos/plindberg/4294079/</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Documentation Insanity</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>A giant README</li>
+<li>Docs which aren't available online</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Python is very readable. Docs should describe what your source can't</li>
+<li>If users can find your docs they might as well not exist</li>
+<li>If users don't read them then you are wasting your time writing them</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Documentation Sanity</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Sphinx &amp; Read the Docs</li>
+</ul>
+<img alt="./images/read-the-docs.png" class="align-center" src="./images/read-the-docs.png" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Keep your sanity by writing docs before you think you &quot;need&quot; them</li>
+<li>You will find yourself reading your own docs</li>
+<li>You will find better ways to do things when you have to explain how they work</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Getting Started with Sphinx</h1></header>
+            
+            
+            <section><p><tt class="docutils literal"><span class="pre">sphinx-quickstart</span></tt> has fairly sane defaults</p>
+<pre><span class="nv">$ </span>sphinx-quickstart
+...
+Enter the root path <span class="k">for </span>documentation.
+&gt; Root path <span class="k">for </span>the documentation <span class="o">[</span>.<span class="o">]</span>: docs
+...
+</pre>
+<p>Repo will look something like this</p>
+<pre>docs<span class="se">\</span>
+    conf.py
+    index.rst
+    make.bat
+    MakeFile
+something<span class="se">\</span>
+    __init__.py
+    models.py
+    tests.py
+    views.py
+README.rst
+setup.py
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Things to Document</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>A description of the project and its goals</li>
+<li>How to install including requirements</li>
+<li>How to configure</li>
+<li>Release notes</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Writing docs keeps you sane because you get a second pass at thinking about features</li>
+<li>Good documentation can answer questions from users before they ask you</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Hosting Your Docs on Read the Docs</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Create an account</li>
+<li>Link to your repo</li>
+<li>Setup post-commit hook</li>
+<li>Pulls your tags/branches for different versions</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Django's docs are built here too</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Testing</h1></header>
+            
+            
+            <section><img alt="./images/6946913449_e8ac6ff7d7_z.jpg" class="align-center" src="./images/6946913449_e8ac6ff7d7_z.jpg" />
+<p><a class="reference external" href="http://www.flickr.com/photos/snre/6946913449/">http://www.flickr.com/photos/snre/6946913449/</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Testing Insanity</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Tests which fail without an example project</li>
+<li>Tests which fail when settings change</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Tests should ship with your app</li>
+<li>An example project should not</li>
+<li>Hard to shelter tests (even Django gets this wrong sometimes)</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Testing Sanity</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Running tests needs to be easy</li>
+<li>Running tests needs to be fast</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Or else no one (including you) will run them</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Test Only Models</h1></header>
+            
+            
+            <section><p><a class="reference external" href="https://code.djangoproject.com/ticket/7835">Ticket #7835</a></p>
+<blockquote>
+<p>...it appears to me that we already have a pretty good working solution for test-only models in trunk (and I'm wondering why I never thought of it). Apparently you can simply define models directly in your tests.py. Syncdb never imports tests.py, so those models won't get synced to the normal db, but they will get synced to the test database, and can be used in tests.</p>
+<p class="attribution">&mdash;Carl Meyer (Comment #24)</p>
+</blockquote>
+<p>This approach is already used for Django's own test suite in <tt class="docutils literal">contrib.contenttypes</tt></p>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>This is used by django-selectable</li>
+<li>If this changes you'll know because you're going to have a test suite</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Running App Tests (runtests.py)</h1></header>
+            
+            
+            <section><pre><span class="c">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="kn">import</span> <span class="n">settings</span>
+
+<span class="k">if</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">configured</span><span class="p">:</span>
+    <span class="n">settings</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+        <span class="n">DATABASES</span><span class="o">=</span><span class="p">{</span>
+            <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span>
+                <span class="s">&#39;NAME&#39;</span><span class="p">:</span> <span class="s">&#39;:memory:&#39;</span><span class="p">,</span>
+            <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="n">INSTALLED_APPS</span><span class="o">=</span><span class="p">(</span>
+            <span class="s">&#39;something&#39;</span><span class="p">,</span> <span class="c"># Don&#39;t forget dependencies</span>
+        <span class="p">),</span>
+        <span class="n">SECRET_KEY</span><span class="o">=</span><span class="s">&#39;something-secret&#39;</span><span class="p">,</span>
+        <span class="n">SITE_ID</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">ROOT_URLCONF</span><span class="o">=</span><span class="s">&#39;something.tests.urls&#39;</span><span class="p">,</span> <span class="c"># If needed</span>
+    <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">django.test.utils</span> <span class="kn">import</span> <span class="n">get_runner</span>
+
+<span class="k">def</span> <span class="nf">runtests</span><span class="p">():</span>
+    <span class="n">TestRunner</span> <span class="o">=</span> <span class="n">get_runner</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
+    <span class="n">test_runner</span> <span class="o">=</span> <span class="n">TestRunner</span><span class="p">(</span><span class="n">verbosity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">interactive</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">failfast</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">test_runner</span><span class="o">.</span><span class="n">run_tests</span><span class="p">([</span><span class="s">&#39;something&#39;</span><span class="p">,</span> <span class="p">]))</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">runtests</span><span class="p">()</span>
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Loosely based on <a class="reference external" href="https://github.com/brosner/django-app-test-runner">https://github.com/brosner/django-app-test-runner</a></li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Supercharge Your Tests with Tox</h1></header>
+            
+            
+            <section><p>Install tox</p>
+<pre>pip install tox
+</pre>
+<p>Tox uses virtualenv to run a test matrix</p>
+<ul class="simple">
+<li>Test different Python versions</li>
+<li>Test different Django versions</li>
+<li>Test different DB backends</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Basic Tox Configuration</h1></header>
+            
+            
+            <section><p>Configure tox.ini</p>
+<pre>[tox]
+downloadcache = {toxworkdir}/_download/
+envlist = py26-1.4.X,py26-1.3.X
+
+[testenv]
+commands = {envpython} runtests.py
+
+[testenv:py26-1.4.X]
+basepython = python2.6
+deps = django&gt;=1.4,&lt;1.5
+
+[testenv:py26-1.3.X]
+basepython = python2.6
+deps = django&gt;=1.3,&lt;1.4
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Easy to jump to new Python/Django features and break compatibility</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Running Tox</h1></header>
+            
+            
+            <section><pre><span class="c"># All environments</span>
+<span class="nv">$ </span>tox
+...
+<span class="o">[</span>TOX<span class="o">]</span> py26-1.4.X: commands succeeded
+<span class="o">[</span>TOX<span class="o">]</span> py26-1.3.X: commands succeeded
+<span class="c"># Only 1.4 on Python 2.6</span>
+<span class="nv">$ </span>tox -e py26-1.4.X
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>You can also use tox to build your documentation</li>
+<li>That way you'll know if they are broken prior to the Read the Docs build</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why Bother?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>These tools make it easy on you to write better code and docs</li>
+<li>And make it easier for others to help you</li>
+<li>Give contributors a starting point for more docs and tests</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Keep your sanity by having them in place before you think you'll need them</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Non-Code Things To Do</h1></header>
+            
+            
+            <section><img alt="./images/3944131005_d0563d76ac.jpg" class="align-center" src="./images/3944131005_d0563d76ac.jpg" />
+<p><a class="reference external" href="http://www.flickr.com/photos/booleansplit/3944131005/">http://www.flickr.com/photos/booleansplit/3944131005/</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              28/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>State Your Goals</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Let people know the problem you were trying to solve</li>
+<li>Let people know the problems you aren't interested in solving</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Not interested because it's not part of your main use case</li>
+<li>Not interested because solved by another project</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              29/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Include a License</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>There are plenty of good ones</li>
+<li>See OSI list if you aren't sure which to use <a class="reference external" href="http://opensource.org/licenses/index.html">http://opensource.org/licenses/index.html</a></li>
+<li>Let people know what they can (and can't) do with the code</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              30/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Prepare for The Future</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Be ready for new Django releases</li>
+<li>Be ready for Python 3</li>
+<li>Be ready to be replaced (yourself or your code)</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Tox helps with the first two</li>
+<li>Who could take over this app if you stopped</li>
+<li>If you deleted this app which comparable one would you use</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              31/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Non-Code Things To Avoid</h1></header>
+            
+            
+            <section><img alt="./images/3415590901_b3fb25fcca.jpg" class="align-center" src="./images/3415590901_b3fb25fcca.jpg" />
+<p><a class="reference external" href="http://www.flickr.com/photos/jmarty/3415590901/">http://www.flickr.com/photos/jmarty/3415590901/</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              32/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Rejecting Every Contribution</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Don't make it impossible for people to help you</li>
+<li>If you have to reject a request be nice</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Keep your sanity by letting people help you</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              33/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>&quot;This needs tests and docs&quot;</h1></header>
+            
+            
+            <section><img alt="./images/3qkg59.jpg" class="align-center" src="./images/3qkg59.jpg" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Not everyone is good a writing tests or docs</li>
+<li>Might need help or direction not heckling</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              34/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Accepting Every Contribution</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Adding features is easy but taking them away is hard</li>
+<li>If you accept it you should be prepared to maintain it</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Keep your sanity by limiting your project scope</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              35/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Developer Burnout</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>It's ok to step away for awhile</li>
+<li>If you have these tools in place others can pick up in your place</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>These things should make it easier</li>
+<li>Don't let open source feel like a burden</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              36/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>App Template</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Django 1.4 added app templates for <tt class="docutils literal">startapp</tt></li>
+<li>I've created one using these ideas</li>
+<li>Use it/fork it for your next app</li>
+<li><a class="reference external" href="https://github.com/mlavin/django-app-template">https://github.com/mlavin/django-app-template</a></li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>I've made it easy for you so you have no excuse</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              37/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Resources</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Packaging Guide: <a class="reference external" href="http://guide.python-distribute.org/">http://guide.python-distribute.org/</a></li>
+<li>PyPi Signup: <a class="reference external" href="http://pypi.python.org/pypi?%3Aaction=register_form">http://pypi.python.org/pypi?%3Aaction=register_form</a></li>
+<li>PyPi Classifiers: <a class="reference external" href="http://pypi.python.org/pypi?%3Aaction=list_classifiers">http://pypi.python.org/pypi?%3Aaction=list_classifiers</a></li>
+<li>Sphinx: <a class="reference external" href="http://sphinx.pocoo.org/">http://sphinx.pocoo.org/</a></li>
+<li>Read the Docs: <a class="reference external" href="http://readthedocs.org/">http://readthedocs.org/</a></li>
+<li>Tox: <a class="reference external" href="http://tox.readthedocs.org/">http://tox.readthedocs.org/</a></li>
+<li>OSI License Info: <a class="reference external" href="http://opensource.org/licenses/index.html">http://opensource.org/licenses/index.html</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              38/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Info</h1></header>
+            
+            
+            <section><p>Slides</p>
+<ul class="simple">
+<li>HTML: <a class="reference external" href="http://mlavin.github.com/sanity-talk/">http://mlavin.github.com/sanity-talk/</a></li>
+<li>Source: <a class="reference external" href="https://github.com/mlavin/sanity-talk">https://github.com/mlavin/sanity-talk</a></li>
+</ul>
+<p>Me</p>
+<ul class="simple">
+<li>Github: <a class="reference external" href="https://github.com/mlavin/">https://github.com/mlavin/</a></li>
+<li>Bitbucket: <a class="reference external" href="https://bitbucket.com/mlavin/">https://bitbucket.com/mlavin/</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst">/home/mlavin/Projects/talks/pycarolinas/2012/maintaining-sanity/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              39/39
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Maintaining Your Sanity</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">What This Talk is About</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Who Am I?</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Apps I've Open Sourced</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Non-Work Me</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Packaging</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Packaging Insanity</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Packaging Sanity</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Setup.py</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Application Version</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">MANIFEST.in</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Register and Upload Your Package</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Documentation</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Documentation Insanity</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Documentation Sanity</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Getting Started with Sphinx</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Things to Document</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Hosting Your Docs on Read the Docs</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Testing</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">Testing Insanity</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">Testing Sanity</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">Test Only Models</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">Running App Tests (runtests.py)</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-24">
+        <th><a href="#slide24">Supercharge Your Tests with Tox</a></th>
+        <td><a href="#slide24">24</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">Basic Tox Configuration</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-26">
+        <th><a href="#slide26">Running Tox</a></th>
+        <td><a href="#slide26">26</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-27">
+        <th><a href="#slide27">Why Bother?</a></th>
+        <td><a href="#slide27">27</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-28">
+        <th><a href="#slide28">Non-Code Things To Do</a></th>
+        <td><a href="#slide28">28</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-29">
+        <th><a href="#slide29">State Your Goals</a></th>
+        <td><a href="#slide29">29</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-30">
+        <th><a href="#slide30">Include a License</a></th>
+        <td><a href="#slide30">30</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-31">
+        <th><a href="#slide31">Prepare for The Future</a></th>
+        <td><a href="#slide31">31</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-32">
+        <th><a href="#slide32">Non-Code Things To Avoid</a></th>
+        <td><a href="#slide32">32</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-33">
+        <th><a href="#slide33">Rejecting Every Contribution</a></th>
+        <td><a href="#slide33">33</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-34">
+        <th><a href="#slide34">&quot;This needs tests and docs&quot;</a></th>
+        <td><a href="#slide34">34</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-35">
+        <th><a href="#slide35">Accepting Every Contribution</a></th>
+        <td><a href="#slide35">35</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-36">
+        <th><a href="#slide36">Developer Burnout</a></th>
+        <td><a href="#slide36">36</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-37">
+        <th><a href="#slide37">App Template</a></th>
+        <td><a href="#slide37">37</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-38">
+        <th><a href="#slide38">Resources</a></th>
+        <td><a href="#slide38">38</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-39">
+        <th><a href="#slide39">Info</a></th>
+        <td><a href="#slide39">39</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>
