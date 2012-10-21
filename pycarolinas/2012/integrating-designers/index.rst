@@ -489,11 +489,20 @@ Benefits
 
 ----
 
+Benefits
+------------------------------------------------
+
+- Work within the actual Django project
+- Work in parallel
+
+----
+
 
 Benefits
 ------------------------------------------------
 
 - Work within the actual Django project
+- Work in parallel
 - Utilize version control
 
 ----
@@ -502,6 +511,7 @@ Benefits
 ------------------------------------------------
 
 - Work within the actual Django project
+- Work in parallel
 - Utilize version control
 - Feedback loops are faster
 
@@ -511,6 +521,7 @@ Benefits
 ------------------------------------------------
 
 - Work within the actual Django project
+- Work in parallel
 - Utilize version control
 - Feedback loops are faster
 - Provide a safe place for them to experiment
@@ -521,6 +532,7 @@ Benefits
 ------------------------------------------------
 
 - Work within the actual Django project
+- Work in parallel
 - Utilize version control
 - Feedback loops are faster
 - Provide a safe place for them to experiment
