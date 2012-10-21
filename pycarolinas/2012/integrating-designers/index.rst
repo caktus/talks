@@ -2,9 +2,6 @@ Integrating Designers Into Your Development Cycle
 ============================================================
 
 
-Easing in
-------------------------
-
 David Ray
 
 PyCarolinas 2012
@@ -64,8 +61,10 @@ Presenter Notes
 Motivation
 -------------------
 
-- Create *safe* learning environments
-- Earlier, closer engagement
+- Create *safe* environments for
+
+  - learning
+  - creating
 
 
 Presenter Notes
@@ -73,8 +72,32 @@ Presenter Notes
 
 ----
 
+Motivation
+-------------------
+
+- Foster engagement
+
+
+Presenter Notes
+---------------
+
+* Earlier & closer
+
+----
+
 Problem Space
 ================
+
+----
+
+3 Scenarios
+-----------------------------------------
+
+1 *"Traditional"* Designer / Design Cycle
+
+
+Presenter Notes
+---------------
 
 ----
 
