@@ -160,6 +160,8 @@ Our First ShipIt Days
 * October 12th, 2012
 * Made a Google Doc to share ideas and create teams
 
+.. image:: static/scribbler-team.jpg
+
 Presenter Notes
 ---------------
 
