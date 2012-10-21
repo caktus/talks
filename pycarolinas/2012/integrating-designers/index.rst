@@ -220,14 +220,46 @@ Presenter Notes
 
 ----
 
+Steep Learning Curve
+---------------------------------
+
+- Setup Development Environment
+
+Presenter Notes
+---------------
+
+----
 
 Steep Learning Curve
 ---------------------------------
 
 - Setup Development Environment
 - Package Management
-- Version Control
+
+Presenter Notes
+---------------
+
+----
+
+Steep Learning Curve
+---------------------------------
+
+- Setup Development Environment
+- Package Management
 - Project Architecture
+
+Presenter Notes
+---------------
+
+----
+
+Steep Learning Curve
+---------------------------------
+
+- Setup Development Environment
+- Package Management
+- Project Architecture
+- Version Control
 
 Presenter Notes
 ---------------
