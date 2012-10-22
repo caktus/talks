@@ -154,7 +154,7 @@ How it Works
 
 ----
 
-Our First ShipIt Days
+Our First ShipIt Day
 ------------------------------------------------
 
 * October 12th, 2012
