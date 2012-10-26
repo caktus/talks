@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Monitor all the things</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Monitor all the things</h1></header>
+            
+            
+            <section><p>Scott Morningstar</p>
+<p>Caktus Lighting Lunch</p>
+<img alt="./images/6b17.jpg" class="align-center" src="./images/6b17.jpg" style="height: 200px;" />
+<p><a class="reference external" href="http://quickmeme.com">http://quickmeme.com</a></p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>You Know This</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Talk Outline</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Who am I</li>
+<li>This talk is about</li>
+<li>Monitoring what is it?</li>
+<li>What to Monitor</li>
+<li>Tools</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Who am I</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Scott Morningstar</li>
+<li>Systems Administrator at Caktus Consulting Group in Carrboro, NC</li>
+</ul>
+<img alt="./images/caktus-logo.png" class="align-center" src="./images/caktus-logo.png" style="height: 200px;" />
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>I work at Caktusgroup in Carrboro NC</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>About Me</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Geek</li>
+</ul>
+<img alt="./images/IMG_3682.JPG" class="align-center" src="./images/IMG_3682.JPG" style="height: 300px;" />
+<ul class="simple">
+<li>Dad</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Yes that is a Giant Octopus made of Legos</li>
+<li></li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>This talk is about</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What to collect</li>
+<li>Tools</li>
+<li>Demo</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Notes</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>What to collect</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Sys</li>
+<li>App</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>There are lots of things to collect and you can't tell in advance what will be useful</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>System Stats</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>CPU</li>
+<li>Disk usage</li>
+<li>Memory</li>
+<li>System load</li>
+<li>Network usage</li>
+<li>Uptime</li>
+<li>Many others</li>
+</ul>
+<p><a class="reference external" href="http://monitor0.caktus.lan">http://monitor0.caktus.lan</a></p>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Munin has hundreds of plugins</li>
+<li>Collectd has about 90</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Application Information</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Stack trace</li>
+<li>Event Logging</li>
+<li>Anything that goes to a log file anywhere</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Python has good logging but it needs to be used</li>
+<li>Syslog is a blunt tool</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Tools</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>Munin</li>
+<li>SmokePing</li>
+<li>Graphite</li>
+<li>GreyLog2</li>
+<li>Statsd</li>
+<li>Collectd</li>
+<li>Logstash</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Notes</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Demo</h1></header>
+            
+            
+            <section><p><a class="reference external" href="http://monitor0.caktus.lan">http://monitor0.caktus.lan</a>
+<a class="reference external" href="http://monitor0.caktus.lan:8090/smokeping/smokeping.cgi?target=World.TWC_CH_POP">http://monitor0.caktus.lan:8090/smokeping/smokeping.cgi?target=World.TWC_CH_POP</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Thanks</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>links</li>
+<li>More detailed talk by Jason Dixon from Github</li>
+<li><a class="reference external" href="https://speakerdeck.com/obfuscurity/the-state-of-open-source-monitoring">https://speakerdeck.com/obfuscurity/the-state-of-open-source-monitoring</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst">/home/scottm/projects/talks/lightning-talks/2012/Monitoing/monitoring.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Monitor all the things</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-2" class="sub">
+          <th><a href="#slide2">Talk Outline</a></th>
+          <td><a href="#slide2">2</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Who am I</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">About Me</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">This talk is about</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-6" class="sub">
+          <th><a href="#slide6">What to collect</a></th>
+          <td><a href="#slide6">6</a></td>
+        </tr>
+        
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">System Stats</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">Application Information</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">Tools</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Demo</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Thanks</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>
