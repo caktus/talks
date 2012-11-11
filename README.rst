@@ -19,6 +19,7 @@ Directory
         * `FabulAWS <http://talks.caktusgroup.com/lightning-talks/2011/fabulaws>`_
         * `Service Page API <http://talks.caktusgroup.com/lightning-talks/2011/service-page-api>`_
         * `django-selectable <http://talks.caktusgroup.com/lightning-talks/2011/django-selectable>`_
+        * `PLY <http://talks.caktusgroup.com/lightning-talks/2011/ply>`_
 * PyCarolinas
     * 2012
         * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating_designers_into_dev_cycle>`_
@@ -31,7 +32,7 @@ Create a new virtualenv and install the requirements::
 
     mkvirtualenv --distribute talks
     pip install -r conf/requirements.txt
-    
+
 Landslide
 ---------
 
