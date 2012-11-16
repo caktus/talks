@@ -1,0 +1,257 @@
+<!doctype html>  
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        
+        <title>reveal.js - HTML5 Presentations</title>
+
+        <meta name="description" content="An easy to use CSS 3D slideshow tool for quickly creating good looking HTML presentations.">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+
+        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/reset.css">
+        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/main.css">
+        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/print.css" type="text/css" media="print">
+
+        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/caktus.css">
+        
+
+        <link rel="stylesheet" href="../../../conf/themes/revealjs/lib/css/zenburn.css">
+
+    </head>
+    
+    <body>
+
+        <style>
+            #canvas-wrapper {
+                position: absolute;
+                left: 25px;
+                top: 50%;
+            }
+            #canvas {
+                margin-top: -50%;
+            }
+            pre code {
+                background-color: rgba(100, 100, 100, 0.5);
+            }
+        </style>
+        <div id=canvas-wrapper>
+            <canvas id=canvas width=500 height=500></canvas>
+        </div>
+        
+        <div class="reveal">
+
+            <!-- Used to fade in a background when a specific slide state is reached -->
+            <div class="state-background"></div>
+
+            <aside class="logo">
+                <img src="../../../conf/themes/revealjs/img/caktus-logo.png">
+            </aside>
+            
+<!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section>
+                    <h1>Anora</h1>
+                    <h3 class="inverted">A new Django template filter</h3>
+                    <script>
+                        // Delicously hacky. Look away.
+                        if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+                    </script>
+                </section>
+                
+                <section>
+                    <section>
+                        <h2>English is confusing</h2>
+                        <ul>
+                            <li class="fragment">
+                                One word can mean two completely different things:
+                                <blockquote class="fragment">The wind was too strong to wind the sail.</blockquote></li>
+                            <li class="fragment">When do you use "a" as opposed to "an"?</li>
+                        </ul>
+                    </section>
+                    <section data-state="alert">
+                        <h2>It's maddening!!!</h2>
+                        <p><img src="img/hulk.png"></p>
+                    </section>
+                </section>
+                
+                <!-- Example of nested vertical slides -->
+                <section>
+                    <h2>"A" vs. "An"</h2>
+                    <p>"A" goes before words that begin with consonants.</p>
+                    <blockquote class="fragment">A chicken crossed the road.</blockquote>
+                    <p class="fragment">"An" goes before words that begin with vowels.</p>
+                    <blockquote class="fragment">An owl goes hootie hoot.</blockquote>
+                </section>
+
+                <section>
+                    <h2>There are exceptions to these rules.</h2>
+                    <ul>
+                        <li>Use "an" before unsounded "h."</li>
+                        <li>When "u" makes the same sound as the "y" in "you," or "o" makes the same sound as "w" in "won," then a is used. </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Confused yet?</h2>
+                    <img src="img/confused.jpg" width="400">
+                </section>
+
+                <section>
+                    <h2>So, I Googled it</h2>
+                    <p>Started out by searching on Django snippets and found:</p>
+                    <p><a href="http://djangosnippets.org/snippets/1519/">http://djangosnippets.org/snippets/1519/</a></p>
+                    <p>
+                        <i>
+                            <small>~ Developed by <a href="http://smileychris.com/">Chris Beaven</a></small>
+                        </i>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>How it Works</h2>
+                    <pre><code contenteditable>{% load an %}
+
+{{ object|an }} {{ object }} says hootie hoot.
+
+// Output
+
+An owl says hootie hoot.
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>Not very D.R.Y.</h2>
+                    <p><small>(Don't Repeat Yourself)</small></p>
+                    <img src="img/wet-dog.jpg">
+                </section>
+
+                <section>
+                    <h2>ANORA</h2>
+                    <h3>How it works</h3>
+                    <p><pre><code>pip install anora
+
+// Template                         
+{% load anora %}
+
+{{ object|anora }} laid a large egg.
+
+// Output
+An ostrich laid a large egg.
+
+                    </code></pre></p>
+                </section>
+
+                <section>
+                    <h2>Anora on Github</h2>
+                    <p><a href="https://github.com/juliaelman/anora">https://github.com/juliaelman/anora</a></p>
+                </section>
+
+                <section>
+                    <h2>References</h2>
+                    <ul>
+                        <li>"A" vs. "An": <a href="http://owl.english.purdue.edu/owl/resource/591/01/">http://owl.english.purdue.edu/owl/resource/591/01/</a></li>
+                        <li>HULK: <a href="http://www.behance.net/gallery/Hulk-Comic/4117913">http://www.behance.net/gallery/Hulk-Comic/4117913</a></li>
+                        <li>"thx, now i are confused": <a href="http://www.dropline.net/cats/">http://www.dropline.net/cats/</a></li>
+                        <li>Soaking Wet Dog: <a href="http://www.funnydogsite.com/pictures/Soaking_Wet_Dog.htm">http://www.funnydogsite.com/pictures/Soaking_Wet_Dog.htm</a></li>
+                    </ul>
+            </div>
+
+
+            <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+            <div class="progress"><span></span></div>
+            
+        </div>
+
+        <!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
+        <script src="../../../conf/themes/revealjs/lib/js/head.min.js"></script>
+
+        <script>
+            // Load the main reveal.js script
+            head.js( '../../../conf/themes/revealjs/js/reveal.js', function() {
+                // Parse the query string into a key/value object
+                var query = {};
+
+                location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+                    query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+                } );
+
+                // Fires each time a new slide is activated
+                Reveal.addEventListener( 'slidechanged', function( event ) {
+                    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
+                } );
+
+                Reveal.initialize({
+                    // Display controls in the bottom right corner
+                    controls: true,
+
+                    // Display a presentation progress bar
+                    progress: true,
+
+                    // If true; each slide will be pushed to the browser history
+                    history: true,
+
+                    // Loops the presentation, defaults to false
+                    loop: false,
+
+                    // Flags if mouse wheel navigation should be enabled
+                    mouseWheel: true,
+
+                    // Apply a 3D roll to links on hover
+                    rollingLinks: true,
+
+                    // UI style
+                    theme: query.theme || 'default', // default/neon/beige
+
+                    // Transition style
+                    transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+                });
+
+                var canvas = document.getElementById('canvas');
+                var ctx = canvas.getContext('2d');
+
+                function loop(func, t) {
+                    if (window.loopInterval) {
+                        window.clearInterval(window.loopInterval);
+                    }
+                    window.loopInterval = window.setInterval(func, t || 100);
+                }
+
+                function show_and_run() {
+                    if (window.loopInterval) {
+                        window.clearInterval(window.loopInterval);
+                    }
+                    window.setTimeout(function(){
+                        var slide = document.getElementsByClassName('present')[0];
+                        var code = document.getElementById(slide.getAttribute('data-state') + '-code').textContent;
+                        eval(code);
+                    }, 1000);
+                }
+
+                var canvas_slides = document.getElementsByClassName('canvas-slide');
+                for (var i=0; i < canvas_slides.length; i++) {
+                    Reveal.addEventListener(canvas_slides[i].getAttribute('data-state'), show_and_run);
+                }
+            } );
+            
+            // Load third party scripts
+            head.js( '../../../conf/themes/revealjs/lib/js/classList.js' );
+            head.js( '../../../conf/themes/revealjs/lib/js/highlight.js', function() {
+                // Fire off syntax highlighting for potential code samples in the slides
+                hljs.initHighlightingOnLoad();
+            } );
+
+            // If we're runnning the notes server we need to include some additional JS
+            // TODO Is there a better way to determine if we're running the notes server?
+            if( window.location.host === 'localhost:1947' ) {
+                head.js( 'socket.io/socket.io.js', 'plugin/speakernotes/client.js' );
+            }
+        </script>
+        
+    </body>
+</html>
