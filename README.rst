@@ -13,6 +13,7 @@ Directory
         * `Backbone <http://talks.caktusgroup.com/lightning-talks/2012/backbone>`_
         * `HTML5 Game Development <http://talks.caktusgroup.com/lightning-talks/2012/html5-game-development>`_
         * `django-template-debug <http://talks.caktusgroup.com/lightning-talks/2012/django-template-debug>`_
+        * `Anora <http://talks.caktusgroup.com/lightning-talks/2012/anora>`_
         * `Selenium <http://talks.caktusgroup.com/lightning-talks/2012/selenium>`_
         * `KDE <http://talks.caktusgroup.com/lightning-talks/2012/kde>`_
     * 2011
