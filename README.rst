@@ -25,6 +25,7 @@ Directory
     * 2012
         * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating_designers_into_dev_cycle>`_
         * `Maintaining Your Sanity While Maintaining Your Open Source App <http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity>`_
+        * `Working with Designers <https://speakerdeck.com/juliaelman/working-with-designers>`_
 
 Setup
 -----
