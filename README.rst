@@ -16,6 +16,7 @@ Directory
         * `Anora <http://talks.caktusgroup.com/lightning-talks/2012/anora>`_
         * `Selenium <http://talks.caktusgroup.com/lightning-talks/2012/selenium>`_
         * `KDE <http://talks.caktusgroup.com/lightning-talks/2012/kde>`_
+        * `Encryption and Identity <http://talks.caktusgroup.com/lightning-talks/2012/encryption>`_
     * 2011
         * `LESS <http://talks.caktusgroup.com/lightning-talks/2011/less>`_
         * `FabulAWS <http://talks.caktusgroup.com/lightning-talks/2011/fabulaws>`_
