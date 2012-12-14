@@ -1,0 +1,11 @@
+digraph {
+
+  subgraph cluster1 {
+    label="Signer_private";
+    style=filled;
+    color=lightgrey;
+
+    node [style=filled;color=white]
+    message [label="message"]
+  }
+}

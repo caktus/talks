@@ -1,0 +1,30 @@
+digraph {
+
+  subgraph cluster_public {
+  label=Public;
+  Alice_public [style=filled;color=green];
+  Bob_public [style=filled;color=lightblue];
+  }
+
+  subgraph cluster_bob {
+  label=Bob;
+  Bob_private [style=filled;color=pink];
+
+Bob_private -> ENCRYPT1;
+message -> ENCRYPT1;
+ENCRYPT1 -> ENCRYPT2;
+Alice_public -> ENCRYPT2;
+}
+
+
+  subgraph cluster_alice {
+    label="Alice";
+    Alice_private -> DECRYPT1;
+    Alice_private [style=filled;color=pink];
+    DECRYPT1 -> DECRYPT2;
+    Bob_public -> DECRYPT2;
+  }
+
+
+ENCRYPT2 -> DECRYPT1;
+}

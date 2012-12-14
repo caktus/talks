@@ -1,0 +1,7 @@
+digraph {
+  subgraph cluster1 {
+    shape=box;
+    label="This is Alice's public key:"
+    Alice_public;
+  }
+}

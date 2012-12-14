@@ -1,0 +1,23 @@
+digraph naive {
+    rankdir=LR;
+    Key2 -> Bob [label="SEND SECRETLY"];
+    subgraph cluster_Alice {
+       [label="Alice"];
+       Text -> ENCRYPT;
+       Key1 -> ENCRYPT;
+       Key1;
+       Key2;
+       Alice -> Key1;
+       Alice -> Key2;
+    }
+    ENCRYPT -> DECRYPT [label=encrypted];
+    subgraph cluster_Bob {
+        Bob;
+        [label="Bob"];
+        DECRYPT -> SameText;
+        Bob -> DECRYPT [label="Key2"];
+    }
+  Key1 [color=lightblue;style=filled];
+  Key2 [color=pink;style=filled];
+
+}

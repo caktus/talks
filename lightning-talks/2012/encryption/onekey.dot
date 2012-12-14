@@ -1,0 +1,10 @@
+digraph onekey {
+  rankdir = "LR";
+subgraph cluster_1 {
+  Text0 -> ENCRYPT -> YHQL -> DECRYPT -> Text1;
+  Text0 [label=Text];
+  Text1 [label=Text];
+}
+  Key1 -> ENCRYPT;
+  Key1 -> DECRYPT;
+}
