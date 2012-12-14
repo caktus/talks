@@ -1,0 +1,6 @@
+digraph keydistribution {
+    Key -> Bob [label="SECRET"];
+    Key -> Alice [label="SECRET"];
+    Bob [shape=box];
+    Alice [shape=box];
+}

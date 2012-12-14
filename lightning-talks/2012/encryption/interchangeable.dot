@@ -1,0 +1,10 @@
+digraph twokeys {
+rankdir=LR;
+subgraph cluster_1 {
+  Text -> ENCRYPT -> YHQL -> DECRYPT -> SameText;
+}
+  Key2 -> ENCRYPT;
+  Key1 -> DECRYPT;
+  Key1 [color=lightblue;style=filled];
+  Key2 [color=pink;style=filled];
+}

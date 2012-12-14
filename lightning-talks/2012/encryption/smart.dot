@@ -1,0 +1,23 @@
+digraph naive {
+    Key2 -> Bob [label="SEND ANY WAY"];
+    subgraph cluster_Alice {
+       [label="Alice"];
+       DECRYPT -> Node001;
+       Key1 -> DECRYPT;
+       Key1;
+       Key2;
+       Alice -> Key1;
+       Alice -> Key2;
+    }
+    ENCRYPT -> DECRYPT [label=encrypted];
+    subgraph cluster_Bob {
+        Bob;
+        [label="Bob"];
+        Node002 -> ENCRYPT;
+        Bob -> ENCRYPT [label="Key2"];
+    }
+    Node001 [label=Text];
+    Node002 [label=Text]'
+  Key1 [color=lightblue;style=filled];
+  Key2 [color=pink;style=filled];
+}
