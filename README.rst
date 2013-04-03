@@ -6,8 +6,21 @@ Caktus Consulting Group, LLC
 Directory
 ---------
 
+* PyCon
+    * 2013
+        * `Designers + Developers: Collaborating on your Python project <http://lanyrd.com/2013/pycon/scdyym/>`_
+* OSCON
+    * 2013 
+        * Designers + Developers: Collaborating on your Open Source project
 * DjangoCon
-    * `OpenBlock: Overview and Initial Experience <http://talks.caktusgroup.com/djangocon/2012/openblock>`_
+    * 2012
+        * `OpenBlock: Overview and Initial Experience <http://talks.caktusgroup.com/djangocon/2012/openblock>`_
+        * `Is Django for Designers? <http://lanyrd.com/2012/djangocon-us/sxbyd/>`_
+* PyCarolinas
+    * 2012
+        * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating_designers_into_dev_cycle>`_
+        * `Maintaining Your Sanity While Maintaining Your Open Source App <http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity>`_
+        * `Working with Designers <http://lanyrd.com/2012/pycarolinas/syhmt/>`_
 * Lightning Talks
     * 2012
         * `Backbone <http://talks.caktusgroup.com/lightning-talks/2012/backbone>`_
@@ -23,11 +36,6 @@ Directory
         * `Service Page API <http://talks.caktusgroup.com/lightning-talks/2011/service-page-api>`_
         * `django-selectable <http://talks.caktusgroup.com/lightning-talks/2011/django-selectable>`_
         * `PLY <http://talks.caktusgroup.com/lightning-talks/2011/ply>`_
-* PyCarolinas
-    * 2012
-        * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating_designers_into_dev_cycle>`_
-        * `Maintaining Your Sanity While Maintaining Your Open Source App <http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity>`_
-        * `Working with Designers <https://speakerdeck.com/juliaelman/working-with-designers>`_
 
 Setup
 -----
