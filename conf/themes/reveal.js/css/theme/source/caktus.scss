@@ -1,0 +1,59 @@
+/*  
+
+!!!WARNING :: DO NOT EDIT THE css/theme/caktus.css FILE DIRECTLY. EDIT THE css/source/caktus.scss FILE, COMPILE LOCALLY AND COMMIT BOTH FILES. kthxbai
+
+
+/**
+ * Caktus Consulting Group slide theme for reveal.js.
+*/
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+// Include theme-specific fonts
+@font-face {
+	font-family: 'League Gothic';
+	src: url('../../lib/font/league_gothic-webfont.eot');
+	src: url('../../lib/font/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
+		 url('../../lib/font/league_gothic-webfont.woff') format('woff'),
+		 url('../../lib/font/league_gothic-webfont.ttf') format('truetype'),
+		 url('../../lib/font/league_gothic-webfont.svg#LeagueGothicRegular') format('svg');
+
+	font-weight: normal;
+	font-style: normal;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+// Caktus theme settings
+$headingTextShadow: none;
+$backgroundColor: #6C7A78;
+$linkColor: #a5e052;
+$linkColorHover: lighten( $linkColor, 20% );
+
+// Background generator
+@mixin bodyBackground() {
+	@include radial-gradient(#6C7A78, #9da6a5);
+}
+
+aside.logo {
+    position: fixed;
+    left: 25px;
+    bottom: 25px;
+    z-index: 30;
+    
+    img {
+    	width: 200px;
+    }
+}
+
+.reveal pre code {
+	padding: 10px 15px !important;
+	max-height: 450px;
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------

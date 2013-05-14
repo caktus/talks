@@ -11,47 +11,35 @@
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        
-        <link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 
-        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/reset.css">
-        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/main.css">
-        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/print.css" type="text/css" media="print">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <link rel="stylesheet" href="../../../conf/themes/revealjs/css/caktus.css">
-        
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
 
-        <link rel="stylesheet" href="../../../conf/themes/revealjs/lib/css/zenburn.css">
+        <!-- Caktus specific styles -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
 
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
     </head>
     
     <body>
-
-        <style>
-            #canvas-wrapper {
-                position: absolute;
-                left: 25px;
-                top: 50%;
-            }
-            #canvas {
-                margin-top: -50%;
-            }
-            pre code {
-                background-color: rgba(100, 100, 100, 0.5);
-            }
-        </style>
-        <div id=canvas-wrapper>
-            <canvas id=canvas width=500 height=500></canvas>
-        </div>
         
         <div class="reveal">
 
-            <!-- Used to fade in a background when a specific slide state is reached -->
-            <div class="state-background"></div>
-
             <aside class="logo">
-                <img src="../../../conf/themes/revealjs/img/caktus-logo.png">
+                <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
             </aside>
+
             
             <!-- Any section element inside of this container is displayed as a slide -->
             <div class="slides">
@@ -248,103 +236,38 @@
                 </section>
 
             </div>
-
-            <!-- The navigational controls UI -->
-            <aside class="controls">
-                <a class="left" href="#">&#x25C4;</a>
-                <a class="right" href="#">&#x25BA;</a>
-                <a class="up" href="#">&#x25B2;</a>
-                <a class="down" href="#">&#x25BC;</a>
-            </aside>
-
-            <!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
-            <div class="progress"><span></span></div>
-            
+                      
         </div>
 
-        <!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
-        <script src="../../../conf/themes/revealjs/lib/js/head.min.js"></script>
+        <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+        <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
 
         <script>
-            // Load the main reveal.js script
-            head.js( '../../../conf/themes/revealjs/js/reveal.js', function() {
-                // Parse the query string into a key/value object
-                var query = {};
 
-                location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
-                    query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
-                } );
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
 
-                // Fires each time a new slide is activated
-                Reveal.addEventListener( 'slidechanged', function( event ) {
-                    // event.previousSlide, event.currentSlide, event.indexh, event.indexv
-                } );
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
-                Reveal.initialize({
-                    // Display controls in the bottom right corner
-                    controls: true,
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
 
-                    // Display a presentation progress bar
-                    progress: true,
-
-                    // If true; each slide will be pushed to the browser history
-                    history: true,
-
-                    // Loops the presentation, defaults to false
-                    loop: false,
-
-                    // Flags if mouse wheel navigation should be enabled
-                    mouseWheel: true,
-
-                    // Apply a 3D roll to links on hover
-                    rollingLinks: true,
-
-                    // UI style
-                    theme: query.theme || 'default', // default/neon/beige
-
-                    // Transition style
-                    transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
-                });
-
-                var canvas = document.getElementById('canvas');
-                var ctx = canvas.getContext('2d');
-
-                function loop(func, t) {
-                    if (window.loopInterval) {
-                        window.clearInterval(window.loopInterval);
-                    }
-                    window.loopInterval = window.setInterval(func, t || 100);
-                }
-
-                function show_and_run() {
-                    if (window.loopInterval) {
-                        window.clearInterval(window.loopInterval);
-                    }
-                    window.setTimeout(function(){
-                        var slide = document.getElementsByClassName('present')[0];
-                        var code = document.getElementById(slide.getAttribute('data-state') + '-code').textContent;
-                        eval(code);
-                    }, 1000);
-                }
-
-                var canvas_slides = document.getElementsByClassName('canvas-slide');
-                for (var i=0; i < canvas_slides.length; i++) {
-                    Reveal.addEventListener(canvas_slides[i].getAttribute('data-state'), show_and_run);
-                }
-            } );
-            
-            // Load third party scripts
-            head.js( '../../../conf/themes/revealjs/lib/js/classList.js' );
-            head.js( '../../../conf/themes/revealjs/lib/js/highlight.js', function() {
-                // Fire off syntax highlighting for potential code samples in the slides
-                hljs.initHighlightingOnLoad();
-            } );
-
-            // If we're runnning the notes server we need to include some additional JS
-            // TODO Is there a better way to determine if we're running the notes server?
-            if( window.location.host === 'localhost:1947' ) {
-                head.js( 'socket.io/socket.io.js', 'plugin/speakernotes/client.js' );
-            }
         </script>
         
     </body>

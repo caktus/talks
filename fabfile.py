@@ -64,6 +64,6 @@ def landslide(source='', name=''):
 def revealjs(path):
     path = os.path.join(PROJECT_ROOT, path)
     os.makedirs(path)
-    template = os.path.join(CONF_ROOT, 'themes', 'revealjs', 'template.html')
+    template = os.path.join(CONF_ROOT, 'themes', 'reveal.js', 'template.html')
     dest = os.path.join(path, 'index.html')
     shutil.copyfile(template, dest)
