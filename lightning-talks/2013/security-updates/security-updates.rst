@@ -5,7 +5,7 @@ Ben Riseling, Calvin Spealman, Mark Lavin and Scott Morningstar
 
 Caktus Consulting Group
 
-June XX, 2013
+June 28, 2013
 
 ----
 
