@@ -80,10 +80,37 @@ Contribute and Keep Up-to-date
 
 ----
 
-Client Documentation
+Client Documentation: PCI Standards
 ------------------------------------------------
 
-# TODO
+* What: Payment Card Industry
+* The PCI Standard: pcistandards.org
+* Certification vs. Compliance
+
+----
+
+Presenter Notes
+---------------
+
+* What: If your site provides access to a financial transaction this is for you
+* 6 core steps to assess your compliance
+* processing $500k plus annually requires 3rd party annual audit ($$$$) for certification
+
+----
+
+Common PCI mistkes in Django apps
+------------------------------------------------
+
+* list them
+
+----
+
+Presenter Notes
+---------------
+
+* What: If your site provides access to a financial transaction this is for you
+* 6 core steps to assess your compliance
+* processing $500k plus annually requires 3rd party annual audit ($$$$) for certification
 
 ----
 
