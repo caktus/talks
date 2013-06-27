@@ -101,16 +101,39 @@ Presenter Notes
 Common PCI mistkes in Django apps
 ------------------------------------------------
 
-* list them
+* 1. storing credit card info in plan text (see tokenization)
+* 2. default passwords not changed
+* 3. poor code: SQL injection vulnerabilities, for instance
+* 4. lack of monitoring or logging
+* 5. not using SSL for payment page
+* 6. logging payment information into log files
+* 7. missing security patches
+* SOURCE: http://www.youtube.com/watch?v=9ZIPNWqjIEI
 
 ----
 
 Presenter Notes
 ---------------
 
-* What: If your site provides access to a financial transaction this is for you
-* 6 core steps to assess your compliance
-* processing $500k plus annually requires 3rd party annual audit ($$$$) for certification
+* 1. Third party tokenization services are cheaper than an annual audit
+* 6. especially when there is an error (django error emails)
+* Source: Djangocon 2012, Ken Cochrane, dotCloud, "Building PCI Compliant Django Applications"
+
+----
+
+What this means for Caktus
+------------------------------------------------
+
+* New project with PCI requirement should be made compliant
+* Inherited projects with PCI maybe request bringing site up to compliance as prerequisite
+
+----
+
+Presenter Notes
+---------------
+
+* At bare minimum, tokenization and monitoring (core part of PCI compliance should be a requirement
+* hosting on AWS (PCI certified secure network)
 
 ----
 
