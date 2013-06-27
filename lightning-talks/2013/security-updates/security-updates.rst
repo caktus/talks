@@ -101,7 +101,7 @@ Presenter Notes
 Common PCI mistakes in Django apps
 ------------------------------------------------
 
-* 1. storing credit card info in plan text (see tokenization)
+* 1. storing credit card info in plain text (see tokenization)
 * 2. default passwords not changed
 * 3. poor code: SQL injection vulnerabilities, for instance
 * 4. lack of monitoring or logging
