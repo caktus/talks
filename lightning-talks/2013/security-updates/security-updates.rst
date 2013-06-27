@@ -98,7 +98,7 @@ Presenter Notes
 
 ----
 
-Common PCI mistkes in Django apps
+Common PCI mistakes in Django apps
 ------------------------------------------------
 
 * 1. storing credit card info in plan text (see tokenization)
