@@ -56,7 +56,10 @@ Results
 Security Scans
 ------------------------------------------------
 
-# TODO
+* Monthly scans by Orvant
+* Whitelist false-positives
+* Respond appropriately when new issues are flagged
+* Useful regression discovery
 
 ----
 
@@ -87,8 +90,6 @@ Client Documentation: PCI Standards
 * The PCI Standard: pcistandards.org
 * Certification vs. Compliance
 
-----
-
 Presenter Notes
 ---------------
 
@@ -110,8 +111,6 @@ Common PCI mistakes in Django apps
 * 7. missing security patches
 * SOURCE: http://www.youtube.com/watch?v=9ZIPNWqjIEI
 
-----
-
 Presenter Notes
 ---------------
 
@@ -126,8 +125,6 @@ What this means for Caktus
 
 * New project with PCI requirement should be made compliant
 * Inherited projects with PCI maybe request bringing site up to compliance as prerequisite
-
-----
 
 Presenter Notes
 ---------------

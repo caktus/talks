@@ -58,7 +58,7 @@
             
             <section><p>Ben Riseling, Calvin Spealman, Mark Lavin and Scott Morningstar</p>
 <p>Caktus Consulting Group</p>
-<p>June XX, 2013</p></section>
+<p>June 28, 2013</p></section>
             
           </div>
           <div class="presenter_notes">
@@ -74,7 +74,7 @@
             </aside>
             
             <aside class="page_number">
-              1/13
+              1/15
             </aside>
           </footer>
         </div>
@@ -116,7 +116,7 @@
             </aside>
             
             <aside class="page_number">
-              2/13
+              2/15
             </aside>
           </footer>
         </div>
@@ -149,7 +149,7 @@
             </aside>
             
             <aside class="page_number">
-              3/13
+              3/15
             </aside>
           </footer>
         </div>
@@ -185,7 +185,7 @@
             </aside>
             
             <aside class="page_number">
-              4/13
+              4/15
             </aside>
           </footer>
         </div>
@@ -220,7 +220,7 @@
             </aside>
             
             <aside class="page_number">
-              5/13
+              5/15
             </aside>
           </footer>
         </div>
@@ -234,7 +234,12 @@
             <header><h1>Security Scans</h1></header>
             
             
-            <section><p># TODO</p></section>
+            <section><ul class="simple">
+<li>Monthly scans by Orvant</li>
+<li>Whitelist false-positives</li>
+<li>Respond appropriately when new issues are flagged</li>
+<li>Useful regression discovery</li>
+</ul></section>
             
           </div>
           <div class="presenter_notes">
@@ -250,7 +255,7 @@
             </aside>
             
             <aside class="page_number">
-              6/13
+              6/15
             </aside>
           </footer>
         </div>
@@ -289,7 +294,7 @@
             </aside>
             
             <aside class="page_number">
-              7/13
+              7/15
             </aside>
           </footer>
         </div>
@@ -300,15 +305,28 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Client Documentation</h1></header>
+            <header><h1>Client Documentation: PCI Standards</h1></header>
             
             
-            <section><p># TODO</p></section>
+            <section><ul class="simple">
+<li>What: Payment Card Industry</li>
+<li>The PCI Standard: pcistandards.org</li>
+<li>Certification vs. Compliance</li>
+</ul>
+
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>What: If your site provides access to a financial transaction this is for you</li>
+<li>6 core steps to assess your compliance</li>
+<li>processing $500k plus annually requires 3rd party annual audit ($$$$) for certification</li>
+</ul>
             
             </section>
           </div>
@@ -319,7 +337,123 @@
             </aside>
             
             <aside class="page_number">
-              8/13
+              8/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/calvin/projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Common PCI mistakes in Django apps</h1></header>
+            
+            
+            <section><ul class="simple">
+<li><ol class="first arabic">
+<li>storing credit card info in plain text (see tokenization)</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="2">
+<li>default passwords not changed</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="3">
+<li>poor code: SQL injection vulnerabilities, for instance</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="4">
+<li>lack of monitoring or logging</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="5">
+<li>not using SSL for payment page</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="6">
+<li>logging payment information into log files</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="7">
+<li>missing security patches</li>
+</ol>
+</li>
+<li>SOURCE: <a class="reference external" href="http://www.youtube.com/watch?v=9ZIPNWqjIEI">http://www.youtube.com/watch?v=9ZIPNWqjIEI</a></li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li><ol class="first arabic">
+<li>Third party tokenization services are cheaper than an annual audit</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="6">
+<li>especially when there is an error (django error emails)</li>
+</ol>
+</li>
+<li>Source: Djangocon 2012, Ken Cochrane, dotCloud, &quot;Building PCI Compliant Django Applications&quot;</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/calvin/projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/calvin/projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/calvin/projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What this means for Caktus</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>New project with PCI requirement should be made compliant</li>
+<li>Inherited projects with PCI maybe request bringing site up to compliance as prerequisite</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>At bare minimum, tokenization and monitoring (core part of PCI compliance should be a requirement</li>
+<li>hosting on AWS (PCI certified secure network)</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/calvin/projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/calvin/projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/15
             </aside>
           </footer>
         </div>
@@ -353,7 +487,7 @@
             </aside>
             
             <aside class="page_number">
-              9/13
+              11/15
             </aside>
           </footer>
         </div>
@@ -397,7 +531,7 @@
             </aside>
             
             <aside class="page_number">
-              10/13
+              12/15
             </aside>
           </footer>
         </div>
@@ -442,7 +576,7 @@
             </aside>
             
             <aside class="page_number">
-              11/13
+              13/15
             </aside>
           </footer>
         </div>
@@ -478,7 +612,7 @@
             </aside>
             
             <aside class="page_number">
-              12/13
+              14/15
             </aside>
           </footer>
         </div>
@@ -518,7 +652,7 @@
             </aside>
             
             <aside class="page_number">
-              13/13
+              15/15
             </aside>
           </footer>
         </div>
@@ -575,38 +709,50 @@
       
       
       <tr id="toc-row-8">
-        <th><a href="#slide8">Client Documentation</a></th>
+        <th><a href="#slide8">Client Documentation: PCI Standards</a></th>
         <td><a href="#slide8">8</a></td>
       </tr>
       
       
       <tr id="toc-row-9">
-        <th><a href="#slide9">Project Template Updates</a></th>
+        <th><a href="#slide9">Common PCI mistakes in Django apps</a></th>
         <td><a href="#slide9">9</a></td>
       </tr>
       
       
       <tr id="toc-row-10">
-        <th><a href="#slide10">Salt Provisioning</a></th>
+        <th><a href="#slide10">What this means for Caktus</a></th>
         <td><a href="#slide10">10</a></td>
       </tr>
       
       
       <tr id="toc-row-11">
-        <th><a href="#slide11">Better Defaults</a></th>
+        <th><a href="#slide11">Project Template Updates</a></th>
         <td><a href="#slide11">11</a></td>
       </tr>
       
       
       <tr id="toc-row-12">
-        <th><a href="#slide12">Documentation</a></th>
+        <th><a href="#slide12">Salt Provisioning</a></th>
         <td><a href="#slide12">12</a></td>
       </tr>
       
       
       <tr id="toc-row-13">
-        <th><a href="#slide13">Future Updates</a></th>
+        <th><a href="#slide13">Better Defaults</a></th>
         <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Documentation</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Future Updates</a></th>
+        <td><a href="#slide15">15</a></td>
       </tr>
       
       
