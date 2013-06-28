@@ -194,12 +194,12 @@ Future Updates
 
 * We are ever vigilant
 * We want feedback
-* 
+
 
 Presenter Notes
 ---------------
 
-* As new issues are brought to light our policies will be updated; 
+* As new issues are brought to light our policies will be updated;
 * Will meet "quarterly" to review any new standards.
 * Working on templated email scripts for clients in case of detected sercurity risk
 * Monitoring system decision in progress; Will be reviewing the state of all current projects
