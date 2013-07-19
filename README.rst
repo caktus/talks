@@ -10,7 +10,7 @@ Directory
     * 2013
         * `Designers + Developers: Collaborating on your Python project <http://lanyrd.com/2013/pycon/scdyym/>`_
 * OSCON
-    * 2013 
+    * 2013
         * Designers + Developers: Collaborating on your Open Source project
 * DjangoCon
     * 2012
@@ -38,6 +38,9 @@ Directory
         * `Service Page API <http://talks.caktusgroup.com/lightning-talks/2011/service-page-api>`_
         * `django-selectable <http://talks.caktusgroup.com/lightning-talks/2011/django-selectable>`_
         * `PLY <http://talks.caktusgroup.com/lightning-talks/2011/ply>`_
+* ShipIt
+    * 2013
+        * `Haystack Facets <http://talks.caktusgroup.com/shiptit/2013/haystack-facets>`_
 
 Setup
 -----
