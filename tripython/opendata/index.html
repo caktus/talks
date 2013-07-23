@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Open Data</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Open Data</h1></header>
+            
+            
+            <section><p>Colin Copeland</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Talk Outline</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What is Open Data?</li>
+<li>...</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What is Open Data?</h1></header>
+            
+            
+            <section><p><strong>Open Knowledge Foundation Definition</strong></p>
+<p>Open data is data that can be freely used, reused and redistributed by anyone – subject only, at most, to the requirement to attribute and sharealike.</p>
+<p><strong>Use in the government/public sector (from Socrata)</strong></p>
+<p>Making data that belongs to the public broadly accessible and usable by humans and machines, free of any constraints.</p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>I'm not going to dive deep into the philosophical aspects of open data</li>
+<li>Talk about it at a very high level</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Historic Example: Weather</h1></header>
+            
+            
+            <section><p><strong>Weather</strong></p>
+<p>Data from government satellites and groud stations.</p>
+<p>Created industry for:</p>
+<ul class="simple">
+<li>Weather Channel</li>
+<li>Commercial agricultural advisory services</li>
+<li>New insurance options</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Economy has consistently benefited when government data have been released to entrepreneurs and other innovators.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Historic Example: GPS</h1></header>
+            
+            
+            <section><p><strong>Global Positioning System (GPS)</strong></p>
+<p>US Gov. released GPS data once reserved for military use to the public.</p>
+<p>Gave rise to GPS-powered innovations:</p>
+<ul class="simple">
+<li>Aircraft navigation systems</li>
+<li>Precision farming</li>
+<li>Location-based apps</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Executive decisions made by Presidents Ronald Reagan and Bill Clinton</li>
+<li>Turns your phone into a GPS device so you can use Foursquare or get navigation directions on a map.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Open Data Requirements</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Availability and Access</li>
+<li>Reuse and Redistribution</li>
+<li>Universal Participation</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Release important government data allows citizen developers and entrepreneurs to turn them into new products and services</li>
+<li>Available online and in a convenient and modifiable form</li>
+<li>Released under terms that allow reuse, redistribution and mixing with ther data sets</li>
+<li>Everyone can do it, no restrictions, non-commercial/education-only. Don't need to worry about the legal aspects.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Interoperability</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Requirements are really about interoperability, right?</li>
+<li>Open formats (nothing proprietary)</li>
+<li>GPS data and transportation alone is great</li>
+<li>But the data becomes more useful when combined together</li>
+<li>Open data can scale too. Shared formats, combining data across regions, etc.</li>
+<li>Larger level, more people</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What kind of data?</h1></header>
+            
+            
+            <section><img alt="static/data-types.png" class="align-center" src="static/data-types.png" />
+<p>Source: <a class="reference external" href="http://okfn.org/opendata/">http://okfn.org/opendata/</a></p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Data that the government already collects</li>
+<li>Map data (roads, buildings, topography and boundaries)</li>
+<li>Environment (level of pollutants, quality of rivers and seas)</li>
+<li>Statistical and Financial data (census and government spending)</li>
+<li>Anything from prices charged by hospitals/colleges to crime to unemployment</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Not Personal Data</h1></header>
+            
+            
+            <section><p><strong>Important point:</strong> not personally identifiable data</p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Not talking about releasing personal tax records or private health records</li>
+<li>This means that some data is aggregate data, to a certain area/region, over time, etc.</li>
+<li>Scrubbing data talked about later</li>
+</ul>
+<p>Now, we may see even more life-changing technologies as a result of open government data. Last week, the White House released an executive order that makes “open and machine readable” the new default for the release of government information. Although people who care about open data were generally quite excited, the news barely made an impression on the general public. But it should: This is perhaps the biggest step forward to date in making government data—that information your tax dollars pay for—accessible for citizens, entrepreneurs, politicians, and others.</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>What is OpenBlock?</h2></header>
+            
+            
+            <section><ul class="simple">
+<li>&quot;Hyper-local news&quot; application framework</li>
+<li>Example news types<ul>
+<li>police incident reports</li>
+<li>property transactions</li>
+<li>restaurant inspections</li>
+<li>business registrations</li>
+</ul>
+</li>
+<li>Open source project<ul>
+<li>Web site: <a class="reference external" href="http://openblockproject.org/">http://openblockproject.org/</a></li>
+<li>Code: <a class="reference external" href="https://github.com/openplans/openblock">https://github.com/openplans/openblock</a></li>
+<li>Mailing list: <a class="reference external" href="http://groups.google.com/group/ebcode/">http://groups.google.com/group/ebcode/</a></li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/copelco/projects/talks/tripython/opendata/opendata.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>EveryBlock.com</h2></header>
+            
+            
+            <section><img alt="../../djangocon/2012/openblock/static/example-everyblock.png" src="../../djangocon/2012/openblock/static/example-everyblock.png" style="width: 100%;" />
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Browse by neighborhoods, streets, zipcodes, or draw your own location</li>
+<li>Lots of public record information as well as community neighbor content</li>
+<li>Lots of community activity, especially in Chicago</li>
+</ul>
+<!--  -->
+<!--  -->
+<!-- prices charged by colleges -->
+<!-- help agencies share data internally -->
+<!-- transport -->
+<!-- geodata -->
+<!-- statistics -->
+<!-- financial -->
+<!-- government spending -->
+<!-- educational outcomes -->
+<!-- more data -->
+<!-- business and communities want to share back their data -->
+<!--  -->
+<!-- data as a commoddity -->
+<!-- White House -->
+<!-- http://project-open-data.github.io/ -->
+<!-- Data Portals -->
+<!-- https://data.raleighnc.gov/ -->
+<!-- http://www.opendataphilly.org/ -->
+<!-- Open Rural -->
+<!-- http://columbusco-staging.openrural.org/ -->
+<!-- Events -->
+<!-- NC Data Jam -->
+<!-- Datapalooza -->
+<!-- Scraper Wiki -->
+<!-- NC Secretary of State Corporation Filings -->
+<!-- Columbus County NC Property Sales -->
+<!-- NC Restaurant Inspections -->
+<!-- Code for America -->
+<!-- Durham Brigade -->
+<!-- Open Data Resolution -->
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/copelco/projects/talks/tripython/opendata/opendata.rst">/home/copelco/projects/talks/tripython/opendata/opendata.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/11
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Open Data</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Talk Outline</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">What is Open Data?</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Historic Example: Weather</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Historic Example: GPS</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Open Data Requirements</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Interoperability</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">What kind of data?</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Not Personal Data</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-10" class="sub">
+          <th><a href="#slide10">What is OpenBlock?</a></th>
+          <td><a href="#slide10">10</a></td>
+        </tr>
+        
+        <tr id="toc-row-11" class="sub">
+          <th><a href="#slide11">EveryBlock.com</a></th>
+          <td><a href="#slide11">11</a></td>
+        </tr>
+        
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>
