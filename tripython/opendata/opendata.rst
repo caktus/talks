@@ -418,6 +418,30 @@ OpenDataPhilly
     :width: 100%
 
 
+Presenter Notes
+---------------
+
+- Take the ODP codebase and use it in Durham
+- Python/Django codebase, I can deploy this here
+- Got it up and running, but Durham wasn't ready to adpot it
+
+----
+
+
+Code for America Brigade
+========================
+
+.. image:: static/brigade.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- CfA Brigade, organizing civic-minded technologists to contribute their skills in service to their local governments
+- Create re-usable apps
+- Durham started in May. Small steps, slowly working to pass an open data resolution.
+
+
 .. Now, we may see even more life-changing technologies as a result of open government data. Last week, the White House released an executive order that makes “open and machine readable” the new default for the release of government information. Although people who care about open data were generally quite excited, the news barely made an impression on the general public. But it should: This is perhaps the biggest step forward to date in making government data—that information your tax dollars pay for—accessible for citizens, entrepreneurs, politicians, and others.
 
 
