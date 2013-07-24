@@ -3,6 +3,7 @@ Open Data
 =========
 
 Colin Copeland
+@copelco
 
 http://cakt.us/tripython-opendata
 
@@ -379,6 +380,44 @@ Presenter Notes
 ----
 
 
+Project Open Data
+=================
+
+.. image:: static/project-open-data.png
+    :align: center
+
+White House executive order - http://project-open-data.github.io/
+
+Presenter Notes
+---------------
+
+- White House executive order- open data the default for release of government information
+- Open data people were excited, general public wasn't
+- Big step forward making gov data, paid for by tax dollars, accessible by citizens
+- Tools: Mix of PHP, Java, Ruby, Python
+
+----
+
+
+Business Case for Open Data
+===========================
+
+* Save time and money responding to Freedom of Information Act (FOIA) requests
+* Avoid duplicative internal research
+* Discover complementary datasets held by other agencies
+* Empower employees to make better-informed, data-driven decisions
+* Positive attention from the public, media, and other agencies
+* Generate revenue and create new jobs in the private sector
+
+Presenter Notes
+---------------
+
+* Massachusetts saved over $3 million putting procurement information online and South Carolina has seen FOIL requests decrease by one third.
+* San Francisco access to real-time transit information resulted in decreased 311 call volume that saved over $1 million a year
+
+----
+
+
 Open Data Triangle
 ==================
 
@@ -406,9 +445,30 @@ Raleigh Open Data
 Presenter Notes
 ---------------
 
-- Socrata data portal
-- 95 data sets
+- Way aheadd: Open source/data resolution - agenda/policy, on the books
+- Socrata data portal, 95 data sets
 - Jason says it's getting a lot of hits and they're getting requests for different kinds of data
+- Lots of open data portals these days
+
+----
+
+
+Data Portals
+============
+
+* Federal: http://www.data.gov/
+* DC: http://data.dc.gov/
+* San Francisco: https://data.sfgov.org/
+* New York: https://data.ny.gov/
+* Chicago: https://data.cityofchicago.org/
+* Philadelphia: http://www.opendataphilly.org/
+
+Presenter Notes
+---------------
+
+- Most of these are using the Socrata product. SAAS.
+- data.gov just relaunched based off CKAN - "open source data portal software". Python, Solr, Postgres.
+- Philly is using a Django project
 
 ----
 
@@ -441,7 +501,42 @@ Presenter Notes
 
 - CfA Brigade, organizing civic-minded technologists to contribute their skills in service to their local governments
 - Create re-usable apps
+
+----
+
+
+Brigade Apps
+============
+
+.. image:: static/brigade-apps.png
+
+Presenter Notes
+---------------
+
+- Raleigh refactored the adpot a hyrdant for bus shelters
 - Durham started in May. Small steps, slowly working to pass an open data resolution.
+
+----
+
+Tools/Software
+==============
+
+* ScraperWiki
+* Open Data Catalog
+* OpenBlock
+* OpenTreeMap
+* ...
+
+----
+
+Questions?
+==========
+
+Colin Copeland
+@copelco
+
+http://cakt.us/tripython-opendata
+
 
 
 .. Now, we may see even more life-changing technologies as a result of open government data. Last week, the White House released an executive order that makes “open and machine readable” the new default for the release of government information. Although people who care about open data were generally quite excited, the news barely made an impression on the general public. But it should: This is perhaps the biggest step forward to date in making government data—that information your tax dollars pay for—accessible for citizens, entrepreneurs, politicians, and others.
