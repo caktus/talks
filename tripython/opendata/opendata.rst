@@ -12,8 +12,10 @@ Talk Outline
 ============
 
 - About me
-- What is Open Data?
-- ...
+- What is open data?
+- Open data projects
+- Activity in the triangle
+- How to get involved
 
 ----
 
@@ -53,7 +55,7 @@ Historic Example: Weather
 
 **Weather**
 
-Data from government satellites and groud stations.
+Data from government satellites and ground stations.
 
 Created industry for:
 
@@ -104,7 +106,7 @@ Presenter Notes
 
 - Release important government data allows citizen developers and entrepreneurs to turn them into new products and services
 - Available online and in a convenient and modifiable form
-- Released under terms that allow reuse, redistribution and mixing with ther data sets
+- Released under terms that allow reuse, redistribution and mixing with their data sets
 - Everyone can do it, no restrictions, non-commercial/education-only. Don't need to worry about the legal aspects.
 
 ----
@@ -228,7 +230,7 @@ Presenter Notes
 
 - Taking OpenBlock and using it in rural North Carolina communities
 - Small towns and small news organizations
-- Newspapers don't have a lot of digitial resources
+- Newspapers don't have a lot of digital resources
 - And they lack the resources to make public data digestible on the web
 - Quite different than typical OpenBlock setup in a big city with larger infrastructure
 
@@ -321,7 +323,7 @@ Presenter Notes
 
 - Bring this back to the Triangle, maybe do something in Durham
 - GIS/Historic nut
-- Durham had horse/mule drawn streetcars in 1880. Electric streetcars 1900-1930, before busses took over.
+- Durham had horse/mule drawn streetcars in 1880. Electric streetcars 1900-1930, before buses took over.
 
 ----
 
@@ -423,7 +425,7 @@ Presenter Notes
 
 - Take the ODP codebase and use it in Durham
 - Python/Django codebase, I can deploy this here
-- Got it up and running, but Durham wasn't ready to adpot it
+- Got it up and running, but Durham wasn't ready to adopt it
 
 ----
 
@@ -447,7 +449,7 @@ Presenter Notes
 
 .. prices charged by colleges
 .. help agencies share data internally
-.. data as a commoddity
+.. data as a commodity
 
 
 
