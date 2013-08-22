@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Scaling Your Write-Heavy Django App: A Case Study</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Scaling Your Write-Heavy Django App: A Case Study</h1></header>
+            
+            
+            <section><p>Tobias McNulty
+&#64;tobiasmcnulty</p>
+<p><a class="reference external" href="http://cakt.us/djangocon-scaling">http://cakt.us/djangocon-scaling</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Talk Outline</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Introductions</li>
+<li>Eliminating gross inefficiencies with django-debug-toolbar</li>
+<li>Analyzing your Postgres logs for repetitive queries</li>
+<li>Establishing a platform you can use to test</li>
+<li>Creating a test script with JMeter</li>
+<li>Running your test script at scale</li>
+<li>Interpreting load test results</li>
+<li>Things we tried that didn’t work</li>
+<li>Optimizing your web server configuration</li>
+<li>Final tweaks to your Postgres configuration</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>About Me</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>I help run Caktus - we build custom Python/Django web apps in NC</li>
+<li>Developer with a penchant for infrastructure</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>5Essentials Schools Surveys</h1></header>
+            
+            
+            <section><p>Started at UChicago; 5Essentials team designs and conducts surveys to assess:</p>
+<ul class="simple">
+<li>Effective leaders</li>
+<li>Collaborative teachers</li>
+<li>Involved families</li>
+<li>Supportive environment</li>
+<li>Ambitious instruction</li>
+</ul>
+<p>Schools with strong scores on at least 3 of these are 10 times more likely to improve math and reading.</p>
+<p>See: <a class="reference external" href="http://uchicagoimpact.org/5essentials/">http://uchicagoimpact.org/5essentials/</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>From Scantron...</h1></header>
+            
+            
+            <section><img alt="static/scantron.jpg" class="align-center" src="static/scantron.jpg" />
+<p>Image: <a class="reference external" href="http://www.flickr.com/photos/thedavisblog/2230010178">http://www.flickr.com/photos/thedavisblog/2230010178</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>About the Project</h1></header>
+            
+            
+            <section><p><strong>5Essentials Survey Admin Module (SAM)</strong></p>
+<ul class="simple">
+<li>April 2011: Hired by UChicago / 5Essentials</li>
+<li>February 2012: First survey for Chicago Public Schools (~400,000 students)</li>
+<li>February 2013: Illinois state-wide Survey (2 million students, teachers, and parents)</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>CPS is 3rd largest in US, over 400,000 students</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>...to Scalable Web App</h1></header>
+            
+            
+            <section><img alt="static/survey.jpg" class="align-center" src="static/survey.jpg" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Fast or Scalable?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Fast: the code runs quickly</li>
+<li>Scalable: runs acceptably (or better) for lots of people</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why this talk?</h1></header>
+            
+            
+            <section><p>Scaling read-heavy web apps is easy:</p>
+<ul class="simple">
+<li>Add caching, add web servers</li>
+<li>Rinse, repeat</li>
+</ul>
+<p>Taking a survey means saving lots of data really fast.</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Architecture</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Python 2.7</li>
+<li>Django 1.5</li>
+<li>Python 2.7</li>
+<li>PostgreSQL 9.1</li>
+<li>Nginx</li>
+<li>Gunicorn</li>
+<li>Celery</li>
+<li>Redis</li>
+<li>Memcached</li>
+<li>RabbitMQ</li>
+<li>S3 for static media</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 1: django-debug-toolbar</h1></header>
+            
+            
+            <section><p>Install it:</p>
+<pre>pip install django-debug-toolbar
+</pre>
+<p>And add it to your local development settings file:</p>
+<pre><span class="n">INTERNAL_IPS</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;127.0.0.1&#39;</span><span class="p">,)</span>
+<span class="n">MIDDLEWARE_CLASSES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;debug_toolbar.middleware.DebugToolbarMiddleware&#39;</span><span class="p">)</span>
+<span class="n">INSTALLED_APPS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;debug_toolbar&#39;</span><span class="p">)</span>
+</pre>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>If you haven't used it, you really need to now, and it's really easy to install</li>
+<li>Need to eliminate unnecessary SQL queries on high-traffic pages</li>
+<li>Don't blindly optimize everything, focus on pages that'll give you the most gain</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 1: django-debug-toolbar</h1></header>
+            
+            
+            <section><p>Common patterns include:</p>
+<ul class="simple">
+<li><strong>select_related:</strong> When iterating through a list of model objects, use <tt class="docutils literal">select_related()</tt> with specific field names to retrieve everything you need in one query. Make sure the combined query isn't more expensive.</li>
+<li><strong>request-local caching:</strong> Find identical queries that you make multiple times during the same request, and cache their output on the request or other relevant Python object (not via <tt class="docutils literal">django.core.cache</tt>)</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Remember, we want to limit the total amount of stuff that the DB server has to do</li>
+<li>Ultimately we only care about writes, but if the database server is doing lots of unnecessary reads, that'll slow it down</li>
+<li>Some but not all of this can be taken care of with a DB slave</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 2: Automate some load</h1></header>
+            
+            
+            <section><p>Before going any further, you need an easy way to generate load. JMeter's a good tool for that; here there are a few tips:</p>
+<ul class="simple">
+<li><strong>Recording:</strong> If you have a long or complicated process to test, use JMeter's proxy server to record your actions in a web browser</li>
+<li><strong>Sane defaults:</strong> Set up sane defaults using HTTP Request Defaults, so you can easily switch servers.</li>
+<li><strong>CSRF Token:</strong> Use JMeter's HTTP Cookie Manager to save and retrieve the token</li>
+<li><strong>Test script:</strong> Save your test script along side your other infrastructure files in version control.</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Simple tasks are easy enough to script manually, but it's a lot easier to script longer tasks (like filling out an entire survey) by recording.  JMeter has great tools for this; learn to use &amp; love them.</li>
+<li>You'll want to test different server environments (including your local machine), so practice DRY test script writing and take the time to setup good default for HTTP requests.</li>
+<li>The CSRF token can be a bit hair to keep track of at first, but once you have it set up it's easy to maintain.</li>
+<li>Save your test scripts in version control and continue to refine them.  They'll come in handy over and over again..  Really.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 3: pgfouine</h1></header>
+            
+            
+            <section><p>Next, pgfouine can help you detect high-frequency, redundant queries <em>across</em> multiple requests.</p>
+<p>On Debian or Ubuntu:</p>
+<pre>apt-get install pgfouine
+</pre>
+<p>Edit <tt class="docutils literal">postgresql.conf</tt>:</p>
+<pre><span class="n">log_min_duration_statement</span> <span class="o">=</span> <span class="mi">0</span> <span class="c"># log all statements with durations</span>
+<span class="n">log_line_prefix</span> <span class="o">=</span> <span class="s">&#39;%t [%p]: [%l-1] &#39;</span> <span class="c"># pgfouine-specific log prefix</span>
+<span class="n">lc_messages</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span> <span class="c"># character encoding pgfouine can understand</span>
+</pre>
+<p>After generating some load, run <tt class="docutils literal">pgfouine</tt> on your log file:</p>
+<pre>pgfouine -file /var/log/postgresql/postgresql.log -logtype stderr &gt; report.html
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 3: pgfouine</h1></header>
+            
+            
+            <section><img alt="static/pgfouine.png" class="align-center" src="static/pgfouine.png" /></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 4: Let's play cache</h1></header>
+            
+            
+            <section><p>We have the data, let's cache strategically.  Options:</p>
+<ul class="simple">
+<li>Django's per-site or per-view caches <strong>&lt;- this talk is not about these; you should be using them (if you can) anyways</strong></li>
+<li>Django's <strong>low-level cache API</strong></li>
+<li><strong>johnny-cache</strong> - Great if you need to cache everything</li>
+<li><strong>django-cache-machine</strong> - Great if you need to cache specific things in specific ways</li>
+<li>There are many others...</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Based on all the output from pgfouine, you should have a good sense of what queries will give you the most gain for caching.</li>
+<li>Find select statements that you don't expect to change often (if at all), and cache them</li>
+<li>Find a strategy that works for you; we tried to make johnny-cache work, but it was too much black magic for us</li>
+<li>We found django-cache-machine worked better; it allowed us to cache exactly what we want when we wanted in predictable ways</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>django-cache-machine</h1></header>
+            
+            
+            <section><p>Install it:</p>
+
+
+<p>Content block expected for the &quot;code-block&quot; directive; none found.</p>
+<pre class="literal-block">
+.. code-block:: python
+
+</pre>
+
+<p>pip install django-cache-machine</p>
+<p>Activate it:</p>
+<pre><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="n">cached</span> <span class="o">=</span> <span class="n">caching</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">CachingManager</span><span class="p">()</span>
+</pre>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>You can overwride the default manager or create a new one</li>
+<li>We chose the latter to make it explicit that you were caching</li>
+<li>This worked better for us, b/c there's nothing worse that debugging stale cache issues</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>django-cache-machine</h1></header>
+            
+            
+            <section><p>Some things to be aware of:</p>
+<ul class="simple">
+<li>django-cache-machine does not cache empty querysets by default.  If you have a lot these, you might want to turn this on:</li>
+</ul>
+<pre><span class="c"># settings.py</span>
+<span class="n">CACHE_EMPTY_QUERYSETS</span> <span class="o">=</span> <span class="bp">True</span>
+</pre>
+<ul class="simple">
+<li><tt class="docutils literal">count()</tt> cannot easily be invalidated, so these queries time out instead.  Set the timeout to something that makes sense for you:</li>
+</ul>
+<pre><span class="c"># settings.py</span>
+<span class="n">CACHE_COUNT_TIMEOUT</span> <span class="o">=</span> <span class="mi">300</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Multiple databases</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Streaming replication in PostgreSQL 9.1 is incredibly easy to set up.</li>
+<li>We needed to save the master database for writes, so we moved all the reads</li>
+</ul>
+
+
+
+<h1>Questions?</h1>
+<p>Tobias McNulty
+&#64;tobiasmcnulty</p>
+<p><a class="reference external" href="http://cakt.us/djangocon-scaling">http://cakt.us/djangocon-scaling</a></p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/19
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Scaling Your Write-Heavy Django App: A Case Study</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Talk Outline</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">About Me</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">5Essentials Schools Surveys</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">From Scantron...</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">About the Project</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">...to Scalable Web App</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Fast or Scalable?</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Why this talk?</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Architecture</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Step 1: django-debug-toolbar</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Step 1: django-debug-toolbar</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Step 2: Automate some load</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Step 3: pgfouine</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Step 3: pgfouine</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Step 4: Let's play cache</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">django-cache-machine</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">django-cache-machine</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Multiple databases</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>
