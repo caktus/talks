@@ -3,7 +3,6 @@ Fabric==1.4.3
 Jinja2==2.6
 Markdown==2.2.0
 Pygments==1.4
-distribute==0.6.28
 docutils==0.8.1
 pycrypto==2.6
 ssh==1.7.14
