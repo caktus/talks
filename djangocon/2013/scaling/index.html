@@ -573,6 +573,7 @@
             <section>
             
               <ul class="simple">
+<li>need a way to generate some load automatically, don't want to rely on manually clicking around the site, will be doing this in jmeter</li>
 <li>Simple tasks are easy enough to script manually, but it's a lot easier to script longer tasks (like filling out an entire survey) by recording.  JMeter has great tools for this; learn to use &amp; love them.</li>
 <li>You'll want to test different server environments (including your local machine), so practice DRY test script writing and take the time to setup good default for HTTP requests.</li>
 <li>The CSRF token can be a bit hair to keep track of at first, but once you have it set up it's easy to maintain.</li>
@@ -1036,7 +1037,7 @@
               <ul class="simple">
 <li>Django compressor is great and pulls together a number of important extras on top of django.contrib.staticfiles.</li>
 <li>It not only can compress + combine your CSS and JS, but can also do things like process your LESS or SAS files for you at deploy time.</li>
-<li>You really do not want things things taking up a Python web server process, so get them out of the way when you deploy and stop worrying about static media.</li>
+<li>You really do not want these things taking up a Python web server process, so get them out of the way when you deploy and stop worrying about static media.</li>
 </ul>
             
             </section>
@@ -1177,12 +1178,20 @@
 <li>Don't guess, make a spreadsheet</li>
 <li>Calculate how many connections you need to different services</li>
 <li>Make educated forecasts about capacity</li>
-</ul></section>
+</ul>
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>Before you take on a project like this, I highly recommend mapping out the key configuration items in a spreadsheet</li>
+<li>Helps you figure out what to set all the various connection limits and worker counts to</li>
+<li>Also helps forecase load capacity</li>
+</ul>
             
             </section>
           </div>
@@ -1208,12 +1217,19 @@
             
             
             <section><img alt="static/spreadsheet.png" class="align-center" src="static/spreadsheet.png" />
-<p>See: <a class="reference external" href="http://cakt.us/scaling-config">http://cakt.us/scaling-config</a></p></section>
+<p>See: <a class="reference external" href="http://cakt.us/scaling-config">http://cakt.us/scaling-config</a></p>
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>Here's an example of a spreadsheet we put together for this project</li>
+<li>There's a link to a google doc you can copy and tweak</li>
+</ul>
             
             </section>
           </div>
@@ -1239,9 +1255,9 @@
             
             
             <section><ul class="simple">
-<li>JMeter is great, but not useful above 400-600 threads on a laptop</li>
-<li>Need to run it in the cloud</li>
-<li>Do it yourself, or use BlazeMeter</li>
+<li>Single JMeter instance not useful above 400-600 threads</li>
+<li>Need to run load test from the cloud</li>
+<li>Do it yourself, or use BlazeMeter or another provider</li>
 </ul>
 
 </section>
@@ -1252,6 +1268,7 @@
             <section>
             
               <ul class="simple">
+<li>JMeter is great, but not useful above 400-600 threads on a laptop</li>
 <li>I played around with a few things for this, eventually settled on a service called BlazeMeter</li>
 <li>Lets you upload your JMeter scripts and deploy them to multiple EC2 servers, and collect the results</li>
 <li>Integrates with New Relic</li>
@@ -1372,6 +1389,7 @@
               <ul class="simple">
 <li>We disabled connection tracking and switched to the sync worker</li>
 <li>Bottleneck immediately transferred to the database INSERT statement</li>
+<li>What is happening here?</li>
 </ul>
             
             </section>
@@ -1525,6 +1543,7 @@
               <ul class="simple">
 <li>Increased database server size by several orders of magnitude - 68 GB of ram and 26 EC2 compute units</li>
 <li>DB server still slow and overloaded.. what is wrong?</li>
+<li>Went back and checked the math..</li>
 <li>Oops.. we're load testing 3x our target, swamping the servers with requests they can't process</li>
 <li>Make yourself a spreadsheet upfront so you don't make the same mistake I did</li>
 </ul>
@@ -1563,7 +1582,7 @@
             
               <ul class="simple">
 <li>database server response time is nice and fast</li>
-<li>redis is slower than the DB again</li>
+<li>redis is taking up more time than the DB again</li>
 </ul>
             
             </section>
@@ -1677,7 +1696,10 @@
             <section>
             
               <ul class="simple">
-<li>Oh right, two changes I forgot to add to version control</li>
+<li>Just to check everything, recreated all the servers</li>
+<li>Performance dropped significantly</li>
+<li>Discovered a couple database server configuration changes I neglected to add to version control</li>
+<li>Before getting to those, a couple notes on optimizing your pg config in general</li>
 </ul>
             
             </section>
@@ -1704,8 +1726,8 @@
             
             
             <section><ul class="simple">
-<li>pgtune</li>
 <li>Postgres When It's Not Your Job (thebuild.com)</li>
+<li>pgtune</li>
 <li><a class="reference external" href="http://cakt.us/pg-tuning">http://cakt.us/pg-tuning</a></li>
 <li><a class="reference external" href="http://cakt.us/pg-conns">http://cakt.us/pg-conns</a></li>
 </ul>
@@ -1718,8 +1740,9 @@
             <section>
             
               <ul class="simple">
-<li>pgtune is a quick and easy utility you can install through your package repo to generate some sane defaults for various postgres config options</li>
-<li>Our conference chair christophe gave an excellent talk last year titled Postgres When It's Not your Job.  You should get the slides and learn - it's amazing.</li>
+<li>Optimizing your Postgres config is a topic until itself</li>
+<li>Our conference chair christophe gave an excellent talk last year titled Postgres When It's Not your Job.  You should get the slides and read them - it's amazing.</li>
+<li>If you're looking for something quick, pgtune can be used to generate some sane defaults for a number of postgres config options</li>
 <li>The last two links are to the Postgres wiki; they provide a lot of valuable discussion about different config options and how they interact</li>
 </ul>
             
@@ -1760,10 +1783,10 @@
             <section>
             
               <ul class="simple">
-<li>It makes sense when think about it, but after a point, the more your database server is doing at once, the longer it takes for <strong>every</strong> task</li>
-<li>To a point, the lower you set max_connections, the better off you'll be</li>
-<li>Installing pgbouncer on your web servers directly limits the time spent opening connections</li>
-<li>Also allows you to use transaction-level isolation to share 2-3 connections across 30 web processes with no loss of performance</li>
+<li>After a point, the more your database server is doing at once, the longer it takes for <strong>every</strong> task</li>
+<li>The right value for this setting is determined by machine resouces, NOT how many connections you think you need to open</li>
+<li>You can use transaction-level isolation in pgbouncer to share 2-3 connections across 30 web processes with no loss of performance</li>
+<li>Installing pgbouncer on your web servers can also limit the time spent opening connections</li>
 <li>If you're already using supervisord, it's an easy addition to run pgbouncer to your config (rather than mucking around with files in /etc/)</li>
 </ul>
             
@@ -1787,13 +1810,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>What was this talk about again? Oh yeah, the writes..</h1></header>
+            <header><h1>What was this talk about again?</h1></header>
             
             
-            <section><ul class="simple">
+            <section><p>Optimizing <tt class="docutils literal">postgresql.conf</tt> for heavy <tt class="docutils literal">INSERT</tt> load:</p>
+<ul class="simple">
 <li><strong>commit_delay = 4000</strong> - delay each commit this many microseconds in case we can do a group commit</li>
 <li><strong>commit_siblings = 5</strong> - only delay if at least N transactions are in process</li>
 </ul>
+<p>(Note: this is now even better in PostgreSQL 9.2: <a class="reference external" href="http://cakt.us/pg-group-commit">http://cakt.us/pg-group-commit</a>)</p>
 
 </section>
             
@@ -1803,12 +1828,13 @@
             <section>
             
               <ul class="simple">
+<li>There's rarely a magic bullet in server configuration, but this turned out to be it for us.</li>
 <li>commit_delay - Rarely helps, but when it does, it helps a lot (and write-intensive applications are the perfect time to use it).</li>
 <li>It works by sleeping for a set number of microseconds immediately before syncing to disk</li>
 <li>When it wakes up, it checks to see if any other transactions are also sleeping before syncing</li>
-<li>It loops through all sleeping transactions, syncing their data to disk at the same time as its own</li>
+<li>It &quot;takes over&quot; all sleeping transactions, syncing their data to disk at the same time as its own</li>
 <li>When a transaction wakes up, it checks to see if it's already been sync'ed, and if it has, it returns immediately to the user</li>
-<li>This can make everything slower, but setting commit_siblings to a resonable value can make sure it only impacts performance when there might be something to be gained.</li>
+<li>While this can make everything slower, but setting commit_siblings to a resonable value can make sure it only impacts performance when there might be something to be gained.</li>
 </ul>
             
             </section>
@@ -2164,7 +2190,7 @@
       
       
       <tr id="toc-row-43">
-        <th><a href="#slide43">What was this talk about again? Oh yeah, the writes..</a></th>
+        <th><a href="#slide43">What was this talk about again?</a></th>
         <td><a href="#slide43">43</a></td>
       </tr>
       

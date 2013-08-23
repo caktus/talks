@@ -229,6 +229,7 @@ Before going any further, you need an easy way to generate load. JMeter's a good
 Presenter Notes
 ---------------
 
+- need a way to generate some load automatically, don't want to rely on manually clicking around the site, will be doing this in jmeter
 - Simple tasks are easy enough to script manually, but it's a lot easier to script longer tasks (like filling out an entire survey) by recording.  JMeter has great tools for this; learn to use & love them.
 - You'll want to test different server environments (including your local machine), so practice DRY test script writing and take the time to setup good default for HTTP requests.
 - The CSRF token can be a bit hair to keep track of at first, but once you have it set up it's easy to maintain.
@@ -448,7 +449,7 @@ Presenter Notes
 ---------------
 - Django compressor is great and pulls together a number of important extras on top of django.contrib.staticfiles.
 - It not only can compress + combine your CSS and JS, but can also do things like process your LESS or SAS files for you at deploy time.
-- You really do not want things things taking up a Python web server process, so get them out of the way when you deploy and stop worrying about static media.
+- You really do not want these things taking up a Python web server process, so get them out of the way when you deploy and stop worrying about static media.
 
 ----
 
@@ -517,6 +518,12 @@ Before we start
 - Calculate how many connections you need to different services
 - Make educated forecasts about capacity
 
+Presenter Notes
+---------------
+- Before you take on a project like this, I highly recommend mapping out the key configuration items in a spreadsheet
+- Helps you figure out what to set all the various connection limits and worker counts to
+- Also helps forecase load capacity
+
 ----
 
 Spreadsheet
@@ -527,18 +534,25 @@ Spreadsheet
 
 See: http://cakt.us/scaling-config
 
+Presenter Notes
+---------------
+
+- Here's an example of a spreadsheet we put together for this project
+- There's a link to a google doc you can copy and tweak
+
 ----
 
 Generating load at scale
 ========================
 
-- JMeter is great, but not useful above 400-600 threads on a laptop
-- Need to run it in the cloud
-- Do it yourself, or use BlazeMeter
+- Single JMeter instance not useful above 400-600 threads
+- Need to run load test from the cloud
+- Do it yourself, or use BlazeMeter or another provider
 
 Presenter Notes
 ---------------
 
+- JMeter is great, but not useful above 400-600 threads on a laptop
 - I played around with a few things for this, eventually settled on a service called BlazeMeter
 - Lets you upload your JMeter scripts and deploy them to multiple EC2 servers, and collect the results
 - Integrates with New Relic
@@ -587,6 +601,7 @@ Presenter Notes
 
 - We disabled connection tracking and switched to the sync worker
 - Bottleneck immediately transferred to the database INSERT statement
+- What is happening here?
 
 ----
 
@@ -645,6 +660,7 @@ Presenter Notes
 
 - Increased database server size by several orders of magnitude - 68 GB of ram and 26 EC2 compute units
 - DB server still slow and overloaded.. what is wrong?
+- Went back and checked the math..
 - Oops.. we're load testing 3x our target, swamping the servers with requests they can't process
 - Make yourself a spreadsheet upfront so you don't make the same mistake I did
 
@@ -660,7 +676,7 @@ Presenter Notes
 ---------------
 
 - database server response time is nice and fast
-- redis is slower than the DB again
+- redis is taking up more time than the DB again
 
 ----
 
@@ -702,23 +718,27 @@ recreate from scratch, test again
 Presenter Notes
 ---------------
 
-- Oh right, two changes I forgot to add to version control
+- Just to check everything, recreated all the servers
+- Performance dropped significantly
+- Discovered a couple database server configuration changes I neglected to add to version control
+- Before getting to those, a couple notes on optimizing your pg config in general
 
 ----
 
 Optimizing your PostgreSQL config
 =================================
 
-- pgtune
 - Postgres When It's Not Your Job (thebuild.com)
+- pgtune
 - http://cakt.us/pg-tuning
 - http://cakt.us/pg-conns
 
 Presenter Notes
 ---------------
 
-- pgtune is a quick and easy utility you can install through your package repo to generate some sane defaults for various postgres config options
-- Our conference chair christophe gave an excellent talk last year titled Postgres When It's Not your Job.  You should get the slides and learn - it's amazing.
+- Optimizing your Postgres config is a topic until itself
+- Our conference chair christophe gave an excellent talk last year titled Postgres When It's Not your Job.  You should get the slides and read them - it's amazing.
+- If you're looking for something quick, pgtune can be used to generate some sane defaults for a number of postgres config options
 - The last two links are to the Postgres wiki; they provide a lot of valuable discussion about different config options and how they interact
 
 ----
@@ -733,29 +753,34 @@ Figuring out max_connections
 Presenter Notes
 ---------------
 
-- It makes sense when think about it, but after a point, the more your database server is doing at once, the longer it takes for **every** task
-- To a point, the lower you set max_connections, the better off you'll be
-- Installing pgbouncer on your web servers directly limits the time spent opening connections
-- Also allows you to use transaction-level isolation to share 2-3 connections across 30 web processes with no loss of performance
+- After a point, the more your database server is doing at once, the longer it takes for **every** task
+- The right value for this setting is determined by machine resouces, NOT how many connections you think you need to open
+- You can use transaction-level isolation in pgbouncer to share 2-3 connections across 30 web processes with no loss of performance
+- Installing pgbouncer on your web servers can also limit the time spent opening connections
 - If you're already using supervisord, it's an easy addition to run pgbouncer to your config (rather than mucking around with files in /etc/)
 
 ----
 
-What was this talk about again? Oh yeah, the writes..
-=====================================================
+What was this talk about again?
+===============================
+
+Optimizing ``postgresql.conf`` for heavy ``INSERT`` load:
 
 - **commit_delay = 4000** - delay each commit this many microseconds in case we can do a group commit
 - **commit_siblings = 5** - only delay if at least N transactions are in process
 
+(Note: this is now even better in PostgreSQL 9.2: http://cakt.us/pg-group-commit)
 
 Presenter Notes
 ---------------
+
+- There's rarely a magic bullet in server configuration, but this turned out to be it for us.
 - commit_delay - Rarely helps, but when it does, it helps a lot (and write-intensive applications are the perfect time to use it).
 - It works by sleeping for a set number of microseconds immediately before syncing to disk
 - When it wakes up, it checks to see if any other transactions are also sleeping before syncing
-- It loops through all sleeping transactions, syncing their data to disk at the same time as its own
+- It "takes over" all sleeping transactions, syncing their data to disk at the same time as its own
 - When a transaction wakes up, it checks to see if it's already been sync'ed, and if it has, it returns immediately to the user
-- This can make everything slower, but setting commit_siblings to a resonable value can make sure it only impacts performance when there might be something to be gained.
+- While this can make everything slower, but setting commit_siblings to a resonable value can make sure it only impacts performance when there might be something to be gained.
 
 ----
 
