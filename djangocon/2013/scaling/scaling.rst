@@ -291,6 +291,27 @@ Some things to be aware of:
     # settings.py
     CACHE_COUNT_TIMEOUT = 300
 
+Presenter Notes
+---------------
+
+- Once you have caching setup, **use pgfouine to verify that it did what you expected**
+
+----
+
+pgfouine, before
+================
+
+.. image:: static/pgfouine-before.png
+    :align: center
+
+----
+
+pgfouine, after
+================
+
+.. image:: static/pgfouine-after.png
+    :align: center
+
 ----
 
 Step 5: Multiple databases
