@@ -3,9 +3,10 @@ Scaling Your Write-Heavy Django App: A Case Study
 =================================================
 
 Tobias McNulty
-@tobiasmcnulty
 
-http://cakt.us/djangocon-scaling
+`@tobiasmcnulty <https://twitter.com/tobiasmcnulty>`_
+
+Slides: http://cakt.us/djangocon-scaling
 
 ----
 
@@ -30,8 +31,14 @@ Talk Outline
 About Me
 ========
 
-* I help run Caktus - we build custom Python/Django web apps in NC
+* I help run Caktus
+* We build custom Python/Django web apps in NC
 * Developer with a penchant for infrastructure
+
+Presenter Notes
+---------------
+- I'm a co-founder and managing member at Caktus Group in Chapel Hill NC
+- I'm a developer, but might be a sysadmin at heart.
 
 ----
 
@@ -50,6 +57,13 @@ Schools with strong scores on at least 3 of these are 10 times more likely to im
 
 See: http://uchicagoimpact.org/5essentials/
 
+Presenter Notes
+---------------
+
+- I'll be talking about a client project we've been working on at Caktus for the past 2 years
+- 5 essentials survey admin module
+- This group, here in Chicago, has been conducting surveys for years geared towards improving educational outcomes
+
 ----
 
 From Scantron...
@@ -59,6 +73,12 @@ From Scantron...
     :align: center
 
 Image: http://www.flickr.com/photos/thedavisblog/2230010178
+
+Presenter Notes
+---------------
+
+- Traditionally this was done via Scantron
+- But, in 2011, Caktus was approached by the 5E / UChicago team to help build a highly scalable web application in Django
 
 ----
 
@@ -74,7 +94,11 @@ About the Project
 Presenter Notes
 ---------------
 
+- The first survey was administered with the system in early 2012, for Chicago Public Schools
 - CPS is 3rd largest in US, over 400,000 students
+- 5E has a number of clients outside Chicago
+- As of 2013 this inclues the Illinois State Board of Education
+
 
 ----
 
@@ -84,6 +108,11 @@ Presenter Notes
 .. image:: static/survey.jpg
     :align: center
 
+Presenter Notes
+---------------
+
+- Earlier this year they conducted the first state-wide survey using this tool, for over 2 million parents, students, and teachers
+
 ----
 
 Fast or Scalable?
@@ -91,6 +120,11 @@ Fast or Scalable?
 
 - Fast: the code runs quickly
 - Scalable: runs acceptably (or better) for lots of people
+
+Presenter Notes
+---------------
+
+- Just a quick reminder, this talk is not about making your code fast, it's about making infrastructure that can scale
 
 ----
 
@@ -104,6 +138,11 @@ Scaling read-heavy web apps is easy:
 
 Taking a survey means saving lots of data really fast.
 
+Presenter Notes
+---------------
+
+- Furthermore, this talk is unique because it's about doing lots of database writes, which is usually a harder problem to solve
+
 ----
 
 Architecture
@@ -111,21 +150,24 @@ Architecture
 
 - Python 2.7
 - Django 1.5
-- Python 2.7
 - PostgreSQL 9.1
 - Nginx
 - Gunicorn
+- S3 for static media
 - Celery
+- RabbitMQ
 - Redis
 - Memcached
-- RabbitMQ
-- S3 for static media
 
 Presenter Notes
 ---------------
 
-- Before we dive in, I wanted to give you an overview of what we have to work with tools-wise
-- 
+- Before we dive in, here's a quick overview of what we have to work with tools-wise
+- The usual suspects, Python 2.7, Django 1.5, and Postgres 9.1
+- For web server we're using Nginx to proxy a set of Gunicorn workers, and S3 for static media
+- We're using Celery and rabbitMQ for background tasks
+- Redis for sessions
+- And memcached for a cache
 
 ----
 
@@ -148,8 +190,11 @@ And add it to your local development settings file:
 
 Presenter Notes
 ---------------
-- If you haven't used it, you really need to now, and it's really easy to install
-- Need to eliminate unnecessary SQL queries on high-traffic pages
+
+- The first step in any scaling project should generally be to make sure you're not doing anything too crazy code- or DB-wise
+- If you haven't used it, you really need get django-debug-toolbar now
+- It's really easy to install and use
+- Helps eliminate unnecessary SQL queries on high-traffic pages
 - Don't blindly optimize everything, focus on pages that'll give you the most gain
 
 ----
@@ -311,6 +356,11 @@ pgfouine, after
 
 .. image:: static/pgfouine-after.png
     :align: center
+
+Presenter Notes
+---------------
+
+- As you can see, a little caching quickly cut the SELECT statements by 25,000, to less than 10% of its former value
 
 ----
 
@@ -479,13 +529,258 @@ See: http://cakt.us/scaling-config
 
 ----
 
+Generating load at scale
+========================
+
+- JMeter is great, but not useful above 400-600 threads on a laptop
+- Need to run it in the cloud
+- Do it yourself, or use BlazeMeter
+
+Presenter Notes
+---------------
+
+- I played around with a few things for this, eventually settled on a service called BlazeMeter
+- Lets you upload your JMeter scripts and deploy them to multiple EC2 servers, and collect the results
+- Integrates with New Relic
+- (Neither of these companies are paying me to say this, though they probably should)
+
+----
+
+survey_change_page, gevent
+==========================
+
+.. image:: static/nr1/sample1.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- Here's one of the first graphs we saved while load testing
+- From the main view for survey taking that does the writes to disk
+- The big bars are redis GET and SET
+
+----
+
+What's going on?
+================
+
+- redis oddly slow, but not overloaded
+- Also saw nf_conntrack errors in dmesg
+
+Presenter Notes
+---------------
+
+- Redis appeared to be slow in new relic, but when tested from the console, it was lightning fast (even under load).
+- We were getting lots of nf_conntrack errors in dmesg
+- This is using the gevent worker, which uses an event loop to process lots of requests in the same thread
+
+----
+
+survey_change_page, sync
+========================
+
+.. image:: static/nr2/sample2.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- We disabled connection tracking and switched to the sync worker
+- Bottleneck immediately transferred to the database INSERT statement
+
+----
+
+What was happening?
+===================
+
+- gevent worker is really bad for CPU-bound applications
+- Makes I/O **look** expensive
+
+Presenter Notes
+---------------
+
+- gevent worker is intended for long-polling applications, when you need to open lots of inactive HTTP connections
+- This can be really bad for CPU-bound applications that open and close lots of connections
+- Can make I/O look expensive, when the real problem is each thread is trying to process too many requests at once
+- The Linux kernel is really good at pre-emptive multitasking.  You should let it do its job and use the sync worker for CPU bound applications.
+- Moving on, now we have a new problem...
+
+----
+
+database reponse time
+=====================
+
+.. image:: static/nr2/dashboard-crash.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- As you can see, DB response time sky rockets, and the server eventually crashes before the test is complete
+
+----
+
+database falls over
+=====================
+
+.. image:: static/nr2/pg-crash.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- Here's a screenshot of TOP immediately before the crash; lots of defunct postgres processes and a load average of 182.
+- Not good.
+
+----
+
+database still overloaded
+=========================
+
+.. image:: static/nr3/sample3.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- Increased database server size by several orders of magnitude - 68 GB of ram and 26 EC2 compute units
+- DB server still slow and overloaded.. what is wrong?
+- Oops.. we're load testing 3x our target, swamping the servers with requests they can't process
+- Make yourself a spreadsheet upfront so you don't make the same mistake I did
+
+----
+
+the right target load
+=====================
+
+.. image:: static/nr4/sample4.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- database server response time is nice and fast
+- redis is slower than the DB again
+
+----
+
+requests are right where we want
+================================
+
+.. image:: static/nr4/dashboard-pre-final.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- target reqs/min are right where we want at 75,000
+
+----
+
+postgres transactions are through the roof
+==========================================
+
+.. image:: static/nr4/pg-transactions.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- postgresql master transactions hit over 9,500 per second
+- the majority of them writes
+- wow!
+
+----
+
+recreate from scratch, test again
+=================================
+
+- Recreated all servers from scratch
+- Response time was no where near what it was before
+- Postgres could barely hit 6,000 transactions/second
+
+Presenter Notes
+---------------
+
+- Oh right, two changes I forgot to add to version control
+
+----
+
+Optimizing your PostgreSQL config
+=================================
+
+- pgtune
+- Postgres When It's Not Your Job (thebuild.com)
+- http://cakt.us/pg-tuning
+- http://cakt.us/pg-conns
+
+Presenter Notes
+---------------
+
+- pgtune is a quick and easy utility you can install through your package repo to generate some sane defaults for various postgres config options
+- Our conference chair christophe gave an excellent talk last year titled Postgres When It's Not your Job.  You should get the slides and learn - it's amazing.
+- The last two links are to the Postgres wiki; they provide a lot of valuable discussion about different config options and how they interact
+
+----
+
+Figuring out max_connections
+============================
+
+- Base max_connections on database server resources, not web server count
+- Use pgbouncer to share a small number of persistent connections
+- Run pgbouncer on your web servers using ``supervisord``
+
+Presenter Notes
+---------------
+
+- It makes sense when think about it, but after a point, the more your database server is doing at once, the longer it takes for **every** task
+- To a point, the lower you set max_connections, the better off you'll be
+- Installing pgbouncer on your web servers directly limits the time spent opening connections
+- Also allows you to use transaction-level isolation to share 2-3 connections across 30 web processes with no loss of performance
+- If you're already using supervisord, it's an easy addition to run pgbouncer to your config (rather than mucking around with files in /etc/)
+
+----
+
+What was this talk about again? Oh yeah, the writes..
+=====================================================
+
+- **commit_delay = 4000** - delay each commit this many microseconds in case we can do a group commit
+- **commit_siblings = 5** - only delay if at least N transactions are in process
+
+
+Presenter Notes
+---------------
+- commit_delay - Rarely helps, but when it does, it helps a lot (and write-intensive applications are the perfect time to use it).
+- It works by sleeping for a set number of microseconds immediately before syncing to disk
+- When it wakes up, it checks to see if any other transactions are also sleeping before syncing
+- It loops through all sleeping transactions, syncing their data to disk at the same time as its own
+- When a transaction wakes up, it checks to see if it's already been sync'ed, and if it has, it returns immediately to the user
+- This can make everything slower, but setting commit_siblings to a resonable value can make sure it only impacts performance when there might be something to be gained.
+
+----
+
+Another option
+==============
+
+- **synchronous_commit = off** - don't wait for fsync before returning success
+
+
+Presenter Notes
+---------------
+- Another useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit
+- It's not as bad as disabling fsync b/c there's no risk of data inconsistency
+- But IF the server crashes BEFORE it can call fsync but AFTEr it returns success to the user, there might be an inconsistency between what the user thinks was saved and what was actually saved. 
+- Obviously this is not good for banking transactions, but there are plenty of other less critical applications out there that might benefit from disabling this feature in Postgres.
+- We did not use this in the survey app because commit_delay got us where we needed to be.
+
+----
 
 Questions?
 ==========
 
-Tobias McNulty
-@tobiasmcnulty
-
-http://cakt.us/djangocon-scaling
+- Tobias McNulty
+- Twitter: `@tobiasmcnulty <https://twitter.com/tobiasmcnulty>`_
+- Hire us: http://www.caktusgroup.com
+- Slides: http://cakt.us/djangocon-scaling
 
 
