@@ -74,7 +74,7 @@
             </aside>
             
             <aside class="page_number">
-              1/19
+              1/27
             </aside>
           </footer>
         </div>
@@ -90,13 +90,14 @@
             
             <section><ul class="simple">
 <li>Introductions</li>
-<li>Eliminating gross inefficiencies with django-debug-toolbar</li>
-<li>Analyzing your Postgres logs for repetitive queries</li>
-<li>Establishing a platform you can use to test</li>
+<li>Removing extra queries with django-debug-toolbar</li>
 <li>Creating a test script with JMeter</li>
+<li>Analyzing your Postgres logs for repetitive queries</li>
+<li>Set up caching</li>
+<li>Configuring multiple databases</li>
+<li>Static media</li>
+<li>Automated deployment</li>
 <li>Running your test script at scale</li>
-<li>Interpreting load test results</li>
-<li>Things we tried that didn’t work</li>
 <li>Optimizing your web server configuration</li>
 <li>Final tweaks to your Postgres configuration</li>
 </ul></section>
@@ -115,7 +116,7 @@
             </aside>
             
             <aside class="page_number">
-              2/19
+              2/27
             </aside>
           </footer>
         </div>
@@ -148,7 +149,7 @@
             </aside>
             
             <aside class="page_number">
-              3/19
+              3/27
             </aside>
           </footer>
         </div>
@@ -187,7 +188,7 @@
             </aside>
             
             <aside class="page_number">
-              4/19
+              4/27
             </aside>
           </footer>
         </div>
@@ -218,7 +219,7 @@
             </aside>
             
             <aside class="page_number">
-              5/19
+              5/27
             </aside>
           </footer>
         </div>
@@ -234,9 +235,9 @@
             
             <section><p><strong>5Essentials Survey Admin Module (SAM)</strong></p>
 <ul class="simple">
-<li>April 2011: Hired by UChicago / 5Essentials</li>
-<li>February 2012: First survey for Chicago Public Schools (~400,000 students)</li>
-<li>February 2013: Illinois state-wide Survey (2 million students, teachers, and parents)</li>
+<li>2011: Caktus hired by UChicago / 5Essentials</li>
+<li>2012: First survey for Chicago Public Schools (~400,000 students)</li>
+<li>2013: First Illinois state-wide survey (2 million students, teachers, and parents)</li>
 </ul>
 
 </section>
@@ -259,7 +260,7 @@
             </aside>
             
             <aside class="page_number">
-              6/19
+              6/27
             </aside>
           </footer>
         </div>
@@ -289,7 +290,7 @@
             </aside>
             
             <aside class="page_number">
-              7/19
+              7/27
             </aside>
           </footer>
         </div>
@@ -322,7 +323,7 @@
             </aside>
             
             <aside class="page_number">
-              8/19
+              8/27
             </aside>
           </footer>
         </div>
@@ -357,7 +358,7 @@
             </aside>
             
             <aside class="page_number">
-              9/19
+              9/27
             </aside>
           </footer>
         </div>
@@ -383,12 +384,19 @@
 <li>Memcached</li>
 <li>RabbitMQ</li>
 <li>S3 for static media</li>
-</ul></section>
+</ul>
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>Before we dive in, I wanted to give you an overview of what we have to work with tools-wise</li>
+<li></li>
+</ul>
             
             </section>
           </div>
@@ -399,7 +407,7 @@
             </aside>
             
             <aside class="page_number">
-              10/19
+              10/27
             </aside>
           </footer>
         </div>
@@ -444,7 +452,7 @@
             </aside>
             
             <aside class="page_number">
-              11/19
+              11/27
             </aside>
           </footer>
         </div>
@@ -486,7 +494,7 @@
             </aside>
             
             <aside class="page_number">
-              12/19
+              12/27
             </aside>
           </footer>
         </div>
@@ -531,7 +539,7 @@
             </aside>
             
             <aside class="page_number">
-              13/19
+              13/27
             </aside>
           </footer>
         </div>
@@ -572,7 +580,7 @@
             </aside>
             
             <aside class="page_number">
-              14/19
+              14/27
             </aside>
           </footer>
         </div>
@@ -602,7 +610,7 @@
             </aside>
             
             <aside class="page_number">
-              15/19
+              15/27
             </aside>
           </footer>
         </div>
@@ -648,7 +656,7 @@
             </aside>
             
             <aside class="page_number">
-              16/19
+              16/27
             </aside>
           </footer>
         </div>
@@ -663,15 +671,8 @@
             
             
             <section><p>Install it:</p>
-
-
-<p>Content block expected for the &quot;code-block&quot; directive; none found.</p>
-<pre class="literal-block">
-.. code-block:: python
-
+<pre><span class="n">pip</span> <span class="n">install</span> <span class="n">django</span><span class="o">-</span><span class="n">cache</span><span class="o">-</span><span class="n">machine</span>
 </pre>
-
-<p>pip install django-cache-machine</p>
 <p>Activate it:</p>
 <pre><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="c"># ...</span>
@@ -700,7 +701,7 @@
             </aside>
             
             <aside class="page_number">
-              17/19
+              17/27
             </aside>
           </footer>
         </div>
@@ -742,7 +743,7 @@
             </aside>
             
             <aside class="page_number">
-              18/19
+              18/27
             </aside>
           </footer>
         </div>
@@ -753,8 +754,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Multiple databases</h1></header>
+            <header><h1>Step 5: Multiple databases</h1></header>
             
+            
+            <section><ul class="simple">
+<li><strong>Replication:</strong> Streaming replication in PostgreSQL 9.1</li>
+<li><strong>Database routing:</strong> django-balancer</li>
+</ul>
+
+</section>
             
           </div>
           <div class="presenter_notes">
@@ -762,16 +770,9 @@
             <section>
             
               <ul class="simple">
-<li>Streaming replication in PostgreSQL 9.1 is incredibly easy to set up.</li>
-<li>We needed to save the master database for writes, so we moved all the reads</li>
+<li>Streaming replication in PostgreSQL 9.1 is incredibly easy to set up. You should learn to use and love it.</li>
+<li>To get multiple databases working in Django you need to use a custom database router.  A good source we've found for this is django-balancer</li>
 </ul>
-
-
-
-<h1>Questions?</h1>
-<p>Tobias McNulty
-&#64;tobiasmcnulty</p>
-<p><a class="reference external" href="http://cakt.us/djangocon-scaling">http://cakt.us/djangocon-scaling</a></p>
             
             </section>
           </div>
@@ -782,7 +783,359 @@
             </aside>
             
             <aside class="page_number">
-              19/19
+              19/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>django-balancer</h1></header>
+            
+            
+            <section><p>Install it:</p>
+<pre>pip install django-balancer
+</pre>
+<p>Configure it:</p>
+<pre><span class="n">DATABASE_ROUTERS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;balancer.routers.PinningWMSRouter&#39;</span><span class="p">]</span>
+<span class="n">MIDDLEWARE_CLASSES</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;balancer.middleware.PinningCookieMiddleware&#39;</span><span class="p">)</span>
+<span class="n">DATABASE_POOL</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">&#39;default&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s">&#39;db-slave&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">MASTER_DATABASE</span> <span class="o">=</span> <span class="s">&#39;default&#39;</span>
+<span class="n">MASTER_PINNING_KEY</span> <span class="o">=</span> <span class="s">&#39;master_db_pinned&#39;</span>
+<span class="n">MASTER_PINNING_SECONDS</span> <span class="o">=</span> <span class="mi">5</span>
+</pre>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>This is a good setup for a master/slave databases</li>
+<li>It sends writes to the master and reads to the slaves, unless a session has written to master in which case reads will also be pinned to the master for 5 seconds.  This avoids data &quot;disappearing&quot; if you attempt to read it back before it propagates to the slave.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Custom database router</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>In survey app, most common views always write to DB</li>
+<li>Some models don't change during survey taking (those describing the survey)</li>
+<li>Send all reads to slave for some (not all) models</li>
+</ul>
+<p>See: <a class="reference external" href="http://cakt.us/scaling-router">http://cakt.us/scaling-router</a></p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>There's a problem with this</li>
+<li>Some sessions (e.g., survey taking) write to the DB on every request</li>
+<li>BUT some models never change</li>
+<li>We wrote a simple database router based on django-balancer that makes some models &quot;read only&quot; during certain views</li>
+<li>Just wrap the views you care about with the given decorator, and SELECT queries for the given models will always go to a slave</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 6: Static Media</h1></header>
+            
+            
+            <section><p>... is simple and painless if you:</p>
+<ol class="arabic simple">
+<li>Use <tt class="docutils literal">django_compressor</tt>.</li>
+<li>Put your media on S3 or CloudFiles.</li>
+<li>Please, please, <em>please</em> enable offline compression.</li>
+<li>Put a version number in your compress manifest name:</li>
+</ol>
+<pre><span class="n">COMPRESS_OFFLINE_MANIFEST</span> <span class="o">=</span> <span class="s">&#39;manifest-{{ current_changeset }}.json&#39;</span>
+</pre>
+<ol class="arabic simple" start="5">
+<li>If your <tt class="docutils literal">{% compress %}</tt> template tag needs to be in an {% if  %} tag, put it in its own template and <tt class="docutils literal">{% include %}</tt> it.</li>
+</ol>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Django compressor is great and pulls together a number of important extras on top of django.contrib.staticfiles.</li>
+<li>It not only can compress + combine your CSS and JS, but can also do things like process your LESS or SAS files for you at deploy time.</li>
+<li>You really do not want things things taking up a Python web server process, so get them out of the way when you deploy and stop worrying about static media.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Step 7: Automated Server Provisioning</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Chef, Puppet, or Salt for server configuration</li>
+<li>We used FabulAWS which has declarative configuration in Python</li>
+<li>Use Fabric or something similar to deploy</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Picking an automated server provisioning and deployment tool set is really important</li>
+<li>There's no point trying to scale if you can't quickly and easily create, destroy, and update servers of all types (database, cache, web, worker, etc.)</li>
+<li>This setup is a topic unto itself, but find something that works for you, stick to it, and perfect it.</li>
+<li>If we were to do it over again, today, I'd definitely use Salt instead of rolling our own.  I prefer Python so I'm not a huge fan of Chef or Puppet.</li>
+<li>This becomes particularly important when it comes time to tweak server configuration files on 10-20 web servers at once.  You DO NOT want to be doing that manually.</li>
+</ul>
+
+
+
+<h1>Quick Review</h1>
+<p>So far we have:</p>
+<ul class="simple">
+<li>Removed excess queries with django-debug-toolbar and pgfouine</li>
+<li>Implemented a basic load testing script in JMeter</li>
+<li>Set up caching for repetative queries</li>
+<li>Moved all our reads to a slave database</li>
+<li>Automated deployment and offloaded static media</li>
+</ul>
+
+<h2>Presenter Notes</h2>
+<ul class="simple">
+<li>Now comes the fun part</li>
+<li>We have all the ground work in place</li>
+<li>We're not doing anything overly stupid (or so we think)</li>
+<li>Let's try load testing at scale</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why load test?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Obtain estimates of per-web server capacity</li>
+<li>Correctly size your database servers</li>
+<li>Fix any configuration bottlenecks</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>There are lots of good reasons to load test, most of which fall along the same lines of why we do any testing</li>
+<li>We want to discover problems and fix them before our users see them</li>
+<li>In this case, we're really testing the infrastructure itself</li>
+<li>Did we configure all the different services correctly?</li>
+<li>Can my servers handle the load?</li>
+<li>Problems of scale are particulary easy to ignore, because you really don't see them during development unless you try really hard</li>
+<li>Conversely, load testing lets you avoid premature optimization by backing up configuration choices with real data rather than abstract guesses</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Before we start</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Many interdependent configs</li>
+<li>Don't guess, make a spreadsheet</li>
+<li>Calculate how many connections you need to different services</li>
+<li>Make educated forecasts about capacity</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Spreadsheet</h1></header>
+            
+            
+            <section><img alt="static/spreadsheet.png" class="align-center" src="static/spreadsheet.png" />
+<p>See: <a class="reference external" href="http://cakt.us/scaling-config">http://cakt.us/scaling-config</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Questions?</h1></header>
+            
+            
+            <section><p>Tobias McNulty
+&#64;tobiasmcnulty</p>
+<p><a class="reference external" href="http://cakt.us/djangocon-scaling">http://cakt.us/djangocon-scaling</a></p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst">/home/tobias/caktus/talks/djangocon/2013/scaling/scaling.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/27
             </aside>
           </footer>
         </div>
@@ -905,8 +1258,56 @@
       
       
       <tr id="toc-row-19">
-        <th><a href="#slide19">Multiple databases</a></th>
+        <th><a href="#slide19">Step 5: Multiple databases</a></th>
         <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">django-balancer</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">Custom database router</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">Step 6: Static Media</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">Step 7: Automated Server Provisioning</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-24">
+        <th><a href="#slide24">Why load test?</a></th>
+        <td><a href="#slide24">24</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">Before we start</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-26">
+        <th><a href="#slide26">Spreadsheet</a></th>
+        <td><a href="#slide26">26</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-27">
+        <th><a href="#slide27">Questions?</a></th>
+        <td><a href="#slide27">27</a></td>
       </tr>
       
       
