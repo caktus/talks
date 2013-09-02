@@ -10,24 +10,6 @@ Slides: http://cakt.us/djangocon-scaling
 
 ----
 
-Talk Outline
-============
-
-- Introductions
-- Removing extra queries with django-debug-toolbar
-- Creating a test script with JMeter
-- Analyzing your Postgres logs for repetitive queries
-- Set up caching
-- Configuring multiple databases
-- Static media
-- Automated deployment
-- Running your test script at scale
-- Optimizing your web server configuration
-- Final tweaks to your Postgres configuration
-
-----
-
-
 About Me
 ========
 
@@ -39,6 +21,21 @@ Presenter Notes
 ---------------
 - I'm a co-founder and managing member at Caktus Group in Chapel Hill NC
 - I'm a developer, but might be a sysadmin at heart.
+
+----
+
+Talk Outline
+============
+
+- Project Overview
+- Scaling Phase I: Chicago Public Schools
+- Scaling Phase II: The State of Illinois
+- Optimizing Your PostgreSQL Config
+
+----
+
+Project Overview
+================
 
 ----
 
@@ -115,6 +112,45 @@ Presenter Notes
 
 ----
 
+Survey Composition
+==================
+
+- Up to 50-60 pages per survey
+- Around 4-6 questions per page
+- Respondents complete in an hour or less
+
+Presenter Notes
+---------------
+
+- Before we start talking about scaling it's helpful to have a sense of what a typical survey might look like
+- The surveys are typically broken up into quite a few pages with several questions on each page
+- Each student is allotted an hour to take it (they don't usually take the full amount of time)
+
+----
+
+Write-heavy App
+===============
+
+- Many auxiliary views (about 80)
+- Roughly 5 high-use views for survey taking:
+    - ``survey_login`` - Login page
+    - ``survey_display`` - Load main page for survey taking
+    - ``survey_change_page`` - Ajax ``POST`` URL (for saving current data)
+    - ``survey_content`` - Ajax ``GET`` URL (for next page)
+    - ``survey_complete`` - Non-ajax ``GET`` upon survey completion
+- ``Model.objects.bulk_create()`` helps
+
+Presenter Notes
+---------------
+
+- The project is quite large, with about 85 Django views in total and at least 40 custom models
+- Only about 5 of those views really matter scaling-wise
+- The remaining 80 or so are for use by administrators uploading surveys or rosters, downloading responses, managing users, and other related tasks
+- A core requirement was to save the results to disk on each page submission, so the survey_change_page view is doing a lot of writes
+- This means 4-5 INSERT statements per page, which can be grouped into one statement using the bulk_create method in Django 1.4
+
+----
+    
 Fast or Scalable?
 =================
 
@@ -124,24 +160,10 @@ Fast or Scalable?
 Presenter Notes
 ---------------
 
-- Just a quick reminder, this talk is not about making your code fast, it's about making infrastructure that can scale
-
-----
-
-Why this talk?
-==============
-
-Scaling read-heavy web apps is easy:
-
-- Add caching, add web servers
-- Rinse, repeat
-
-Taking a survey means saving lots of data really fast.
-
-Presenter Notes
----------------
-
-- Furthermore, this talk is unique because it's about doing lots of database writes, which is usually a harder problem to solve
+- This brings up the good point that this talk is not about making your code fast, it's about making infrastructure that can scale
+- We really don't care about those other 80 views for scaling purposes
+- The main problem we're likely to run into is inserting all that data into the response items table
+- As well as all the usual suspects in terms of server configuration
 
 ----
 
@@ -171,6 +193,36 @@ Presenter Notes
 
 ----
 
+Systems Diagram
+===============
+
+.. image:: static/CCSR_server_diagram.png
+    :align: center
+
+----
+
+Scaling Phase I: Chicago Public Schools
+=======================================
+
+----
+
+Phase I Scaling Target
+======================
+
+- About 210,000 students (400,000 eligible)
+- About 24,000 teachers
+- Up to 8,000 survey takers per hour
+- Around 275 requests/second
+
+Presenter Notes
+---------------
+
+- The first phase of scaling was relatively straight forward; a single laptop could simulate enough load to mimick the maximum expected requests per second.
+- We completed this first round of scaling at the end of 2011, before the start of the first web-based Chicago Public Schools survey
+- The following steps roughly outline the approach we took to hitting this target
+
+----
+
 Step 1: django-debug-toolbar
 ============================
 
@@ -192,20 +244,20 @@ Presenter Notes
 ---------------
 
 - The first step in any scaling project should generally be to make sure you're not doing anything too crazy code- or DB-wise
-- If you haven't used it, you really need get django-debug-toolbar now
-- It's really easy to install and use
-- Helps eliminate unnecessary SQL queries on high-traffic pages
+- Hopefully all of you are already using django-debug-toolbar, but just in case, I threw in this slide
+- Easy to install; helps eliminate unnecessary SQL queries on high-traffic pages
 - Don't blindly optimize everything, focus on pages that'll give you the most gain
 
 ----
 
-Step 1: django-debug-toolbar
-============================
+Step 1: Common query reduction patterns
+=======================================
 
 Common patterns include:
 
 - **select_related:** When iterating through a list of model objects, use ``select_related()`` with specific field names to retrieve everything you need in one query. Make sure the combined query isn't more expensive.
 - **request-local caching:** Find identical queries that you make multiple times during the same request, and cache their output on the request or other relevant Python object (not via ``django.core.cache``)
+- **write-through cache:** Find rows that you write (e.g., in a ``POST`` view) and then read back (e.g., in the subsequent ``GET`` view) and cache them in your model's ``save()`` method (see http://cakt.us/scaling-write-cache)
 
 Presenter Notes
 ---------------
@@ -213,6 +265,7 @@ Presenter Notes
 - Remember, we want to limit the total amount of stuff that the DB server has to do
 - Ultimately we only care about writes, but if the database server is doing lots of unnecessary reads, that'll slow it down
 - Some but not all of this can be taken care of with a DB slave
+- We implemented a simple write-through cache for commonly written and re-read data, linked to here
 
 ----
 
@@ -281,6 +334,7 @@ We have the data, let's cache strategically.  Options:
 - Django's **low-level cache API**
 - **johnny-cache** - Great if you need to cache everything
 - **django-cache-machine** - Great if you need to cache specific things in specific ways
+- **django-better-cache** - Replacement {% cache %} template tag
 - There are many others...
 
 Presenter Notes
@@ -293,8 +347,8 @@ Presenter Notes
 
 ----
 
-django-cache-machine
-====================
+Step 4: django-cache-machine
+============================
 
 Install it:
 
@@ -318,8 +372,8 @@ Presenter Notes
 
 ----
 
-django-cache-machine
-====================
+Step 4: django-cache-machine
+============================
 
 Some things to be aware of:
 
@@ -344,16 +398,16 @@ Presenter Notes
 
 ----
 
-pgfouine, before
-================
+Step 4: pgfouine, before
+========================
 
 .. image:: static/pgfouine-before.png
     :align: center
 
 ----
 
-pgfouine, after
-================
+Step 4: pgfouine, after
+=======================
 
 .. image:: static/pgfouine-after.png
     :align: center
@@ -426,6 +480,7 @@ Presenter Notes
 - BUT some models never change
 - We wrote a simple database router based on django-balancer that makes some models "read only" during certain views
 - Just wrap the views you care about with the given decorator, and SELECT queries for the given models will always go to a slave
+- In a perfect world this would not get used because everything would be cached, but can help immensely during cache warming or if the cache crashes altogether
 
 ----
 
@@ -469,24 +524,71 @@ Presenter Notes
 - If we were to do it over again, today, I'd definitely use Salt instead of rolling our own.  I prefer Python so I'm not a huge fan of Chef or Puppet.
 - This becomes particularly important when it comes time to tweak server configuration files on 10-20 web servers at once.  You DO NOT want to be doing that manually.
 
-Quick Review
-============
+----
+
+Review of Phase I
+=================
 
 So far we have:
 
 - Removed excess queries with django-debug-toolbar and pgfouine
-- Implemented a basic load testing script in JMeter
 - Set up caching for repetative queries
 - Moved all our reads to a slave database
 - Automated deployment and offloaded static media
+- Implemented a basic load testing script in JMeter
 
 Presenter Notes
 ---------------
 
-- Now comes the fun part
 - We have all the ground work in place
 - We're not doing anything overly stupid (or so we think)
-- Let's try load testing at scale
+- Using the JMeter test script we'd created, we simulated enough load to match our scaling target, and using an iterative trial and error process, eliminated all the necessary bottlenecks in the survey taking views
+
+----
+
+Scaling Phase II: The State of Illinois
+=======================================
+
+Presenter Notes
+---------------
+
+- This part of the talk will be a little bit different
+- We'll focus specifically on the load testing we did for the state of illinois scaling
+- And highlight a few of the specific issues that we ran into along the way.
+
+----
+
+Phase II Scaling Target
+=======================
+
+- About 2 million students, teachers, and parents
+- Shorter survey
+- Up to 50,000 survey takers per hour
+- Around 75,000 requests/minute, or 1,250 request/second
+
+Presenter Notes
+---------------
+
+- Phase II is quite a bit bigger
+- Roughly an order of magnitude in terms of numbers of users
+- Due to the shorter survey, about 5 times as many requests per second
+- Given that we're moving well beyond the load a single laptop can simulate, we need to rethink how and why we're load testing.
+
+----
+
+Interlude: Postgres-XC
+======================
+
+- Main pro: Write-scalable Postgres cluster
+- Main con: Dramatically increased systems complexity
+
+Presenter Notes
+---------------
+
+- At this point, we evaluated a number of different options, including several NoSQL databases, as well a product called Postgres-XC
+- For all the post-survey response processing, the application relies heavily on the Django ORM, so we weren't ready to sacrifice that for a new API
+- Postgres-XC looked promising, but it was not clear if the set up could be sufficiently automated. This led us to do further load testing before committing to something like this
+- This brings up the good question of why we load test in the first place
 
 ----
 
@@ -496,15 +598,14 @@ Why load test?
 - Obtain estimates of per-web server capacity
 - Correctly size your database servers
 - Fix any configuration bottlenecks
+- Verify the need for larger architecture changes
 
 Presenter notes
 ---------------
 
 - There are lots of good reasons to load test, most of which fall along the same lines of why we do any testing
 - We want to discover problems and fix them before our users see them
-- In this case, we're really testing the infrastructure itself
-- Did we configure all the different services correctly?
-- Can my servers handle the load?
+- In this case, we're really testing the infrastructure itself, answering questions like: Did we configure all the different services correctly? Can my current system architecture handle the load?
 - Problems of scale are particulary easy to ignore, because you really don't see them during development unless you try really hard
 - Conversely, load testing lets you avoid premature optimization by backing up configuration choices with real data rather than abstract guesses
 
@@ -526,6 +627,19 @@ Presenter Notes
 
 ----
 
+Server Diagram
+==============
+
+.. image:: static/CCSR_server_diagram.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- As a reminder, here's the server diagram for our systems architecture
+
+----
+
 Spreadsheet
 ===========
 
@@ -538,6 +652,9 @@ Presenter Notes
 ---------------
 
 - Here's an example of a spreadsheet we put together for this project
+- These calculations are all about juggling what you're going to run out of
+- For example, 10 web servers, 30 workers on each, that means up to 300 open DB connections
+- That's too many, so we use pgbouncer on each of the web servers to share 2 or 3 persistent postgres connections across 30 workers
 - There's a link to a google doc you can copy and tweak
 
 ----
@@ -728,6 +845,11 @@ Presenter Notes
 Optimizing your PostgreSQL config
 =================================
 
+----
+
+Optimizing PostgreSQL: Where to Start
+=====================================
+
 - Postgres When It's Not Your Job (thebuild.com)
 - pgtune
 - http://cakt.us/pg-tuning
@@ -740,6 +862,7 @@ Presenter Notes
 - Our conference chair christophe gave an excellent talk last year titled Postgres When It's Not your Job.  You should get the slides and read them - it's amazing.
 - If you're looking for something quick, pgtune can be used to generate some sane defaults for a number of postgres config options
 - The last two links are to the Postgres wiki; they provide a lot of valuable discussion about different config options and how they interact
+- I'll also share a couple things we found which either aren't covered or are important enough to bring up again.
 
 ----
 
@@ -753,10 +876,11 @@ Figuring out max_connections
 Presenter Notes
 ---------------
 
+- First, max_connections are an often mis-understood topic
 - After a point, the more your database server is doing at once, the longer it takes for **every** task
 - The right value for this setting is determined by machine resouces, NOT how many connections you think you need to open
 - You can use transaction-level isolation in pgbouncer to share 2-3 connections across 30 web processes with no loss of performance
-- Installing pgbouncer on your web servers can also limit the time spent opening connections
+- Even if you don't set max_connections this low, make sure you're limiting the connections through some other means such as pgbouncer
 - If you're already using supervisord, it's an easy addition to run pgbouncer to your config (rather than mucking around with files in /etc/)
 
 ----
@@ -774,29 +898,14 @@ Optimizing ``postgresql.conf`` for heavy ``INSERT`` load:
 Presenter Notes
 ---------------
 
-- There's rarely a magic bullet in server configuration, but this turned out to be it for us.
+- Lastly, there's rarely a magic bullet in server configuration, but this turned out to be it for us.
 - commit_delay - Rarely helps, but when it does, it helps a lot (and write-intensive applications are the perfect time to use it).
 - It works by sleeping for a set number of microseconds immediately before syncing to disk
 - When it wakes up, it checks to see if any other transactions are also sleeping before syncing
 - It "takes over" all sleeping transactions, syncing their data to disk at the same time as its own
 - When a transaction wakes up, it checks to see if it's already been sync'ed, and if it has, it returns immediately to the user
 - While this can make everything slower, but setting commit_siblings to a resonable value can make sure it only impacts performance when there might be something to be gained.
-
-----
-
-Another option
-==============
-
-- **synchronous_commit = off** - don't wait for fsync before returning success
-
-
-Presenter Notes
----------------
-- Another useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit
-- It's not as bad as disabling fsync b/c there's no risk of data inconsistency
-- But IF the server crashes BEFORE it can call fsync but AFTEr it returns success to the user, there might be an inconsistency between what the user thinks was saved and what was actually saved. 
-- Obviously this is not good for banking transactions, but there are plenty of other less critical applications out there that might benefit from disabling this feature in Postgres.
-- We did not use this in the survey app because commit_delay got us where we needed to be.
+- Arrived at these values through trial and error and by reading this post.
 
 ----
 
@@ -808,4 +917,21 @@ Questions?
 - Hire us: http://www.caktusgroup.com
 - Slides: http://cakt.us/djangocon-scaling
 
+
+----
+
+The NoSQL Slide
+===============
+
+PostgreSQL:
+
+- **synchronous_commit = off** - don't wait for fsync before returning success
+
+Presenter Notes
+---------------
+- Another useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit
+- It's not as bad as disabling fsync b/c there's no risk of data inconsistency
+- But IF the server crashes BEFORE it can call fsync but AFTEr it returns success to the user, there might be an inconsistency between what the user thinks was saved and what was actually saved. 
+- Obviously this is not good for banking transactions, but there are plenty of other less critical applications out there that might benefit from disabling this feature in Postgres.
+- We did not use this in the survey app because commit_delay got us where we needed to be.
 
