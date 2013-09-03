@@ -220,6 +220,7 @@ Presenter Notes
 - The first phase of scaling was relatively straight forward; a single laptop could simulate enough load to mimick the maximum expected requests per second.
 - We completed this first round of scaling at the end of 2011, before the start of the first web-based Chicago Public Schools survey
 - The following steps roughly outline the approach we took to hitting this target
+- The # reqs/sec is not particularly high, but remember that these are all dynamic requests, about half of which will be writing to disk
 
 ----
 
@@ -293,7 +294,6 @@ Presenter Notes
 Step 3: pgfouine
 ================
 
-Next, pgfouine can help you detect high-frequency, redundant queries *across* multiple requests.
 
 On Debian or Ubuntu:
 
@@ -315,6 +315,14 @@ After generating some load, run ``pgfouine`` on your log file:
 
     pgfouine -file /var/log/postgresql/postgresql.log -logtype stderr > report.html
 
+Presenter Notes
+---------------
+
+- Next, pgfouine can help you detect high-frequency, redundant queries *across* multiple requests.
+- These could be for the same view or different views
+- It comes prepackaged on Debian and Ubuntu, and requires only a few postgres config changes to get the logs in a machine-readable format.
+- The final command generates a pretty HTML report that looks something like this:
+
 ----
 
 Step 3: pgfouine
@@ -322,6 +330,12 @@ Step 3: pgfouine
 
 .. image:: static/pgfouine.png
     :align: center
+
+Presenter Notes
+---------------
+
+- At the top is some summary information about the number and length of queries run, including a breakdown of queries by type.
+- At the bottom, in a sortable list, are all the queries run, aggregated by what pgfouine sees as similar queries (the same queries with potentially different arguments)
 
 ----
 
@@ -546,6 +560,22 @@ Presenter Notes
 
 ----
 
+Review of Phase I
+=================
+
+- Achieved 275 requests/second
+- 10 web servers
+
+Presenter Notes
+---------------
+
+- After making these changes we easily hit our target of 275 requests/second, and it was evident that there was room to grow if needed
+- For this load we had about 10 high-CPU, medium EC2 instances running as web servers
+- We also found that a good load average is about 50-60% of all cores on a web server, which you can use to tune the number of servers in use
+- Anything above that and performance starts to degrade
+
+----
+
 Scaling Phase II: The State of Illinois
 =======================================
 
@@ -739,7 +769,7 @@ Presenter Notes
 
 ----
 
-database reponse time
+Database Reponse Time
 =====================
 
 .. image:: static/nr2/dashboard-crash.png
@@ -752,8 +782,8 @@ Presenter Notes
 
 ----
 
-database falls over
-=====================
+Database Falls Over
+===================
 
 .. image:: static/nr2/pg-crash.png
     :align: center
@@ -766,7 +796,7 @@ Presenter Notes
 
 ----
 
-database still overloaded
+Database Still Overloaded
 =========================
 
 .. image:: static/nr3/sample3.png
@@ -783,7 +813,7 @@ Presenter Notes
 
 ----
 
-the right target load
+The Right Target Load
 =====================
 
 .. image:: static/nr4/sample4.png
@@ -797,8 +827,8 @@ Presenter Notes
 
 ----
 
-requests are right where we want
-================================
+HTTP Requests
+=============
 
 .. image:: static/nr4/dashboard-pre-final.png
     :align: center
@@ -810,8 +840,8 @@ Presenter Notes
 
 ----
 
-postgres transactions are through the roof
-==========================================
+PostgreSQL Transactions
+=======================
 
 .. image:: static/nr4/pg-transactions.png
     :align: center
@@ -825,7 +855,7 @@ Presenter Notes
 
 ----
 
-recreate from scratch, test again
+Recreate from Scratch, Test Again
 =================================
 
 - Recreated all servers from scratch
@@ -836,21 +866,27 @@ Presenter Notes
 ---------------
 
 - Just to check everything, recreated all the servers
+- Did this because everything needs to be automated, needed to verify same performance
 - Performance dropped significantly
 - Discovered a couple database server configuration changes I neglected to add to version control
-- Before getting to those, a couple notes on optimizing your pg config in general
 
 ----
 
 Optimizing your PostgreSQL config
 =================================
 
+Presenter Notes
+---------------
+
+- Before getting to those, a couple notes on optimizing your pg config in general
+
 ----
 
 Optimizing PostgreSQL: Where to Start
 =====================================
 
-- Postgres When It's Not Your Job (thebuild.com)
+- `Postgres When It's Not Your Job <http://thebuild.com/presentations/not-your-job.pdf>`_ (Christophe Pettus)
+- `Secrets of PostgreSQL Performance <http://media.revsys.com/talks/djangocon/2011/secrets-of-postgresql-performance.pdf>`_ (Frank Wiles)
 - pgtune
 - http://cakt.us/pg-tuning
 - http://cakt.us/pg-conns
@@ -879,7 +915,7 @@ Presenter Notes
 - First, max_connections are an often mis-understood topic
 - After a point, the more your database server is doing at once, the longer it takes for **every** task
 - The right value for this setting is determined by machine resouces, NOT how many connections you think you need to open
-- You can use transaction-level isolation in pgbouncer to share 2-3 connections across 30 web processes with no loss of performance
+- Again, you can use transaction-level isolation in pgbouncer to share 2-3 connections across 30 web processes with no loss of performance
 - Even if you don't set max_connections this low, make sure you're limiting the connections through some other means such as pgbouncer
 - If you're already using supervisord, it's an easy addition to run pgbouncer to your config (rather than mucking around with files in /etc/)
 
@@ -906,6 +942,59 @@ Presenter Notes
 - When a transaction wakes up, it checks to see if it's already been sync'ed, and if it has, it returns immediately to the user
 - While this can make everything slower, but setting commit_siblings to a resonable value can make sure it only impacts performance when there might be something to be gained.
 - Arrived at these values through trial and error and by reading this post.
+
+----
+
+Final Tweaks
+============
+
+----
+
+The Right Target Load
+=====================
+
+.. image:: static/nr4/sample4.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- You'll also notice on the last load test for survey_change_page that redis is taking up a significant amount of time
+- We were still using redis for both cache and sessions at this point, and discovered that it was using near 100% of a single core on the cache server.
+- Redis unfortunately is single threaded, so we swapped in memcached for the cache and continued to use redis for sessions (since it is persistent while memcached is not)
+
+----
+
+survey_change_page, with memcached
+==================================
+
+.. image:: static/nr5/sample5.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- So after we made those changes, redis disappeared from the graph and memcached took up a much more consistent chuck of the total time.
+- It was also evident from the server that memcached would have no trouble saturating additional CPU cores as needed.
+
+----
+
+Final Performance
+=================
+
+.. image:: static/nr5/final-dashboard.png
+    :align: center
+
+Presenter Notes
+---------------
+
+- Once again, we'd hit the necessary 75,000 requests per minute, and all the servers could be easily recreated from scratch
+- For this load we ended up using about 16 extra large, high CPU instances for web servers
+
+---
+
+That's all!
+===========
 
 ----
 
