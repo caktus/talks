@@ -58,12 +58,19 @@
             
             <section><p>Tobias McNulty</p>
 <p><a class="reference external" href="https://twitter.com/tobiasmcnulty">&#64;tobiasmcnulty</a></p>
-<p>Slides: <a class="reference external" href="http://cakt.us/djangocon-scaling">http://cakt.us/djangocon-scaling</a></p></section>
+<p>Slides: <a class="reference external" href="http://cakt.us/djangocon-scaling">http://cakt.us/djangocon-scaling</a></p>
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>Hello everyone, today I'll be talking about scaling your write heavy Django app</li>
+<li>A little about me before we start..</li>
+</ul>
             
             </section>
           </div>
@@ -85,14 +92,16 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>About Me</h1></header>
+            <header><h2>About Me</h2></header>
             
             
             <section><ul class="simple">
 <li>I help run Caktus</li>
-<li>We build custom Python/Django web apps in NC</li>
+<li>We build custom Python/Django web apps in NC for clients everywhere</li>
 <li>Developer with a penchant for infrastructure</li>
 </ul>
+
+
 
 </section>
             
@@ -103,7 +112,8 @@
             
               <ul class="simple">
 <li>I'm a co-founder and managing member at Caktus Group in Chapel Hill NC</li>
-<li>I'm a developer, but might be a sysadmin at heart.</li>
+<li>We've been building Django web apps for clients since 2007</li>
+<li>I'm a developer by trade, but quite possibly a sysadmin at heart.</li>
 </ul>
             
             </section>
@@ -126,7 +136,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Talk Outline</h1></header>
+            <header><h2>Talk Outline</h2></header>
             
             
             <section><ul class="simple">
@@ -134,12 +144,25 @@
 <li>Scaling Phase I: Chicago Public Schools</li>
 <li>Scaling Phase II: The State of Illinois</li>
 <li>Optimizing Your PostgreSQL Config</li>
-</ul></section>
+<li>Final Tweaks</li>
+</ul>
+
+
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>My talk today will be broken up into three larger sections</li>
+<li>In the first I'll give you an overview of the project itself and why scale was a problem for us</li>
+<li>Second, I'll cover the first round of scaling that we did for Chicago Public Schools. This will be more of a step by step guide on one approach you might take to scaling</li>
+<li>Third, I'll go into details on the more iterative load testing that we did to scale the site further for the State of Illinois</li>
+<li>I'll end with two short sections on some final tweaks to Postgres and other services</li>
+</ul>
             
             </section>
           </div>
@@ -161,7 +184,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Project Overview</h1></header>
+            <header><h2>Project Overview</h2></header>
             
             
           </div>
@@ -189,7 +212,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>5Essentials Schools Surveys</h1></header>
+            <header><h2>5Essentials Schools Surveys</h2></header>
             
             
             <section><p>Started at UChicago; 5Essentials team designs and conducts surveys to assess:</p>
@@ -203,6 +226,8 @@
 <p>Schools with strong scores on at least 3 of these are 10 times more likely to improve math and reading.</p>
 <p>See: <a class="reference external" href="http://uchicagoimpact.org/5essentials/">http://uchicagoimpact.org/5essentials/</a></p>
 
+
+
 </section>
             
           </div>
@@ -211,7 +236,7 @@
             <section>
             
               <ul class="simple">
-<li>I'll be talking about a client project we've been working on at Caktus for the past 2 years</li>
+<li>The project I'll be talking about is a client project we've been working on at Caktus for the past 2 years</li>
 <li>5 essentials survey admin module</li>
 <li>This group, here in Chicago, has been conducting surveys for years geared towards improving educational outcomes</li>
 </ul>
@@ -236,11 +261,13 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>From Scantron...</h1></header>
+            <header><h2>From Scantron...</h2></header>
             
             
             <section><img alt="static/scantron.jpg" class="align-center" src="static/scantron.jpg" />
 <p>Image: <a class="reference external" href="http://www.flickr.com/photos/thedavisblog/2230010178">http://www.flickr.com/photos/thedavisblog/2230010178</a></p>
+
+
 
 </section>
             
@@ -274,7 +301,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>About the Project</h1></header>
+            <header><h2>About the Project</h2></header>
             
             
             <section><p><strong>5Essentials Survey Admin Module (SAM)</strong></p>
@@ -283,6 +310,8 @@
 <li>2012: First survey for Chicago Public Schools (~400,000 students)</li>
 <li>2013: First Illinois state-wide survey (2 million students, teachers, and parents)</li>
 </ul>
+
+
 
 </section>
             
@@ -294,8 +323,8 @@
               <ul class="simple">
 <li>The first survey was administered with the system in early 2012, for Chicago Public Schools</li>
 <li>CPS is 3rd largest in US, over 400,000 students</li>
-<li>5E has a number of clients outside Chicago</li>
-<li>As of 2013 this inclues the Illinois State Board of Education</li>
+<li>5E also has a number of clients outside Chicago</li>
+<li>As of 2013, this includes the Illinois State Board of Education</li>
 </ul>
             
             </section>
@@ -318,10 +347,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>...to Scalable Web App</h1></header>
+            <header><h2>...to Scalable Web App</h2></header>
             
             
             <section><img alt="static/survey.jpg" class="align-center" src="static/survey.jpg" />
+
+
 
 </section>
             
@@ -331,7 +362,7 @@
             <section>
             
               <ul class="simple">
-<li>Earlier this year they conducted the first state-wide survey using this tool, for over 2 million parents, students, and teachers</li>
+<li>And, earlier this year, they conducted the first state-wide survey using this tool, for over 2 million parents, students, and teachers</li>
 </ul>
             
             </section>
@@ -354,7 +385,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Survey Composition</h1></header>
+            <header><h2>Survey Composition</h2></header>
             
             
             <section><ul class="simple">
@@ -362,6 +393,8 @@
 <li>Around 4-6 questions per page</li>
 <li>Respondents complete in an hour or less</li>
 </ul>
+
+
 
 </section>
             
@@ -396,7 +429,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Write-heavy App</h1></header>
+            <header><h2>Write-heavy App</h2></header>
             
             
             <section><ul>
@@ -418,6 +451,8 @@
 </li>
 </ul>
 
+
+
 </section>
             
           </div>
@@ -429,8 +464,8 @@
 <li>The project is quite large, with about 85 Django views in total and at least 40 custom models</li>
 <li>Only about 5 of those views really matter scaling-wise</li>
 <li>The remaining 80 or so are for use by administrators uploading surveys or rosters, downloading responses, managing users, and other related tasks</li>
-<li>A core requirement was to save the results to disk on each page submission, so the survey_change_page view is doing a lot of writes</li>
-<li>This means 4-5 INSERT statements per page, which can be grouped into one statement using the bulk_create method in Django 1.4</li>
+<li>A core requirement was to save the results to disk on each page submission--this was so we didn't lose any data we'd reported to have saved</li>
+<li>This means 4-5 INSERT statements per page, which can be grouped into one statement using the bulk_create method in Django 1.4, but this does not eliminate the scaling problem of doing that many writes</li>
 </ul>
             
             </section>
@@ -453,13 +488,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Fast or Scalable?</h1></header>
+            <header><h2>Fast or Scalable?</h2></header>
             
             
             <section><ul class="simple">
 <li>Fast: the code runs quickly</li>
 <li>Scalable: runs acceptably (or better) for lots of people</li>
 </ul>
+
+
 
 </section>
             
@@ -472,7 +509,6 @@
 <li>This brings up the good point that this talk is not about making your code fast, it's about making infrastructure that can scale</li>
 <li>We really don't care about those other 80 views for scaling purposes</li>
 <li>The main problem we're likely to run into is inserting all that data into the response items table</li>
-<li>As well as all the usual suspects in terms of server configuration</li>
 </ul>
             
             </section>
@@ -495,7 +531,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Architecture</h1></header>
+            <header><h2>Architecture</h2></header>
             
             
             <section><ul class="simple">
@@ -511,6 +547,8 @@
 <li>Memcached</li>
 </ul>
 
+
+
 </section>
             
           </div>
@@ -523,8 +561,8 @@
 <li>The usual suspects, Python 2.7, Django 1.5, and Postgres 9.1</li>
 <li>For web server we're using Nginx to proxy a set of Gunicorn workers, and S3 for static media</li>
 <li>We're using Celery and rabbitMQ for background tasks</li>
-<li>Redis for sessions</li>
-<li>And memcached for a cache</li>
+<li>Redis for sessions and cache initially</li>
+<li>And ultimately we switched to memcached for the cache and left sessions in redis</li>
 </ul>
             
             </section>
@@ -547,15 +585,24 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Systems Diagram</h1></header>
+            <header><h2>Systems Diagram</h2></header>
             
             
-            <section><img alt="static/CCSR_server_diagram.png" class="align-center" src="static/CCSR_server_diagram.png" /></section>
+            <section><img alt="static/CCSR_server_diagram.png" class="align-center" src="static/CCSR_server_diagram.png" />
+
+
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>I'll show this slide again later, but here's a rough outline of what the server infrastructure looked like</li>
+<li>Services are all split out onto separate servers, with the exception of the cache server which runs rabbitmq, redis, and memcached</li>
+</ul>
             
             </section>
           </div>
@@ -577,7 +624,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Scaling Phase I: Chicago Public Schools</h1></header>
+            <header><h2>Scaling Phase I: Chicago Public Schools</h2></header>
             
             
           </div>
@@ -605,7 +652,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Phase I Scaling Target</h1></header>
+            <header><h2>Phase I Scaling Target</h2></header>
             
             
             <section><ul class="simple">
@@ -614,6 +661,8 @@
 <li>Up to 8,000 survey takers per hour</li>
 <li>Around 275 requests/second</li>
 </ul>
+
+
 
 </section>
             
@@ -625,8 +674,8 @@
               <ul class="simple">
 <li>The first phase of scaling was relatively straight forward; a single laptop could simulate enough load to mimick the maximum expected requests per second.</li>
 <li>We completed this first round of scaling at the end of 2011, before the start of the first web-based Chicago Public Schools survey</li>
-<li>The following steps roughly outline the approach we took to hitting this target</li>
-<li>The # reqs/sec is not particularly high, but remember that these are all dynamic requests, about half of which will be writing to disk</li>
+<li>The following steps roughly outline the approach we took in hitting this target</li>
+<li>The number of reqs/sec is not particularly high, but remember that these are all dynamic requests, about half of which will be writing to disk</li>
 </ul>
             
             </section>
@@ -649,7 +698,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 1: django-debug-toolbar</h1></header>
+            <header><h2>Step 1: django-debug-toolbar</h2></header>
             
             
             <section><p>Install it:</p>
@@ -661,6 +710,8 @@
 <span class="n">INSTALLED_APPS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;debug_toolbar&#39;</span><span class="p">)</span>
 </pre>
 
+
+
 </section>
             
           </div>
@@ -670,9 +721,9 @@
             
               <ul class="simple">
 <li>The first step in any scaling project should generally be to make sure you're not doing anything too crazy code- or DB-wise</li>
-<li>Hopefully all of you are already using django-debug-toolbar, but just in case, I threw in this slide</li>
+<li>Hopefully all of you are already using django-debug-toolbar already, but just in case, I threw in this slide</li>
 <li>Easy to install; helps eliminate unnecessary SQL queries on high-traffic pages</li>
-<li>Don't blindly optimize everything, focus on pages that'll give you the most gain</li>
+<li>Don't blindly optimize everything, focus on pages that'll give you the most gain; in this case we focused on those 5 survey taking views</li>
 </ul>
             
             </section>
@@ -695,7 +746,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 1: Common query reduction patterns</h1></header>
+            <header><h2>Step 1: Common query reduction patterns</h2></header>
             
             
             <section><p>Common patterns include:</p>
@@ -705,6 +756,8 @@
 <li><strong>write-through cache:</strong> Find rows that you write (e.g., in a <tt class="docutils literal">POST</tt> view) and then read back (e.g., in the subsequent <tt class="docutils literal">GET</tt> view) and cache them in your model's <tt class="docutils literal">save()</tt> method (see <a class="reference external" href="http://cakt.us/scaling-write-cache">http://cakt.us/scaling-write-cache</a>)</li>
 </ul>
 
+
+
 </section>
             
           </div>
@@ -713,10 +766,11 @@
             <section>
             
               <ul class="simple">
-<li>Remember, we want to limit the total amount of stuff that the DB server has to do</li>
-<li>Ultimately we only care about writes, but if the database server is doing lots of unnecessary reads, that'll slow it down</li>
-<li>Some but not all of this can be taken care of with a DB slave</li>
-<li>We implemented a simple write-through cache for commonly written and re-read data, linked to here</li>
+<li>There are a few common patterns, which I've listed out here, that you might look for when using Django-debug-toolbar</li>
+<li>One less commonly optimized pattern is the write-through cache, which updates the cache at the same time as it updates the database, thereby eliminating the need to ever read back that data</li>
+<li>Remember, while ultimately we only care about writes, if the database server is doing lots of unnecessary reads, that'll slow it down</li>
+<li>So, we just want to limit the total amount of stuff that the DB server has to do</li>
+<li>Some but not all of the reads can be taken care of with caching or a DB slave</li>
 </ul>
             
             </section>
@@ -739,16 +793,18 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 2: Automate some load</h1></header>
+            <header><h2>Step 2: Automate some load</h2></header>
             
             
-            <section><p>Before going any further, you need an easy way to generate load. JMeter's a good tool for that; here there are a few tips:</p>
+            <section><p>You need an easy way to generate load. JMeter's a good tool for that; here there are a few tips:</p>
 <ul class="simple">
 <li><strong>Recording:</strong> If you have a long or complicated process to test, use JMeter's proxy server to record your actions in a web browser</li>
 <li><strong>Sane defaults:</strong> Set up sane defaults using HTTP Request Defaults, so you can easily switch servers.</li>
 <li><strong>CSRF Token:</strong> Use JMeter's HTTP Cookie Manager to save and retrieve the token</li>
 <li><strong>Test script:</strong> Save your test script along side your other infrastructure files in version control.</li>
 </ul>
+
+
 
 </section>
             
@@ -758,11 +814,11 @@
             <section>
             
               <ul class="simple">
-<li>need a way to generate some load automatically, don't want to rely on manually clicking around the site, will be doing this in jmeter</li>
-<li>Simple tasks are easy enough to script manually, but it's a lot easier to script longer tasks (like filling out an entire survey) by recording.  JMeter has great tools for this; learn to use &amp; love them.</li>
-<li>You'll want to test different server environments (including your local machine), so practice DRY test script writing and take the time to setup good default for HTTP requests.</li>
-<li>The CSRF token can be a bit hair to keep track of at first, but once you have it set up it's easy to maintain.</li>
-<li>Save your test scripts in version control and continue to refine them.  They'll come in handy over and over again..  Really.</li>
+<li>Before going any further, you need a way to generate some load automatically, don't want to rely on manually clicking around the site, we found Jmeter worked pretty well for our purposes</li>
+<li>Simple tasks are easy enough to script manually, but it's a lot easier to script longer tasks (like filling out an entire survey) by recording.  JMeter includes a proxy server which lets you do this from a browser.</li>
+<li>You'll want to test different server environments (including your local machine), so practice good programming techniques and take the time to setup good defaults for HTTP requests.</li>
+<li>The CSRF token can be a bit hairy to keep track of at first, but once you have it set up it's easy to maintain.</li>
+<li>Save your test scripts in version control and continue to refine them.  They'll come in handy over and over again..</li>
 </ul>
             
             </section>
@@ -785,7 +841,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 3: pgfouine</h1></header>
+            <header><h2>Step 3: pgfouine</h2></header>
             
             
             <section><p>On Debian or Ubuntu:</p>
@@ -800,6 +856,8 @@
 <pre>pgfouine -file /var/log/postgresql/postgresql.log -logtype stderr &gt; report.html
 </pre>
 
+
+
 </section>
             
           </div>
@@ -808,9 +866,9 @@
             <section>
             
               <ul class="simple">
-<li>Next, pgfouine can help you detect high-frequency, redundant queries <em>across</em> multiple requests.</li>
+<li>Next, once you have a way to generate some load, pgfouine can help you detect high-frequency, redundant queries <em>across</em> multiple requests.</li>
 <li>These could be for the same view or different views</li>
-<li>It comes prepackaged on Debian and Ubuntu, and requires only a few postgres config changes to get the logs in a machine-readable format.</li>
+<li>pgfouine comes prepackaged on Debian and Ubuntu, and requires only a few postgres config changes to get the logs in a machine-readable format.</li>
 <li>The final command generates a pretty HTML report that looks something like this:</li>
 </ul>
             
@@ -834,10 +892,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 3: pgfouine</h1></header>
+            <header><h2>Step 3: pgfouine</h2></header>
             
             
             <section><img alt="static/pgfouine.png" class="align-center" src="static/pgfouine.png" />
+
+
 
 </section>
             
@@ -848,7 +908,7 @@
             
               <ul class="simple">
 <li>At the top is some summary information about the number and length of queries run, including a breakdown of queries by type.</li>
-<li>At the bottom, in a sortable list, are all the queries run, aggregated by what pgfouine sees as similar queries (the same queries with potentially different arguments)</li>
+<li>At the bottom, in a sortable list, are all the queries, aggregated by what pgfouine sees as similar, which just means the same queries with potentially different arguments</li>
 </ul>
             
             </section>
@@ -871,7 +931,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 4: Let's play cache</h1></header>
+            <header><h2>Step 4: Let's play cache</h2></header>
             
             
             <section><p>We have the data, let's cache strategically.  Options:</p>
@@ -884,6 +944,8 @@
 <li>There are many others...</li>
 </ul>
 
+
+
 </section>
             
           </div>
@@ -894,8 +956,9 @@
               <ul class="simple">
 <li>Based on all the output from pgfouine, you should have a good sense of what queries will give you the most gain for caching.</li>
 <li>Find select statements that you don't expect to change often (if at all), and cache them</li>
+<li>There are a number of different tools you can use to do this</li>
 <li>Find a strategy that works for you; we tried to make johnny-cache work, but it was too much black magic for us</li>
-<li>We found django-cache-machine worked better; it allowed us to cache exactly what we want when we wanted in predictable ways</li>
+<li>We found django-cache-machine worked better; it allowed us to cache exactly what we wanted in more predictable ways</li>
 </ul>
             
             </section>
@@ -918,7 +981,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 4: django-cache-machine</h1></header>
+            <header><h2>Step 4: django-cache-machine</h2></header>
             
             
             <section><p>Install it:</p>
@@ -929,6 +992,11 @@
     <span class="c"># ...</span>
     <span class="n">cached</span> <span class="o">=</span> <span class="n">caching</span><span class="o">.</span><span class="n">base</span><span class="o">.</span><span class="n">CachingManager</span><span class="p">()</span>
 </pre>
+<p>Use it:</p>
+<pre><span class="n">MyModel</span><span class="o">.</span><span class="n">cached</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre>
+
+
 
 </section>
             
@@ -938,7 +1006,7 @@
             <section>
             
               <ul class="simple">
-<li>You can overwride the default manager or create a new one</li>
+<li>When using django-cache-machine, you can overwride the default manager or create a new one</li>
 <li>We chose the latter to make it explicit that you were caching</li>
 <li>This worked better for us, b/c there's nothing worse that debugging stale cache issues</li>
 </ul>
@@ -963,22 +1031,24 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 4: django-cache-machine</h1></header>
+            <header><h2>Step 4: django-cache-machine</h2></header>
             
             
             <section><p>Some things to be aware of:</p>
 <ul class="simple">
-<li>django-cache-machine does not cache empty querysets by default.  If you have a lot these, you might want to turn this on:</li>
+<li>Caching empty querysets:</li>
 </ul>
 <pre><span class="c"># settings.py</span>
 <span class="n">CACHE_EMPTY_QUERYSETS</span> <span class="o">=</span> <span class="bp">True</span>
 </pre>
 <ul class="simple">
-<li><tt class="docutils literal">count()</tt> cannot easily be invalidated, so these queries time out instead.  Set the timeout to something that makes sense for you:</li>
+<li>Set timeout for <tt class="docutils literal">count()</tt> queries:</li>
 </ul>
 <pre><span class="c"># settings.py</span>
 <span class="n">CACHE_COUNT_TIMEOUT</span> <span class="o">=</span> <span class="mi">300</span>
 </pre>
+
+
 
 </section>
             
@@ -988,7 +1058,10 @@
             <section>
             
               <ul class="simple">
-<li>Once you have caching setup, <strong>use pgfouine to verify that it did what you expected</strong></li>
+<li>Just a few things to be aware of with django-cache-machine</li>
+<li>django-cache-machine does not cache empty querysets by default.  If you have a lot these, you might want to turn this on.</li>
+<li><tt class="docutils literal">count()</tt> cannot easily be invalidated, so these queries time out instead.  Set the timeout to something that makes sense for you</li>
+<li>Once you have caching setup the way you like, <strong>use pgfouine to verify that it did what you expected</strong></li>
 </ul>
             
             </section>
@@ -1011,15 +1084,23 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 4: pgfouine, before</h1></header>
+            <header><h2>Step 4: pgfouine, before</h2></header>
             
             
-            <section><img alt="static/pgfouine-before.png" class="align-center" src="static/pgfouine-before.png" /></section>
+            <section><img alt="static/pgfouine-before.png" class="align-center" src="static/pgfouine-before.png" />
+
+
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>Here's the output from pgfouine before we enabled caching</li>
+</ul>
             
             </section>
           </div>
@@ -1041,10 +1122,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 4: pgfouine, after</h1></header>
+            <header><h2>Step 4: pgfouine, after</h2></header>
             
             
             <section><img alt="static/pgfouine-after.png" class="align-center" src="static/pgfouine-after.png" />
+
+
 
 </section>
             
@@ -1054,7 +1137,8 @@
             <section>
             
               <ul class="simple">
-<li>As you can see, a little caching quickly cut the SELECT statements by 25,000, to less than 10% of its former value</li>
+<li>And here's the output after</li>
+<li>As you can see, a little caching quickly cut the number of SELECT statements by 25,000, to less than 10% of its former value</li>
 </ul>
             
             </section>
@@ -1077,13 +1161,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 5: Multiple databases</h1></header>
+            <header><h2>Step 5: Multiple databases</h2></header>
             
             
             <section><ul class="simple">
 <li><strong>Replication:</strong> Streaming replication in PostgreSQL 9.1</li>
 <li><strong>Database routing:</strong> django-balancer</li>
 </ul>
+
+
 
 </section>
             
@@ -1093,7 +1179,8 @@
             <section>
             
               <ul class="simple">
-<li>Streaming replication in PostgreSQL 9.1 is incredibly easy to set up. You should learn to use and love it.</li>
+<li>Also somewhat help when write-scaling is to have a read slave where you can send all the non-cachable reads, to avoid swamping the master database</li>
+<li>Streaming replication in PostgreSQL 9.1 is incredibly easy to set up, and that's what we used</li>
 <li>To get multiple databases working in Django you need to use a custom database router.  A good source we've found for this is django-balancer</li>
 </ul>
             
@@ -1117,7 +1204,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>django-balancer</h1></header>
+            <header><h2>Step 5: django-balancer</h2></header>
             
             
             <section><p>Install it:</p>
@@ -1135,6 +1222,8 @@
 <span class="n">MASTER_PINNING_SECONDS</span> <span class="o">=</span> <span class="mi">5</span>
 </pre>
 
+
+
 </section>
             
           </div>
@@ -1143,7 +1232,7 @@
             <section>
             
               <ul class="simple">
-<li>This is a good setup for a master/slave databases</li>
+<li>This is a good configuration for a master/slave database setup with django-balancer</li>
 <li>It sends writes to the master and reads to the slaves, unless a session has written to master in which case reads will also be pinned to the master for 5 seconds.  This avoids data &quot;disappearing&quot; if you attempt to read it back before it propagates to the slave.</li>
 </ul>
             
@@ -1167,15 +1256,22 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Custom database router</h1></header>
+            <header><h2>Step 5: Custom database router</h2></header>
             
             
             <section><ul class="simple">
 <li>In survey app, most common views always write to DB</li>
 <li>Some models don't change during survey taking (those describing the survey)</li>
-<li>Send all reads to slave for some (not all) models</li>
+<li>Send all reads to slave for some (not all) models:</li>
 </ul>
+<pre><span class="nd">@uses_forced_read_router</span>
+<span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c"># ...</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+</pre>
 <p>See: <a class="reference external" href="http://cakt.us/scaling-router">http://cakt.us/scaling-router</a></p>
+
+
 
 </section>
             
@@ -1213,7 +1309,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 6: Static Media</h1></header>
+            <header><h2>Step 6: Static Media</h2></header>
             
             
             <section><p>... is simple and painless if you:</p>
@@ -1229,6 +1325,8 @@
 <li>If your <tt class="docutils literal">{% compress %}</tt> template tag needs to be in an {% if  %} tag, put it in its own template and <tt class="docutils literal">{% include %}</tt> it.</li>
 </ol>
 
+
+
 </section>
             
           </div>
@@ -1237,7 +1335,8 @@
             <section>
             
               <ul class="simple">
-<li>Django compressor is great and pulls together a number of important extras on top of django.contrib.staticfiles.</li>
+<li>Static media is not typically a scaling problem, but it can get in the way if you're not careful. It's easiest to push it off to S3 or cloud files so you can forget about it.</li>
+<li>Django compressor can also help optimize your static media and pulls together a number of important extras on top of django.contrib.staticfiles.</li>
 <li>It not only can compress + combine your CSS and JS, but can also do things like process your LESS or SAS files for you at deploy time.</li>
 <li>You really do not want these things taking up a Python web server process, so get them out of the way when you deploy and stop worrying about static media.</li>
 </ul>
@@ -1262,7 +1361,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Step 7: Automated Server Provisioning</h1></header>
+            <header><h2>Step 7: Automated Server Provisioning</h2></header>
             
             
             <section><ul class="simple">
@@ -1270,6 +1369,8 @@
 <li>We used FabulAWS which has declarative configuration in Python</li>
 <li>Use Fabric or something similar to deploy</li>
 </ul>
+
+
 
 </section>
             
@@ -1279,11 +1380,11 @@
             <section>
             
               <ul class="simple">
-<li>Picking an automated server provisioning and deployment tool set is really important</li>
-<li>There's no point trying to scale if you can't quickly and easily create, destroy, and update servers of all types (database, cache, web, worker, etc.)</li>
-<li>This setup is a topic unto itself, but find something that works for you, stick to it, and perfect it.</li>
-<li>If we were to do it over again, today, I'd definitely use Salt instead of rolling our own.  I prefer Python so I'm not a huge fan of Chef or Puppet.</li>
-<li>This becomes particularly important when it comes time to tweak server configuration files on 10-20 web servers at once.  You DO NOT want to be doing that manually.</li>
+<li>Last but not least, picking an automated server provisioning and deployment tool set is really important</li>
+<li>There's no point trying to scale if you can't easily create, destroy, and update servers of all types (database, cache, web, worker, etc.)</li>
+<li>Choosing and using a tool is a topic unto itself, but find something that works for you, stick to it, and perfect it.</li>
+<li>If we were to do it over again, today, I'd probably use Salt instead of rolling our own.  I prefer Python so I'm not a huge fan of Chef or Puppet, but I know a lot of folks in the Django community use those.</li>
+<li>Having something in place becomes particularly important when it comes time to tweak server configuration files on 10-20 web servers at once.  You DO NOT want to be doing that manually.</li>
 </ul>
             
             </section>
@@ -1306,7 +1407,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Review of Phase I</h1></header>
+            <header><h2>Review of Phase I</h2></header>
             
             
             <section><p>So far we have:</p>
@@ -1318,6 +1419,8 @@
 <li>Implemented a basic load testing script in JMeter</li>
 </ul>
 
+
+
 </section>
             
           </div>
@@ -1326,9 +1429,9 @@
             <section>
             
               <ul class="simple">
+<li>So, just a quick re-cap on Phase I</li>
 <li>We have all the ground work in place</li>
 <li>We're not doing anything overly stupid (or so we think)</li>
-<li>Using the JMeter test script we'd created, we simulated enough load to match our scaling target, and using an iterative trial and error process, eliminated all the necessary bottlenecks in the survey taking views</li>
 </ul>
             
             </section>
@@ -1351,13 +1454,16 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Review of Phase I</h1></header>
+            <header><h2>Review of Phase I</h2></header>
             
             
             <section><ul class="simple">
+<li>Tested with JMeter</li>
 <li>Achieved 275 requests/second</li>
-<li>10 web servers</li>
+<li>10 web servers at 50-60% CPU usage each</li>
 </ul>
+
+
 
 </section>
             
@@ -1367,6 +1473,8 @@
             <section>
             
               <ul class="simple">
+<li>Using the JMeter test script we'd created, we simulated enough load to match our scaling target</li>
+<li>Using an iterative trial and error process, we eliminated all the necessary bottlenecks in the survey taking views</li>
 <li>After making these changes we easily hit our target of 275 requests/second, and it was evident that there was room to grow if needed</li>
 <li>For this load we had about 10 high-CPU, medium EC2 instances running as web servers</li>
 <li>We also found that a good load average is about 50-60% of all cores on a web server, which you can use to tune the number of servers in use</li>
@@ -1393,7 +1501,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Scaling Phase II: The State of Illinois</h1></header>
+            <header><h2>Scaling Phase II: The State of Illinois</h2></header>
             
             
           </div>
@@ -1404,7 +1512,7 @@
               <ul class="simple">
 <li>This part of the talk will be a little bit different</li>
 <li>We'll focus specifically on the load testing we did for the state of illinois scaling</li>
-<li>And highlight a few of the specific issues that we ran into along the way.</li>
+<li>We used a similar process of iterative load testing during the first phase, but for the sake of brevity I'll only cover the specifics of what we did for phase II</li>
 </ul>
             
             </section>
@@ -1427,7 +1535,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Phase II Scaling Target</h1></header>
+            <header><h2>Phase II Scaling Target</h2></header>
             
             
             <section><ul class="simple">
@@ -1436,6 +1544,8 @@
 <li>Up to 50,000 survey takers per hour</li>
 <li>Around 75,000 requests/minute, or 1,250 request/second</li>
 </ul>
+
+
 
 </section>
             
@@ -1448,7 +1558,7 @@
 <li>Phase II is quite a bit bigger</li>
 <li>Roughly an order of magnitude in terms of numbers of users</li>
 <li>Due to the shorter survey, about 5 times as many requests per second</li>
-<li>Given that we're moving well beyond the load a single laptop can simulate, we need to rethink how and why we're load testing.</li>
+<li>Given that we're moving well beyond the load a single laptop can simulate, we will need to rethink how and why we're load testing.</li>
 </ul>
             
             </section>
@@ -1471,13 +1581,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Interlude: Postgres-XC</h1></header>
+            <header><h2>Interlude: Postgres-XC</h2></header>
             
             
             <section><ul class="simple">
 <li>Main pro: Write-scalable Postgres cluster</li>
 <li>Main con: Dramatically increased systems complexity</li>
 </ul>
+
+
 
 </section>
             
@@ -1487,10 +1599,9 @@
             <section>
             
               <ul class="simple">
-<li>At this point, we evaluated a number of different options, including several NoSQL databases, as well a product called Postgres-XC</li>
-<li>For all the post-survey response processing, the application relies heavily on the Django ORM, so we weren't ready to sacrifice that for a new API</li>
-<li>Postgres-XC looked promising, but it was not clear if the set up could be sufficiently automated. This led us to do further load testing before committing to something like this</li>
-<li>This brings up the good question of why we load test in the first place</li>
+<li>At this point, we evaluated a number of different options, including a product called Postgres-XC</li>
+<li>For all the processing that comes <em>after</em> a survey has been run, the application relies heavily on the Django ORM, so we weren't ready to sacrifice that for a new API</li>
+<li>For that reason, Postgres-XC looked promising, but it was not clear if the set up could be sufficiently automated. This led us to do further load testing before committing to something like this, which brings up the good question of why load test in the first place</li>
 </ul>
             
             </section>
@@ -1513,7 +1624,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Why load test?</h1></header>
+            <header><h2>Why load test?</h2></header>
             
             
             <section><ul class="simple">
@@ -1523,6 +1634,8 @@
 <li>Verify the need for larger architecture changes</li>
 </ul>
 
+
+
 </section>
             
           </div>
@@ -1531,11 +1644,11 @@
             <section>
             
               <ul class="simple">
-<li>There are lots of good reasons to load test, most of which fall along the same lines of why we do any testing</li>
+<li>There are lots of good reasons to do this, most of which fall along the same lines of why we do any testing</li>
 <li>We want to discover problems and fix them before our users see them</li>
 <li>In this case, we're really testing the infrastructure itself, answering questions like: Did we configure all the different services correctly? Can my current system architecture handle the load?</li>
 <li>Problems of scale are particulary easy to ignore, because you really don't see them during development unless you try really hard</li>
-<li>Conversely, load testing lets you avoid premature optimization by backing up configuration choices with real data rather than abstract guesses</li>
+<li>Load testing also lets you avoid premature optimization by backing up configuration choices with real data rather than abstract guesses</li>
 </ul>
             
             </section>
@@ -1558,7 +1671,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Before we start</h1></header>
+            <header><h2>Before we start</h2></header>
             
             
             <section><ul class="simple">
@@ -1568,6 +1681,8 @@
 <li>Make educated forecasts about capacity</li>
 </ul>
 
+
+
 </section>
             
           </div>
@@ -1576,7 +1691,7 @@
             <section>
             
               <ul class="simple">
-<li>Before you take on a project like this, I highly recommend mapping out the key configuration items in a spreadsheet</li>
+<li>Before you take on a project like this, I highly recommend mapping out the different configuration items in a spreadsheet</li>
 <li>Helps you figure out what to set all the various connection limits and worker counts to</li>
 <li>Also helps forecase load capacity</li>
 </ul>
@@ -1601,10 +1716,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Server Diagram</h1></header>
+            <header><h2>Server Diagram</h2></header>
             
             
             <section><img alt="static/CCSR_server_diagram.png" class="align-center" src="static/CCSR_server_diagram.png" />
+
+
 
 </section>
             
@@ -1637,11 +1754,13 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Spreadsheet</h1></header>
+            <header><h2>Spreadsheet</h2></header>
             
             
             <section><img alt="static/spreadsheet.png" class="align-center" src="static/spreadsheet.png" />
 <p>See: <a class="reference external" href="http://cakt.us/scaling-config">http://cakt.us/scaling-config</a></p>
+
+
 
 </section>
             
@@ -1651,7 +1770,7 @@
             <section>
             
               <ul class="simple">
-<li>Here's an example of a spreadsheet we put together for this project</li>
+<li>This is a sample of a spreadsheet we put together for this project</li>
 <li>These calculations are all about juggling what you're going to run out of</li>
 <li>For example, 10 web servers, 30 workers on each, that means up to 300 open DB connections</li>
 <li>That's too many, so we use pgbouncer on each of the web servers to share 2 or 3 persistent postgres connections across 30 workers</li>
@@ -1678,7 +1797,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Generating load at scale</h1></header>
+            <header><h2>Generating load at scale</h2></header>
             
             
             <section><ul class="simple">
@@ -1686,6 +1805,8 @@
 <li>Need to run load test from the cloud</li>
 <li>Do it yourself, or use BlazeMeter or another provider</li>
 </ul>
+
+
 
 </section>
             
@@ -1698,7 +1819,7 @@
 <li>JMeter is great, but not useful above 400-600 threads on a laptop</li>
 <li>I played around with a few things for this, eventually settled on a service called BlazeMeter</li>
 <li>Lets you upload your JMeter scripts and deploy them to multiple EC2 servers, and collect the results</li>
-<li>Integrates with New Relic</li>
+<li>Integrates with New Relic, which we'll be using to measure changes made</li>
 <li>(Neither of these companies are paying me to say this, though they probably should)</li>
 </ul>
             
@@ -1722,10 +1843,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>survey_change_page, gevent</h1></header>
+            <header><h2>survey_change_page, gevent</h2></header>
             
             
             <section><img alt="static/nr1/sample1.png" class="align-center" src="static/nr1/sample1.png" />
+
+
 
 </section>
             
@@ -1735,9 +1858,8 @@
             <section>
             
               <ul class="simple">
-<li>Here's one of the first graphs we saved while load testing</li>
-<li>From the main view for survey taking that does the writes to disk</li>
-<li>The big bars are redis GET and SET</li>
+<li>Here's one of the first graphs we saved while load testing, from the main view for survey taking that does the writes to disk</li>
+<li>The big bars are redis GET and SET, which we found somewhat confusing</li>
 </ul>
             
             </section>
@@ -1760,13 +1882,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>What's going on?</h1></header>
+            <header><h2>What's going on?</h2></header>
             
             
             <section><ul class="simple">
 <li>redis oddly slow, but not overloaded</li>
 <li>Also saw nf_conntrack errors in dmesg</li>
 </ul>
+
+
 
 </section>
             
@@ -1778,7 +1902,7 @@
               <ul class="simple">
 <li>Redis appeared to be slow in new relic, but when tested from the console, it was lightning fast (even under load).</li>
 <li>We were getting lots of nf_conntrack errors in dmesg</li>
-<li>This is using the gevent worker, which uses an event loop to process lots of requests in the same thread</li>
+<li>This is using the gevent worker in gunicorn, which uses an event loop to process lots of requests in the same thread</li>
 </ul>
             
             </section>
@@ -1801,10 +1925,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>survey_change_page, sync</h1></header>
+            <header><h2>survey_change_page, sync</h2></header>
             
             
             <section><img alt="static/nr2/sample2.png" class="align-center" src="static/nr2/sample2.png" />
+
+
 
 </section>
             
@@ -1814,7 +1940,7 @@
             <section>
             
               <ul class="simple">
-<li>We disabled connection tracking and switched to the sync worker</li>
+<li>We disabled connection tracking in the firewall and switched to the sync worker</li>
 <li>Bottleneck immediately transferred to the database INSERT statement</li>
 <li>What is happening here?</li>
 </ul>
@@ -1839,13 +1965,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>What was happening?</h1></header>
+            <header><h2>What was happening?</h2></header>
             
             
             <section><ul class="simple">
 <li>gevent worker is really bad for CPU-bound applications</li>
 <li>Makes I/O <strong>look</strong> expensive</li>
 </ul>
+
+
 
 </section>
             
@@ -1882,10 +2010,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Database Reponse Time</h1></header>
+            <header><h2>Database Reponse Time</h2></header>
             
             
             <section><img alt="static/nr2/dashboard-crash.png" class="align-center" src="static/nr2/dashboard-crash.png" />
+
+
 
 </section>
             
@@ -1918,10 +2048,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Database Falls Over</h1></header>
+            <header><h2>Database Falls Over</h2></header>
             
             
             <section><img alt="static/nr2/pg-crash.png" class="align-center" src="static/nr2/pg-crash.png" />
+
+
 
 </section>
             
@@ -1955,10 +2087,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Database Still Overloaded</h1></header>
+            <header><h2>Database Still Overloaded</h2></header>
             
             
             <section><img alt="static/nr3/sample3.png" class="align-center" src="static/nr3/sample3.png" />
+
+
 
 </section>
             
@@ -1995,10 +2129,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>The Right Target Load</h1></header>
+            <header><h2>The Right Target Load</h2></header>
             
             
             <section><img alt="static/nr4/sample4.png" class="align-center" src="static/nr4/sample4.png" />
+
+
 
 </section>
             
@@ -2032,10 +2168,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>HTTP Requests</h1></header>
+            <header><h2>HTTP Requests</h2></header>
             
             
             <section><img alt="static/nr4/dashboard-pre-final.png" class="align-center" src="static/nr4/dashboard-pre-final.png" />
+
+
 
 </section>
             
@@ -2068,10 +2206,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>PostgreSQL Transactions</h1></header>
+            <header><h2>PostgreSQL Transactions</h2></header>
             
             
             <section><img alt="static/nr4/pg-transactions.png" class="align-center" src="static/nr4/pg-transactions.png" />
+
+
 
 </section>
             
@@ -2106,7 +2246,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Recreate from Scratch, Test Again</h1></header>
+            <header><h2>Recreate from Scratch, Test Again</h2></header>
             
             
             <section><ul class="simple">
@@ -2114,6 +2254,8 @@
 <li>Response time was no where near what it was before</li>
 <li>Postgres could barely hit 6,000 transactions/second</li>
 </ul>
+
+
 
 </section>
             
@@ -2149,7 +2291,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Optimizing your PostgreSQL config</h1></header>
+            <header><h2>Optimizing your PostgreSQL config</h2></header>
             
             
           </div>
@@ -2181,7 +2323,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Optimizing PostgreSQL: Where to Start</h1></header>
+            <header><h2>Optimizing PostgreSQL: Where to Start</h2></header>
             
             
             <section><ul class="simple">
@@ -2191,6 +2333,8 @@
 <li><a class="reference external" href="http://cakt.us/pg-tuning">http://cakt.us/pg-tuning</a></li>
 <li><a class="reference external" href="http://cakt.us/pg-conns">http://cakt.us/pg-conns</a></li>
 </ul>
+
+
 
 </section>
             
@@ -2227,7 +2371,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Figuring out max_connections</h1></header>
+            <header><h2>Figuring out max_connections</h2></header>
             
             
             <section><ul class="simple">
@@ -2235,6 +2379,8 @@
 <li>Use pgbouncer to share a small number of persistent connections</li>
 <li>Run pgbouncer on your web servers using <tt class="docutils literal">supervisord</tt></li>
 </ul>
+
+
 
 </section>
             
@@ -2272,7 +2418,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>What was this talk about again?</h1></header>
+            <header><h2>What was this talk about again?</h2></header>
             
             
             <section><p>Optimizing <tt class="docutils literal">postgresql.conf</tt> for heavy <tt class="docutils literal">INSERT</tt> load:</p>
@@ -2281,6 +2427,8 @@
 <li><strong>commit_siblings = 5</strong> - only delay if at least N transactions are in process</li>
 </ul>
 <p>(Note: this is now even better in PostgreSQL 9.2: <a class="reference external" href="http://cakt.us/pg-group-commit">http://cakt.us/pg-group-commit</a>)</p>
+
+
 
 </section>
             
@@ -2320,7 +2468,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Final Tweaks</h1></header>
+            <header><h2>Final Tweaks</h2></header>
             
             
           </div>
@@ -2348,10 +2496,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>The Right Target Load</h1></header>
+            <header><h2>The Right Target Load</h2></header>
             
             
             <section><img alt="static/nr4/sample4.png" class="align-center" src="static/nr4/sample4.png" />
+
+
 
 </section>
             
@@ -2386,10 +2536,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>survey_change_page, with memcached</h1></header>
+            <header><h2>survey_change_page, with memcached</h2></header>
             
             
             <section><img alt="static/nr5/sample5.png" class="align-center" src="static/nr5/sample5.png" />
+
+
 
 </section>
             
@@ -2423,10 +2575,12 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Final Performance</h1></header>
+            <header><h2>Final Performance</h2></header>
             
             
-            <section><img alt="static/nr5/final-dashboard.png" class="align-center" src="static/nr5/final-dashboard.png" />
+            <section><img alt="static/nr5/dashboard-final.png" class="align-center" src="static/nr5/dashboard-final.png" />
+
+
 
 </section>
             
@@ -2441,9 +2595,7 @@
 </ul>
 <p>---</p>
 
-
-
-<h1>That's all!</h1>
+<h2>That's all!</h2>
             
             </section>
           </div>
@@ -2465,7 +2617,7 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>Questions?</h1></header>
+            <header><h2>Questions?</h2></header>
             
             
             <section><ul class="simple">
@@ -2473,12 +2625,20 @@
 <li>Twitter: <a class="reference external" href="https://twitter.com/tobiasmcnulty">&#64;tobiasmcnulty</a></li>
 <li>Hire us: <a class="reference external" href="http://www.caktusgroup.com">http://www.caktusgroup.com</a></li>
 <li>Slides: <a class="reference external" href="http://cakt.us/djangocon-scaling">http://cakt.us/djangocon-scaling</a></li>
-</ul></section>
+</ul>
+
+
+
+</section>
             
           </div>
           <div class="presenter_notes">
             <header><h1>Presenter Notes</h1></header>
             <section>
+            
+              <ul class="simple">
+<li>Thanks everyone for your time today - I think we have a few minutes left for questions</li>
+</ul>
             
             </section>
           </div>
@@ -2500,13 +2660,15 @@
         <div class="slide">
           <div class="inner">
             
-            <header><h1>The NoSQL Slide</h1></header>
+            <header><h2>The NoSQL Slide</h2></header>
             
             
             <section><p>PostgreSQL:</p>
 <ul class="simple">
 <li><strong>synchronous_commit = off</strong> - don't wait for fsync before returning success</li>
 </ul>
+
+
 
 </section>
             
@@ -2516,7 +2678,8 @@
             <section>
             
               <ul class="simple">
-<li>Another useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit</li>
+<li>We did think about that but after load testing with postgres we discovered it wasn't necessary</li>
+<li>One useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit</li>
 <li>It's not as bad as disabling fsync b/c there's no risk of data inconsistency</li>
 <li>But IF the server crashes BEFORE it can call fsync but AFTEr it returns success to the user, there might be an inconsistency between what the user thinks was saved and what was actually saved.</li>
 <li>Obviously this is not good for banking transactions, but there are plenty of other less critical applications out there that might benefit from disabling this feature in Postgres.</li>
@@ -2551,365 +2714,307 @@
         <td><a href="#slide1">1</a></td>
       </tr>
       
-      
-      <tr id="toc-row-2">
-        <th><a href="#slide2">About Me</a></th>
-        <td><a href="#slide2">2</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-3">
-        <th><a href="#slide3">Talk Outline</a></th>
-        <td><a href="#slide3">3</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-4">
-        <th><a href="#slide4">Project Overview</a></th>
-        <td><a href="#slide4">4</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-5">
-        <th><a href="#slide5">5Essentials Schools Surveys</a></th>
-        <td><a href="#slide5">5</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-6">
-        <th><a href="#slide6">From Scantron...</a></th>
-        <td><a href="#slide6">6</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-7">
-        <th><a href="#slide7">About the Project</a></th>
-        <td><a href="#slide7">7</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-8">
-        <th><a href="#slide8">...to Scalable Web App</a></th>
-        <td><a href="#slide8">8</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-9">
-        <th><a href="#slide9">Survey Composition</a></th>
-        <td><a href="#slide9">9</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-10">
-        <th><a href="#slide10">Write-heavy App</a></th>
-        <td><a href="#slide10">10</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-11">
-        <th><a href="#slide11">Fast or Scalable?</a></th>
-        <td><a href="#slide11">11</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-12">
-        <th><a href="#slide12">Architecture</a></th>
-        <td><a href="#slide12">12</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-13">
-        <th><a href="#slide13">Systems Diagram</a></th>
-        <td><a href="#slide13">13</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-14">
-        <th><a href="#slide14">Scaling Phase I: Chicago Public Schools</a></th>
-        <td><a href="#slide14">14</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-15">
-        <th><a href="#slide15">Phase I Scaling Target</a></th>
-        <td><a href="#slide15">15</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-16">
-        <th><a href="#slide16">Step 1: django-debug-toolbar</a></th>
-        <td><a href="#slide16">16</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-17">
-        <th><a href="#slide17">Step 1: Common query reduction patterns</a></th>
-        <td><a href="#slide17">17</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-18">
-        <th><a href="#slide18">Step 2: Automate some load</a></th>
-        <td><a href="#slide18">18</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-19">
-        <th><a href="#slide19">Step 3: pgfouine</a></th>
-        <td><a href="#slide19">19</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-20">
-        <th><a href="#slide20">Step 3: pgfouine</a></th>
-        <td><a href="#slide20">20</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-21">
-        <th><a href="#slide21">Step 4: Let's play cache</a></th>
-        <td><a href="#slide21">21</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-22">
-        <th><a href="#slide22">Step 4: django-cache-machine</a></th>
-        <td><a href="#slide22">22</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-23">
-        <th><a href="#slide23">Step 4: django-cache-machine</a></th>
-        <td><a href="#slide23">23</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-24">
-        <th><a href="#slide24">Step 4: pgfouine, before</a></th>
-        <td><a href="#slide24">24</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-25">
-        <th><a href="#slide25">Step 4: pgfouine, after</a></th>
-        <td><a href="#slide25">25</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-26">
-        <th><a href="#slide26">Step 5: Multiple databases</a></th>
-        <td><a href="#slide26">26</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-27">
-        <th><a href="#slide27">django-balancer</a></th>
-        <td><a href="#slide27">27</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-28">
-        <th><a href="#slide28">Custom database router</a></th>
-        <td><a href="#slide28">28</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-29">
-        <th><a href="#slide29">Step 6: Static Media</a></th>
-        <td><a href="#slide29">29</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-30">
-        <th><a href="#slide30">Step 7: Automated Server Provisioning</a></th>
-        <td><a href="#slide30">30</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-31">
-        <th><a href="#slide31">Review of Phase I</a></th>
-        <td><a href="#slide31">31</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-32">
-        <th><a href="#slide32">Review of Phase I</a></th>
-        <td><a href="#slide32">32</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-33">
-        <th><a href="#slide33">Scaling Phase II: The State of Illinois</a></th>
-        <td><a href="#slide33">33</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-34">
-        <th><a href="#slide34">Phase II Scaling Target</a></th>
-        <td><a href="#slide34">34</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-35">
-        <th><a href="#slide35">Interlude: Postgres-XC</a></th>
-        <td><a href="#slide35">35</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-36">
-        <th><a href="#slide36">Why load test?</a></th>
-        <td><a href="#slide36">36</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-37">
-        <th><a href="#slide37">Before we start</a></th>
-        <td><a href="#slide37">37</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-38">
-        <th><a href="#slide38">Server Diagram</a></th>
-        <td><a href="#slide38">38</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-39">
-        <th><a href="#slide39">Spreadsheet</a></th>
-        <td><a href="#slide39">39</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-40">
-        <th><a href="#slide40">Generating load at scale</a></th>
-        <td><a href="#slide40">40</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-41">
-        <th><a href="#slide41">survey_change_page, gevent</a></th>
-        <td><a href="#slide41">41</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-42">
-        <th><a href="#slide42">What's going on?</a></th>
-        <td><a href="#slide42">42</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-43">
-        <th><a href="#slide43">survey_change_page, sync</a></th>
-        <td><a href="#slide43">43</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-44">
-        <th><a href="#slide44">What was happening?</a></th>
-        <td><a href="#slide44">44</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-45">
-        <th><a href="#slide45">Database Reponse Time</a></th>
-        <td><a href="#slide45">45</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-46">
-        <th><a href="#slide46">Database Falls Over</a></th>
-        <td><a href="#slide46">46</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-47">
-        <th><a href="#slide47">Database Still Overloaded</a></th>
-        <td><a href="#slide47">47</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-48">
-        <th><a href="#slide48">The Right Target Load</a></th>
-        <td><a href="#slide48">48</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-49">
-        <th><a href="#slide49">HTTP Requests</a></th>
-        <td><a href="#slide49">49</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-50">
-        <th><a href="#slide50">PostgreSQL Transactions</a></th>
-        <td><a href="#slide50">50</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-51">
-        <th><a href="#slide51">Recreate from Scratch, Test Again</a></th>
-        <td><a href="#slide51">51</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-52">
-        <th><a href="#slide52">Optimizing your PostgreSQL config</a></th>
-        <td><a href="#slide52">52</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-53">
-        <th><a href="#slide53">Optimizing PostgreSQL: Where to Start</a></th>
-        <td><a href="#slide53">53</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-54">
-        <th><a href="#slide54">Figuring out max_connections</a></th>
-        <td><a href="#slide54">54</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-55">
-        <th><a href="#slide55">What was this talk about again?</a></th>
-        <td><a href="#slide55">55</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-56">
-        <th><a href="#slide56">Final Tweaks</a></th>
-        <td><a href="#slide56">56</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-57">
-        <th><a href="#slide57">The Right Target Load</a></th>
-        <td><a href="#slide57">57</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-58">
-        <th><a href="#slide58">survey_change_page, with memcached</a></th>
-        <td><a href="#slide58">58</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-59">
-        <th><a href="#slide59">Final Performance</a></th>
-        <td><a href="#slide59">59</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-60">
-        <th><a href="#slide60">Questions?</a></th>
-        <td><a href="#slide60">60</a></td>
-      </tr>
-      
-      
-      <tr id="toc-row-61">
-        <th><a href="#slide61">The NoSQL Slide</a></th>
-        <td><a href="#slide61">61</a></td>
-      </tr>
+        
+        <tr id="toc-row-2" class="sub">
+          <th><a href="#slide2">About Me</a></th>
+          <td><a href="#slide2">2</a></td>
+        </tr>
+        
+        <tr id="toc-row-3" class="sub">
+          <th><a href="#slide3">Talk Outline</a></th>
+          <td><a href="#slide3">3</a></td>
+        </tr>
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">Project Overview</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+        <tr id="toc-row-5" class="sub">
+          <th><a href="#slide5">5Essentials Schools Surveys</a></th>
+          <td><a href="#slide5">5</a></td>
+        </tr>
+        
+        <tr id="toc-row-6" class="sub">
+          <th><a href="#slide6">From Scantron...</a></th>
+          <td><a href="#slide6">6</a></td>
+        </tr>
+        
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">About the Project</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">...to Scalable Web App</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">Survey Composition</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+        <tr id="toc-row-10" class="sub">
+          <th><a href="#slide10">Write-heavy App</a></th>
+          <td><a href="#slide10">10</a></td>
+        </tr>
+        
+        <tr id="toc-row-11" class="sub">
+          <th><a href="#slide11">Fast or Scalable?</a></th>
+          <td><a href="#slide11">11</a></td>
+        </tr>
+        
+        <tr id="toc-row-12" class="sub">
+          <th><a href="#slide12">Architecture</a></th>
+          <td><a href="#slide12">12</a></td>
+        </tr>
+        
+        <tr id="toc-row-13" class="sub">
+          <th><a href="#slide13">Systems Diagram</a></th>
+          <td><a href="#slide13">13</a></td>
+        </tr>
+        
+        <tr id="toc-row-14" class="sub">
+          <th><a href="#slide14">Scaling Phase I: Chicago Public Schools</a></th>
+          <td><a href="#slide14">14</a></td>
+        </tr>
+        
+        <tr id="toc-row-15" class="sub">
+          <th><a href="#slide15">Phase I Scaling Target</a></th>
+          <td><a href="#slide15">15</a></td>
+        </tr>
+        
+        <tr id="toc-row-16" class="sub">
+          <th><a href="#slide16">Step 1: django-debug-toolbar</a></th>
+          <td><a href="#slide16">16</a></td>
+        </tr>
+        
+        <tr id="toc-row-17" class="sub">
+          <th><a href="#slide17">Step 1: Common query reduction patterns</a></th>
+          <td><a href="#slide17">17</a></td>
+        </tr>
+        
+        <tr id="toc-row-18" class="sub">
+          <th><a href="#slide18">Step 2: Automate some load</a></th>
+          <td><a href="#slide18">18</a></td>
+        </tr>
+        
+        <tr id="toc-row-19" class="sub">
+          <th><a href="#slide19">Step 3: pgfouine</a></th>
+          <td><a href="#slide19">19</a></td>
+        </tr>
+        
+        <tr id="toc-row-20" class="sub">
+          <th><a href="#slide20">Step 3: pgfouine</a></th>
+          <td><a href="#slide20">20</a></td>
+        </tr>
+        
+        <tr id="toc-row-21" class="sub">
+          <th><a href="#slide21">Step 4: Let's play cache</a></th>
+          <td><a href="#slide21">21</a></td>
+        </tr>
+        
+        <tr id="toc-row-22" class="sub">
+          <th><a href="#slide22">Step 4: django-cache-machine</a></th>
+          <td><a href="#slide22">22</a></td>
+        </tr>
+        
+        <tr id="toc-row-23" class="sub">
+          <th><a href="#slide23">Step 4: django-cache-machine</a></th>
+          <td><a href="#slide23">23</a></td>
+        </tr>
+        
+        <tr id="toc-row-24" class="sub">
+          <th><a href="#slide24">Step 4: pgfouine, before</a></th>
+          <td><a href="#slide24">24</a></td>
+        </tr>
+        
+        <tr id="toc-row-25" class="sub">
+          <th><a href="#slide25">Step 4: pgfouine, after</a></th>
+          <td><a href="#slide25">25</a></td>
+        </tr>
+        
+        <tr id="toc-row-26" class="sub">
+          <th><a href="#slide26">Step 5: Multiple databases</a></th>
+          <td><a href="#slide26">26</a></td>
+        </tr>
+        
+        <tr id="toc-row-27" class="sub">
+          <th><a href="#slide27">Step 5: django-balancer</a></th>
+          <td><a href="#slide27">27</a></td>
+        </tr>
+        
+        <tr id="toc-row-28" class="sub">
+          <th><a href="#slide28">Step 5: Custom database router</a></th>
+          <td><a href="#slide28">28</a></td>
+        </tr>
+        
+        <tr id="toc-row-29" class="sub">
+          <th><a href="#slide29">Step 6: Static Media</a></th>
+          <td><a href="#slide29">29</a></td>
+        </tr>
+        
+        <tr id="toc-row-30" class="sub">
+          <th><a href="#slide30">Step 7: Automated Server Provisioning</a></th>
+          <td><a href="#slide30">30</a></td>
+        </tr>
+        
+        <tr id="toc-row-31" class="sub">
+          <th><a href="#slide31">Review of Phase I</a></th>
+          <td><a href="#slide31">31</a></td>
+        </tr>
+        
+        <tr id="toc-row-32" class="sub">
+          <th><a href="#slide32">Review of Phase I</a></th>
+          <td><a href="#slide32">32</a></td>
+        </tr>
+        
+        <tr id="toc-row-33" class="sub">
+          <th><a href="#slide33">Scaling Phase II: The State of Illinois</a></th>
+          <td><a href="#slide33">33</a></td>
+        </tr>
+        
+        <tr id="toc-row-34" class="sub">
+          <th><a href="#slide34">Phase II Scaling Target</a></th>
+          <td><a href="#slide34">34</a></td>
+        </tr>
+        
+        <tr id="toc-row-35" class="sub">
+          <th><a href="#slide35">Interlude: Postgres-XC</a></th>
+          <td><a href="#slide35">35</a></td>
+        </tr>
+        
+        <tr id="toc-row-36" class="sub">
+          <th><a href="#slide36">Why load test?</a></th>
+          <td><a href="#slide36">36</a></td>
+        </tr>
+        
+        <tr id="toc-row-37" class="sub">
+          <th><a href="#slide37">Before we start</a></th>
+          <td><a href="#slide37">37</a></td>
+        </tr>
+        
+        <tr id="toc-row-38" class="sub">
+          <th><a href="#slide38">Server Diagram</a></th>
+          <td><a href="#slide38">38</a></td>
+        </tr>
+        
+        <tr id="toc-row-39" class="sub">
+          <th><a href="#slide39">Spreadsheet</a></th>
+          <td><a href="#slide39">39</a></td>
+        </tr>
+        
+        <tr id="toc-row-40" class="sub">
+          <th><a href="#slide40">Generating load at scale</a></th>
+          <td><a href="#slide40">40</a></td>
+        </tr>
+        
+        <tr id="toc-row-41" class="sub">
+          <th><a href="#slide41">survey_change_page, gevent</a></th>
+          <td><a href="#slide41">41</a></td>
+        </tr>
+        
+        <tr id="toc-row-42" class="sub">
+          <th><a href="#slide42">What's going on?</a></th>
+          <td><a href="#slide42">42</a></td>
+        </tr>
+        
+        <tr id="toc-row-43" class="sub">
+          <th><a href="#slide43">survey_change_page, sync</a></th>
+          <td><a href="#slide43">43</a></td>
+        </tr>
+        
+        <tr id="toc-row-44" class="sub">
+          <th><a href="#slide44">What was happening?</a></th>
+          <td><a href="#slide44">44</a></td>
+        </tr>
+        
+        <tr id="toc-row-45" class="sub">
+          <th><a href="#slide45">Database Reponse Time</a></th>
+          <td><a href="#slide45">45</a></td>
+        </tr>
+        
+        <tr id="toc-row-46" class="sub">
+          <th><a href="#slide46">Database Falls Over</a></th>
+          <td><a href="#slide46">46</a></td>
+        </tr>
+        
+        <tr id="toc-row-47" class="sub">
+          <th><a href="#slide47">Database Still Overloaded</a></th>
+          <td><a href="#slide47">47</a></td>
+        </tr>
+        
+        <tr id="toc-row-48" class="sub">
+          <th><a href="#slide48">The Right Target Load</a></th>
+          <td><a href="#slide48">48</a></td>
+        </tr>
+        
+        <tr id="toc-row-49" class="sub">
+          <th><a href="#slide49">HTTP Requests</a></th>
+          <td><a href="#slide49">49</a></td>
+        </tr>
+        
+        <tr id="toc-row-50" class="sub">
+          <th><a href="#slide50">PostgreSQL Transactions</a></th>
+          <td><a href="#slide50">50</a></td>
+        </tr>
+        
+        <tr id="toc-row-51" class="sub">
+          <th><a href="#slide51">Recreate from Scratch, Test Again</a></th>
+          <td><a href="#slide51">51</a></td>
+        </tr>
+        
+        <tr id="toc-row-52" class="sub">
+          <th><a href="#slide52">Optimizing your PostgreSQL config</a></th>
+          <td><a href="#slide52">52</a></td>
+        </tr>
+        
+        <tr id="toc-row-53" class="sub">
+          <th><a href="#slide53">Optimizing PostgreSQL: Where to Start</a></th>
+          <td><a href="#slide53">53</a></td>
+        </tr>
+        
+        <tr id="toc-row-54" class="sub">
+          <th><a href="#slide54">Figuring out max_connections</a></th>
+          <td><a href="#slide54">54</a></td>
+        </tr>
+        
+        <tr id="toc-row-55" class="sub">
+          <th><a href="#slide55">What was this talk about again?</a></th>
+          <td><a href="#slide55">55</a></td>
+        </tr>
+        
+        <tr id="toc-row-56" class="sub">
+          <th><a href="#slide56">Final Tweaks</a></th>
+          <td><a href="#slide56">56</a></td>
+        </tr>
+        
+        <tr id="toc-row-57" class="sub">
+          <th><a href="#slide57">The Right Target Load</a></th>
+          <td><a href="#slide57">57</a></td>
+        </tr>
+        
+        <tr id="toc-row-58" class="sub">
+          <th><a href="#slide58">survey_change_page, with memcached</a></th>
+          <td><a href="#slide58">58</a></td>
+        </tr>
+        
+        <tr id="toc-row-59" class="sub">
+          <th><a href="#slide59">Final Performance</a></th>
+          <td><a href="#slide59">59</a></td>
+        </tr>
+        
+        <tr id="toc-row-60" class="sub">
+          <th><a href="#slide60">Questions?</a></th>
+          <td><a href="#slide60">60</a></td>
+        </tr>
+        
+        <tr id="toc-row-61" class="sub">
+          <th><a href="#slide61">The NoSQL Slide</a></th>
+          <td><a href="#slide61">61</a></td>
+        </tr>
+        
       
       
     </table>

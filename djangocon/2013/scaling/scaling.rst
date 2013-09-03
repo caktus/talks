@@ -8,19 +8,26 @@ Tobias McNulty
 
 Slides: http://cakt.us/djangocon-scaling
 
+Presenter Notes
+---------------
+
+- Hello everyone, today I'll be talking about scaling your write heavy Django app
+- A little about me before we start..
+
 ----
 
 About Me
 ========
 
 * I help run Caktus
-* We build custom Python/Django web apps in NC
+* We build custom Python/Django web apps in NC for clients everywhere
 * Developer with a penchant for infrastructure
 
 Presenter Notes
 ---------------
 - I'm a co-founder and managing member at Caktus Group in Chapel Hill NC
-- I'm a developer, but might be a sysadmin at heart.
+- We've been building Django web apps for clients since 2007
+- I'm a developer by trade, but quite possibly a sysadmin at heart.
 
 ----
 
@@ -31,6 +38,16 @@ Talk Outline
 - Scaling Phase I: Chicago Public Schools
 - Scaling Phase II: The State of Illinois
 - Optimizing Your PostgreSQL Config
+- Final Tweaks
+
+Presenter Notes
+---------------
+
+- My talk today will be broken up into three larger sections
+- In the first I'll give you an overview of the project itself and why scale was a problem for us
+- Second, I'll cover the first round of scaling that we did for Chicago Public Schools. This will be more of a step by step guide on one approach you might take to scaling
+- Third, I'll go into details on the more iterative load testing that we did to scale the site further for the State of Illinois
+- I'll end with two short sections on some final tweaks to Postgres and other services
 
 ----
 
@@ -57,7 +74,7 @@ See: http://uchicagoimpact.org/5essentials/
 Presenter Notes
 ---------------
 
-- I'll be talking about a client project we've been working on at Caktus for the past 2 years
+- The project I'll be talking about is a client project we've been working on at Caktus for the past 2 years
 - 5 essentials survey admin module
 - This group, here in Chicago, has been conducting surveys for years geared towards improving educational outcomes
 
@@ -93,8 +110,8 @@ Presenter Notes
 
 - The first survey was administered with the system in early 2012, for Chicago Public Schools
 - CPS is 3rd largest in US, over 400,000 students
-- 5E has a number of clients outside Chicago
-- As of 2013 this inclues the Illinois State Board of Education
+- 5E also has a number of clients outside Chicago
+- As of 2013, this includes the Illinois State Board of Education
 
 
 ----
@@ -108,7 +125,7 @@ Presenter Notes
 Presenter Notes
 ---------------
 
-- Earlier this year they conducted the first state-wide survey using this tool, for over 2 million parents, students, and teachers
+- And, earlier this year, they conducted the first state-wide survey using this tool, for over 2 million parents, students, and teachers
 
 ----
 
@@ -146,8 +163,8 @@ Presenter Notes
 - The project is quite large, with about 85 Django views in total and at least 40 custom models
 - Only about 5 of those views really matter scaling-wise
 - The remaining 80 or so are for use by administrators uploading surveys or rosters, downloading responses, managing users, and other related tasks
-- A core requirement was to save the results to disk on each page submission, so the survey_change_page view is doing a lot of writes
-- This means 4-5 INSERT statements per page, which can be grouped into one statement using the bulk_create method in Django 1.4
+- A core requirement was to save the results to disk on each page submission--this was so we didn't lose any data we'd reported to have saved
+- This means 4-5 INSERT statements per page, which can be grouped into one statement using the bulk_create method in Django 1.4, but this does not eliminate the scaling problem of doing that many writes
 
 ----
     
@@ -163,7 +180,6 @@ Presenter Notes
 - This brings up the good point that this talk is not about making your code fast, it's about making infrastructure that can scale
 - We really don't care about those other 80 views for scaling purposes
 - The main problem we're likely to run into is inserting all that data into the response items table
-- As well as all the usual suspects in terms of server configuration
 
 ----
 
@@ -188,8 +204,8 @@ Presenter Notes
 - The usual suspects, Python 2.7, Django 1.5, and Postgres 9.1
 - For web server we're using Nginx to proxy a set of Gunicorn workers, and S3 for static media
 - We're using Celery and rabbitMQ for background tasks
-- Redis for sessions
-- And memcached for a cache
+- Redis for sessions and cache initially
+- And ultimately we switched to memcached for the cache and left sessions in redis
 
 ----
 
@@ -198,6 +214,12 @@ Systems Diagram
 
 .. image:: static/CCSR_server_diagram.png
     :align: center
+
+Presenter Notes
+---------------
+
+- I'll show this slide again later, but here's a rough outline of what the server infrastructure looked like
+- Services are all split out onto separate servers, with the exception of the cache server which runs rabbitmq, redis, and memcached
 
 ----
 
@@ -219,8 +241,8 @@ Presenter Notes
 
 - The first phase of scaling was relatively straight forward; a single laptop could simulate enough load to mimick the maximum expected requests per second.
 - We completed this first round of scaling at the end of 2011, before the start of the first web-based Chicago Public Schools survey
-- The following steps roughly outline the approach we took to hitting this target
-- The # reqs/sec is not particularly high, but remember that these are all dynamic requests, about half of which will be writing to disk
+- The following steps roughly outline the approach we took in hitting this target
+- The number of reqs/sec is not particularly high, but remember that these are all dynamic requests, about half of which will be writing to disk
 
 ----
 
@@ -245,9 +267,9 @@ Presenter Notes
 ---------------
 
 - The first step in any scaling project should generally be to make sure you're not doing anything too crazy code- or DB-wise
-- Hopefully all of you are already using django-debug-toolbar, but just in case, I threw in this slide
+- Hopefully all of you are already using django-debug-toolbar already, but just in case, I threw in this slide
 - Easy to install; helps eliminate unnecessary SQL queries on high-traffic pages
-- Don't blindly optimize everything, focus on pages that'll give you the most gain
+- Don't blindly optimize everything, focus on pages that'll give you the most gain; in this case we focused on those 5 survey taking views
 
 ----
 
@@ -263,17 +285,18 @@ Common patterns include:
 Presenter Notes
 ---------------
 
-- Remember, we want to limit the total amount of stuff that the DB server has to do
-- Ultimately we only care about writes, but if the database server is doing lots of unnecessary reads, that'll slow it down
-- Some but not all of this can be taken care of with a DB slave
-- We implemented a simple write-through cache for commonly written and re-read data, linked to here
+- There are a few common patterns, which I've listed out here, that you might look for when using Django-debug-toolbar
+- One less commonly optimized pattern is the write-through cache, which updates the cache at the same time as it updates the database, thereby eliminating the need to ever read back that data
+- Remember, while ultimately we only care about writes, if the database server is doing lots of unnecessary reads, that'll slow it down
+- So, we just want to limit the total amount of stuff that the DB server has to do
+- Some but not all of the reads can be taken care of with caching or a DB slave
 
 ----
 
 Step 2: Automate some load
 ==========================
 
-Before going any further, you need an easy way to generate load. JMeter's a good tool for that; here there are a few tips:
+You need an easy way to generate load. JMeter's a good tool for that; here there are a few tips:
 
 - **Recording:** If you have a long or complicated process to test, use JMeter's proxy server to record your actions in a web browser
 - **Sane defaults:** Set up sane defaults using HTTP Request Defaults, so you can easily switch servers.
@@ -283,11 +306,11 @@ Before going any further, you need an easy way to generate load. JMeter's a good
 Presenter Notes
 ---------------
 
-- need a way to generate some load automatically, don't want to rely on manually clicking around the site, will be doing this in jmeter
-- Simple tasks are easy enough to script manually, but it's a lot easier to script longer tasks (like filling out an entire survey) by recording.  JMeter has great tools for this; learn to use & love them.
-- You'll want to test different server environments (including your local machine), so practice DRY test script writing and take the time to setup good default for HTTP requests.
-- The CSRF token can be a bit hair to keep track of at first, but once you have it set up it's easy to maintain.
-- Save your test scripts in version control and continue to refine them.  They'll come in handy over and over again..  Really.
+- Before going any further, you need a way to generate some load automatically, don't want to rely on manually clicking around the site, we found Jmeter worked pretty well for our purposes
+- Simple tasks are easy enough to script manually, but it's a lot easier to script longer tasks (like filling out an entire survey) by recording.  JMeter includes a proxy server which lets you do this from a browser.
+- You'll want to test different server environments (including your local machine), so practice good programming techniques and take the time to setup good defaults for HTTP requests.
+- The CSRF token can be a bit hairy to keep track of at first, but once you have it set up it's easy to maintain.
+- Save your test scripts in version control and continue to refine them.  They'll come in handy over and over again..
 
 ----
 
@@ -318,9 +341,9 @@ After generating some load, run ``pgfouine`` on your log file:
 Presenter Notes
 ---------------
 
-- Next, pgfouine can help you detect high-frequency, redundant queries *across* multiple requests.
+- Next, once you have a way to generate some load, pgfouine can help you detect high-frequency, redundant queries *across* multiple requests.
 - These could be for the same view or different views
-- It comes prepackaged on Debian and Ubuntu, and requires only a few postgres config changes to get the logs in a machine-readable format.
+- pgfouine comes prepackaged on Debian and Ubuntu, and requires only a few postgres config changes to get the logs in a machine-readable format.
 - The final command generates a pretty HTML report that looks something like this:
 
 ----
@@ -335,7 +358,7 @@ Presenter Notes
 ---------------
 
 - At the top is some summary information about the number and length of queries run, including a breakdown of queries by type.
-- At the bottom, in a sortable list, are all the queries run, aggregated by what pgfouine sees as similar queries (the same queries with potentially different arguments)
+- At the bottom, in a sortable list, are all the queries, aggregated by what pgfouine sees as similar, which just means the same queries with potentially different arguments
 
 ----
 
@@ -356,8 +379,9 @@ Presenter Notes
 
 - Based on all the output from pgfouine, you should have a good sense of what queries will give you the most gain for caching.
 - Find select statements that you don't expect to change often (if at all), and cache them
+- There are a number of different tools you can use to do this
 - Find a strategy that works for you; we tried to make johnny-cache work, but it was too much black magic for us
-- We found django-cache-machine worked better; it allowed us to cache exactly what we want when we wanted in predictable ways
+- We found django-cache-machine worked better; it allowed us to cache exactly what we wanted in more predictable ways
 
 ----
 
@@ -378,9 +402,16 @@ Activate it:
         # ...
         cached = caching.base.CachingManager()
 
+Use it:
+
+.. code-block:: python
+
+    MyModel.cached.filter(...)
+
 Presenter Notes
 ---------------
-- You can overwride the default manager or create a new one
+
+- When using django-cache-machine, you can overwride the default manager or create a new one
 - We chose the latter to make it explicit that you were caching
 - This worked better for us, b/c there's nothing worse that debugging stale cache issues
 
@@ -391,14 +422,14 @@ Step 4: django-cache-machine
 
 Some things to be aware of:
 
-- django-cache-machine does not cache empty querysets by default.  If you have a lot these, you might want to turn this on:
+- Caching empty querysets:
 
 .. code-block:: python
 
     # settings.py
     CACHE_EMPTY_QUERYSETS = True
 
-- ``count()`` cannot easily be invalidated, so these queries time out instead.  Set the timeout to something that makes sense for you:
+- Set timeout for ``count()`` queries:
 
 .. code-block:: python
 
@@ -408,7 +439,10 @@ Some things to be aware of:
 Presenter Notes
 ---------------
 
-- Once you have caching setup, **use pgfouine to verify that it did what you expected**
+- Just a few things to be aware of with django-cache-machine
+- django-cache-machine does not cache empty querysets by default.  If you have a lot these, you might want to turn this on.
+- ``count()`` cannot easily be invalidated, so these queries time out instead.  Set the timeout to something that makes sense for you
+- Once you have caching setup the way you like, **use pgfouine to verify that it did what you expected**
 
 ----
 
@@ -417,6 +451,11 @@ Step 4: pgfouine, before
 
 .. image:: static/pgfouine-before.png
     :align: center
+
+Presenter Notes
+---------------
+
+- Here's the output from pgfouine before we enabled caching
 
 ----
 
@@ -429,7 +468,8 @@ Step 4: pgfouine, after
 Presenter Notes
 ---------------
 
-- As you can see, a little caching quickly cut the SELECT statements by 25,000, to less than 10% of its former value
+- And here's the output after
+- As you can see, a little caching quickly cut the number of SELECT statements by 25,000, to less than 10% of its former value
 
 ----
 
@@ -441,13 +481,14 @@ Step 5: Multiple databases
 
 Presenter Notes
 ---------------
-- Streaming replication in PostgreSQL 9.1 is incredibly easy to set up. You should learn to use and love it.
+- Also somewhat help when write-scaling is to have a read slave where you can send all the non-cachable reads, to avoid swamping the master database
+- Streaming replication in PostgreSQL 9.1 is incredibly easy to set up, and that's what we used
 - To get multiple databases working in Django you need to use a custom database router.  A good source we've found for this is django-balancer
 
 ----
 
-django-balancer
-===============
+Step 5: django-balancer
+=======================
 
 Install it:
 
@@ -471,17 +512,24 @@ Configure it:
 
 Presenter Notes
 ---------------
-- This is a good setup for a master/slave databases
+- This is a good configuration for a master/slave database setup with django-balancer
 - It sends writes to the master and reads to the slaves, unless a session has written to master in which case reads will also be pinned to the master for 5 seconds.  This avoids data "disappearing" if you attempt to read it back before it propagates to the slave.
 
 ----
 
-Custom database router
-======================
+Step 5: Custom database router
+==============================
 
 - In survey app, most common views always write to DB
 - Some models don't change during survey taking (those describing the survey)
-- Send all reads to slave for some (not all) models
+- Send all reads to slave for some (not all) models:
+
+.. code-block:: python
+
+    @uses_forced_read_router
+    def my_view(request):
+        # ...
+        return render(...)
 
 See: http://cakt.us/scaling-router
 
@@ -516,7 +564,8 @@ Step 6: Static Media
 
 Presenter Notes
 ---------------
-- Django compressor is great and pulls together a number of important extras on top of django.contrib.staticfiles.
+- Static media is not typically a scaling problem, but it can get in the way if you're not careful. It's easiest to push it off to S3 or cloud files so you can forget about it.
+- Django compressor can also help optimize your static media and pulls together a number of important extras on top of django.contrib.staticfiles.
 - It not only can compress + combine your CSS and JS, but can also do things like process your LESS or SAS files for you at deploy time.
 - You really do not want these things taking up a Python web server process, so get them out of the way when you deploy and stop worrying about static media.
 
@@ -532,11 +581,11 @@ Step 7: Automated Server Provisioning
 Presenter Notes
 ---------------
 
-- Picking an automated server provisioning and deployment tool set is really important
-- There's no point trying to scale if you can't quickly and easily create, destroy, and update servers of all types (database, cache, web, worker, etc.)
-- This setup is a topic unto itself, but find something that works for you, stick to it, and perfect it.
-- If we were to do it over again, today, I'd definitely use Salt instead of rolling our own.  I prefer Python so I'm not a huge fan of Chef or Puppet.
-- This becomes particularly important when it comes time to tweak server configuration files on 10-20 web servers at once.  You DO NOT want to be doing that manually.
+- Last but not least, picking an automated server provisioning and deployment tool set is really important
+- There's no point trying to scale if you can't easily create, destroy, and update servers of all types (database, cache, web, worker, etc.)
+- Choosing and using a tool is a topic unto itself, but find something that works for you, stick to it, and perfect it.
+- If we were to do it over again, today, I'd probably use Salt instead of rolling our own.  I prefer Python so I'm not a huge fan of Chef or Puppet, but I know a lot of folks in the Django community use those.
+- Having something in place becomes particularly important when it comes time to tweak server configuration files on 10-20 web servers at once.  You DO NOT want to be doing that manually.
 
 ----
 
@@ -554,21 +603,24 @@ So far we have:
 Presenter Notes
 ---------------
 
+- So, just a quick re-cap on Phase I
 - We have all the ground work in place
 - We're not doing anything overly stupid (or so we think)
-- Using the JMeter test script we'd created, we simulated enough load to match our scaling target, and using an iterative trial and error process, eliminated all the necessary bottlenecks in the survey taking views
 
 ----
 
 Review of Phase I
 =================
 
+- Tested with JMeter
 - Achieved 275 requests/second
-- 10 web servers
+- 10 web servers at 50-60% CPU usage each
 
 Presenter Notes
 ---------------
 
+- Using the JMeter test script we'd created, we simulated enough load to match our scaling target
+- Using an iterative trial and error process, we eliminated all the necessary bottlenecks in the survey taking views
 - After making these changes we easily hit our target of 275 requests/second, and it was evident that there was room to grow if needed
 - For this load we had about 10 high-CPU, medium EC2 instances running as web servers
 - We also found that a good load average is about 50-60% of all cores on a web server, which you can use to tune the number of servers in use
@@ -584,7 +636,7 @@ Presenter Notes
 
 - This part of the talk will be a little bit different
 - We'll focus specifically on the load testing we did for the state of illinois scaling
-- And highlight a few of the specific issues that we ran into along the way.
+- We used a similar process of iterative load testing during the first phase, but for the sake of brevity I'll only cover the specifics of what we did for phase II
 
 ----
 
@@ -602,7 +654,7 @@ Presenter Notes
 - Phase II is quite a bit bigger
 - Roughly an order of magnitude in terms of numbers of users
 - Due to the shorter survey, about 5 times as many requests per second
-- Given that we're moving well beyond the load a single laptop can simulate, we need to rethink how and why we're load testing.
+- Given that we're moving well beyond the load a single laptop can simulate, we will need to rethink how and why we're load testing.
 
 ----
 
@@ -615,10 +667,9 @@ Interlude: Postgres-XC
 Presenter Notes
 ---------------
 
-- At this point, we evaluated a number of different options, including several NoSQL databases, as well a product called Postgres-XC
-- For all the post-survey response processing, the application relies heavily on the Django ORM, so we weren't ready to sacrifice that for a new API
-- Postgres-XC looked promising, but it was not clear if the set up could be sufficiently automated. This led us to do further load testing before committing to something like this
-- This brings up the good question of why we load test in the first place
+- At this point, we evaluated a number of different options, including a product called Postgres-XC
+- For all the processing that comes *after* a survey has been run, the application relies heavily on the Django ORM, so we weren't ready to sacrifice that for a new API
+- For that reason, Postgres-XC looked promising, but it was not clear if the set up could be sufficiently automated. This led us to do further load testing before committing to something like this, which brings up the good question of why load test in the first place
 
 ----
 
@@ -633,11 +684,11 @@ Why load test?
 Presenter notes
 ---------------
 
-- There are lots of good reasons to load test, most of which fall along the same lines of why we do any testing
+- There are lots of good reasons to do this, most of which fall along the same lines of why we do any testing
 - We want to discover problems and fix them before our users see them
 - In this case, we're really testing the infrastructure itself, answering questions like: Did we configure all the different services correctly? Can my current system architecture handle the load?
 - Problems of scale are particulary easy to ignore, because you really don't see them during development unless you try really hard
-- Conversely, load testing lets you avoid premature optimization by backing up configuration choices with real data rather than abstract guesses
+- Load testing also lets you avoid premature optimization by backing up configuration choices with real data rather than abstract guesses
 
 ----
 
@@ -651,7 +702,7 @@ Before we start
 
 Presenter Notes
 ---------------
-- Before you take on a project like this, I highly recommend mapping out the key configuration items in a spreadsheet
+- Before you take on a project like this, I highly recommend mapping out the different configuration items in a spreadsheet
 - Helps you figure out what to set all the various connection limits and worker counts to
 - Also helps forecase load capacity
 
@@ -681,7 +732,7 @@ See: http://cakt.us/scaling-config
 Presenter Notes
 ---------------
 
-- Here's an example of a spreadsheet we put together for this project
+- This is a sample of a spreadsheet we put together for this project
 - These calculations are all about juggling what you're going to run out of
 - For example, 10 web servers, 30 workers on each, that means up to 300 open DB connections
 - That's too many, so we use pgbouncer on each of the web servers to share 2 or 3 persistent postgres connections across 30 workers
@@ -702,7 +753,7 @@ Presenter Notes
 - JMeter is great, but not useful above 400-600 threads on a laptop
 - I played around with a few things for this, eventually settled on a service called BlazeMeter
 - Lets you upload your JMeter scripts and deploy them to multiple EC2 servers, and collect the results
-- Integrates with New Relic
+- Integrates with New Relic, which we'll be using to measure changes made
 - (Neither of these companies are paying me to say this, though they probably should)
 
 ----
@@ -716,9 +767,8 @@ survey_change_page, gevent
 Presenter Notes
 ---------------
 
-- Here's one of the first graphs we saved while load testing
-- From the main view for survey taking that does the writes to disk
-- The big bars are redis GET and SET
+- Here's one of the first graphs we saved while load testing, from the main view for survey taking that does the writes to disk
+- The big bars are redis GET and SET, which we found somewhat confusing
 
 ----
 
@@ -733,7 +783,7 @@ Presenter Notes
 
 - Redis appeared to be slow in new relic, but when tested from the console, it was lightning fast (even under load).
 - We were getting lots of nf_conntrack errors in dmesg
-- This is using the gevent worker, which uses an event loop to process lots of requests in the same thread
+- This is using the gevent worker in gunicorn, which uses an event loop to process lots of requests in the same thread
 
 ----
 
@@ -746,7 +796,7 @@ survey_change_page, sync
 Presenter Notes
 ---------------
 
-- We disabled connection tracking and switched to the sync worker
+- We disabled connection tracking in the firewall and switched to the sync worker
 - Bottleneck immediately transferred to the database INSERT statement
 - What is happening here?
 
@@ -982,7 +1032,7 @@ Presenter Notes
 Final Performance
 =================
 
-.. image:: static/nr5/final-dashboard.png
+.. image:: static/nr5/dashboard-final.png
     :align: center
 
 Presenter Notes
@@ -1006,6 +1056,10 @@ Questions?
 - Hire us: http://www.caktusgroup.com
 - Slides: http://cakt.us/djangocon-scaling
 
+Presenter Notes
+---------------
+
+- Thanks everyone for your time today - I think we have a few minutes left for questions
 
 ----
 
@@ -1018,7 +1072,8 @@ PostgreSQL:
 
 Presenter Notes
 ---------------
-- Another useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit
+- We did think about that but after load testing with postgres we discovered it wasn't necessary
+- One useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit
 - It's not as bad as disabling fsync b/c there's no risk of data inconsistency
 - But IF the server crashes BEFORE it can call fsync but AFTEr it returns success to the user, there might be an inconsistency between what the user thinks was saved and what was actually saved. 
 - Obviously this is not good for banking transactions, but there are plenty of other less critical applications out there that might benefit from disabling this feature in Postgres.
