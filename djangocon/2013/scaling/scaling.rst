@@ -1,8 +1,9 @@
-=================================================
 Scaling Your Write-Heavy Django App: A Case Study
 =================================================
 
 Tobias McNulty
+
+DjangoCon 2013
 
 `@tobiasmcnulty <https://twitter.com/tobiasmcnulty>`_
 
@@ -1041,7 +1042,23 @@ Presenter Notes
 - Once again, we'd hit the necessary 75,000 requests per minute, and all the servers could be easily recreated from scratch
 - For this load we ended up using about 16 extra large, high CPU instances for web servers
 
----
+----
+
+This Would Have Been Impossible Without...
+==========================================
+
+- The 5E survey and infrastructure teams
+- Karen Tracey and the 5E dev team at Caktus
+- The entire 17-member Caktus team
+
+Presenter Notes
+---------------
+
+- In closing, a big thanks to Shai on the 5E team for authorizing us to give this talk
+- To Karen Tracey and the rest of the survey admin module dev team at Caktus for building something so easy to scale
+- And finally, to the entire team at Caktus for suffering through the first version of this talk during our lightning talk lunch series and providing lots of invaluable feedback.
+
+----
 
 That's all!
 ===========
@@ -1054,28 +1071,10 @@ Questions?
 - Tobias McNulty
 - Twitter: `@tobiasmcnulty <https://twitter.com/tobiasmcnulty>`_
 - Hire us: http://www.caktusgroup.com
+- Work with us: http://www.caktusgroup.com/careers
 - Slides: http://cakt.us/djangocon-scaling
 
 Presenter Notes
 ---------------
 
 - Thanks everyone for your time today - I think we have a few minutes left for questions
-
-----
-
-The NoSQL Slide
-===============
-
-PostgreSQL:
-
-- **synchronous_commit = off** - don't wait for fsync before returning success
-
-Presenter Notes
----------------
-- We did think about that but after load testing with postgres we discovered it wasn't necessary
-- One useful option that can be handy if you don't care about the durability of a transaction is synchronous_commit
-- It's not as bad as disabling fsync b/c there's no risk of data inconsistency
-- But IF the server crashes BEFORE it can call fsync but AFTEr it returns success to the user, there might be an inconsistency between what the user thinks was saved and what was actually saved. 
-- Obviously this is not good for banking transactions, but there are plenty of other less critical applications out there that might benefit from disabling this feature in Postgres.
-- We did not use this in the survey app because commit_delay got us where we needed to be.
-
