@@ -40,7 +40,8 @@ Directory
         * `PLY <http://talks.caktusgroup.com/lightning-talks/2011/ply>`_
 * ShipIt
     * 2013
-        * `Haystack Facets <http://talks.caktusgroup.com/shiptit/2013/haystack-facets>`_
+        * `Haystack Facets <http://talks.caktusgroup.com/shipit/2013/haystack-facets>`_
+        * `Trying out Django 1.6 Upgrade <http://talks.caktusgroup.com/shipit/2013/django16-upgrade-experience>`_
 
 Setup
 -----
