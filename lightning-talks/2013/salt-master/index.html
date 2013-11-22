@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Managing your computers with a Salt Master and Git</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Managing your computers with a Salt Master and Git</h1></header>
+            
+            
+            <section><p>Dan Poirier</p>
+<p>Lightning Lunch Talk</p>
+<p>November 22, 2013</p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>I've been moving toward using Salt to manage some of my personal systems,
+and recently added a Salt Master and put my data into Git.</li>
+<li>I'm going to share some of how I'm doing this and how it's working.</li>
+<li>Consider this talk anecdotal, not authoritative.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Salt Master</h1></header>
+            
+            
+            <section><p>Why?  A master serves two roles:</p>
+<ul class="simple">
+<li>Server</li>
+<li>Controller</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Server for states and pillar data, so you don't have to sync your
+state and pillar files to all your minions some other way</li>
+<li>One place where you can kick off updates to many systems at once
+(if you want)</li>
+</ul>
+<p>Even with a master, you can still kick off updates on each minion anytime
+you want.</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Git</h1></header>
+            
+            
+            <section><p>Recent versions of Salt have added Git integration.</p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Not just storing state and pillar files in git, and checking them out
+on the master</li>
+<li>The Master actively checks the git upstream for changes and pulls them
+before updating systems.</li>
+<li>The minion does not have that ability, so we need a master to take advantage</li>
+<li><strong>Note</strong> though that the git support still seems a bit buggy, not quite
+production-ready in 0.17.1</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Setting up a master</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>A VM</li>
+<li>Ubuntu</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>A small VM on Digital Ocean ($5/month)</li>
+<li>Ubuntu 13.04 64bit</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Installing Salt Master</h1></header>
+            
+            
+            <section><p>I use the bootstrap script and specify a particular version:</p>
+<pre class="literal-block">
+curl --insecure -L http://bootstrap.saltstack.org \
+| sh -s -- -M -N git v0.17.1
+</pre>
+<p>(<a class="reference external" href="https://github.com/saltstack/salt-bootstrap">https://github.com/saltstack/salt-bootstrap</a>)</p>
+<ul class="simple">
+<li>The default is to just install the minion.</li>
+<li><tt class="docutils literal"><span class="pre">-M</span></tt> adds the master</li>
+<li><tt class="docutils literal"><span class="pre">-N</span></tt> skips the minion.</li>
+<li><tt class="docutils literal">git</tt> get the code from github</li>
+<li><tt class="docutils literal">v0.17.1.</tt> look for a tag or branch v0.17.1</li>
+</ul>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Both PyPI and their Ubuntu PPA tend to lag releases, so if you want the latest,
+this seems to be the best way to get it, straight from github.</li>
+<li>This particular invocation installs the master without the minion.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>State files from git</h1></header>
+            
+            
+            <section><p>In <tt class="docutils literal">/etc/salt/master</tt>, comment out the config related to getting
+the state files from the local file system:</p>
+<pre class="literal-block">
+# fileserver_backend:
+#  - roots
+# file_roots:
+#  base:
+#    - /srv/salt
+</pre>
+<p>Enable the <tt class="docutils literal">git</tt> fileserver backend:</p>
+<pre class="literal-block">
+fileserver_backend:
+  - git
+</pre>
+<p>And give it one or more git repos to look at:</p>
+<pre class="literal-block">
+gitfs_remotes:
+  - git://github.com/saltstack/salt-states.git
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Private git repos</h1></header>
+            
+            
+            <section><p>If the repo is private, you need to access it using ssh:</p>
+<pre class="literal-block">
+gitfs_remotes:
+  - git+ssh://git&#64;prius.poirier.us/salt-states.git
+</pre>
+<p>And put a passwordless private ssh key in ~/.ssh/id_rsa under the
+user that salt master is running as</p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>(You can probably arrange for
+ssh connectivity any way ssh supports, but that's what the Salt docs
+say.)</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Pillar from git</h1></header>
+            
+            
+            <section><p>For no apparent reason, configuring git as a source of pillar files
+is rather different from how to configure git as a source of
+state files:</p>
+<pre class="literal-block">
+ext_pillar:
+   - git: master git+ssh://git&#64;prius.poirier.us/salt-pillar.git
+</pre>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Don't comment out the default pillar_roots, just don't put any files there, or
+set base to an empty dictionary -</li>
+<li>There's a bug in 0.17.1 that breaks Salt if the default pillar config is removed.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Misc. other master settings</h1></header>
+            
+            
+            <section><p>More compact output:</p>
+<pre class="literal-block">
+state_output: mixed
+</pre>
+<p>Run as non-root:</p>
+<pre class="literal-block">
+user: salt-master
+</pre>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>state_output: mixed gives one-line output for successful states, more verbose for ones that fail</li>
+<li>You can run salt-master pretty easily as non-root because it just talks to minions and git over
+the network, it doesn't apply changes to machines.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Installing Salt Minion</h1></header>
+            
+            
+            <section><p>Bootstrap script again, don't need any extra options this time though, just
+<tt class="docutils literal">git</tt> to get salt from github, and the version:</p>
+<pre class="literal-block">
+curl --insecure -L http://bootstrap.saltstack.org \
+| sh -s -- git v0.17.1
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Configuring Salt Minion</h1></header>
+            
+            
+            <section><p>Not much needed. In <tt class="docutils literal">/etc/salt/minion</tt>:</p>
+<pre class="literal-block">
+master: &lt;full hostname of master&gt;
+id: &lt;shorthostname of minion&gt;
+state_output: mixed
+</pre>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <p>All the minion needs is a name and how to find the master, and you
+can skip the name if you're happy with just using the hostname.</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Start the minion</h1></header>
+            
+            
+            <section><p>Might need to start the minion:</p>
+<pre class="literal-block">
+sudo service salt-minion start
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Accept the minion's key on the master</h1></header>
+            
+            
+            <section><p>The master won't talk to any minion unless you say it's okay:</p>
+<pre class="literal-block">
+# salt-key -a &lt;minion ID&gt;
+</pre>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>When the minion starts, it'll connect to the master and offer its key (randomly generated
+the first time it starts)</li>
+<li>The master will refuse to talk to it, though, until you tell the master to accept that key.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What am I doing with Salt?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Personal preferences - user account, Emacs, .bashrc</li>
+<li>Personal services - dropbox</li>
+<li>Connectivity - ssh keys, email aliases</li>
+<li>Development - useful packages</li>
+<li>System config - obscure things I always forget to do and then have to look up</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Useful packages</h1></header>
+            
+            
+            <section><p>Install packages I want everywhere:</p>
+<pre class="literal-block">
+packages:
+  pkg.latest:
+    - name: screen
+    - name: sqlite3
+</pre>
+<p>or just Ubuntu:</p>
+<pre class="literal-block">
+{% if grains['os'] == 'Ubuntu' %}
+{% for pkg in 'tasksel', 'python-software-properties' %}
+{{ pkg }}:
+  pkg.latest
+{% endfor %}
+{% endif %}
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Emacs</h1></header>
+            
+            
+            <section><p>PPA for latest version:</p>
+<pre class="literal-block">
+{% if grains['os'] == 'Ubuntu' %}
+ppa-emacs:
+  pkgrepo.managed:
+    # Emacs
+    - ppa: cassou/emacs
+    - require_in:
+      - pkg: emacs24
+{% endif %}
+</pre>
+<p>Install packages with latest version:</p>
+<pre class="literal-block">
+{% for name in ['emacs24', 'emacs24-el'] %}
+{{ name }}:
+  pkg.latest:
+  {% if grains['os'] == 'Ubuntu' %}
+    - require:
+      - pkgrepo: ppa-emacs
+  {% endif %}
+{% endfor %}
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Pillar data</h1></header>
+            
+            
+            <section><p>A sample of what I have in pillar:</p>
+<pre class="literal-block">
+{% if 'caktus' in grains['domain'] %}
+myusername: dpoirier
+mygroupname: dpoirier
+myemail: dpoirier&#64;caktusgroup.com
+myhomedir: /home/dpoirier
+{% else %}
+myusername: poirier
+myemail: dan&#64;poirier.us
+...
+{% endif %}
+</pre>
+<p>You get the idea.</p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>I could use a different username on every system if I want, and wouldn't have
+to change a single state file.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Access to Git repos using a deploy key</h1></header>
+            
+            
+            <section><p>bitbucket.sls:</p>
+<pre class="literal-block">
+bitbucket_deploy_key:
+  file.managed:
+    - name: {{ pillar['myhomedir'] }}/.ssh/id_bitbucket
+    - contents_pillar: bitbucket:deploy_key
+    - user: {{ pillar['myuid'] }}
+    - group: {{ pillar['mygid'] }}
+    - mode: 400
+</pre>
+<p>In pillar:</p>
+<pre class="literal-block">
+bitbucket:
+  deploy_key: |
+    -----BEGIN RSA PRIVATE KEY-----
+    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    ....
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Emacs config files from Git</h1></header>
+            
+            
+            <section><p>I keep my ~/.emacs.d directory in git, and this state keeps it up to date on all my systems:</p>
+<pre class="literal-block">
+git&#64;bitbucket.org:poirier/emacs.d.git:
+  git.latest:
+    - rev: master
+    - target: {{ pillar['myhomedir'] }}/.emacs.d
+    - user: {{ pillar['myusername'] }}
+    - group: {{ pillar['mygid'] }}
+    - identity: {{ pillar['myhomedir'] }}/.ssh/id_bitbucket
+    - require:
+        - user: {{ pillar['myusername'] }}
+        - file: bitbucket_deploy_key
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Tell Debian I want to use Emacs as my default editor</h1></header>
+            
+            
+            <section><p>alternatives.sls:</p>
+<pre class="literal-block">
+editor:
+  alternatives.install:
+    - name: editor
+    - link: /usr/bin/editor
+    - path: /usr/bin/emacs
+    - priority: 100
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Cron job to update nightly</h1></header>
+            
+            
+            <section><p>Use salt to set up the cron job to run salt between 2 and 2:59 am each day:</p>
+<pre class="literal-block">
+/usr/bin/salt-call -l quiet state.highstate:
+  cron.present:
+    - user: root
+    - minute: random
+    - hour: 2
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Sysctl Settings</h1></header>
+            
+            
+            <section><p>PyCharm and Crashplan both want you to increase the kernel setting for how many files
+they can monitor for changes. This is the kind of thing I always used to forget to
+do when I set up a new machine, but not anymore:</p>
+<pre class="literal-block">
+fs.inotify.max_user_watches:
+  sysctl.present:
+    - value: 1048576
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Dropbox</h1></header>
+            
+            
+            <section><p>Getting dropbox installed and connected under my account isn't fully automated yet,
+but once that's done, I use Salt to reliably have Supervisor keep dropbox running:</p>
+<pre class="literal-block">
+# dropbox.sls
+dropbox:
+  supervisord.running:
+    - restart: True
+    - watch:
+      - file: /etc/supervisor/conf.d/dropbox.conf
+    - require:
+      - pkg: supervisor
+      - file: /etc/supervisor/conf.d/dropbox.conf
+
+/etc/supervisor/conf.d/dropbox.conf:
+    file.managed:
+      - source: salt://dropbox/dropbox_supervisor.conf
+      - user: root
+      - group: root
+      - template: jinja
+
+extend:
+  supervisor:
+    service:
+      - watch:
+          - file: /etc/supervisor/conf.d/dropbox.conf
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Dropbox (cont)</h1></header>
+            
+            
+            <section><p>Here's the template for the supervisor config file for dropbox:</p>
+<pre class="literal-block">
+# dropbox_supervisor.conf
+[program:dropbox]
+command=/home/{{ pillar['myusername'] }}/.dropbox-dist/dropboxd
+numprocs=1
+directory=/home/{{ pillar['myusername'] }}
+user={{ pillar['myusername'] }}
+redirect_stderr=true
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              24/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Java</h1></header>
+            
+            
+            <section><p>Installing Java on Ubuntu is a pain, but Salt can handle it:</p>
+<pre class="literal-block">
+accept-java-license:
+  debconf.set:
+    - name: oracle-java8-installer
+    - data:
+        shared/accepted-oracle-license-v1-1: {'type': boolean, 'value': true}
+    - require:
+        - pkg: debconf-utils
+
+ppa-java:
+  pkgrepo.managed:
+    # Java
+    - ppa: webupd8team/java
+    - require_in:
+      - pkg: java
+
+java:
+  pkg.latest:
+    - name: oracle-java8-installer
+    - require:
+      - debconf: accept-java-license
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              25/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>TODO list</h1></header>
+            
+            
+            <section><p>Some things I'd still like to do:</p>
+<ul class="simple">
+<li>Set up automatic backups</li>
+<li>Configure postfix for email</li>
+<li>Make my states public (once I'm sure there's no personal data in there)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              26/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>More information</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Salt bootstrap <cite>&lt;https://salt.readthedocs.org/en/latest/topics/tutorials/salt_bootstrap.html&gt;</cite></li>
+<li>Salt master config <cite>&lt;https://salt.readthedocs.org/en/latest/ref/configuration/master.html&gt;</cite></li>
+<li>Keeping stuff in git <cite>&lt;https://salt.readthedocs.org/en/latest/topics/tutorials/gitfs.html&gt;</cite></li>
+<li>List of salt states <cite>&lt;https://salt.readthedocs.org/en/latest/ref/states/all/&gt;</cite></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst">/home/dpoirier/caktus/talks/lightning-talks/2013/salt-master/salt-master.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              27/27
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Managing your computers with a Salt Master and Git</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Salt Master</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Git</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Setting up a master</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Installing Salt Master</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">State files from git</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Private git repos</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Pillar from git</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Misc. other master settings</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Installing Salt Minion</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Configuring Salt Minion</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Start the minion</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Accept the minion's key on the master</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">What am I doing with Salt?</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Useful packages</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Emacs</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Pillar data</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Access to Git repos using a deploy key</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Emacs config files from Git</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">Tell Debian I want to use Emacs as my default editor</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">Cron job to update nightly</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">Sysctl Settings</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">Dropbox</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-24">
+        <th><a href="#slide24">Dropbox (cont)</a></th>
+        <td><a href="#slide24">24</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-25">
+        <th><a href="#slide25">Java</a></th>
+        <td><a href="#slide25">25</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-26">
+        <th><a href="#slide26">TODO list</a></th>
+        <td><a href="#slide26">26</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-27">
+        <th><a href="#slide27">More information</a></th>
+        <td><a href="#slide27">27</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>

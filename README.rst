@@ -24,6 +24,7 @@ Directory
 * Lightning Talks
     * 2013
         * `Emmet <http://talks.caktusgroup.com/lightning-talks/2013/emmet>`_
+        * `Salt with a Master and Git <http://talks.caktusgroup.com/lightning-talks/2013/salt-master>`_
     * 2012
         * `Backbone <http://talks.caktusgroup.com/lightning-talks/2012/backbone>`_
         * `HTML5 Game Development <http://talks.caktusgroup.com/lightning-talks/2012/html5-game-development>`_
