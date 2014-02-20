@@ -137,24 +137,33 @@ TODO: Recommended Solutions
 ----
 
 
-Technical
+Technical: Problems
 ------------------------------------------------
 
-TODO: What were the problems
-
-* Item 1
-* Item 2
+* Dual use of "estimate" for contract and schedule
+* Lack of guidance on time that an estimate should require
+* UI but no Test column
+* Estimation for "anyone" doing something is impossible
+* No way to indicate confidence level
+* Some things are not optional
+* Single dev doing estimation is error-prone
 
 ----
 
 
-Technical
+Technical: Solutions
 ------------------------------------------------
 
-TODO: Recommended Solutions
+* Better communication/integration of estimate team into process
+* Communicate expected time for an estimate
+* Better tools (smart sheet)
+* Lose the UI column...no "fix" for Test?
+* Allow for specifying range
+* Allow for specifying confidence level
+* Allow for specifying something is not optional
+* Don't assign estimates to single individuals
+* Better communication/integration of estimate team into process
 
-* Item 1
-* Item 2
 
 ----
 
