@@ -158,21 +158,6 @@ TODO: Recommended Solutions
 ----
 
 
-Summary of Recommended Changes
-------------------------------------------------
-
-TODO: What were the results
-
-----
-
-Summary of Unresolved Issues
-------------------------------------------------
-
-TODO: What were the results
-
-----
-
-
 Next Steps
 ------------------------------------------------
 
