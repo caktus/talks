@@ -40,7 +40,7 @@ Project Goals
 
 * Explore estimate strategy observations and solutions
 * Present findings to Caktus for discussion
-* Create clear process/guidelines and templates that improve estimating
+* Create a new process/guidelines that enables us to increase our estimation efficiency over time
 
 ----
 
