@@ -28,8 +28,9 @@ Presenter Notes
 Motivation
 ------------------------------------------------
 
-* Accuracy of some estimates varies - Sales, Planning, Design and Technical
+* Accuracy of some estimates vary - Sales, Planning, Design and Technical
 * Caktus is spending a lot of time on estimating projects - room for streamlining
+* Not everyone defines some of our estimating tasks the same (Q/A, Feedback, Testing)
 * No current way to measure effectiveness of our estimates or apply lessons learned 
 
 ----
