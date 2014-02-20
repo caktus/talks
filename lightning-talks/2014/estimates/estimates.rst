@@ -38,7 +38,7 @@ Motivation
 Project Goals
 ------------------------------------------------
 
-* Explore estimate strategy observations and solutions
+* Explore estimate strategy (observations and solutions)
 * Present findings to Caktus for discussion
 * Create a new process/guidelines that enables us to increase our estimation efficiency over time
 
@@ -55,14 +55,14 @@ Our Process
 ----
 
 
-Common Issues (TBD)
+Global Issues
 ------------------------------------------------
 
 * We are using too many tools/docs for our sales, estimation and scheduling process -- use of these tools varies
 * We can improve how Caktus staff are informed about the status of estimates and sales in progress
 * There is room for improving how we pre-qualify potential clients before involving an estimate team
 * We need to do a better job of archiving lessons learned from previous projects so we don't repeat past mistakes
-* It would be great to some day be able to measure the accuracy of our estimates
+* It would be great to some day be able to measure the accuracy of our estimates - at a task level
 
 ----
 
@@ -72,8 +72,9 @@ Sales
 
 TODO: What were the problems
 
-* Item 1
-* Item 2
+* Staff not informed about status of sales in the pipeline
+* Need a more informed way to create ballpark estimates
+* Prequali
 
 ----
 
