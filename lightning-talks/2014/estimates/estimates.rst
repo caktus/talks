@@ -71,7 +71,7 @@ Global Issues
 Sales
 ------------------------------------------------
 
-TODO: What were the problems
+What were the problems
 
 * Need to improve communication with staff on the status of sales in the pipeline
 * Need a more informed way to pre-qualify clients and create ballpark estimates
@@ -83,7 +83,7 @@ TODO: What were the problems
 Sales
 ------------------------------------------------
 
-TODO: Recommended Solutions
+Recommended Solutions
 
 * Sales staff now provide sales-pipeline reports in Monday meetings
 * PMs inform what projects are starting and ending in Monday meetings
