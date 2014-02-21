@@ -75,7 +75,7 @@ What were the problems
 
 * Need to improve communication with staff on the status of sales in the pipeline
 * Need a more informed way to pre-qualify clients and create ballpark estimates
-* Need to improve process for comparing the accepted bid with original estimate
+* Need to improve process for comparing the accepted bid with original estimate 
 
 ----
 
@@ -119,7 +119,7 @@ Planning: Solutions
 
 * Prequalification during Sales to determine need for Formal Project Planning
 * Determine toolset during Sales Pitch (user stories, wireframes, I/A, all)
-* `Optional Scope Contract <http://xprogramming.com/ftp/Optional+scope+contracts.pdf>`_
+* Optional Scope Contract
 
 Presenter Notes
 ---------------
@@ -135,24 +135,25 @@ Presenter Notes
 ----
 
 
-Design
+Design: Problems
 ------------------------------------------------
 
-TODO: What were the problems
-
-* Item 1
-* Item 2
+* UI column on estimates didn't get into specifics
+* Design was a blocker for development
+* Vague naming of site pages to be designed
+* Number of design requirements was inaccurate (at times)
 
 ----
 
 
-Design
+Design: Solutions
 ------------------------------------------------
 
-TODO: Recommended Solutions
-
-* Item 1
-* Item 2
+* Make itemized tasks: eg. Wireframing, Photoshop Mock-ups, HTML/CSS
+* Itemization encourages concurrent design/dev process
+* Key pages should be named: eg. "Interior page" becomes "User profile page"
+* Push back to client to pay for requirements gathering service and/or
+* Use a common punch list to map out needs (IA)
 
 ----
 
