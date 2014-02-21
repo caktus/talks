@@ -63,6 +63,7 @@ Global Issues
 * We can improve how Caktus staff are informed about the status of estimates and sales in progress
 * There is room for improving how we pre-qualify potential clients before involving an estimate team
 * We need to do a better job of archiving lessons learned from previous projects so we don't repeat past mistakes
+* There are new estimating methods (like planning poker) we should start trying
 * It would be great to some day be able to measure the accuracy of our estimates - at a task level
 
 ----
