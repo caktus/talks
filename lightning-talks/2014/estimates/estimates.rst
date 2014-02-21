@@ -75,7 +75,7 @@ TODO: What were the problems
 
 * Need to improve communication with staff on the status of sales in the pipeline
 * Need a more informed way to pre-qualify clients and create ballpark estimates
-* Need to improve process for comparing the accepted bid with original estimate 
+* Need to improve process for comparing the accepted bid with original estimate
 
 ----
 
@@ -119,7 +119,7 @@ Planning: Solutions
 
 * Prequalification during Sales to determine need for Formal Project Planning
 * Determine toolset during Sales Pitch (user stories, wireframes, I/A, all)
-* Optional Scope Contract
+* `Optional Scope Contract <http://xprogramming.com/ftp/Optional+scope+contracts.pdf>`_
 
 Presenter Notes
 ---------------
