@@ -31,7 +31,7 @@ Motivation
 * Accuracy of some estimates vary - Sales, Planning, Design and Technical
 * Caktus is spending a lot of time on estimating projects - room for streamlining
 * Not everyone defines some of our estimating tasks the same (Q/A, Feedback, Testing)
-* No current way to measure effectiveness of our estimates or apply lessons learned 
+* No current way to measure effectiveness of our estimates or apply lessons learned
 
 ----
 
@@ -83,34 +83,50 @@ TODO: What were the problems
 Sales
 ------------------------------------------------
 
-TODO: Recommended Solutions 
-
-* Item 1
-* Item 2
-
-----
-
-
-Planning
-------------------------------------------------
-
-TODO:What were the problems
-
-* Item 1
-* Item 2
-
-
-----
-
-
-Planning
-------------------------------------------------
-
 TODO: Recommended Solutions
 
 * Item 1
 * Item 2
 
+----
+
+
+Planning: Problems
+------------------------------------------------
+
+* Requirements Gathering vs Formal Project Planning
+* No formal workflows/methods in place
+* Fixed vs Hourly Contracts vs ???
+
+Presenter Notes
+---------------
+
+* Often we end up doing a large amount of Project Planning during estimation; informally
+* What is the delineator for shoving those hours into Req Gathering vs selling a service as P1 work
+* User Stories, Wireframes, IA, etc.....no prescribed formula of which method to use when
+* Fixed provides client predictable Cost, Scope, Schedule, not Quality
+* Hourly...pay as you go
+* Is there a better way?
+
+----
+
+
+Planning: Solutions
+------------------------------------------------
+
+* Prequalification during Sales to determine need for Formal Project Planning
+* Determine toolset during Sales Pitch (user stories, wireframes, I/A, all)
+* Optional Scope Contract
+
+Presenter Notes
+---------------
+
+* Client has a Grand Idea but no design or functional requirements; FPP for SOW #1
+* Let the estimation team help determine the FPP needs
+* Optional Scope: Time, Schedule, Quality, Scope is variable based on short dev cycles
+* Optional Scope only requires 'just enough reqs' to get started, round out as you go
+* Evolutionary Design of the system
+* Builds trust with clients (repeat business)
 
 ----
 
