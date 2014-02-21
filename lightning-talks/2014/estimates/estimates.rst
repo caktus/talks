@@ -68,28 +68,43 @@ Global Issues
 ----
 
 
-Sales
+Sales: Problems Discussed
 ------------------------------------------------
 
-What were the problems
+* Improve communication with staff on the status of sales in the pipeline
+* Improve pre-qualification of clients and requirements gathering
+* Make sure proposal matches what dev team estimated
+* Different definitions (QA, Feedback and Testing, Back-end/Front-end hours)
 
-* Need to improve communication with staff on the status of sales in the pipeline
-* Need a more informed way to pre-qualify clients and create ballpark estimates
-* Need to improve process for comparing the accepted bid with original estimate
+Presenter Notes
+---------------
+
+* Asking better questions during sales call
+* Getting better requirements if possible. Can ball-park estimates be improved.
+* Optional items, match text with estimate -- communication
 
 ----
 
 
-Sales
+Sales: Potential Solutions
 ------------------------------------------------
 
-Recommended Solutions
-
-* Sales staff now provide sales-pipeline reports in Monday meetings
+* Sales provides overview of incoming leads in Monday meetings
 * PMs inform what projects are starting and ending in Monday meetings
-* Planning to pre-fill estimate templates with common tasks/hours for quicker turnaround of ballpark estimates
-* Sales staff will now "pitch" a new project to the estimating team (business requirements, estimate expecations)
+* List of features/template for ball-park estimates
+* Sales and PMs prepare and walkthrough requirements with dev team
+* Project classification and expectations of time to spend on estimate
+* Show sales schedule in SmartSheet
+* Draft proposal in project document so dev team can review
+* Have retrospectives inform sales process
 * Unresolved: Matching accepted bids to original estimates is still a manual process
+
+Presenter Notes
+---------------
+
+* Outline of sales process in Smartsheet - make sure we're not forgetting anything
+* Think about classification of projects - inform team of time to spend estimating
+* Sales & PMs better organize project document and requirements before showing dev team
 
 ----
 
