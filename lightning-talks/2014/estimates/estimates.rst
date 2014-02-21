@@ -30,7 +30,7 @@ Motivation
 
 * Accuracy of some estimates vary - Sales, Planning, Design and Technical
 * Caktus is spending a lot of time on estimating projects - room for streamlining
-* Not everyone defines some of our estimating tasks the same (Q/A, Feedback, Testing)
+* There are varying definitions for some tasks (Q/A, Feedback, Testing)
 * No current way to measure effectiveness of our estimates or apply lessons learned
 
 ----
@@ -73,9 +73,9 @@ Sales
 
 TODO: What were the problems
 
-* Staff not informed about status of sales in the pipeline
-* Need a more informed way to create ballpark estimates
-* Prequali
+* Need to improve communication with staff on the status of sales in the pipeline
+* Need a more informed way to pre-qualify clients and create ballpark estimates
+* Need to improve process for comparing the accepted bid with original estimate 
 
 ----
 
@@ -85,8 +85,11 @@ Sales
 
 TODO: Recommended Solutions
 
-* Item 1
-* Item 2
+* Sales staff now provide sales-pipeline reports in Monday meetings
+* PMs inform what projects are starting and ending in Monday meetings
+* Planning to pre-fill estimate templates with common tasks/hours for quicker turnaround of ballpark estimates
+* Sales staff will now "pitch" a new project to the estimating team (business requirements, estimate expecations)
+* Unresolved: Matching accepted bids to original estimates is still a manual process
 
 ----
 
@@ -188,4 +191,8 @@ Technical: Solutions
 Next Steps
 ------------------------------------------------
 
-TODO: What were the results
+* We should continue to receive and review estimates concerns on a regular basis
+* We need to complete our process of streamlining/reducing the number of tools we use for both estimating and scheudling projects
+* When our templates/tools are updated we'll update/train all staff.
+
+* Questions?  What do you think our next steps should be?
