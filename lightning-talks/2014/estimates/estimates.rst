@@ -101,7 +101,7 @@ Planning: Problems
 Presenter Notes
 ---------------
 
-* Often we end up doing a large amount of Project Planning during estimation; informally
+* Often we end up doing a large amount of Project Planning during estimation; informally, and potentially unpaid
 * What is the delineator for shoving those hours into Req Gathering vs selling a service as P1 work
 * User Stories, Wireframes, IA, etc.....no prescribed formula of which method to use when
 * Fixed provides client predictable Cost, Scope, Schedule, not Quality
