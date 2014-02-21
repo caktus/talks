@@ -127,6 +127,7 @@ Presenter Notes
 * Optional Scope only requires 'just enough reqs' to get started, round out as you go
 * Evolutionary Design of the system
 * Builds trust with clients (repeat business)
+* We do this already with some clients, just not Formally Named (Moz FxOSS)
 
 ----
 
