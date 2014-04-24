@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Encryption and Identity</title>
+
+        <meta name="description" content="An easy to use CSS 3D slideshow tool for quickly creating good looking HTML presentations.">
+        <meta name="author" content="Dan Poirier <dpoirier@caktusgroup.com>">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+        <!-- Caktus specific styles -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        
+        <div class="reveal">
+
+          <aside class="logo">
+              <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+          </aside>
+            
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Encryption and Identity</h1>
+                    <h3>Dan Poirier</h3>
+                    <h3 class=inverted>Caktus</h3>
+                    <h3 class=inverted>Consulting</h3>
+                    <h3 class=inverted>Group</h3>
+                    <script>
+                        // Delicously hacky. Look away.
+                        if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+                    </script>
+                </section>
+
+                <section>
+                    <h2>Julius Caesar</h2>
+<img src="Gaius_Julius_Caesar_(100-44_BC).jpg" style="float: left"/>
+<img class=dontfragment src="Maccari-Cicero.jpg" style="float: right"/>
+                </section>
+
+                <section>
+                  <h2>Caesar cipher</h2>
+<span class=dontfragment>
+<img src="320px-Caesar3.svg.png" width=800/>
+</span>
+                </section>
+
+                <section>
+                  <h2>Traditional encryption</h2>
+                  <ul>
+                    <li>One key</li>
+                    <li>Both parties need it</li>
+                    <li>If anybody else finds it out, they can read the messages</li>
+                  </ul>
+                  <img src="onekey.jpeg"/>
+                </section>
+<!--
+                <section>
+                  <h2>World War II</h2>
+                  <img src="Second_world_war_europe_animation_small.gif"/>
+                  <span class=dontfragment>
+                    <img src="188px-Bundesarchiv_Bild_183-29802-0001,_MTS_Strehla,_Bezirk_Dresden,_Ukw-Sprechfunk.jpg"
+                         style="float: right"/>
+                  </span>
+                </section>
+-->
+                <section>
+                  <h2>Enigma machine</h2>
+                  <img src="449px-EnigmaMachineLabeled.jpg" height="400"/><!--
+                </section>
+
+                <section>
+                  <h2>Enigma rotors</h2>-->
+                  <img src="320px-Enigma_rotors_and_spindle_showing_contacts_rachet_and_notch.jpg"/>
+                </section>
+<!--
+                <section>
+                  <h2>Enigma usage</h2>
+                  <ul>
+                    <li class=dontfragment>Insert the rotors</li>
+                    <li class=dontfragment>Set the rotors to a starting position:<br/>
+<img src="320px-Enigma-rotor-windows.jpg"/>
+</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Enigma usage (2)</h2>
+                  <img style="float: left" src="Bundesarchiv_Bild_183-2007-0705-502,_Chiffriermaschine_-Enigma-.jpg"/>
+                  <ul>
+                    <li>Type the message</li>
+                    <li class=dontfragment>Write down the letters that light up</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Enigma encryption</h2>
+                  <ul>
+                    <li class=dontfragment>Where's the key?</li>
+                    <li class=dontfragment>The initial setup</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Progress</h2>
+                  <ul>
+                    <li class=dontfragment>More complicated</li>
+                    <li class=dontfragment>Harder to crack</li>
+                    <li class=dontfragment>But in some ways, the same approach</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Symmetric key encryption</h2>
+                  <ul>
+                    <li class=dontfragment>One key</li>
+                    <li class=dontfragment>Used by both parties</li>
+                    <li class=dontfragment>Just reverse the encryption process</li>
+                  </ul>
+                  <p><b>ADD DIAGRAM</b></p>
+                </section>
+-->
+                <section>
+                  <h2>Key distribution</h2>
+                  <ul><!--
+                    <li class=dontfragment>Always a problem</li> -->
+                    <li class=dontfragment>Both parties need the same key</li>
+                    <li class=dontfragment>It has to be kept secret from anyone else</li>
+                    <li class=dontfragment>Before they can communicate securely...</li>
+                    <li class=dontfragment>They first need to communicate securely</li>
+                  </ul>
+                  <p>
+                    <img src="keydistribution.jpeg"/>
+                  </p>
+                </section>
+
+                <section>
+                  <h2>RSA To the Rescue</h2>
+                  <ul>
+                    <li class=dontfragment>1977</li>
+                    <li class=dontfragment> Ron Rivest, Adi Shamir and Leonard Adleman<br/>
+                  <p>
+                    <img src="Rivest.jpg" width=100/>
+                    <img src="175px-Adi_Shamir_2009_crop.jpg" width=100/>
+                    <img src="Adleman.jpg" width=100/>
+                  </p>
+                    </li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Two keys!</h2>
+                  <img src="twokeys.jpeg"/>
+                </section>
+                <section>
+                  <h2>The keys are interchangeable</h2>
+                  <ul>
+                    <li>You can encrypt with either key</li>
+                    <li>and then decrypt with the other</li>
+                  </ul>
+                  <table>
+                    <tr>
+                      <td>
+                        <img src="twokeys.jpeg"/>
+                      </td>
+                      </tr>
+                    <tr>
+                      <td>
+                        <img src="interchangeable.jpeg"/>
+                      </td>
+                    </tr>
+                  </table>
+                </section>
+<!--                <section>
+                  <h2>Terms</h2>
+                  <ul>
+                    <li class=dontfragment>One key = symmetric encryption</li>
+                    <li class=dontfragment>Two keys = asymmetric encryption</li>
+                  </ul>
+                </section> -->
+                <section>
+                  <h2>Naive usage</h2>
+                  <ul>
+                    <li>Alice generates key pair, gives Key 2 to Bob</li>
+                    <li> encrypts with Key 1</li>
+                    <li>... but that doesn't help at all!</li>
+                    <li>Still have to get Key 2 to Bob securely</li>
+                  </ul>
+                    <img src="naive.jpeg"/>
+                </section>
+                <section>
+                  <h2>Smart usage - turn it around</h2>
+                  <p>Alice generates key pair, gives Key 2 to Bob.</p>
+                  <p>Bob encrypts messages with Key 2 and sends to Alice</p>
+                  <p>Alice decrypts with Key 1</p>
+                  <img src="smart.jpeg"/>
+                </section>
+                <section>
+                  <h2>Public key, private key</h2>
+                  <img src="public.jpeg"/>
+<!--                  <ul>
+                    <li>Alice can publish one key in the New York Times - her <i>public</i> key</li>
+                    <li class=dontfragment>Anyone can use that key to encrypt things and send them to Alice</li>
+                    <li class=dontfragment>Only Alice can decrypt them, using her <i>private</i> key</li>
+                </ul></section>
+                </section>
+                <section>
+                  <h2>Key distribution - solved!</h2>
+<!--
+                  <ul>
+                    <li>Just use the front page of the NY Times</li>
+                    <li class=dontfragment>except...</li>
+                    <li class=dontfragment>now there's a new problem</li>
+                </ul> -->
+                  <p>but there's a new problem...</p>
+                </section>
+                <section>
+                  <h2>Authentication</h2>
+                  <p>Who is this message from?</p>
+                  <img src="impostor.jpeg"/>
+                  <!--
+                  <ul>
+                    <li class=dontfragment>Symmetric encryption:
+                      <ul>
+                        <li>Only Alice and Bob knew the key</li>
+                        <li>If Alice could decrypt the message with the key,</li>
+                        <li>it must have come from Bob</li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <p><b>ADD DIAGRAM</b></p>
+                  -->
+                </section>
+<!--
+                <section>
+                  <h2>Authentication now</h2>
+                  <ul>
+                    <li class=dontfragment>Asymmetric encryption:
+                      <ul>
+                        <li>Everybody knows Alice's public key</li>
+                        <li>If Alice can decrypt the message with her private key,</li>
+                        <li>it could have come from - anyone</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </section>
+-->
+                <section>
+                  <h2>We have a solution! Part 1</h2>
+                  <p><img src="solution1.jpeg"/></p>
+<!--
+                  <ul>
+                    <li class=dontfragment>Only Bob knows Bob's private key</li>
+                    <li class=dontfragment>If Alice can decrypt the message using Bob's public key,</li>
+                    <li class=dontfragment>it must have come from Bob</li>
+                  </ul>
+                  <p><b>ADD DIAGRAM</b></p>
+-->
+                </section>
+                <section>
+                  <h2>We have a solution! Part 2</h2>
+                  <p><img src="solution2.jpeg"/></p>
+
+<!--
+                  <ul>
+                    <li class=dontfragment>Of course, anyone can decrypt Bob's message now</li>
+                    <li class=dontfragment>because everyone has Bob's public key - oops</li>
+                    <li class=dontfragment>But Bob just encrypts it <i>again</i> - with Alice's public key</li>
+                    <li class=dontfragment>Now only Alice can decrypt it with her private key</li>
+                    <li class=dontfragment>and then with Bob's public key</li>
+                    <li class=dontfragment>and now she has a secret message she knows came from Bob</li>
+                  </ul>
+                  <p><b>ADD DIAGRAM</b></p>
+-->
+                </section>
+                <section>
+                  <h2>Digital signature</h2>
+                  <img src="digitalsig.jpeg"/>
+<!--
+                  <ul>
+                    <li class=dontfragment>By encrypting the message</li>
+                    <li class=dontfragment>(or part of it)</li>
+                    <li class=dontfragment>with his private key</li>
+                    <li class=dontfragment>Bob can prove the message came from him</li>
+                  </ul>
+-->
+                </section>
+                <section>
+                  <h2>We still have a problem</h2>
+                  <p>Whose key?</p>
+                  <img src="whosekey.jpeg"/>
+<!--
+                  <ul>
+                    <li><i>WHO</i> published that key in the NY Times?</li>
+                    <li class=dontfragment>It might not have been Alice or Bob</li>
+                  </ul>
+-->
+                </section>
+<!--
+                <section>
+                  <h2>Trust</h2>
+                  <ul>
+                    <li>Alice needs to trust:
+                      <ul>
+                        <li><i>this</i> public key</li>
+                        <li>is <i>Bob's</i> public key</li>
+                      </ul>
+                    </li>
+                    <li class=dontfragment>Otherwise, she could be talking to anyone</li>
+                  </ul>
+                </section>
+                <section>
+                  <h2>Small-scale solutions</h2>
+                  <p>If Alice and Bob know each other already:</p>
+                  <ul>
+                    <li class=dontfragment>Alice and Bob meet face to face</li>
+                    <li class=dontfragment>Alice and Bob talk on the phone
+                      (and recognize voices)</li>
+                    <li class=dontfragment>etc.</li>
+                  </ul>
+                </section>
+                <section>
+                  <h2>Small-scale solutions - continued</h2>
+                  <ul>
+                    <li class=dontfragment>Alice and Bob know a third party, Charlene</li>
+                    <li class=dontfragment>And trust her</li>
+                    <li class=dontfragment>Charlene vouches for the public keys</li>
+                  </ul>
+                </section>
+                <section>
+                  <h2>These don't scale</h2>
+                  <ul>
+                    <li class=dontfragment>What if Alice is Amazon?</li>
+                    <li class=dontfragment>and Bob wants to buy his kids Hannukah presents?</li>
+                    <li class=dontfragment>How does he know he's sending his credit card number</li>
+                    <li class=dontfragment>to the real Amazon?</li>
+                  </ul>
+                </section> -->
+                <section>
+                  <h2>Trust for hire</h2>
+                  <ul>
+                    <li class=dontfragment>Entities the community trusts</li>
+                    <li class=dontfragment>will verify:
+                      <ul>
+                        <li>the person with this key</li>
+                        <li>is Alice</li>
+                      </ul>
+                    </li>
+                    <li class=dontfragment>and then vouch:
+                      <ul>
+                        <li>this key</li>
+                        <li>is Alice's</li>
+                      </ul>
+                    </li>
+                    <li class=dontfragment>We call them <i>Certificate Authorities</i></li>
+                  </ul>
+                </section>
+                <section>
+                  <h2>What's a certificate?</h2>
+                  <ul>
+                    <li class=dontfragment>Verisign doesn't want people calling them:</li>
+                    <li>"What's Alice's key?"</li>
+                    <li class=dontfragment>So they give Alice a <i>certificate</i></li>
+                    <li class=dontfragment>to prove that Verisign vouches for Alice's key</li>
+                  </ul>
+                </section>
+                <section>
+                  <h2>Certificates</h2>
+                  <p>A certificate has three things:</p>
+                  <ol>
+                    <li class=dontfragment>An identity:
+                      <ul>
+                        <li>"www.amazon.com" or</li>
+                        <li>"obama@whitehouse.gov"</li>
+                      </ul>
+                    </li>
+                    <li class=dontfragment>A public key</li>
+                    <li class=dontfragment>A certificate authority's digital signature</li>
+                  </ol>
+                  <img src="certificates.jpeg"/>
+                </section>
+                <section>
+                  <h2>SSL</h2>
+                  <ul>
+                    <li class=dontfragment>When our browsers establish an SSL connection</li>
+                    <li class=dontfragment>the server sends them a certificate</li>
+                    <li class=dontfragment>and they verify it was signed</li>
+                    <li class=dontfragment>by a certificate authority they trust</li>
+                  </ul>
+                </section>
+                <section>
+                  <h2>SSL part 2</h2>
+                  <ul>
+                    <li class=dontfragment>Browsers come with a list of:
+                      <ul>
+                        <li>certificate authorities they trust</li>
+                         <li>and their public keys</li>
+                      </ul>
+                    <li class=dontfragment>So that Bob can buy his kids presents<br/> online with confidence</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>All Hail RSA!</h2>
+                  <ul>
+                    <li>Forget Caesar</li>
+                    <li>Without RSA, a good part of our economy</li>
+                    <li>would not exist</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <h2>Acknowledgments</h2>
+                  <p>All photos from wikipedia</p>
+                  <p>Caesar cipher diagram from wikipedia</p>
+                  <p>Other diagrams done using Graphviz</p>
+                </section>
+
+                <section>
+                  <h2>Questions?</h2>
+                </section>
+
+        </div>
+
+        <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+        <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

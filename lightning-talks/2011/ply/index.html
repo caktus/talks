@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>PLY -- What?</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>PLY -- What?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Python Lex &amp; Yacc<ul>
+<li>Lex: Lexical analyzer</li>
+<li>Yacc: Yet Another Compiler Compiler</li>
+<li>Long-time (since 1970s) tools for building compilers</li>
+</ul>
+</li>
+<li>Written and maintained by David Beazley<ul>
+<li>1.0 in 2001, result of teaching compiler course</li>
+<li>2.0 in 2006, &quot;major update&quot;</li>
+<li>3.0 in 2009, supports Python 3</li>
+<li>Current version is 3.4</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>PLY -- Why?</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Sometimes projects need &quot;scripting&quot; built-in</li>
+<li>Medical billing &quot;scrub rules&quot;<ul>
+<li>Decide whether a Claim charge is OK or should be rejected</li>
+<li>Examples<ul>
+<li><cite>require sup_dr_npi onlyif sup_dr</cite></li>
+<li><cite>require LENGTH(dr_npi) = 10</cite></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Survey &quot;skip rules&quot;<ul>
+<li>Decide, based on answers so far, whether a question should be shown</li>
+<li>Examples<ul>
+<li><cite>item54 = 3</cite></li>
+<li><cite>item23 &lt; 4 and item24 &gt;= 1</cite></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Lexing and Parsing Basics</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Lexing<ul>
+<li>Splits input into tokens</li>
+<li>Tokens have type and value</li>
+<li>Tokens are recognized by pattern-matching</li>
+</ul>
+</li>
+<li>Parsing<ul>
+<li>Transforms a sequence of tokens</li>
+<li>Uses set of parsing rules</li>
+<li>Rules expressed in BNF (Backus Normal Form)</li>
+</ul>
+</li>
+</ul>
+<pre>expr : expr AND expr
+expr : ITEMID EQUALS NUMBER
+     | ITEMID LT NUMBER
+     | ITEMID GT NUMBER`
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Lexer, plex.py (Part 1)</h1></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">ply</span> <span class="kn">import</span> <span class="n">lex</span>
+
+<span class="k">class</span> <span class="nc">ExampleLexer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">reserved</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">&#39;and&#39;</span><span class="p">:</span> <span class="s">&#39;AND&#39;</span><span class="p">,</span>
+        <span class="s">&#39;or&#39;</span><span class="p">:</span> <span class="s">&#39;OR&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">tokens</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s">&#39;EQUALS&#39;</span><span class="p">,</span>
+        <span class="s">&#39;LT&#39;</span><span class="p">,</span>
+        <span class="s">&#39;LTE&#39;</span><span class="p">,</span>
+        <span class="s">&#39;GT&#39;</span><span class="p">,</span>
+        <span class="s">&#39;GTE&#39;</span><span class="p">,</span>
+        <span class="s">&#39;NUMBER&#39;</span><span class="p">,</span>
+        <span class="s">&#39;ITEMID&#39;</span><span class="p">,</span>
+    <span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">reserved</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+
+    <span class="n">t_EQUALS</span> <span class="o">=</span> <span class="s">r&#39;=&#39;</span>
+    <span class="n">t_LT</span> <span class="o">=</span> <span class="s">r&#39;\&lt;&#39;</span>
+    <span class="n">t_LTE</span> <span class="o">=</span> <span class="s">r&#39;\&lt;=&#39;</span>
+    <span class="n">t_GT</span> <span class="o">=</span> <span class="s">r&#39;\&gt;&#39;</span>
+    <span class="n">t_GTE</span> <span class="o">=</span> <span class="s">r&#39;\&gt;=&#39;</span>
+
+    <span class="k">def</span> <span class="nf">t_NUMBER</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="s">r&#39;\d+&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">t</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Lexer, plex.py (Part 2)</h1></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">ply</span> <span class="kn">import</span> <span class="n">lex</span>
+
+<span class="k">class</span> <span class="nc">ExampleLexer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c"># ...Code from previous slide omitted...</span>
+
+    <span class="k">def</span> <span class="nf">t_ignore</span> <span class="o">=</span> <span class="s">&#39; </span><span class="se">\t</span><span class="s">&#39;</span>
+
+    <span class="k">def</span> <span class="nf">t_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Unknown token (</span><span class="si">%s</span><span class="s">) at offset </span><span class="si">%d</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">lexpos</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">t_ITEMID</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="s">r&#39;[a-zA-Z_][a-zA-Z_0-9]*&#39;</span>
+        <span class="n">t</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">reserved</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s">&#39;ITEMID&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">t</span><span class="o">.</span><span class="n">type</span> <span class="o">==</span> <span class="s">&#39;ITEMID&#39;</span><span class="p">:</span>
+            <span class="n">tval</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">item_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">tval</span> <span class="o">==</span> <span class="s">&#39;&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">t_error</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">t</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">tval</span>
+        <span class="k">return</span> <span class="n">t</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Lexer, plex.py (Part 3)</h1></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">ply</span> <span class="kn">import</span> <span class="n">lex</span>
+
+<span class="k">class</span> <span class="nc">ExampleLexer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c"># ...Code from previous slides omitted...</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item_dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">item_dict</span> <span class="o">=</span> <span class="n">item_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span> <span class="o">=</span> <span class="n">lex</span><span class="o">.</span><span class="n">lex</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule_string</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">rule_string</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">token</span><span class="p">:</span>
+                <span class="k">print</span> <span class="s">&#39;Token: type=</span><span class="si">%s</span><span class="s">, value=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">token</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> <span class="n">token</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Lexer In Action</h1></header>
+            
+            
+            <section><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">plex</span> <span class="kn">import</span> <span class="n">ExampleLexer</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lexer</span> <span class="o">=</span> <span class="n">ExampleLexer</span><span class="p">({</span><span class="s">&#39;abc&#39;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="s">&#39;xyz&#39;</span><span class="p">:</span> <span class="mi">987</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lexer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;abc = 44&#39;</span><span class="p">)</span>
+<span class="n">Token</span><span class="p">:</span> <span class="nb">type</span><span class="o">=</span><span class="n">ITEMID</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">123</span>
+<span class="n">Token</span><span class="p">:</span> <span class="nb">type</span><span class="o">=</span><span class="n">EQUALS</span><span class="p">,</span> <span class="n">value</span><span class="o">==</span>
+<span class="n">Token</span><span class="p">:</span> <span class="nb">type</span><span class="o">=</span><span class="n">NUMBER</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">44</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lexer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;abc and 86&#39;</span><span class="p">)</span>
+<span class="n">Token</span><span class="p">:</span> <span class="nb">type</span><span class="o">=</span><span class="n">ITEMID</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">123</span>
+<span class="n">Token</span><span class="p">:</span> <span class="nb">type</span><span class="o">=</span><span class="n">AND</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="ow">and</span>
+<span class="n">Token</span><span class="p">:</span> <span class="nb">type</span><span class="o">=</span><span class="n">NUMBER</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">86</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lexer</span><span class="o">.</span><span class="n">tokenize</span><span class="p">(</span><span class="s">&#39;nonsense!&#39;</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s">&quot;plex.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">53</span><span class="p">,</span> <span class="ow">in</span> <span class="n">tokenize</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">lexer</span><span class="o">.</span><span class="n">token</span><span class="p">()</span>
+  <span class="n">File</span> <span class="s">&quot;/home/kmtracey/.virtualenvs/present_ply/lib/python2.6/site-packages/ply/lex.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">348</span><span class="p">,</span> <span class="ow">in</span> <span class="n">token</span>
+    <span class="n">newtok</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;plex.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">41</span><span class="p">,</span> <span class="ow">in</span> <span class="n">t_ITEMID</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t_error</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;plex.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">33</span><span class="p">,</span> <span class="ow">in</span> <span class="n">t_error</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Unknown token (</span><span class="si">%s</span><span class="s">) at offset </span><span class="si">%d</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">lexpos</span><span class="p">))</span>
+  <span class="ne">Exception</span><span class="p">:</span> <span class="n">Unknown</span> <span class="n">token</span> <span class="p">(</span><span class="n">nonsense</span><span class="p">)</span> <span class="n">at</span> <span class="n">offset</span> <span class="mf">0.</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Parser, pparse.py (Part 1)</h1></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">ply</span> <span class="kn">import</span> <span class="n">yacc</span>
+
+<span class="kn">from</span> <span class="nn">plex</span> <span class="kn">import</span> <span class="n">ExampleLexer</span>
+
+<span class="k">class</span> <span class="nc">ExampleParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response_dict</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">tokens</span> <span class="o">=</span> <span class="n">ExampleLexer</span><span class="o">.</span><span class="n">tokens</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_dict</span> <span class="o">=</span> <span class="n">response_dict</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">yacc</span><span class="o">.</span><span class="n">yacc</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rule</span><span class="p">):</span>
+        <span class="n">lexer</span> <span class="o">=</span> <span class="n">ExampleLexer</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_dict</span><span class="p">)</span><span class="o">.</span><span class="n">lexer</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="n">lexer</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">p_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s">&#39;Syntax error in input: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">p</span><span class="p">)</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Parser, pparse.py (Part 2)</h1></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">ply</span> <span class="kn">import</span> <span class="n">yacc</span>
+
+<span class="kn">from</span> <span class="nn">plex</span> <span class="kn">import</span> <span class="n">ExampleLexer</span>
+
+<span class="k">class</span> <span class="nc">ExampleParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c"># ...Code from previous slide omitted...</span>
+
+    <span class="k">def</span> <span class="nf">p_expr_and</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        expr : expr AND expr</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">p_expr_or</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        expr : expr OR expr</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Parser, pparse.py (Part 3)</h1></header>
+            
+            
+            <section><pre><span class="kn">from</span> <span class="nn">ply</span> <span class="kn">import</span> <span class="n">yacc</span>
+
+<span class="kn">from</span> <span class="nn">plex</span> <span class="kn">import</span> <span class="n">ExampleLexer</span>
+
+<span class="k">class</span> <span class="nc">ExampleParser</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="c"># ...Code from previous slides omitted...</span>
+
+    <span class="k">def</span> <span class="nf">p_expr_terminal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        expr : ITEMID EQUALS NUMBER</span>
+<span class="sd">             | ITEMID LT NUMBER</span>
+<span class="sd">             | ITEMID LTE NUMBER</span>
+<span class="sd">             | ITEMID GT NUMBER</span>
+<span class="sd">             | ITEMID GTE NUMBER</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;=&#39;</span><span class="p">:</span>
+            <span class="n">oper</span> <span class="o">=</span> <span class="s">&#39;==&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">oper</span> <span class="o">=</span> <span class="n">p</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">eval_str</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">oper</span><span class="p">,</span> <span class="n">p</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+        <span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">eval_str</span><span class="p">)</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Example Parser In Action: How It Works</h1></header>
+            
+            
+            <section><pre><span class="n">Python</span> <span class="mf">2.6</span><span class="o">.</span><span class="mi">5</span> <span class="p">(</span><span class="n">r265</span><span class="p">:</span><span class="mi">79063</span><span class="p">,</span> <span class="n">Apr</span> <span class="mi">16</span> <span class="mi">2010</span><span class="p">,</span> <span class="mi">13</span><span class="p">:</span><span class="mi">57</span><span class="p">:</span><span class="mi">41</span><span class="p">)</span>
+<span class="p">[</span><span class="n">GCC</span> <span class="mf">4.4</span><span class="o">.</span><span class="mi">3</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux2</span>
+<span class="n">Type</span> <span class="s">&quot;help&quot;</span><span class="p">,</span> <span class="s">&quot;copyright&quot;</span><span class="p">,</span> <span class="s">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">pparse</span> <span class="kn">import</span> <span class="n">ExampleParser</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">ExampleParser</span><span class="p">({</span><span class="s">&#39;abc&#39;</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="s">&#39;xyz&#39;</span><span class="p">:</span> <span class="mi">987</span><span class="p">})</span>
+<span class="n">Generating</span> <span class="n">LALR</span> <span class="n">tables</span>
+<span class="n">WARNING</span><span class="p">:</span> <span class="mi">4</span> <span class="n">shift</span><span class="o">/</span><span class="nb">reduce</span> <span class="n">conflicts</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">ExampleParser</span><span class="p">({</span><span class="s">&#39;abc&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s">&#39;xyz&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc = 123&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;xyz=777&#39;</span><span class="p">)</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc = 123 and xyz = 987&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc = 123 and xyz = 9887&#39;</span><span class="p">)</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc = 123 or xyz = 9887&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parrser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc = 123 and xyz = 44 or abc = 99&#39;</span><span class="p">)</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc = 123 and xyz = 987 or abc = 99&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Parser In Action: How it Breaks (Part 1)</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What happens if the lexer doesn't find a valid token?</li>
+</ul>
+<pre><span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc &gt;= 4 and xyzz = 987&#39;</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s">&quot;pparse.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">14</span><span class="p">,</span> <span class="ow">in</span> <span class="n">evaluate</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="n">lexer</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;/home/kmtracey/.virtualenvs/present_ply/lib/python2.6/site-packages/ply/yacc.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">265</span><span class="p">,</span> <span class="ow">in</span> <span class="n">parse</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parseopt_notrack</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="n">lexer</span><span class="p">,</span><span class="n">debug</span><span class="p">,</span><span class="n">tracking</span><span class="p">,</span><span class="n">tokenfunc</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;/home/kmtracey/.virtualenvs/present_ply/lib/python2.6/site-packages/ply/yacc.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">921</span><span class="p">,</span> <span class="ow">in</span> <span class="n">parseopt_notrack</span>
+    <span class="n">lookahead</span> <span class="o">=</span> <span class="n">get_token</span><span class="p">()</span>     <span class="c"># Get the next token</span>
+  <span class="n">File</span> <span class="s">&quot;/home/kmtracey/.virtualenvs/present_ply/lib/python2.6/site-packages/ply/lex.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">348</span><span class="p">,</span> <span class="ow">in</span> <span class="n">token</span>
+    <span class="n">newtok</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;plex.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">41</span><span class="p">,</span> <span class="ow">in</span> <span class="n">t_ITEMID</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">t_error</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;plex.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">33</span><span class="p">,</span> <span class="ow">in</span> <span class="n">t_error</span>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39;Unknown token (</span><span class="si">%s</span><span class="s">) at offset </span><span class="si">%d</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">lexpos</span><span class="p">))</span>
+<span class="ne">Exception</span><span class="p">:</span> <span class="n">Unknown</span> <span class="n">token</span> <span class="p">(</span><span class="n">xyzz</span><span class="p">)</span> <span class="n">at</span> <span class="n">offset</span> <span class="mf">13.</span>
+<span class="o">&gt;&gt;&gt;</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Parser In Action: How it Breaks (Part 2)</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What happens if the parser doesn't find a valid parsing rule?</li>
+</ul>
+<pre><span class="o">&gt;&gt;&gt;</span> <span class="n">parser</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="s">&#39;abc = 123 and xyz = abc or abc = 99&#39;</span><span class="p">)</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+  <span class="n">File</span> <span class="s">&quot;pparse.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">14</span><span class="p">,</span> <span class="ow">in</span> <span class="n">evaluate</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">rule</span><span class="p">,</span> <span class="n">lexer</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;/home/kmtracey/.virtualenvs/present_ply/lib/python2.6/site-packages/ply/yacc.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">265</span><span class="p">,</span> <span class="ow">in</span> <span class="n">parse</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parseopt_notrack</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span><span class="n">lexer</span><span class="p">,</span><span class="n">debug</span><span class="p">,</span><span class="n">tracking</span><span class="p">,</span><span class="n">tokenfunc</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;/home/kmtracey/.virtualenvs/present_ply/lib/python2.6/site-packages/ply/yacc.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1047</span><span class="p">,</span> <span class="ow">in</span> <span class="n">parseopt_notrack</span>
+    <span class="n">tok</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">errorfunc</span><span class="p">(</span><span class="n">errtoken</span><span class="p">)</span>
+  <span class="n">File</span> <span class="s">&quot;pparse.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">17</span><span class="p">,</span> <span class="ow">in</span> <span class="n">p_error</span>
+    <span class="k">raise</span> <span class="ne">SyntaxError</span><span class="p">(</span><span class="s">&#39;Syntax error in input: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">p</span><span class="p">)</span>
+<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">Syntax</span> <span class="n">error</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">:</span> <span class="n">LexToken</span><span class="p">(</span><span class="n">ITEMID</span><span class="p">,</span><span class="mi">123</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">)</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst">/home/kmtracey/projects/caktus/talks/lightning-talks/2011/ply/ply.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/13
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">PLY -- What?</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">PLY -- Why?</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Lexing and Parsing Basics</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Example Lexer, plex.py (Part 1)</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Example Lexer, plex.py (Part 2)</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Example Lexer, plex.py (Part 3)</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Example Lexer In Action</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Example Parser, pparse.py (Part 1)</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Example Parser, pparse.py (Part 2)</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Example Parser, pparse.py (Part 3)</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Example Parser In Action: How It Works</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Parser In Action: How it Breaks (Part 1)</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Parser In Action: How it Breaks (Part 2)</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>

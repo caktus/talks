@@ -1,0 +1,274 @@
+<!doctype html>  
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        
+        <title>Backbone.js</title>
+
+        <meta name="description" content="Lightning Talk Lunch Presentation on Backbone.js">
+        <meta name="author" content="Mark Lavin">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+        <!-- Caktus specific styles -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        
+        <div class="reveal">
+
+            <aside class="logo">
+                <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+            </aside>
+
+            
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Backbone.js</h1>
+                    <h3 class="inverted"></h3>
+                    <script>
+                        // Delicously hacky. Look away.
+                        if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+                    </script>
+                </section>
+                
+                <section>
+                    <h2>Overview</h2>
+                    <ul>
+                        <li>What <span class="fragment">Is Backbone</span></li>
+                        <li>When <span class="fragment">To Use It</span></li>
+                        <li>Where <span class="fragment">Is It Awesome</span></li>
+                        <li>Why <span class="fragment">Can It Be Painful</span></li>
+                        <li>How <span class="fragment">Can It Fit In</span></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <section>
+                        <h2>What Is Backbone?</h2>
+                        <ul>
+                            <li>Client-Side MVC Framework</li>
+                            <li>http://backbonejs.org/</li>
+                            <li class="fragment">Built on jQuery/Zepto and Underscore</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Models</h2>
+                        <ul>
+                            <li>Data Validation and Storage</li>
+                            <li class="fragment">Maps to Django Models</li>
+                            <li class="fragment">Sort of an ORM for a REST API</li>
+                        </ul>
+                        <pre class="fragment"><code>
+        var Pony = Backbone.Model.extend({
+            defaults: function() {
+                return {
+                    name: "Django",
+                    magical: true
+                };
+            },
+            speak: function() {
+                if (this.get("magical")) {
+                    alert('Rainbows!');
+                } else {
+                    alert('Neigh.');
+                }
+            }
+        });
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Collections</h2>
+                        <ul>
+                            <li>Ordered Sets of Models</li>
+                            <li class="fragment">Maps to Model Managers</li>
+                            <li class="fragment">Powered by Underscore Magic</li>
+                        </ul>
+                        <pre class="fragment"><code>
+        var Herd = Backbone.Collection.extend({
+            model: Pony,
+            magical: function() {
+                return this.where({magical: true});
+            }
+        });
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Views</h2>
+                        <ul>
+                            <li>Control a Section of the DOM</li>
+                            <li class="fragment">Connect DOM Events to Data Updates</li>
+                            <li class="fragment">Connect Model Events to DOM Updates</li>
+                        </ul>
+                        <pre class="fragment"><code>
+        var App = Backbone.View.extend({
+            el: $("#main"),
+            template: _.template($('#main-template').html()),
+            initialize: function () {
+                Herd.bind('all', this.render, this);
+                Herd.fetch();
+            },
+            render: function() {
+                var magicalPonies = Herd.magical();
+                this.$el.html(this.template({
+                    magicalPonies: magicalPonies
+                }));
+            }
+        });
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Router</h2>
+                        <ul>
+                            <li>Maps URLs to Application Views/State</li>
+                            <li class="fragment">Hash Change or Push State with History</li>
+                            <li class="fragment">Helpful but Not Required</li>
+                        </ul>
+                        <pre class="fragment"><code>
+        var Workspace = Backbone.Router.extend({
+            routes: {
+                "help": "help",    // #help
+                "search/:query": "search",  // #search/kiwis
+            },
+            help: function() {
+                // Magic happens
+            },
+            search: function(query) {
+                // Exercise Left to the Reader
+            }
+        });
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Templates</h2>
+                        <ul>
+                            <li>Underscore Templates (Not Technically Backbone)</li>
+                            <li class="fragment">Can Swap for Mustache/Handlebars</li>
+                            <li class="fragment">Doesn't Conflict with Django's Syntax</li>
+                        </ul>
+                        <pre class="fragment"><code>
+        &lt;ul&gt;
+        <% _.each(magicalPonies, function(pony) { %>
+            &lt;li&gt;<%= pony.get("name") %>&lt;/li&gt; 
+        <% }); %>
+        &lt;/ul&gt;
+                        </code></pre>
+                    </section>
+                </section>
+
+                <section>
+                    <h2>When To Use It?</h2>
+                    <ul>
+                        <li class="fragment">Heavy Client-Side Interaction</li>
+                        <li class="fragment">Backed by REST API</li>
+                        <li class="fragment">Data-Driven Dashboards</li>
+                        <li class="fragment">Interactive Visualizations</li>
+                        <li class="fragment">Mobile-Optimized Sites</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Where Is It Awesome?</h2>
+                    <ul>
+                        <li class="fragment">Normalizes Client/Server Interaction</li>
+                        <li class="fragment">"Less" Callback Hell</li>
+                        <li class="fragment">Templating Cleans Up jQuery DOM Building</li>
+                        <li class="fragment">Plays Nice with Django</li>
+                        <li class="fragment">Solid Community Support</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Why Can It Be Painful?</h2>
+                    <ul>
+                        <li class="fragment">Modular Setup Has a Fair Amount of Boilerplate</li>
+                        <li class="fragment">Overkill for Small Tasks</li>
+                        <li class="fragment">Needless MVC "Purity" Debates</li>
+                        <li class="fragment">Hints of Magic</li>
+                        <li class="fragment">Bootstraping Data/Rendering Lag</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>How Can It Fit In?</h2>
+                    <ul>
+                        <li class="fragment">Some Success So Far</li>
+                        <li class="fragment">(One of) the Right Tool(s) for Some Job(s)</li>
+                        <li class="fragment">Underscore Is Awesome Regardless</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Interested in More?</h2>
+                    <ul>
+                        <li>http://backbonejs.org/</li>
+                        <li>http://documentcloud.github.com/underscore/</li>
+                        <li>http://backbonetutorials.com/</li>
+                        <li>http://ricostacruz.com/backbone-patterns/</li>
+                        <li>http://addyosmani.github.com/backbone-fundamentals/</li>
+                        <li>http://paltman.com/2012/04/30/integration-backbonejs-tastypie/</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Questions?</h2>
+                </section>
+
+            </div>
+                      
+        </div>
+
+        <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+        <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+        
+    </body>
+</html>

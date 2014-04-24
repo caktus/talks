@@ -1,0 +1,25 @@
+digraph naive {
+
+    subgraph cluster_Alice {
+       [label="Alice"];
+       DECRYPT -> Node001;
+       Alice_private -> DECRYPT;
+       Alice_private;
+       Alice_public;
+       Alice -> Alice_private;
+       Alice -> Alice_public;
+    }
+
+    subgraph cluster_Charlene {
+        label="Charlene";
+        Node002 -> ENCRYPT;
+        Alice_public -> ENCRYPT;
+        ENCRYPT;
+    }
+
+    ENCRYPT -> DECRYPT [label=encrypted];
+    Node001 [label=Text];
+    Node002 [label=Text]'
+  Alice_private [color=lightblue;style=filled];
+  Alice_public [color=pink;style=filled];
+}

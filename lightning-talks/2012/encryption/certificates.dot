@@ -1,0 +1,10 @@
+digraph {
+  subgraph cluster1 {
+    label="CA_private";
+    style=filled;
+    color=lightgrey;
+
+    node [style=filled;color=white];
+
+    certificate[shape=record;label="{Identity | Public key}"]
+}

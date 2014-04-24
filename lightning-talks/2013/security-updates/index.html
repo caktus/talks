@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Caktus Security Updates</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Caktus Security Updates</h1></header>
+            
+            
+            <section><p>Ben Riseling, Calvin Spealman, Mark Lavin and Scott Morningstar</p>
+<p>Caktus Consulting Group</p>
+<p>June 28, 2013</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Overview</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Motivation</li>
+<li>Project Goals</li>
+<li>Results</li>
+<li>Future Updates</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Nothing here. This is just for an example</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Motivation</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Wanted clear policies in place security best practices</li>
+<li>Wanted checklists to follow in the case of security breaches</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Project Goals</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Create documentation for developers on security best practices</li>
+<li>Create documentation for addressing security holes or breaches</li>
+<li>Create documentation for advising clients on security issues</li>
+<li>Ensure our standard project setup is as secure as possible</li>
+<li>Put tools in place to routinely check for issues</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Results</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Security Scans</li>
+<li>Developer Documentation</li>
+<li>Client Documentation</li>
+<li>Project Template Updates</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Security Scans</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Monthly scans by Orvant</li>
+<li>Whitelist false-positives</li>
+<li>Respond appropriately when new issues are flagged</li>
+<li>Useful regression discovery</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Developer Documentation</h1></header>
+            
+            
+            <section><h2>Security Conscious Tips</h2>
+<p>Keeping the &quot;gotchas&quot; we find from being forgotten</p>
+
+
+<h2>Incident Response Guidelines</h2>
+<p>Something bad happened! What do we do?</p>
+
+
+<h2>The Security Policy Update Policy</h2>
+<p>Contribute and Keep Up-to-date</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Client Documentation: PCI Standards</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>What: Payment Card Industry</li>
+<li>The PCI Standard: pcistandards.org</li>
+<li>Certification vs. Compliance</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>What: If your site provides access to a financial transaction this is for you</li>
+<li>6 core steps to assess your compliance</li>
+<li>processing $500k plus annually requires 3rd party annual audit ($$$$) for certification</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Common PCI mistakes in Django apps</h1></header>
+            
+            
+            <section><ul class="simple">
+<li><ol class="first arabic">
+<li>storing credit card info in plain text (see tokenization)</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="2">
+<li>default passwords not changed</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="3">
+<li>poor code: SQL injection vulnerabilities, for instance</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="4">
+<li>lack of monitoring or logging</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="5">
+<li>not using SSL for payment page</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="6">
+<li>logging payment information into log files</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="7">
+<li>missing security patches</li>
+</ol>
+</li>
+<li>SOURCE: <a class="reference external" href="http://www.youtube.com/watch?v=9ZIPNWqjIEI">http://www.youtube.com/watch?v=9ZIPNWqjIEI</a></li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li><ol class="first arabic">
+<li>Third party tokenization services are cheaper than an annual audit</li>
+</ol>
+</li>
+<li><ol class="first arabic" start="6">
+<li>especially when there is an error (django error emails)</li>
+</ol>
+</li>
+<li>Source: Djangocon 2012, Ken Cochrane, dotCloud, &quot;Building PCI Compliant Django Applications&quot;</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What this means for Caktus</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>New project with PCI requirement should be made compliant</li>
+<li>Inherited projects with PCI maybe request bringing site up to compliance as prerequisite</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>At bare minimum, tokenization and monitoring (core part of PCI compliance should be a requirement</li>
+<li>hosting on AWS (PCI certified secure network)</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Project Template Updates</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Salt Provisioning</li>
+<li>Better Defaults</li>
+<li>Documentation</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Salt Provisioning</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Started on ShipIt Day</li>
+<li>Previously using a collection of Fabric scripts</li>
+<li>Better separation of deployment from provisioning</li>
+<li>Easy and repeatable</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Entire state is sync'd to re-provision (fast enough)</li>
+<li>No more random upload_*_conf commands</li>
+<li>Still using Fabric for the deployment</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Better Defaults</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>No connection as project user</li>
+<li>Tighter file permissions</li>
+<li>Firewall and Fail2Ban by default</li>
+<li>SSL everywhere</li>
+<li>Easy to add basic auth to staging</li>
+<li>Common way to manage secrets</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Unique user connection is a PCI and HIPAA requirement</li>
+<li>Secrets added to OS-environment</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Documentation</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Overview documentation</li>
+<li>Provisioning detailed</li>
+<li>Adding optional features (Celery)</li>
+<li>Configuration updates</li>
+<li>Testing with vagrant</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Future Updates</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>We are ever vigilant</li>
+<li>We want feedback</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>As new issues are brought to light our policies will be updated;</li>
+<li>Will meet &quot;quarterly&quot; to review any new standards.</li>
+<li>Working on templated email scripts for clients in case of detected sercurity risk</li>
+<li>Monitoring system decision in progress; Will be reviewing the state of all current projects</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst">/home/mlavin/Projects/talks/lightning-talks/2013/security-updates/security-updates.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/15
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Caktus Security Updates</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Overview</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Motivation</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Project Goals</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Results</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Security Scans</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Developer Documentation</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Client Documentation: PCI Standards</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Common PCI mistakes in Django apps</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">What this means for Caktus</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Project Template Updates</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Salt Provisioning</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Better Defaults</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Documentation</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Future Updates</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>

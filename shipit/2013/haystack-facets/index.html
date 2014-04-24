@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Haystack Facets</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Haystack Facets</h1></header>
+            
+            
+            <section><h2>UX Exploration &amp; Improvements</h2>
+<p>David Ray</p>
+<p>July 19, 2013</p>
+<h2>Overview</h2>
+<ul>
+<li>Search in RapidSMS.org</li>
+<li>Borken/Missing Things :-(</li>
+<li>Fixed/New Things :-D</li>
+<li>What's Next?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Search in RapidSMS.org</h2></header>
+            
+            
+            <section><ul>
+<li>Solr backend</li>
+<li>Global Search</li>
+<li>Model Listings</li>
+<li>Facets!</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Borken/Missing Things</h2></header>
+            
+            
+            <section><ul>
+<li>Deactivating Facet(s)</li>
+<li>Facets and Pagination</li>
+<li>Facets and Search</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Fixed/New Things -- Deactivating Facets</h2></header>
+            
+            
+            <section><p><strong>Problem:</strong> Must mutate the querystring to remove the selected facet</p>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="nd">@register.simple_tag</span>
+<span class="lineno"> 2</span> <span class="k">def</span> <span class="nf">remove_facet</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">facet_value</span><span class="p">):</span>
+<span class="lineno"> 3</span>     <span class="sd">&quot;&quot;&quot;&quot;Returns a string that extracts the supplied facet_value&#39;s facect from</span>
+<span class="lineno"> 4</span> <span class="sd">        the current querystring</span>
+<span class="lineno"> 5</span> <span class="sd">    &quot;&quot;&quot;</span>
+<span class="lineno"> 6</span>     <span class="n">params</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="lineno"> 7</span>     <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">lists</span><span class="p">():</span>
+<span class="lineno"> 8</span>         <span class="c"># reconstruct the non-selected_facets params</span>
+<span class="lineno"> 9</span>         <span class="k">if</span> <span class="n">param</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;selected_facets&#39;</span><span class="p">:</span>
+<span class="lineno">10</span>             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">param</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<span class="lineno">11</span>                 <span class="n">params</span><span class="p">[</span><span class="n">param</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v</span>
+<span class="lineno">12</span>         <span class="k">else</span><span class="p">:</span>
+<span class="lineno">13</span>             <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">param</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+<span class="lineno">14</span>                 <span class="c"># exclude the selected_facet param that matches the supplied</span>
+<span class="lineno">15</span>                 <span class="c"># facet_value</span>
+<span class="lineno">16</span>                 <span class="k">if</span> <span class="n">facet_value</span> <span class="o">!=</span> <span class="n">v</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]:</span>
+<span class="lineno">17</span>                     <span class="n">params</span><span class="p">[</span><span class="n">param</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">v</span>
+<span class="lineno">18</span>     <span class="n">qs</span> <span class="o">=</span> <span class="s">&#39;?</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">urlencode</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="lineno">19</span>     <span class="k">return</span> <span class="n">qs</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Fixed/New Things -- Deactivating Facets</h2></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno"> 1</span> <span class="nt">&lt;h3&gt;</span>Refine Results<span class="nt">&lt;/h3&gt;</span>
+<span class="lineno"> 2</span> <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;reset-filters&quot;</span><span class="nt">&gt;</span>
+<span class="lineno"> 3</span>     <span class="nt">&lt;br&gt;</span>
+<span class="lineno"> 4</span>     {% if filters %}
+<span class="lineno"> 5</span>     <span class="nt">&lt;strong&gt;</span>Active Filters: <span class="nt">&lt;/strong&gt;&lt;br&gt;</span>
+<span class="lineno"> 6</span>     {% for facet, value in filters %}
+<span class="lineno"> 7</span>         <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">&quot;facet_removal&quot;</span> <span class="na">href=</span><span class="s">&quot;{% remove_facet request value %}&quot;</span><span class="nt">&gt;&lt;i</span> <span class="na">class=</span><span class="s">&quot;icon-remove-sign&quot;</span><span class="nt">&gt;&lt;/i&gt;&lt;/a&gt;</span> {{ facet }}: {{ value }}<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>
+<span class="lineno"> 8</span>     {% endfor %}
+<span class="lineno"> 9</span>     <span class="nt">&lt;br&gt;</span>
+<span class="lineno">10</span>     <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{{ request.path }}{% if query %}?q={{ query }}{% endif %}&quot;</span><span class="nt">&gt;</span>Reset Filters<span class="nt">&lt;/a&gt;</span>
+<span class="lineno">11</span>     {% endif %}
+<span class="lineno">12</span> <span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Fixed/New Things -- Facets and Pagination</h2></header>
+            
+            
+            <section><p><strong>Problem:</strong> Default pagination documentation uses <code>{{ query }}</code></p>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="nd">@register.simple_tag</span>
+<span class="lineno"> 2</span> <span class="k">def</span> <span class="nf">faceted_next_prev_querystring</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">page_number</span><span class="p">):</span>
+<span class="lineno"> 3</span>     <span class="sd">&quot;&quot;&quot;&quot;Returns a string that provides the querystring required to paginate in</span>
+<span class="lineno"> 4</span> <span class="sd">        search results while retaining the selected facets</span>
+<span class="lineno"> 5</span> 
+<span class="lineno"> 6</span> <span class="sd">        Example:</span>
+<span class="lineno"> 7</span> <span class="sd">            {% load facet_tags %}</span>
+<span class="lineno"> 8</span> <span class="sd">            {% faceted_next_prev_querystring request page_number %}</span>
+<span class="lineno"> 9</span> 
+<span class="lineno">10</span> <span class="sd">        Renders:</span>
+<span class="lineno">11</span> <span class="sd">           ?q=text&amp;page=N&amp;selected_facets=facet:value</span>
+<span class="lineno">12</span> <span class="sd">    &quot;&quot;&quot;</span>
+<span class="lineno">13</span>     <span class="n">q_dict</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="lineno">14</span>     <span class="n">q_dict</span><span class="p">[</span><span class="s">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">page_number</span>
+<span class="lineno">15</span>     <span class="n">qs</span> <span class="o">=</span> <span class="s">&#39;?</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">q_dict</span><span class="o">.</span><span class="n">urlencode</span><span class="p">()</span>
+<span class="lineno">16</span>     <span class="k">return</span> <span class="n">qs</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Fixed/New Things -- Facets and Pagination</h2></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno">1</span> <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;{%</span> <span class="na">faceted_next_prev_querystring</span> <span class="na">request</span> <span class="na">page</span><span class="err">.</span><span class="na">previous_page_number</span> <span class="err">%}</span><span class="nt">&gt;</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Fixed/New Things -- Facets and Pagination</h2></header>
+            
+            
+            <section><p><strong>Gotcha!</strong> Have to override <code>build_page</code> and <code>create_response</code></p>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">def</span> <span class="nf">build_page</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="lineno"> 2</span>     <span class="o">...</span>
+<span class="lineno"> 3</span>     <span class="k">try</span><span class="p">:</span>
+<span class="lineno"> 4</span>         <span class="n">page</span> <span class="o">=</span> <span class="n">paginator</span><span class="o">.</span><span class="n">page</span><span class="p">(</span><span class="n">page_no</span><span class="p">)</span>
+<span class="lineno"> 5</span>     <span class="k">except</span> <span class="n">InvalidPage</span><span class="p">:</span>
+<span class="lineno"> 6</span>         <span class="c"># Redirect to page 1 of the</span>
+<span class="lineno"> 7</span>         <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">path</span>
+<span class="lineno"> 8</span>         <span class="n">qs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="lineno"> 9</span>         <span class="n">qs</span><span class="p">[</span><span class="s">&#39;page&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="lineno">10</span>         <span class="n">url</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">?</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">qs</span><span class="o">.</span><span class="n">urlencode</span><span class="p">())</span>
+<span class="lineno">11</span>         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="lineno">12</span> 
+<span class="lineno">13</span>     <span class="k">return</span> <span class="p">(</span><span class="n">paginator</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Fixed/New Things -- Facets and Pagination</h2></header>
+            
+            
+            <section><p><strong>Gotcha!</strong> Have to override <code>build_page</code> and <code>create_response</code></p>
+<div class="highlight"><pre><span class="lineno">1</span> <span class="k">def</span> <span class="nf">create_response</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="lineno">2</span>     <span class="k">try</span><span class="p">:</span>
+<span class="lineno">3</span>         <span class="p">(</span><span class="n">paginator</span><span class="p">,</span> <span class="n">page</span><span class="p">)</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_page</span><span class="p">()</span>
+<span class="lineno">4</span>     <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+<span class="lineno">5</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">build_page</span><span class="p">()</span>
+<span class="lineno">6</span>     <span class="o">...</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h2>Fixed/New Things -- Facets and Search</h2></header>
+            
+            
+            <section><p>Undocumented, but easy to resolve!</p>
+<p>Must use <code>FacetedSearchForm</code></p>
+<div class="highlight"><pre><span class="lineno">1</span> {% for facet in form.selected_facets %}
+<span class="lineno">2</span>     <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;hidden&quot;</span> <span class="na">name=</span><span class="s">&quot;selected_facets&quot;</span> <span class="na">value=</span><span class="s">&quot;{{ facet }}&quot;</span> <span class="nt">/&gt;</span>
+<span class="lineno">3</span> {% endfor %}
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>What's Next?</h2></header>
+            
+            
+            <section><ul>
+<li>Submit Documentation patch to Haystack?</li>
+<li>Blog Post?</li>
+<li>Abstract bits into a package?</li>
+<li>All of the above?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/daaray/talks/shipit/2013/haystack-facets/index.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h2>Code</h2></header>
+            
+            
+            <section><p>https://github.com/rapidsms/rapidsms.org/</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/daaray/talks/shipit/2013/haystack-facets/index.md">/home/daaray/talks/shipit/2013/haystack-facets/index.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/12
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Haystack Facets</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+        
+        <tr id="toc-row-2" class="sub">
+          <th><a href="#slide2">Search in RapidSMS.org</a></th>
+          <td><a href="#slide2">2</a></td>
+        </tr>
+        
+        <tr id="toc-row-3" class="sub">
+          <th><a href="#slide3">Borken/Missing Things</a></th>
+          <td><a href="#slide3">3</a></td>
+        </tr>
+        
+        <tr id="toc-row-4" class="sub">
+          <th><a href="#slide4">Fixed/New Things -- Deactivating Facets</a></th>
+          <td><a href="#slide4">4</a></td>
+        </tr>
+        
+        <tr id="toc-row-5" class="sub">
+          <th><a href="#slide5">Fixed/New Things -- Deactivating Facets</a></th>
+          <td><a href="#slide5">5</a></td>
+        </tr>
+        
+        <tr id="toc-row-6" class="sub">
+          <th><a href="#slide6">Fixed/New Things -- Facets and Pagination</a></th>
+          <td><a href="#slide6">6</a></td>
+        </tr>
+        
+        <tr id="toc-row-7" class="sub">
+          <th><a href="#slide7">Fixed/New Things -- Facets and Pagination</a></th>
+          <td><a href="#slide7">7</a></td>
+        </tr>
+        
+        <tr id="toc-row-8" class="sub">
+          <th><a href="#slide8">Fixed/New Things -- Facets and Pagination</a></th>
+          <td><a href="#slide8">8</a></td>
+        </tr>
+        
+        <tr id="toc-row-9" class="sub">
+          <th><a href="#slide9">Fixed/New Things -- Facets and Pagination</a></th>
+          <td><a href="#slide9">9</a></td>
+        </tr>
+        
+        <tr id="toc-row-10" class="sub">
+          <th><a href="#slide10">Fixed/New Things -- Facets and Search</a></th>
+          <td><a href="#slide10">10</a></td>
+        </tr>
+        
+        <tr id="toc-row-11" class="sub">
+          <th><a href="#slide11">What's Next?</a></th>
+          <td><a href="#slide11">11</a></td>
+        </tr>
+        
+        <tr id="toc-row-12" class="sub">
+          <th><a href="#slide12">Code</a></th>
+          <td><a href="#slide12">12</a></td>
+        </tr>
+        
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>

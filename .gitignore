@@ -11,3 +11,6 @@
 docs/_build/*
 dist/*
 *.bak
+node_modules
+*.log
+.sass-cache
