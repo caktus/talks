@@ -1,0 +1,35 @@
+# DOCKER-VERISON 0.8.1
+
+from ubuntu:12.04
+from dockerfile/java
+
+
+run apt-get update
+run apt-get -y install wget nginx-light openssh-server supervisor
+
+run echo 'daemon off;' >> /etc/nginx/nginx.conf
+
+RUN mkdir -p /var/run/sshd
+RUN mkdir -p /var/log/supervisor
+
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+run cd /tmp && wget http://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz -O - | tar xzvf -
+run cp -R /tmp/kibana-3.0.0milestone5/* /usr/share/nginx/www
+
+# Install ElasticSearch.
+ 
+RUN wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.tar.gz
+RUN tar xzf elasticsearch-1.1.1.tar.gz
+RUN mv elasticsearch-1.1.1 /opt/elasticsearch
+RUN rm elasticsearch-1.1.1.tar.gz
+ 
+# Expose ports.
+#   - 9200: HTTP
+#   - 9300: transport
+EXPOSE 9200
+EXPOSE 9300
+EXPOSE 80
+EXPOSE 22
+
+CMD ["/usr/bin/supervisord"]

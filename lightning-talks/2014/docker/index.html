@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Using Docker</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Using Docker</h1></header>
+            
+            
+            <section><p>Scott Morningstar</p>
+<p>Caktus Consulting Group</p>
+<p>April 25, 2014</p>
+<img alt="./images/SuperFamous1.jpg" class="align-center" src="./images/SuperFamous1.jpg" style="height: 300px;" />
+<p><a class="reference external" href="http://www.flickr.com/photos/superfamous/9027758425/sizes/o/">Photo Credit</a>.</p>
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Notes for the intro</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What is Docker</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Docker is an open-source project to easily create lightweight, portable, self-sufficient containers from any application.</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>The same container that a developer builds and tests on a laptop can run at scale, in production, on VMs, bare metal, OpenStack clusters, public clouds and more</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>What is Docker Really</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Docker is Git for your whole application</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Why Docker</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Content agnostic</li>
+<li>Hardware agnostic</li>
+<li>Content isolation and interaction</li>
+<li>Automation</li>
+<li>Highly efficient</li>
+<li>Separation of duties</li>
+</ul>
+<blockquote>
+More Information <a class="reference external" href="http://www.slideshare.net/dotCloud/why-docker">Here</a>.</blockquote>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Runs Anywhere</li>
+<li>On Anything</li>
+<li>Each part runs in it's own container</li>
+<li>Automation is baked in and easy</li>
+<li>No Hypervisor overhead, Very little IO over head</li>
+<li>The pieces are reusable</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Requirements</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Linux with a modern kernel (At least 3.8)</li>
+<li>aufs (optional but recommended)</li>
+</ul>
+<p>Installation instructions <a class="reference external" href="http://docs.docker.io/introduction/get-docker/">Here</a>.</p>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>advanced multi layered unification filesystem</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Docker Terminology</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Image = Read only snapshot</li>
+<li>Container = Instantiation of an image</li>
+<li>Registry = Storage for repository (Think Pypi)</li>
+<li>Repository = Shareable collection of tagged images that together create the file systems for containers</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Docker uses words different words for the same thing.</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Basic Commands</h1></header>
+            
+            
+            <section><pre>docker pull &lt;repository&gt; <span class="o">(</span>Pull and image from a registry / repository<span class="o">)</span>
+
+docker images <span class="o">(</span>list <span class="nb">local </span>images<span class="o">)</span>
+
+docker ps <span class="o">(</span>list running containers<span class="o">)</span>
+
+docker run -i -t &lt;image&gt; &lt;<span class="nb">command</span>&gt; <span class="o">(</span>-i Keep stdin open even <span class="k">if </span>not attached -t Allocate a pseudo-tty <span class="o">)</span>
+</pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>An example</h1></header>
+            
+            
+            <section><pre>docker pull ubuntu:latest
+
+docker run -i -t ubuntu bash
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Pull a image from a repository and run it</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Docker Files</h1></header>
+            
+            
+            <section><pre><span class="c"># DOCKER-VERISON 0.8.1</span>
+
+from ubuntu:12.04
+run apt-get update
+run apt-get -y install wget nginx-light
+
+run <span class="nb">echo</span> <span class="s1">&#39;daemon off;&#39;</span> &gt;&gt; /etc/nginx/nginx.conf
+
+run <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget http://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz -O - | tar xzvf -
+run cp -R /tmp/kibana-3.0.0milestone5/* /usr/share/nginx/www
+
+expose 80
+
+cmd /usr/sbin/nginx
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Docker files describe commands to run on container instantiation</li>
+<li>This one pulls in Ubuntu 12.04, installs nginx and kibana</li>
+<li>but not elastic search</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Build and run</h1></header>
+            
+            
+            <section><pre>docker build --rm -t caktus/kibana .
+docker run -d  -p 8080:80 caktus/kibana:latest
+docker ps
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Kibana running on port 8080</li>
+<li>but no elastic search</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Add ElasticSearch</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Now we need to run another process</li>
+<li>Oh No</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>Docker only runs one process in a container</li>
+<li>Docker feels strongly about this</li>
+<li>Other processes we might want in a container sshd, rsyslog</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Supervisor would be good for this</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>New Dockerfile</h1></header>
+            
+            
+            <section><pre><span class="c"># DOCKER-VERISON 0.8.1</span>
+
+from ubuntu:12.04
+
+
+run apt-get update
+run apt-get -y install wget nginx-light openssh-server supervisor
+
+run <span class="nb">echo</span> <span class="s1">&#39;daemon off;&#39;</span> &gt;&gt; /etc/nginx/nginx.conf
+
+RUN mkdir -p /var/run/sshd
+RUN mkdir -p /var/log/supervisor
+
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+run <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget http://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz -O - | tar xzvf -
+run cp -R /tmp/kibana-3.0.0milestone5/* /usr/share/nginx/www
+
+expose 80 22
+
+CMD <span class="o">[</span><span class="s2">&quot;/usr/bin/supervisord&quot;</span><span class="o">]</span>
+</pre>
+<ul class="simple">
+<li>docker run -t -i   -p 8080:80 -p 2222:22 -p 9200:9200 -p 9300:9300 caktus/kibana2:latest</li>
+</ul>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>We also add sshd and now we start supervisor</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Now for Elastic Search</h1></header>
+            
+            
+            <section><pre><span class="c"># DOCKER-VERISON 0.8.1</span>
+from ubuntu:12.04
+from dockerfile/java
+
+run apt-get update
+run apt-get -y install wget nginx-light openssh-server supervisor
+
+run <span class="nb">echo</span> <span class="s1">&#39;daemon off;&#39;</span> &gt;&gt; /etc/nginx/nginx.conf
+
+RUN mkdir -p /var/run/sshd
+RUN mkdir -p /var/log/supervisor
+
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+run <span class="nb">cd</span> /tmp <span class="o">&amp;&amp;</span> wget http://download.elasticsearch.org/kibana/kibana/kibana-3.0.0milestone5.tar.gz -O - | tar xzvf -
+run cp -R /tmp/kibana-3.0.0milestone5/* /usr/share/nginx/www
+<span class="c"># Install ElasticSearch.</span>
+RUN wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-1.1.1.tar.gz
+RUN tar xzf elasticsearch-1.1.1.tar.gz
+RUN mv elasticsearch-1.1.1 /opt/elasticsearch
+RUN rm elasticsearch-1.1.1.tar.gz
+
+<span class="c"># Expose ports.</span>
+<span class="c">#   - 9200: HTTP</span>
+<span class="c">#   - 9300: transport</span>
+EXPOSE 9200
+EXPOSE 9300
+EXPOSE 80
+EXPOSE 22
+CMD <span class="o">[</span><span class="s2">&quot;/usr/bin/supervisord&quot;</span><span class="o">]</span>
+</pre>
+
+
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul class="simple">
+<li>docker run -t -i   -p 8080:80 -p 2222:22 -p 9200:9200 -p 9300:9300 caktus/kibana2:latest</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Thanks</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Resources</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Docker: <a class="reference external" href="http://docker.io">http://docker.io</a></li>
+<li>Docker on OSX: <a class="reference external" href="http://docs.docker.io/installation/mac/">http://docs.docker.io/installation/mac/</a></li>
+<li>Docker on Windows: <a class="reference external" href="http://docs.docker.io/installation/windows/">http://docs.docker.io/installation/windows/</a></li>
+<li>My list of Docker links: <a class="reference external" href="https://pinboard.in/search/u:Spigot?query=docker">https://pinboard.in/search/u:Spigot?query=docker</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Info</h1></header>
+            
+            
+            <section><p>Slides</p>
+<ul class="simple">
+<li>HTML: <a class="reference external" href="http://talks.caktusgroup.com/lightning-talks/2014/docker">http://talks.caktusgroup.com/lightning-talks/2014/docker</a></li>
+<li>Source: <a class="reference external" href="https://github.com/caktus/talks">https://github.com/caktus/talks</a></li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst">/home/scottm/projects/talks/lightning-talks/2014/docker/docker.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/17
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Using Docker</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">What is Docker</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">What is Docker Really</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Why Docker</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Requirements</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Docker Terminology</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Basic Commands</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">An example</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Docker Files</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Build and run</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Add ElasticSearch</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Supervisor would be good for this</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">New Dockerfile</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Now for Elastic Search</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Thanks</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Resources</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Info</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>
