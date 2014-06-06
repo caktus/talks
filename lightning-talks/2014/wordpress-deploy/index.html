@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>reveal.js - The HTML Presentation Framework</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+		<!-- Caktus specific styles -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<aside class="logo">
+                	<img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+            	</aside>
+
+				<section>
+					<h1>Deploying WordPress the Caktus Way</h1>
+					<h3>Applying good deployment principles to deploying WordPress</h3>
+					<p>
+						<small>Dan Poirier</small>
+					</p>
+					<p>
+						<small>June 20, 2014</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>The Problem</h2>
+                    <ul>
+                      <li>WordPress - pretty good</li>
+                      <li>Typical WordPress deploy methods - barf</li>
+                    </ul>
+				</section>
+
+                <section>
+                  <h2>The Solution</h2>
+                  <p>
+                    Let's apply some of the same principles we use for deploying Django apps.
+                  </p>
+                </section>
+
+                <section>
+                  <h2>The PHP Handicap</h2>
+                  <p>PHP is designed to just drop your PHP source files into the
+                    directory that your Web server is serving to the public.</p>
+                  <p>Web server configuration is the only thing that causes files ending
+                    in ".php" to be executed by the PHP interpreter instead of delivered
+                    as-is.</p>
+                  <p>Any other file in the tree <i>will</i> get served as-is.</p>
+                </section>
+
+                <section>
+                  <h2>Problem 1: Files mixed up</h2>
+                  <p>The files that constitute WordPress are in the same directory
+                    tree as the files that are unique or customized for our site.
+                  </p>
+                  <p>
+                    The default install instructions are to unzip the WordPress distribution
+                    and then start editing files.
+                  </p>
+                </section>
+
+<section>
+<pre>
+├── index.php
+├── license.txt
+├── readme.html
+├── wp-activate.php
+├── wp-admin
+│   ├── about.php
+     ....
+├── wp-blog-header.php
+├── wp-comments-post.php
+├── wp-config-sample.php
+├── wp-content
+│   ├── index.php
+│   ├── plugins
+        ...
+│   └── themes
+        ...
+├── wp-cron.php
+├── wp-includes
+│   ├── admin-bar.php
+        ...
+├── wp-links-opml.php
+├── wp-load.php
+├── wp-login.php
+├── wp-mail.php
+├── wp-settings.php
+├── wp-signup.php
+├── wp-trackback.php
+└── xmlrpc.php
+</pre>
+                </section>
+                <section>
+                  <h2>Solution 1: Move WordPress's files</h2>
+                  <p>WordPress supports having its source moved to a subdirectory!</p>
+<p>
+<ol>
+  <li>Move all those files to <tt>wordpress/</tt></li>
+  <li>Copy <tt>index.php</tt>, <tt>wp-config-sample.php</tt>, and the <tt>wordpress/wp-content/</tt> tree to the top-level directory</li>
+  <li>Edit <tt>index.php</tt> and <tt>wp-config.php</tt> (details omitted)</li>
+</ol>
+</p>
+
+<p>Note: this only works for an immediate subdirectory
+  of the site root directory.</p>
+                </section>
+
+<section>
+  <h2>Much cleaner:</h2>
+<pre>
+.
+├── index.php
+├── wordpress
+│   ├── index.php
+    ...
+│   └── xmlrpc.php
+├── wp-config.php
+└── wp-content
+    ├── index.php
+    ├── plugins
+        ...
+    └── themes
+        ...
+</pre>
+</section>
+
+<section>
+  <h2>Problem 2: Source control</h2>
+<p>Now that WordPress's source and our site's own files are separated,
+  it should be easier to manage our site with source control,
+keeping in mind:
+<ul>
+  <li>We don't want our own files in the same repo as WordPress's files</li>
+  <li>We don't want user's uploaded files in the repo</li>
+</ul>
+</p>
+</section>
+
+<section>
+  <h2>WordPress in a git submodule</h2>
+  <p>(Cue loud groaning from the back row.)</p>
+</section>
+
+<section>
+  <h2>Why a git submodule for WordPress?</h2>
+<ul>
+<li>WordPress has to be in the site root or a subdirectory. You can't just install
+  it somewhere on the <i>PHP PATH</i> because there's no such thing.</li>
+<li>We could just unpack it in a subdirectory and tell Git to ignore it, but
+  that makes it harder to control what version we have.</li>
+</ul>
+</section>
+
+<section>
+  <h2>Problem 3: Secrets accessible to the web server</h2>
+<p><tt>wp-config.php</tt>, which contains our database credentials
+  and other secrets, sits in the main directory of our site.</p>
+<p><tt>.git</tt>, which contains our entire repository history,
+  is also under our main directory.</p>
+<p>Any mistake configuring our web server will make our secrets
+  accessible to the world.</p>
+</section>
+
+<section>
+  <h2>Solution 3a: Load secrets from a file outside the site tree</h2>
+<p>We move our database credentials and any other secrets from wp-config.php
+to another file, then in <tt>wp-config.php</tt>:
+<pre>
+/** Load e.g. ../local.voiceschapelhill.org.secrets.php */
+require_once(dirname(dirname(__FILE__)) . '/' . $_SERVER['HTTP_HOST'] . '.secrets.php');
+</pre>
+</p>
+<p>This loads our secrets from a file in the parent directory. We could put
+  it anywhere, though this approach means we don't need to edit our <tt>wp-config.php</tt>
+  to say where we did put it.</p>
+</section>
+
+<section>
+  <h2>Solution 3b: Move .git</h2>
+  <p>(I didn't know you could do this!)</p>
+<p><pre>
+git clone --separate-git-dir=voices.git git@github.com:VoicesChapelHill/voices-site.git voices
+</pre>
+will put the working tree into <tt>voices</tt>, but
+the repo files will go into <tt>voices.git</tt> - outside the working tree.
+</p>
+</section>
+
+<section>
+  <h2>Problem 4: Running local and test instances</h2>
+</section>
+
+
+
+			</div>
+
+		</div>
+
+		<script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+		<script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
