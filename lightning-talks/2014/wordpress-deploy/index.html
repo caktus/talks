@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Deploying WordPress the Caktus Way</title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -43,75 +43,115 @@
                 	<img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
             	</aside>
 
+                <section>
+                  <h1>Applying Deployment Best Practices to WordPress</h1>
+                </section>
+
+                <section>
+                  <h1>or</h1>
+                </section>
+
 				<section>
-					<h1>Deploying WordPress the Caktus Way</h1>
-					<h3>Applying good deployment principles to deploying WordPress</h3>
+				  <h1>Deploying WordPress like a Django Boss</h1>
 					<p>
 						<small>Dan Poirier</small>
 					</p>
 					<p>
-						<small>June 20, 2014</small>
+						<small>June 19, 2014</small>
 					</p>
 				</section>
 
-				<section>
-					<h2>The Problem</h2>
-                    <ul>
-                      <li>WordPress - pretty good</li>
-                      <li>Typical WordPress deploy methods - barf</li>
-                    </ul>
-				</section>
-
                 <section>
-                  <h2>The Solution</h2>
-                  <p>
-                    Let's apply some of the same principles we use for deploying Django apps.
-                  </p>
+                  <h2>Background</h2>
+                  <ul>
+                    <li>Voices web site uses WordPress</li>
+                    <li>I maintain it</li>
+                    <li>Typical WordPress deploy practices were unacceptable</li>
+                  </ul>
                 </section>
 
                 <section>
-                  <h2>The PHP Handicap</h2>
+                  <h3>WordPress - goals</h3>
+                  <p>WordPress's goals are different than the goals we at Caktus have
+                    when building a site for a client</p>
+                  <ul>
+                    <li>They want very easy installs</li>
+                    <li>We want stable, robust, maintainable</li>
+                  </ul>
+                </section>
+
+                <section>
+                  <img src="five-minute-install.png" >
+                </section>
+
+                <section>
+                  <h3>PHP</h3>
                   <p>PHP is designed to just drop your PHP source files into the
                     directory that your Web server is serving to the public.</p>
-                  <p>Web server configuration is the only thing that causes files ending
-                    in ".php" to be executed by the PHP interpreter instead of delivered
-                    as-is.</p>
+                  <p>The only thing that causes files ending
+                    in ".php" to be executed by the PHP interpreter, instead of delivered
+                    as-is, is web server configuration.
                   <p>Any other file in the tree <i>will</i> get served as-is.</p>
                 </section>
 
                 <section>
-                  <h2>Problem 1: Files mixed up</h2>
-                  <p>The files that constitute WordPress are in the same directory
-                    tree as the files that are unique or customized for our site.
+                  <h3>WordPress backward compatibility</h3>
+                  <p>WordPress tries to remain compatible with fairly old versions of PHP.</p>
+                  <p>So, even if recent PHP versions solve some of these problems (I don't know
+                    if they do), WordPress's code won't use those solutions for a long time.</p>
+                </section>
+
+                <section>
+                  <h2>Some best practices for deploying web sites</h2>
+                  <ul>
+                    <li>Keep your site's unique files separate from the 3rd-party files you use</li>
+                    <li>Keep your site's unique files under source control</li>
+                    <li>Keep uploaded files separate from other site files</li>
+                    <li>Control the versions of the 3rd-party tools you use</li>
+                    <li>Protect your secrets</li>
+                    <li>Make it easy to run local and test servers</li>
+                  </ul>
+                  (Not an exhaustive list)
+                </section>
+
+                <section>
+                  <h2>Some problems</h2>
+                  <ol>
+                    <li>WordPress files are mixed up in the same directory as the files that are
+                      unique or customized for our site.</li>
+                    <li>Neither our site files nor WordPress's files are under any source control.</li>
+                    <li>Secrets are at risk of being revealed if web server is misconfigured.</li>
+                    <li>There's no easy way to run local or test servers, so people tend to experiment
+                      on the production server.</li>
+                  </ol>
+                </section>
+
+                <section>
+                  <h3>Problem 1: Files mixed up</h3>
+                  <p>Default install:<ol>
+                      <li>Unzip wordpress in site dir</li>
+                      <li>Start editing files</li>
+                    </ol>
                   </p>
-                  <p>
-                    The default install instructions are to unzip the WordPress distribution
-                    and then start editing files.
+                  <p>So, the files that constitute WordPress are in the same directory
+                    tree as the files that are unique or customized for our site.
                   </p>
                 </section>
 
 <section>
 <pre>
+.
 ├── index.php
 ├── license.txt
 ├── readme.html
 ├── wp-activate.php
-├── wp-admin
-│   ├── about.php
-     ....
+├── wp-admin/
 ├── wp-blog-header.php
 ├── wp-comments-post.php
 ├── wp-config-sample.php
-├── wp-content
-│   ├── index.php
-│   ├── plugins
-        ...
-│   └── themes
-        ...
+├── wp-content/
 ├── wp-cron.php
-├── wp-includes
-│   ├── admin-bar.php
-        ...
+├── wp-includes/
 ├── wp-links-opml.php
 ├── wp-load.php
 ├── wp-login.php
@@ -123,106 +163,238 @@
 </pre>
                 </section>
                 <section>
-                  <h2>Solution 1: Move WordPress's files</h2>
+                  <h3>Solution 1: Move WordPress's files</h3>
                   <p>WordPress supports having its source moved to a subdirectory!</p>
 <p>
+You'll end up with:
 <ol>
-  <li>Move all those files to <tt>wordpress/</tt></li>
-  <li>Copy <tt>index.php</tt>, <tt>wp-config-sample.php</tt>, and the <tt>wordpress/wp-content/</tt> tree to the top-level directory</li>
-  <li>Edit <tt>index.php</tt> and <tt>wp-config.php</tt> (details omitted)</li>
+  <li>Most source under <tt>/wordpress</tt>, except <tt>index.php</tt> and <tt>wp-config.php</tt></li>
+  <li><tt>/wp-content</tt> is still at the top level</li>
 </ol>
 </p>
 
 <p>Note: this only works for an immediate subdirectory
-  of the site root directory.</p>
-                </section>
+  of the site directory.  (You can name
+  the subdirectory anything you want, though.)</p>
+</section>
 
 <section>
-  <h2>Much cleaner:</h2>
+  <h3>Much cleaner:</h3>
 <pre>
 .
 ├── index.php
-├── wordpress
-│   ├── index.php
-    ...
-│   └── xmlrpc.php
+├── wordpress/
 ├── wp-config.php
-└── wp-content
-    ├── index.php
-    ├── plugins
-        ...
-    └── themes
-        ...
+└── wp-content/
 </pre>
 </section>
 
 <section>
   <h2>Problem 2: Source control</h2>
-<p>Now that WordPress's source and our site's own files are separated,
+<p>With our files separated,
   it should be easier to manage our site with source control,
 keeping in mind:
 <ul>
-  <li>We don't want our own files in the same repo as WordPress's files</li>
-  <li>We don't want user's uploaded files in the repo</li>
+  <li>We don't want our own files in the same repo as WordPress's</li>
+  <li>We don't want users' uploaded files in the repo</li>
 </ul>
 </p>
 </section>
 
 <section>
-  <h2>WordPress in a git submodule</h2>
+  <h3>WordPress in a git submodule</h3>
   <p>(Cue loud groaning from the back row.)</p>
 </section>
 
 <section>
-  <h2>Why a git submodule for WordPress?</h2>
+  <h3>Why a git submodule for WordPress?</h3>
 <ul>
-<li>WordPress has to be in the site root or a subdirectory. You can't just install
-  it somewhere on the <i>PHP PATH</i> because there's no such thing.</li>
-<li>We could just unpack it in a subdirectory and tell Git to ignore it, but
-  that makes it harder to control what version we have.</li>
+  <li>PHP install headaches</li>
+  <li>Controlling the WordPress version</li>
 </ul>
 </section>
 
 <section>
   <h2>Problem 3: Secrets accessible to the web server</h2>
-<p><tt>wp-config.php</tt>, which contains our database credentials
-  and other secrets, sits in the main directory of our site.</p>
-<p><tt>.git</tt>, which contains our entire repository history,
-  is also under our main directory.</p>
-<p>Any mistake configuring our web server will make our secrets
+  <p><tt>wp-config.php</tt> and the <tt>.git</tt> subdirectory both
+    sit in the main directory of our site.</p>
+  <p>Any mistake configuring our web server will make our secrets
   accessible to the world.</p>
 </section>
 
 <section>
-  <h2>Solution 3a: Load secrets from a file outside the site tree</h2>
+  <h3>Solution 3a: Load secrets from a file outside the site tree</h3>
 <p>We move our database credentials and any other secrets from wp-config.php
-to another file, then in <tt>wp-config.php</tt>:
-<pre>
-/** Load e.g. ../local.voiceschapelhill.org.secrets.php */
-require_once(dirname(dirname(__FILE__)) . '/' . $_SERVER['HTTP_HOST'] . '.secrets.php');
-</pre>
+to a new file in the parent directory, then include it
+from the real <tt>wp-config.php</tt>.
 </p>
-<p>This loads our secrets from a file in the parent directory. We could put
-  it anywhere, though this approach means we don't need to edit our <tt>wp-config.php</tt>
-  to say where we did put it.</p>
 </section>
 
 <section>
-  <h2>Solution 3b: Move .git</h2>
+  <h3>Solution 3b: Move .git</h3>
   <p>(I didn't know you could do this!)</p>
-<p><pre>
-git clone --separate-git-dir=voices.git git@github.com:VoicesChapelHill/voices-site.git voices
+<pre>
+
+$ git clone --separate-git-dir=NEW_GIT_DIR GIT_URL NEW_WORKING_DIR
+
 </pre>
-will put the working tree into <tt>voices</tt>, but
-the repo files will go into <tt>voices.git</tt> - outside the working tree.
+<p>
+will put the working tree into <tt>NEW_WORKING_DIR</tt>, but
+the repo files will go into <tt>NEW_GIT_DIR</tt> - outside the working tree.
 </p>
+  <p>(Tip: use a recent version of git. I used v1.9.0.)</p>
 </section>
 
 <section>
   <h2>Problem 4: Running local and test instances</h2>
+
+<quote>
+&ldquo;I don't always test my code, but when I do,
+I test it in production.&rdquo;
+</quote>
+</section>
+
+<section>
+  <h3>Why is this hard with the default install?</h3>
+<ol>
+  <li>Without source control, it's hard to reliably sync your site files across servers</li>
+  <li>WordPress only has one configuration file whose name is hard-coded.</li>
+  <li>Some site settings - including the domain name - are stored in the
+    database by default.</li>
+</ol>
+</section>
+
+<section>
+  <h3>Solutions</h3>
+<ol>
+  <li>Source control</li>
+  <li>Add code to <tt>wp-config.php</tt> to load settings from different files,
+    depending on the request hostname.
+  </li>
+</ol>
+<p>
+You could also do this using the environment, but
+that would require changes outside of my site's files.
+</p>
+</section>
+
+<section>
+  <p>There's an appendix in these slides with more details.</p>
+</section>
+
+<section>
+  <h1>Questions?</h1>
+</section>
+
+<section>
+  <h2>Appendix - grotty details</h2>
+</section>
+
+<section>
+  <h3>WordPress source in a subdir</h3>
+<ol>
+  <li>Instead of unpacking the WordPress zip file into your site root,
+    unpack it into a new subdirectory of the site root. 
+Call it <tt>wordpress</tt>.</li>
+  <li>Copy index.php and the wp-content tree from <tt>wordpress</tt>
+    to the site root.
+  </li>
+  <li>Copy <tt>wordpress/wp-config-sample.php</tt> to
+    <tt>wp-config.php</tt> in the site root.
+  </li>
+  <li>Edit <tt>index.php</tt> and <tt>wp-config.php</tt> (see next slide)</li>
+</ol>
+</section>
+
+<section>
+  <h3>WordPress in a subdir, part 2</h3>
+<ol>
+  <li>Edit <tt>index.php</tt>. Change the last line from:
+<pre>
+require( dirname( __FILE__ ) . '/wp-blog-header.php' );
+</pre>
+to
+<pre>
+require( dirname( __FILE__ ) . '/wordpress/wp-blog-header.php' );
+</pre>
+  </li>
+<li>
+Edit wp-config.php.  Near the top (before any other settings) add:
+<pre>
+define('WP_SITEURL', 'http://' . $_SERVER['SERVER_NAME'] . '/wordpress');
+define('WP_HOME',    'http://' . $_SERVER['SERVER_NAME']);
+define('WP_CONTENT_DIR', $_SERVER['DOCUMENT_ROOT'] . '/wp-content');
+define('WP_CONTENT_URL', 'http://' . $_SERVER['SERVER_NAME'] . '/wp-content');
+</pre>
+</li>
+</ol>
+</section>
+
+<section>
+  <h3>Keeping our files in Git</h3>
+<ul>
+  <li>git init</li>
+  <li>git submodule add git://github.com/WordPress/WordPress.git wordpress</li>
+  <li>git add index.php wp-config.php</li>
+  <li>echo "wp-content/uploads" >>.gitignore</li>
+</ul>
+</section>
+
+<section>
+  <h3>Including a specific secrets file from the parent directory</h3>
+<ol>
+<li>
+<p>
+  In <tt>wp-config.php</tt>:
+<pre>
+require_once(dirname(dirname(__FILE__)) . '/' . $_SERVER['HTTP_HOST'] . '.secrets.php');
+</pre>
+  </p>
+  <p>If you're running at <tt>http://example.com</tt>, this will load
+    <tt>../example.com.secrets.php</tt> - which means you can run multiple
+    WordPress instances in various subdirectories and have a different
+    secrets file for each one.
+  </p>
+</li>
+<li>Now, move any settings you want from wp-config.php to the secrets file
+  in the parent directory.</li>
+</ol>
+</section>
+
+<section>
+  <h3>Overriding some settings that otherwise are in the database</h3>
+  In <tt>wp-config.php</tt>:
+<pre>
+
+define('WP_SITEURL', 'http://' . $_SERVER['HTTP_HOST'] . '/wordpress' );
+define('WP_HOME', 'http://' . $_SERVER['HTTP_HOST'] );
+
+</pre>
 </section>
 
 
+<section>
+  <h3>Some sources</h3>
+<ul>
+<li>
+<a href="http://davidwinter.me/articles/2012/04/09/install-and-manage-wordpress-with-git/">http://davidwinter.me/articles/2012/04/09/install-and-manage-wordpress-with-git/</a> 
+is the best one I've found, 
+because it tells how to configure Wordpress so you can keep its code in a subdirectory.
+</li>
+<li>
+<a href="https://community.webfaction.com/questions/13343/managing-wordpress-with-git">https://community.webfaction.com/questions/13343/managing-wordpress-with-git</a>
+has some useful tips for keeping your WordPress site under git.
+</li>
+
+<li>
+http://code.tutsplus.com/articles/how-to-sync-a-local-remote-wordpress-blog-using-version-control--wp-22135 - I didn't use this whole approach, but it does demonstrate how you can change your site settings conditionally on the hostname in the request.
+</li>
+
+<li>http://ajk.fi/2013/wordpress-as-a-submodule/ - WordPress as a Git submodule</li>
+
+
+</ul>
+</section>
 
 			</div>
 
