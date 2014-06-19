@@ -22,6 +22,8 @@ Directory
         * `Maintaining Your Sanity While Maintaining Your Open Source App <http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity>`_
         * `Working with Designers <http://lanyrd.com/2012/pycarolinas/syhmt/>`_
 * Lightning Talks
+    * 2014
+        * `Deploying WordPress using best practices <http://talks.caktusgroup.com/lightning-talks/2014/wordpress-deploy>`_
     * 2013
         * `Emmet <http://talks.caktusgroup.com/lightning-talks/2013/emmet>`_
         * `Salt with a Master and Git <http://talks.caktusgroup.com/lightning-talks/2013/salt-master>`_
