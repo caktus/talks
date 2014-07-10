@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>REST: It's not just for servers</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>REST: It's not just for servers</h1></header>
+            
+            
+            <section><p>Mark Lavin</p>
+<p>Caktus Consulting Group</p>
+<p>OSCon 2014</p></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Introduction</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Technical Director at Caktus Group in Carborro, NC</li>
+<li>Soon to be published O'Reilly Author</li>
+<li>Homebrewer</li>
+<li>Endurance Athelete</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>History of REST</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Defined by Roy Fielding's doctoral thesis at UC Irvine in 2000</li>
+<li>Abused by webservices and marketing teams every day since</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Description of REST</h1></header>
+            
+            
+            <section><p>REST is an</p>
+<blockquote>
+<p>architectural style for distributed hypermedia systems.
+REST provides a set of architectural constraints that,
+when applied as a whole, emphasizes scalability of component interactions,
+generality of interfaces, independent deployment of components, and
+intermediary components to reduce interaction latency, enforce security,
+and encapsulate legacy systems.</p>
+<p>Roy Fielding <a class="reference external" href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm</a></p>
+</blockquote></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Constraints</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Client-Server</li>
+<li>Stateless</li>
+<li>Cacheable</li>
+<li>Layered</li>
+<li>Uniform Interface</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Promises/Gains</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Challenges for the Client</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Faux-RESTful Servers</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Weak HTTP support (DELETE/PUT)</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Managing State</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Common Mistakes Problems</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Clients as Glorified URL builders</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Forgetting About Caching</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Best Practices</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Translate Resources into Useful Objects</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Ensure Proper Use of the Cache Headers</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Avoid Hardcoding Paths</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Appeal for Change</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>API Writers</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Write a client with meaningful examples</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Client Writers: Demand better from the API</h1></header>
+            
+            
+            <section><ul class="simple">
+<li>Demand better from the API</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: /home/mlavin/Projects/talks/oscon/2014/rest/slides.rst -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Conclusion/Thanks</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst">/home/mlavin/Projects/talks/oscon/2014/rest/slides.rst</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/21
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">REST: It's not just for servers</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Introduction</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">History of REST</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Description of REST</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Constraints</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Promises/Gains</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Challenges for the Client</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Faux-RESTful Servers</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Weak HTTP support (DELETE/PUT)</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Managing State</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Common Mistakes Problems</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Clients as Glorified URL builders</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Forgetting About Caching</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Best Practices</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Translate Resources into Useful Objects</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Ensure Proper Use of the Cache Headers</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Avoid Hardcoding Paths</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Appeal for Change</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">API Writers</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">Client Writers: Demand better from the API</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">Conclusion/Thanks</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+  <script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-15492387-10']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+  </script>
+</body>
+</html>
