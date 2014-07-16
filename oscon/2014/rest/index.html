@@ -57,7 +57,7 @@
             <li>Technical Director at <a href="http://caktusgroup.com">Caktus Group</a> in Carborro, NC</li>
             <li>Co-Author of <a href="http://shop.oreilly.com/product/0636920032502.do">"Lightweight Django"</a> for O'Reilly</li>
             <li>Homebrewer</li>
-            <li>Endurance Athelete</li>
+            <li>Runner/Triathelete</li>
           </ul>
           <aside class="notes">
             While my experience and examples are in Python, this talk isn't really language specific.
@@ -81,6 +81,11 @@
             intermediary components to reduce interaction latency, enforce security, 
             and encapsulate legacy systems.” - Roy Fielding
           </blockquote>
+          <aside class="notes">
+            REST is not a protocol.
+            It's not a data format.
+            It's a architectural style.
+          </aside>
         </section>
 
         <section>
@@ -94,6 +99,10 @@
             <li class="fragment" data-fragment-index="4">Uniform Interface</li>
             <li class="fragment" data-fragment-index="5">Code On Demand<em>*</em></li>
           </ul>
+          <aside class="notes">
+            Stateless - No client context can be stored on the server between requests.
+            Uniform Interface - Need unique identification of resources and self-descriptive messages.
+          </aside>
         </section>
 
         <section>
@@ -119,6 +128,9 @@
         <section>
           <h2>Servers</h2>
           <p>That's another talk.</p>
+          <aside class="notes">
+              Or if you want to learn to build these with Django you can buy our book.
+          </aside>
         </section>
 
         <section>
@@ -263,6 +275,8 @@ pi.note(new["id"]).delete()
             This is syntatic sugar for creating URLs. It's worse than hardcoding the paths themselves
             in your application because it's actually adding another layer of abstraction
             making it harder to maintain for the application.
+
+            TODO: Merge the good/bad sections together particulary the examples.
           </aside>
         </section>
 
@@ -340,6 +354,12 @@ me.repos_url
           <h2>Summary</h2>
           <p>REST is a client-server model.</p>
           <p>API servers are nothing without clients.</p>
+          <aside class="notes">
+            This interaction and building/layering of services on top of one another
+            is one of the most interesting pieces going on in the web space.
+
+            TODO: More of this hopefulness early on and throughout the talk
+          </aside>
         </section>
 
         <section>
