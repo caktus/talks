@@ -59,6 +59,9 @@
             <li>Homebrewer</li>
             <li>Endurance Athelete</li>
           </ul>
+          <aside class="notes">
+            While my experience and examples are in Python, this talk isn't really language specific.
+          </aside>
         </section>
 
         <section>
@@ -124,8 +127,7 @@
           <p class="fragment" data-fragment-index="0">It's just HTTP...how hard can it be?</p>
           <aside class="notes">
             While some services provide clients, not all do and they might not in your
-            language of choice. My examples will be in Python because that's a language and
-            community that I know but the same ideas apply across languages.
+            language of choice.
           </aside>
         </section>
 
@@ -179,7 +181,7 @@
 
         <section>
           <h2>HATEOAS TL;DR</h2>
-          <p>Clients should have to build resource URLs. They should be provided by the server.</p>
+          <p>Clients should not have to build resource URLs. They should be provided by the server.</p>
           <p>URI Template RFC6570 - http://tools.ietf.org/html/rfc6570</p>
         </section>
 
@@ -212,9 +214,37 @@
           <h2>Glorified URL Builders</h2>
           <p>If your REST client library only builds URLs then both the server
           and client have failed.</p>
+          <p>Anything claiming to be a "general REST API" client is a lie.</p>
           <aside class="notes">
             APIs should be discoverable. Building a client which just makes syntatic
             sugar for making URLs is just covering up a failure of the server.
+
+            There are no shortcuts. Each API is different. 
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example: Slumber</h2>
+          <pre><code class="python" data-trim>
+import slumber
+## Connect to http://slumber.in/api/v1/ with the Basic Auth user/password of demo/demo
+api = slumber.API("http://slumber.in/api/v1/", auth=("demo", "demo"))
+## GET http://slumber.in/api/v1/note/
+##     Note: Any kwargs passed to get(), post(), put(), delete() will be used as url parameters
+api.note.get()
+## POST http://slumber.in/api/v1/note/
+new = api.note.post({"title": "My Test Note", "content": "This is the content of my Test Note!"})
+## PUT http://slumber.in/api/v1/note/{id}/
+api.note(new["id"]).put({"content": "I just changed the content of my Test Note!"})
+## GET http://slumber.in/api/v1/note/{id}/
+api.note(new["id"]).get()
+## DELETE http://slumber.in/api/v1/note/{id}/
+pi.note(new["id"]).delete()
+          </code></pre>
+          <aside class="notes">
+            This is syntatic sugar for creating URLs. It's worse than hardcoding the paths themselves
+            in your application because it's actually adding another layer of abstraction
+            making it harder to maintain for the application.
           </aside>
         </section>
 
@@ -295,6 +325,7 @@ me = client.user()
 me.gists_urlt
 # Full URL provided by the API
 me.repos_url
+          </code></pre>
         </section>
 
         <section>
