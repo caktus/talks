@@ -183,12 +183,20 @@
           <h2>HATEOAS TL;DR</h2>
           <p>Clients should not have to build resource URLs. They should be provided by the server.</p>
           <p>URI Template RFC6570 - http://tools.ietf.org/html/rfc6570</p>
+          <aside class="notes">
+            Instead most APIs rely on documentation for all of the URLs instead of making the API
+            discoverable.
+          </aside>
         </section>
 
         <section>
           <h2>Weak HTTP Support</h2>
           <p>This is mostly a challenge for JS (browser-based) clients where DELETE/PUT/PATCH support
           can be lacking.</p>
+          <aside class="notes">
+            Some servers allow working around this with an X-HTTP-Method-Override header but
+            if they don't then you are out of luck.
+          </aside>
         </section>
 
         <section>
@@ -224,6 +232,16 @@
         </section>
 
         <section>
+          <h2>Caching</h2>
+          <p>If you aren't making use of caching then you are wasting resources.</p>
+          <p>Plus most APIs are rate-limited.</p>
+          <aside class="notes">
+            Last-modified headers and Etags are part of that state the client needs to
+            track.
+          </aside>
+        </section>
+
+        <section>
           <h2>Example: Slumber</h2>
           <pre><code class="python" data-trim>
 import slumber
@@ -245,16 +263,6 @@ pi.note(new["id"]).delete()
             This is syntatic sugar for creating URLs. It's worse than hardcoding the paths themselves
             in your application because it's actually adding another layer of abstraction
             making it harder to maintain for the application.
-          </aside>
-        </section>
-
-        <section>
-          <h2>Caching</h2>
-          <p>If you aren't making use of caching then you are wasting resources.</p>
-          <p>Plus most APIs are rate-limited.</p>
-          <aside class="notes">
-            Last-modified headers and Etags are part of that state the client needs to
-            track.
           </aside>
         </section>
 
