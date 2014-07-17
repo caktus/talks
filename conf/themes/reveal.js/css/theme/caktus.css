@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
 /*  
 
 !!!WARNING :: DO NOT EDIT THE css/theme/caktus.css FILE DIRECTLY. EDIT THE css/source/caktus.scss FILE, COMPILE LOCALLY AND COMMIT BOTH FILES. kthxbai
@@ -7,13 +6,9 @@
 /**
  * Caktus Consulting Group slide theme for reveal.js.
 */
-@font-face {
-  font-family: 'League Gothic';
-  src: url("../../lib/font/league_gothic-webfont.eot");
-  src: url("../../lib/font/league_gothic-webfont.eot?#iefix") format("embedded-opentype"), url("../../lib/font/league_gothic-webfont.woff") format("woff"), url("../../lib/font/league_gothic-webfont.ttf") format("truetype"), url("../../lib/font/league_gothic-webfont.svg#LeagueGothicRegular") format("svg");
-  font-weight: normal;
-  font-style: normal; }
-
+@import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
 aside.logo {
   position: fixed;
   left: 25px;
@@ -21,6 +16,11 @@ aside.logo {
   z-index: 30; }
   aside.logo img {
     width: 200px; }
+
+.reveal pre {
+  background-color: #fff;
+  color: #434a49;
+  padding: 10px 15px; }
 
 .reveal pre code {
   padding: 10px 15px !important;
@@ -30,17 +30,17 @@ aside.logo {
  * GLOBAL STYLES
  *********************************************/
 body {
-  background: #6c7a78;
-  background: -moz-radial-gradient(center, circle cover, #9da6a5 0%, #6c7a78 100%);
-  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #9da6a5), color-stop(100%, #6c7a78));
-  background: -webkit-radial-gradient(center, circle cover, #9da6a5 0%, #6c7a78 100%);
-  background: -o-radial-gradient(center, circle cover, #9da6a5 0%, #6c7a78 100%);
-  background: -ms-radial-gradient(center, circle cover, #9da6a5 0%, #6c7a78 100%);
-  background: radial-gradient(center, circle cover, #9da6a5 0%, #6c7a78 100%);
-  background-color: #6c7a78; }
+  background: #117f89;
+  background: -moz-radial-gradient(center, circle cover, #117f89 0%, #117f89 100%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, #117f89), color-stop(100%, #117f89));
+  background: -webkit-radial-gradient(center, circle cover, #117f89 0%, #117f89 100%);
+  background: -o-radial-gradient(center, circle cover, #117f89 0%, #117f89 100%);
+  background: -ms-radial-gradient(center, circle cover, #117f89 0%, #117f89 100%);
+  background: radial-gradient(center, circle cover, #117f89 0%, #117f89 100%);
+  background-color: black; }
 
 .reveal {
-  font-family: "Lato", sans-serif;
+  font-family: "Source Sans Pro", sans-serif;
   font-size: 36px;
   font-weight: 200;
   letter-spacing: -0.02em;
@@ -62,20 +62,22 @@ body {
 .reveal h6 {
   margin: 0 0 20px 0;
   color: #eeeeee;
-  font-family: "League Gothic", Impact, sans-serif;
-  line-height: 0.9em;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1em;
   letter-spacing: 0.02em;
-  text-transform: uppercase;
+  font-weight: 700;
+  text-transform: none;
   text-shadow: none; }
 
 .reveal h1 {
-  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2); }
+  text-shadow: 0px 0px 6px rgba(0, 0, 0, 0.2);
+  font-size: 3.3em; }
 
 /*********************************************
  * LINKS
  *********************************************/
 .reveal a:not(.image) {
-  color: #a5e052;
+  color: #9ec16c;
   text-decoration: none;
   -webkit-transition: color .15s ease;
   -moz-transition: color .15s ease;
@@ -84,13 +86,13 @@ body {
   transition: color .15s ease; }
 
 .reveal a:not(.image):hover {
-  color: #d2f0a9;
+  color: #cddfb4;
   text-shadow: none;
   border: none; }
 
 .reveal .roll span:after {
   color: #fff;
-  background: #80c323; }
+  background: #789e43; }
 
 /*********************************************
  * IMAGES
@@ -108,7 +110,7 @@ body {
 
 .reveal a:hover img {
   background: rgba(255, 255, 255, 0.2);
-  border-color: #a5e052;
+  border-color: #9ec16c;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.55); }
 
 /*********************************************
@@ -116,31 +118,31 @@ body {
  *********************************************/
 .reveal .controls div.navigate-left,
 .reveal .controls div.navigate-left.enabled {
-  border-right-color: #a5e052; }
+  border-right-color: #9ec16c; }
 
 .reveal .controls div.navigate-right,
 .reveal .controls div.navigate-right.enabled {
-  border-left-color: #a5e052; }
+  border-left-color: #9ec16c; }
 
 .reveal .controls div.navigate-up,
 .reveal .controls div.navigate-up.enabled {
-  border-bottom-color: #a5e052; }
+  border-bottom-color: #9ec16c; }
 
 .reveal .controls div.navigate-down,
 .reveal .controls div.navigate-down.enabled {
-  border-top-color: #a5e052; }
+  border-top-color: #9ec16c; }
 
 .reveal .controls div.navigate-left.enabled:hover {
-  border-right-color: #d2f0a9; }
+  border-right-color: #cddfb4; }
 
 .reveal .controls div.navigate-right.enabled:hover {
-  border-left-color: #d2f0a9; }
+  border-left-color: #cddfb4; }
 
 .reveal .controls div.navigate-up.enabled:hover {
-  border-bottom-color: #d2f0a9; }
+  border-bottom-color: #cddfb4; }
 
 .reveal .controls div.navigate-down.enabled:hover {
-  border-top-color: #d2f0a9; }
+  border-top-color: #cddfb4; }
 
 /*********************************************
  * PROGRESS BAR
@@ -149,7 +151,7 @@ body {
   background: rgba(0, 0, 0, 0.2); }
 
 .reveal .progress span {
-  background: #a5e052;
+  background: #9ec16c;
   -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);

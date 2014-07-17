@@ -13,29 +13,23 @@
 // ---------------------------------------------
 
 // Include theme-specific fonts
-@font-face {
-	font-family: 'League Gothic';
-	src: url('../../lib/font/league_gothic-webfont.eot');
-	src: url('../../lib/font/league_gothic-webfont.eot?#iefix') format('embedded-opentype'),
-		 url('../../lib/font/league_gothic-webfont.woff') format('woff'),
-		 url('../../lib/font/league_gothic-webfont.ttf') format('truetype'),
-		 url('../../lib/font/league_gothic-webfont.svg#LeagueGothicRegular') format('svg');
-
-	font-weight: normal;
-	font-style: normal;
-}
-
+@import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
 
 // Caktus theme settings
 $headingTextShadow: none;
-$backgroundColor: #6C7A78;
-$linkColor: #a5e052;
+$backgroundColor: #000;
+$linkColor: #9ec16c;
 $linkColorHover: lighten( $linkColor, 20% );
+$headingFont: 'Montserrat', sans-serif;
+$headingTextTransform: none;
+$headingLineHeight: 1em;
+
 
 // Background generator
 @mixin bodyBackground() {
-	@include radial-gradient(#6C7A78, #9da6a5);
+	@include radial-gradient(#117F89, #117F89);
 }
 
 aside.logo {
@@ -47,6 +41,12 @@ aside.logo {
     img {
     	width: 200px;
     }
+}
+
+.reveal pre {
+	background-color: #fff;
+	color:#434a49;
+	padding: 10px 15px;
 }
 
 .reveal pre code {
