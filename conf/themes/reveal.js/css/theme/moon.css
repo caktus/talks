@@ -1,8 +1,8 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
 /**
  * Solarized Dark theme for reveal.js.
  * Author: Achim Staebler
  */
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
 @font-face {
   font-family: 'League Gothic';
   src: url("../../lib/font/league_gothic-webfont.eot");
@@ -27,7 +27,7 @@ body {
 .reveal {
   font-family: "Lato", sans-serif;
   font-size: 36px;
-  font-weight: 200;
+  font-weight: normal;
   letter-spacing: -0.02em;
   color: #93a1a1; }
 
@@ -140,3 +140,9 @@ body {
   -ms-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -o-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+
+/*********************************************
+ * SLIDE NUMBER
+ *********************************************/
+.reveal .slide-number {
+  color: #268bd2; }
