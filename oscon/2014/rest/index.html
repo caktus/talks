@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
 
     <!-- For syntax highlighting -->
-    <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
 
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
@@ -269,15 +269,20 @@
           <h2>Example: Slumber</h2>
           <pre><code class="python" data-trim>
 import slumber
-## Connect to http://slumber.in/api/v1/ with the Basic Auth user/password of demo/demo
+## Connect to http://slumber.in/api/v1/
+## with the Basic Auth user/password of demo/demo
 api = slumber.API("http://slumber.in/api/v1/", auth=("demo", "demo"))
 ## GET http://slumber.in/api/v1/note/
-##     Note: Any kwargs passed to get(), post(), put(), delete() will be used as url parameters
 api.note.get()
 ## POST http://slumber.in/api/v1/note/
-new = api.note.post({"title": "My Test Note", "content": "This is the content of my Test Note!"})
+new = api.note.post({
+    "title": "My Test Note",
+    "content": "This is the content of my Test Note!"
+})
 ## PUT http://slumber.in/api/v1/note/{id}/
-api.note(new["id"]).put({"content": "I just changed the content of my Test Note!"})
+api.note(new["id"]).put({
+    "content": "I just changed the content of my Test Note!"
+})
 ## GET http://slumber.in/api/v1/note/{id}/
 api.note(new["id"]).get()
 ## DELETE http://slumber.in/api/v1/note/{id}/
@@ -385,16 +390,7 @@ me.repos_url
 
         <section>
           <h2>Thanks!</h2>
-          <p>@DrOhYes</p>
-        </section>
-
-        <section>
-          <h2>Image Credits</h2>
-          <p>
-            <a href="https://www.flickr.com/photos/hjvanderklis/4906439099/">
-              https://www.flickr.com/photos/hjvanderklis/4906439099/
-            </a>
-          </p>
+          <p><a href="https://twitter.com/DrOhYes">@DrOhYes</a></p>
         </section>
       </div>
     </div>
