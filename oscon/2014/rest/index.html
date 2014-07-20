@@ -49,6 +49,7 @@
           <h1>REST</h1>
           <h2>It's not just for servers</h2>
           <p>Mark Lavin - OSCon 2014</p>
+          <p><a href="https://twitter.com/DrOhYes">@DrOhYes</a></p>
         </section>
 
         <section>
@@ -67,8 +68,8 @@
         <section>
           <h2>History</h2>
           <p><strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer.</p>
-          <p class="fragment" data-fragment-index="0">Defined by Roy Fielding's doctoral thesis at UC Irvine in 2000.</p>
-          <p class="fragment" data-fragment-index="1">Abused by webservices and marketing teams every day since.</p>
+          <p>Defined by Roy Fielding's doctoral thesis at UC Irvine in 2000.</p>
+          <p class="fragment" data-fragment-index="0">Abused by webservices and marketing teams every day since.</p>
         </section>
 
         <section>
@@ -89,15 +90,15 @@
         </section>
 
         <section>
-          <h2>Contraints</h2>
+          <h2>Constraints</h2>
           <p>What are these constraints?</p>
           <ul>
-            <li class="fragment" data-fragment-index="0">Client-Server</li>
-            <li class="fragment" data-fragment-index="1">Stateless</li>
-            <li class="fragment" data-fragment-index="2">Cacheable</li>
-            <li class="fragment" data-fragment-index="3">Layered</li>
-            <li class="fragment" data-fragment-index="4">Uniform Interface</li>
-            <li class="fragment" data-fragment-index="5">Code On Demand<em>*</em></li>
+            <li>Client-Server</li>
+            <li>Stateless</li>
+            <li>Cacheable</li>
+            <li>Layered</li>
+            <li>Uniform Interface</li>
+            <li>Code On Demand<em>*</em></li>
           </ul>
           <aside class="notes">
             Stateless - No client context can be stored on the server between requests.
@@ -109,10 +110,10 @@
           <h2>Rewards</h2>
           <p>What do you get in return?</p>
           <ul>
-            <li class="fragment" data-fragment-index="0">Performance</li>
-            <li class="fragment" data-fragment-index="1">Scalability</li>
-            <li class="fragment" data-fragment-index="2">Simplicity</li>
-            <li class="fragment" data-fragment-index="3">Modifiability</li>
+            <li>Performance</li>
+            <li>Scalability</li>
+            <li>Simplicity</li>
+            <li>Modifiability</li>
           </ul>
           <aside class="notes">
             Performance, Scalability, Simplicity, Modifiability
@@ -124,6 +125,13 @@
           <p>Name a popular website/application and it probably has a REST<em>*</em> API.</p>
           <aside class="notes">
             With all of these fabulous benefits/rewards it's easy to see why they are popular.
+
+            Social Media: Twitter, Facebook, LinkedIn
+            Open Source: Github, Bitbucket, Launchpad
+            Cloud Computing: AWS, Rackspace/OpenStack, Linode, Digital Ocean, Heroku
+            Cloud Storage: S3, Cloudfiles, Dropbox, Box
+            Payment Processors: Paypal, Stripe, *coin (BitPay, CoinBase)
+            Personal Fitness: Fitbit, Garmin, Strava
           </aside>
         </section>
 
@@ -137,6 +145,8 @@
           </aside>
         </section>
 
+        <!-- Sadly the Netflix API is going away -->
+
         <section>
           <h2>Servers</h2>
           <p>That's another talk.</p>
@@ -145,10 +155,12 @@
           </aside>
         </section>
 
+        <!-- Point to the Github talk on their API creation. -->
+
         <section>
           <h2>Clients</h2>
           <p>How do you talk to one of these services?</p>
-          <p class="fragment" data-fragment-index="0">It's just HTTP...how hard can it be?</p>
+          <p>It's just HTTP...how hard can it be?</p>
           <aside class="notes">
             While some services provide clients, not all do and they might not in your
             language of choice.
@@ -157,31 +169,41 @@
 
         <section>
           <h2>Challenges</h2>
-          <p>Writing Open Source clients is not hard.</p>
-          <p class="fragment" data-fragment-index="0">Maintaing them is hard.</p>
+          <p>Writing clients is not hard.</p>
+          <p>Maintaining them is hard.</p>
+          <aside class="notes">
+            In open source this is a huge cost.
+          </aside>
         </section>
 
         <section>
           <h2>Why?</h2>
           <ul>
             <li>Changing APIs</li>
-            <li class="fragment" data-fragment-index="0">Faux-RESTful Servers</li>
-            <li class="fragment" data-fragment-index="1">Weak HTTP Support</li>
-            <li class="fragment" data-fragment-index="2">Managing State</li>
+            <li>Faux-RESTful Servers</li>
+            <li>Weak HTTP Support</li>
+            <li>Managing State</li>
           </ul>
+          <aside class="notes">
+              You could add poor Terms of Service here but that's not really a technical problem.
+          </aside>
         </section>
 
         <section>
           <h2>Changing APIs</h2>
           <p>APIs are going to change.</p>
-          <p class="fragment" data-fragment-index="0">Most services won't let you know the changes coming.</p>
+          <p>You won't always know the changes coming.</p>
           <p class="fragment" data-fragment-index="1">Sorry.</p>
           <aside class="notes">
-            This means potentially supportting multiple versions of the API at
+            This means potentially supporting multiple versions of the API at
             the same time. You need to make it clear which versions of you
-            client support which verisons of the API. 
+            client support which versions of the API. 
           </aside>
         </section>
+
+        <!-- Examples of major changes -->
+        <!-- Twitter OAuth change and v1.1 (Guess they didn't hear cool URIs don't change) -->
+        <!-- How to version an API is a widely debated topic (URL vs Content-Type) -->
 
         <section>
           <h2>Faux-RESTful Servers</h2>
@@ -191,7 +213,8 @@
             <strong>S</strong>tate (HATEOAS).</p>
           <p class="fragment" data-fragment-index="0">Sadly this is rarely implemented.</p>
           <aside class="notes">
-            Why isn't it implemented? Because it doesn't help the server but in reality it does.
+            Why isn't it implemented? There is a misconception that this doesn't help
+            the server but it does.
           </aside>
         </section>
 
@@ -205,13 +228,21 @@
 
         <section>
           <h2>HATEOAS TL;DR</h2>
-          <p>Clients should not have to build resource URLs. They should be provided by the server.</p>
+          <p>Clients should not have to build resource URLs.
+          <p>Resource URLs should be provided by the server so that <em>the server can control them</em>.</p>
           <p>URI Template RFC6570 - http://tools.ietf.org/html/rfc6570</p>
           <aside class="notes">
             Instead most APIs rely on documentation for all of the URLs instead of making the API
             discoverable.
+
+            Reference Richardson's Maturity model?
+            http://martinfowler.com/articles/richardsonMaturityModel.html
           </aside>
         </section>
+
+        <!-- Compare Bitbucket API v1 vs v2 -->
+        <!-- https://confluence.atlassian.com/display/BITBUCKET/account+Resource#accountResource-GETtheaccountprofile -->
+        <!-- https://confluence.atlassian.com/display/BITBUCKET/users+Endpoint -->
 
         <section>
           <h2>Weak HTTP Support</h2>
@@ -225,80 +256,17 @@
 
         <section>
           <h2>Managing State</h2>
-          <p class="fragment" data-fragment-index="0">HTTP - Stateless</p>
-          <p class="fragment" data-fragment-index="1">Server - Stateless</p>
-          <p class="fragment" data-fragment-index="2">Guess who has to manage state?</p>
+          <p>HTTP - Stateless</p>
+          <p>Server - Stateless</p>
+          <p>Guess who has to manage state?</p>
           <aside class="notes">
-            Managing state is hard particulary when you are trying to build a flexible library
+            Managing state is hard particularly when you are trying to build a flexible library
             and don't know how it will be used (i.e which state to hold on to)
           </aside>
         </section>
 
         <section>
-          <h2>Common Pitfalls/Mistakes</h2>
-          <ul>
-            <li>Glorified URL Builders</li>
-            <li>Forgetting About Caching</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Glorified URL Builders</h2>
-          <p>If your REST client library only builds URLs then both the server
-          and client have failed.</p>
-          <p>Anything claiming to be a "general REST API" client is a lie.</p>
-          <aside class="notes">
-            APIs should be discoverable. Building a client which just makes syntatic
-            sugar for making URLs is just covering up a failure of the server.
-
-            There are no shortcuts. Each API is different. 
-          </aside>
-        </section>
-
-        <section>
-          <h2>Caching</h2>
-          <p>If you aren't making use of caching then you are wasting resources.</p>
-          <p>Plus most APIs are rate-limited.</p>
-          <aside class="notes">
-            Last-modified headers and Etags are part of that state the client needs to
-            track.
-          </aside>
-        </section>
-
-        <section>
-          <h2>Example: Slumber</h2>
-          <pre><code class="python" data-trim>
-import slumber
-## Connect to http://slumber.in/api/v1/
-## with the Basic Auth user/password of demo/demo
-api = slumber.API("http://slumber.in/api/v1/", auth=("demo", "demo"))
-## GET http://slumber.in/api/v1/note/
-api.note.get()
-## POST http://slumber.in/api/v1/note/
-new = api.note.post({
-    "title": "My Test Note",
-    "content": "This is the content of my Test Note!"
-})
-## PUT http://slumber.in/api/v1/note/{id}/
-api.note(new["id"]).put({
-    "content": "I just changed the content of my Test Note!"
-})
-## GET http://slumber.in/api/v1/note/{id}/
-api.note(new["id"]).get()
-## DELETE http://slumber.in/api/v1/note/{id}/
-pi.note(new["id"]).delete()
-          </code></pre>
-          <aside class="notes">
-            This is syntatic sugar for creating URLs. It's worse than hardcoding the paths themselves
-            in your application because it's actually adding another layer of abstraction
-            making it harder to maintain for the application.
-
-            TODO: Merge the good/bad sections together particulary the examples.
-          </aside>
-        </section>
-
-        <section>
-          <h2>Best Practices</h2>
+          <h2>API Client Best Practices</h2>
           <ul>
             <li>Build Useful Objects</li>
             <li>Use Cache Headers</li>
@@ -348,6 +316,10 @@ me.refresh()
           </code></pre>
         </section>
 
+        <!-- Note that this doesn't count towards the rate limit! -->
+        <!-- https://developer.github.com/guides/getting-started/#conditional-requests -->
+        <!-- Spotify supports this but doesn't really make good use of it -->
+
         <section>
           <h2>Avoid Hardcoding Paths</h2>
           <p>The client should use URLs and links returned from the server (when available).</p>
@@ -367,6 +339,54 @@ me.repos_url
           </code></pre>
         </section>
 
+        <!--- Reference URI template RFC here instead -->
+
+        <section>
+          <h2>Stop Making Glorified URL Builders</h2>
+          <p>If your REST client library only builds URLs then both the server
+          and client have failed.</p>
+          <p>Anything claiming to be a "general REST API" client is a lie.</p>
+          <aside class="notes">
+            APIs should be discoverable. Building a client which just makes syntactic
+            sugar for making URLs is just covering up a failure of the server.
+
+            There are no shortcuts. Each API is different. 
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example: Slumber</h2>
+          <pre><code class="python" data-trim>
+import slumber
+## Connect to http://slumber.in/api/v1/
+## with the Basic Auth user/password of demo/demo
+api = slumber.API("http://slumber.in/api/v1/", auth=("demo", "demo"))
+## GET http://slumber.in/api/v1/note/
+api.note.get()
+## POST http://slumber.in/api/v1/note/
+new = api.note.post({
+    "title": "My Test Note",
+    "content": "This is the content of my Test Note!"
+})
+## PUT http://slumber.in/api/v1/note/{id}/
+api.note(new["id"]).put({
+    "content": "I just changed the content of my Test Note!"
+})
+## GET http://slumber.in/api/v1/note/{id}/
+api.note(new["id"]).get()
+## DELETE http://slumber.in/api/v1/note/{id}/
+pi.note(new["id"]).delete()
+          </code></pre>
+          <aside class="notes">
+            This is syntatic sugar for creating URLs. It's worse than hardcoding the paths themselves
+            in your application because it's actually adding another layer of abstraction
+            making it harder to maintain for the application.
+
+            When /note/ becomes /notes/ everyone using this "client" has to update their
+            code.
+          </aside>
+        </section>
+
         <section>
           <h2>Summary</h2>
           <p>REST is a client-server model.</p>
@@ -382,10 +402,17 @@ me.repos_url
         <section>
           <h2>API Creators</h2>
           <p>Try writing a meaningful client before releasing your server.</p>
+          <p>Show larger examples than a single GET/POST/PUT/DELETE request.</p>
           <aside class="notes">
             This is just like documentation. When you have to explain how it works
             you see how poorly it was designed.
           </aside>
+        </section>
+
+        <section>
+            <h2>Resources</h2>
+            <!-- Link to the libraries referenced here -->
+            <p></p>
         </section>
 
         <section>
