@@ -120,9 +120,6 @@
             <li>Simplicity</li>
             <li>Modifiability</li>
           </ul>
-          <aside class="notes">
-            Performance, Scalability, Simplicity, Modifiability
-          </aside>
         </section>
 
         <section>
@@ -156,6 +153,8 @@
             before there was a Twitter client.
 
             And why amazing services like Travis CI can be built on top of Github.
+
+            Travis can run the tests then integrate with this PAAS providers to deploy.
           </aside>
         </section>
 
@@ -695,6 +694,12 @@ if numbers:
         <section>
           <h2>Cache Headers</h2>
           <p>These resource objects should track the cache state and send the proper headers.</p>
+          <aside class="notes">
+              Servers should be using these headers and if they are and the client doesn't
+              send them back then you aren't holding up your end of the deal.
+
+              It's easy to take for granted how browsers will do this.
+          </aside>
         </section>
 
         <section>
@@ -859,7 +864,7 @@ api.note(new["id"]).put({
 pi.note(new["id"]).delete()
           </code></pre>
           <aside class="notes">
-            This is syntatic sugar for creating URLs. It's worse than hardcoding the paths themselves
+            This is syntactic sugar for creating URLs. It's worse than hardcoding the paths themselves
             in your application because it's actually adding another layer of abstraction
             making it harder to maintain for the application.
 
