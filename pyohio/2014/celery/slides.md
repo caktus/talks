@@ -1,6 +1,8 @@
 ###Introduction to Celery
 
 Caleb Smith
+
+bit.ly/1k1fVLz
 @@
 
 ## About Me
