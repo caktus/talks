@@ -384,7 +384,7 @@ Write tasks to be parallel safe.
 
 You have no idea when tasks will run. Plan for this.
 
-Trying to disaalow certain tasks from running in parallel is focusing on the wrong problem.
+Trying to disallow certain tasks from running in parallel is focusing on the wrong problem.
 
 Use database transactions where needed
 
