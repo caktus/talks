@@ -1,0 +1,947 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>REST: It's not just for servers</title>
+
+    <meta name="description" content="Have you ever written or used an API wrapper for a webservice? REST is a client-server architecture model and building the server is only half of the challenge. This talk will walk through some of the challenges of building a REST client, describe some best practices and some patterns to avoid, and discuss how we can all work to build better APIs for an open web.">
+    <meta name="author" content="Mark Lavin">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+    <!-- Caktus specific styles -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+      if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+      }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="reveal">
+      <aside class="logo">
+        <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+      </aside>
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h1>REST</h1>
+          <h2>It's not just for servers</h2>
+          <p>Mark Lavin - OSCon 2014</p>
+          <p><a href="https://twitter.com/DrOhYes">@DrOhYes</a></p>
+        </section>
+
+        <section>
+          <h2>Introduction</h2>
+          <ul>
+            <li>Technical Director at <a href="http://caktusgroup.com">Caktus Group</a> in Carborro, NC</li>
+            <li>Co-Author of <a href="http://shop.oreilly.com/product/0636920032502.do">"Lightweight Django"</a> for O'Reilly</li>
+            <li>Homebrewer</li>
+            <li>Runner/Triathelete</li>
+          </ul>
+          <aside class="notes">
+            At Caktus I build APIs with Django and interact with APIs with Python.
+
+            "Lightweight Django" is about building small composable services with Django using
+            RESTful concepts.
+
+            While my experience and examples are in Python, this talk isn't really language specific.
+          </aside>
+        </section>
+
+        <section>
+          <h2>History</h2>
+          <p><strong>RE</strong>presentational <strong>S</strong>tate <strong>T</strong>ransfer.</p>
+          <p>Defined by Roy Fielding's doctoral thesis at UC Irvine in 2000.</p>
+          <p class="fragment" data-fragment-index="0">Abused by webservices and marketing teams every day since.</p>
+        </section>
+
+        <section>
+          <h2>REST is ...</h2>
+          <blockquote cite="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">
+            “an architectural style for distributed hypermedia systems.
+            REST provides a set of architectural constraints that, 
+            when applied as a whole, emphasizes scalability of component interactions, 
+            generality of interfaces, independent deployment of components, and 
+            intermediary components to reduce interaction latency, enforce security, 
+            and encapsulate legacy systems.” - Roy Fielding
+          </blockquote>
+          <aside class="notes">
+            REST is not a protocol.
+            It's not a data format.
+            It's a architectural style.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Constraints</h2>
+          <p>What are these constraints?</p>
+          <ul>
+            <li>Client-Server</li>
+            <li>Stateless</li>
+            <li>Cacheable</li>
+            <li>Layered</li>
+            <li>Uniform Interface</li>
+            <li>Code On Demand<em>*</em></li>
+          </ul>
+          <aside class="notes">
+            Stateless - No client context can be stored on the server between requests.
+            Uniform Interface - Need unique identification of resources and self-descriptive messages.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Rewards</h2>
+          <p>What do you get in return?</p>
+          <ul>
+            <li>Performance</li>
+            <li>Scalability</li>
+            <li>Simplicity</li>
+            <li>Modifiability</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Reach/Popularity</h2>
+          <p>Name a popular website/application and it probably has a REST<em>*</em> API.</p>
+          <ul>
+            <li>Social Media: Twitter, Facebook, LinkedIn, Pintrest, Instragram</li>
+            <li>Open Source: Github, Bitbucket</li>
+            <li>Cloud: AWS, Rackspace, OpenStack, Digital Ocean</li>
+            <li>PAAS: Heroku, DotCloud, OpenShift, CloudFoundry</li>
+            <li>Cloud Storage: S3, Cloudfiles, Dropbox, Box</li>
+            <li>Payment Processors: Paypal, Stripe, CoinBase</li>
+            <li>Personal Fitness: Fitbit, Strava</li>
+          </ul>
+          <aside class="notes">
+            With all of these fabulous benefits/rewards it's easy to see why they are popular.
+
+            Sorry if I left one of your favorite ones out. Others have hidden/non-public APIs
+              - Pandora is one that comes to mind
+
+            Sadly the Netflix API is going away
+            Linode (not restful)
+            Many *coin/*bit gateways have APIs            
+          </aside>
+        </section>
+
+        <section>
+          <h2>Public APIs &#10084; Open Source Clients</h2>
+          <aside class="notes">
+            This style along with making them publicly available is why there Twitter clients
+            before there was a Twitter client.
+
+            And why amazing services like Travis CI can be built on top of Github.
+
+            Travis can run the tests then integrate with this PAAS providers to deploy.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Servers</h2>
+          <p>That's another talk.</p>
+          <aside class="notes">
+              Or if you want to learn to build these with Django you can buy our book.
+
+              "Building a Resilient API with Open Source" Wed 10:40am "Wynn Netherland"
+              http://www.oscon.com/oscon2014/public/schedule/detail/33863
+          </aside>
+        </section>
+
+        <section>
+          <h2>Clients</h2>
+          <p>How do you talk to one of these services?</p>
+          <p>It's just HTTP...how hard can it be?</p>
+          <aside class="notes">
+            While some services provide clients, not all do and they might not in your
+            language of choice.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Challenges</h2>
+          <p>Writing clients is not hard.</p>
+          <p>Maintaining them is hard.</p>
+          <aside class="notes">
+            In open source this is a huge cost.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Why?</h2>
+          <ul>
+            <li>Changing APIs</li>
+            <li>Faux-RESTful Servers</li>
+            <li>Weak HTTP Support</li>
+            <li>Managing State</li>
+          </ul>
+          <aside class="notes">
+              You could add poor Terms of Service here but that's not really a technical problem.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Changing APIs</h2>
+          <p>APIs are going to change.</p>
+          <p>You won't always know the changes coming.</p>
+          <p class="fragment" data-fragment-index="1">Sorry.</p>
+          <aside class="notes">
+            This means potentially supporting multiple versions of the API at
+            the same time. You need to make it clear which versions of you
+            client support which versions of the API. 
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example: Twitter</h2>
+          <p>https://api.twitter.com/1/account/verify_credentials.json</p>
+          <p>is now</p>
+          <p>https://api.twitter.com/1.1/account/verify_credentials.json</p>
+          <aside class="notes">
+              v1 of the API is officially deprecated.
+              These have identical purposes and responses.
+              Guess they didn't hear cool URIs don't change.
+
+              How to version an API is a widely debated topic (URL vs Content-Type)
+
+              Basic auth was deprecated a few years ago as well in favor of OAuth.
+              Ran across some client code which was still using Basic Auth.
+              They agreed we could remove the feature because it was clear it hadn't
+              been used in years.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Faux-RESTful Servers</h2>
+          <p>The Uniform Interface contraint defines the concept of
+            <strong>H</strong>ypermedia <strong>A</strong>s <strong>T</strong>he
+            <strong>E</strong>ngine <strong>O</strong>f <strong>A</strong>pplication
+            <strong>S</strong>tate (HATEOAS).</p>
+          <p class="fragment" data-fragment-index="0">Sadly this is rarely implemented.</p>
+          <aside class="notes">
+            Why isn't it implemented? There is a misconception that this doesn't help
+            the server but it does.
+          </aside>
+        </section>
+
+        <section>
+          <h2>HATEOAS</h2>
+            <p><a href="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">"REST APIs must be hypertext-driven"</a>
+            <blockquote cite="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">
+              “A REST API must not define fixed resource names or hierarchies (an obvious coupling of client and server). Servers must have the freedom to control their own namespace. Instead, allow servers to instruct clients on how to construct appropriate URIs, such as is done in HTML forms and URI templates, by defining those instructions within media types and link relations.” - Roy Fielding
+            </blockquote>
+        </section>
+
+        <section>
+          <h2>HATEOAS TL;DR</h2>
+          <p>Clients should not have to build resource URLs.
+          <p>Resource URLs should be provided by the server so that <em>the server can control them</em>.</p>
+          <aside class="notes">
+            Instead most APIs rely on documentation for all of the URLs instead of making the API
+            discoverable.
+
+            Reference Richardson's Maturity model?
+            http://martinfowler.com/articles/richardsonMaturityModel.html
+          </aside>
+        </section>
+
+        <section>
+            <h2>Example: Bitbucket v1</h2>
+            <p>https://bitbucket.org/api/1.0/users/mlavin</p>
+            <pre><code>
+{  
+   "user":{  
+      "username":"mlavin",
+      "first_name":"Mark",
+      "last_name":"Lavin",
+      "display_name":"Mark Lavin",
+      "is_staff":false,
+      "avatar":"https://secure.gravatar.com/avatar/de77fafcd2dd1e7d5a159793ea51b563?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F069454acc352%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32",
+      "resource_uri":"/1.0/users/mlavin",
+      "is_team":false
+   },
+   "repositories":[  
+      {  
+         "scm":"hg",
+         "has_wiki":false,
+         "last_updated":"2012-06-26T05:32:29.490",
+         "no_forks":null,
+         "created_on":"2011-03-22T00:06:37.631",
+         "owner":"mlavin",
+         "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/python_16.png",
+         "email_mailinglist":"",
+         "is_mq":false,
+         "size":30648,
+         "read_only":false,
+         "fork_of":null,
+         "mq_of":null,
+         "state":"available",
+         "utc_created_on":"2011-03-21 23:06:37+00:00",
+         "website":"",
+         "description":"A basic photo upload/gallery application for Django.",
+         "has_issues":true,
+         "is_fork":false,
+         "slug":"django-photobook",
+         "is_private":false,
+         "name":"django-photobook",
+         "language":"python",
+         "utc_last_updated":"2012-06-26 03:32:29+00:00",
+         "email_writers":true,
+         "no_public_forks":false,
+         "creator":null,
+         "resource_uri":"/1.0/repositories/mlavin/django-photobook"
+      },
+      {  
+         "scm":"hg",
+         "has_wiki":false,
+         "last_updated":"2012-06-26T08:06:30.579",
+         "no_forks":null,
+         "created_on":"2011-01-19T03:01:06.792",
+         "owner":"mlavin",
+         "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/python_16.png",
+         "email_mailinglist":"",
+         "is_mq":false,
+         "size":606374,
+         "read_only":false,
+         "fork_of":null,
+         "mq_of":null,
+         "state":"available",
+         "utc_created_on":"2011-01-19 02:01:06+00:00",
+         "website":"http://www4.ncsu.edu/~kaltofen/courses/Languages/Spring11/syllabus.html",
+         "description":"Lecture slides for MA792K",
+         "has_issues":false,
+         "is_fork":false,
+         "slug":"python-lectures",
+         "is_private":false,
+         "name":"python-lectures",
+         "language":"python",
+         "utc_last_updated":"2012-06-26 06:06:30+00:00",
+         "email_writers":true,
+         "no_public_forks":false,
+         "creator":null,
+         "resource_uri":"/1.0/repositories/mlavin/python-lectures"
+      },
+      {  
+         "scm":"hg",
+         "has_wiki":true,
+         "last_updated":"2012-07-03T04:03:09.870",
+         "no_forks":null,
+         "created_on":"2010-01-10T18:07:46.612",
+         "owner":"mlavin",
+         "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/default_16.png",
+         "email_mailinglist":"",
+         "is_mq":false,
+         "size":810046,
+         "read_only":false,
+         "fork_of":null,
+         "mq_of":null,
+         "state":"available",
+         "utc_created_on":"2010-01-10 17:07:46+00:00",
+         "website":"http://bethandmark.net/",
+         "description":"This is the source a personal site for me and my wife.",
+         "has_issues":true,
+         "is_fork":false,
+         "slug":"personal",
+         "is_private":false,
+         "name":"personal",
+         "language":"",
+         "utc_last_updated":"2012-07-03 02:03:09+00:00",
+         "email_writers":true,
+         "no_public_forks":false,
+         "creator":null,
+         "resource_uri":"/1.0/repositories/mlavin/personal"
+      },
+      {  
+         "scm":"hg",
+         "has_wiki":true,
+         "last_updated":"2011-09-17T03:03:44.627",
+         "no_forks":null,
+         "created_on":"2011-01-26T17:36:30.691",
+         "owner":"mlavin",
+         "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/default_16.png",
+         "email_mailinglist":"",
+         "is_mq":false,
+         "size":12854,
+         "read_only":false,
+         "fork_of":{  
+            "scm":"hg",
+            "has_wiki":true,
+            "last_updated":"2011-09-17T03:03:44.647",
+            "no_forks":null,
+            "created_on":"2010-06-21T21:23:35.033",
+            "owner":"copelco",
+            "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/default_16.png",
+            "email_mailinglist":"",
+            "is_mq":false,
+            "size":14264,
+            "read_only":false,
+            "creator":null,
+            "state":"available",
+            "utc_created_on":"2010-06-21 19:23:35+00:00",
+            "website":"",
+            "description":"Simple Django app to model committees and members",
+            "has_issues":true,
+            "is_fork":false,
+            "slug":"django-committees",
+            "is_private":false,
+            "name":"django-committees",
+            "language":"",
+            "utc_last_updated":"2011-09-17 01:03:44+00:00",
+            "email_writers":true,
+            "no_public_forks":false,
+            "resource_uri":"/1.0/repositories/copelco/django-committees"
+         },
+         "mq_of":{  
+            "scm":"hg",
+            "has_wiki":true,
+            "last_updated":"2011-09-17T03:03:44.647",
+            "no_forks":null,
+            "created_on":"2010-06-21T21:23:35.033",
+            "owner":"copelco",
+            "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/default_16.png",
+            "email_mailinglist":"",
+            "is_mq":false,
+            "size":14264,
+            "read_only":false,
+            "creator":null,
+            "state":"available",
+            "utc_created_on":"2010-06-21 19:23:35+00:00",
+            "website":"",
+            "description":"Simple Django app to model committees and members",
+            "has_issues":true,
+            "is_fork":false,
+            "slug":"django-committees",
+            "is_private":false,
+            "name":"django-committees",
+            "language":"",
+            "utc_last_updated":"2011-09-17 01:03:44+00:00",
+            "email_writers":true,
+            "no_public_forks":false,
+            "resource_uri":"/1.0/repositories/copelco/django-committees"
+         },
+         "state":"available",
+         "utc_created_on":"2011-01-26 16:36:30+00:00",
+         "website":null,
+         "description":"",
+         "has_issues":true,
+         "is_fork":true,
+         "slug":"django-committees",
+         "is_private":false,
+         "name":"django-committees",
+         "language":"",
+         "utc_last_updated":"2011-09-17 01:03:44+00:00",
+         "email_writers":true,
+         "no_public_forks":false,
+         "creator":null,
+         "resource_uri":"/1.0/repositories/mlavin/django-committees"
+      },
+      {  
+         "scm":"hg",
+         "has_wiki":true,
+         "last_updated":"2014-02-06T23:03:47.962",
+         "no_forks":false,
+         "created_on":"2010-12-12T17:34:14.390",
+         "owner":"mlavin",
+         "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/python_16.png",
+         "email_mailinglist":"",
+         "is_mq":false,
+         "size":630785,
+         "read_only":false,
+         "fork_of":null,
+         "mq_of":null,
+         "state":"available",
+         "utc_created_on":"2010-12-12 16:34:14+00:00",
+         "website":"http://django-selectable.readthedocs.org/",
+         "description":"The development of django-selectable has moved to Github: https://github.com/mlavin/django-selectable",
+         "has_issues":false,
+         "is_fork":false,
+         "slug":"django-selectable",
+         "is_private":false,
+         "name":"django-selectable",
+         "language":"python",
+         "utc_last_updated":"2014-02-06 22:03:47+00:00",
+         "email_writers":true,
+         "no_public_forks":false,
+         "creator":null,
+         "resource_uri":"/1.0/repositories/mlavin/django-selectable"
+      },
+      {  
+         "scm":"hg",
+         "has_wiki":false,
+         "last_updated":"2014-01-14T20:01:18.504",
+         "no_forks":false,
+         "created_on":"2014-01-14T20:01:18.262",
+         "owner":"mlavin",
+         "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/python_16.png",
+         "email_mailinglist":"",
+         "is_mq":false,
+         "size":982779,
+         "read_only":false,
+         "fork_of":{  
+            "scm":"hg",
+            "has_wiki":false,
+            "last_updated":"2014-07-08T14:50:52.317",
+            "no_forks":null,
+            "created_on":"2012-04-24T17:16:27.952",
+            "owner":"Manfre",
+            "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/python_16.png",
+            "email_mailinglist":"\nmmanfre+django-mssql@gmail.com",
+            "is_mq":false,
+            "size":1049967,
+            "read_only":false,
+            "creator":null,
+            "state":"available",
+            "utc_created_on":"2012-04-24 15:16:27+00:00",
+            "website":"",
+            "description":"Microsoft SQL server backend for Django running on windows.",
+            "has_issues":true,
+            "is_fork":false,
+            "slug":"django-mssql",
+            "is_private":false,
+            "name":"django-mssql",
+            "language":"python",
+            "utc_last_updated":"2014-07-08 12:50:52+00:00",
+            "email_writers":true,
+            "no_public_forks":false,
+            "resource_uri":"/1.0/repositories/Manfre/django-mssql"
+         },
+         "mq_of":{  
+            "scm":"hg",
+            "has_wiki":false,
+            "last_updated":"2014-07-08T14:50:52.317",
+            "no_forks":null,
+            "created_on":"2012-04-24T17:16:27.952",
+            "owner":"Manfre",
+            "logo":"https://d3oaxc4q5k2d6q.cloudfront.net/m/069454acc352/img/language-avatars/python_16.png",
+            "email_mailinglist":"\nmmanfre+django-mssql@gmail.com",
+            "is_mq":false,
+            "size":1049967,
+            "read_only":false,
+            "creator":null,
+            "state":"available",
+            "utc_created_on":"2012-04-24 15:16:27+00:00",
+            "website":"",
+            "description":"Microsoft SQL server backend for Django running on windows.",
+            "has_issues":true,
+            "is_fork":false,
+            "slug":"django-mssql",
+            "is_private":false,
+            "name":"django-mssql",
+            "language":"python",
+            "utc_last_updated":"2014-07-08 12:50:52+00:00",
+            "email_writers":true,
+            "no_public_forks":false,
+            "resource_uri":"/1.0/repositories/Manfre/django-mssql"
+         },
+         "state":"available",
+         "utc_created_on":"2014-01-14 19:01:18+00:00",
+         "website":null,
+         "description":"Working copy of django-mssql for contributing fixes.",
+         "has_issues":false,
+         "is_fork":true,
+         "slug":"django-mssql",
+         "is_private":false,
+         "name":"django-mssql",
+         "language":"python",
+         "utc_last_updated":"2014-01-14 19:01:18+00:00",
+         "email_writers":true,
+         "no_public_forks":false,
+         "creator":null,
+         "resource_uri":"/1.0/repositories/mlavin/django-mssql"
+      }
+   ]
+}
+            </code></pre>
+            <aside class="notes">
+                Tiny little section about what I actually asked for and then a huge list
+                of every repository I have along with nested information about where
+                it was forked from.
+            </aside>
+        </section>
+
+        <section>
+            <h2>Example: Bitbucket v2</h2>
+            <p>https://bitbucket.org/api/2.0/users/mlavin</p>
+            <pre><code>
+{  
+   "username":"mlavin",
+   "website":"",
+   "display_name":"Mark Lavin",
+   "links":{  
+      "self":{  
+         "href":"https://bitbucket.org/!api/2.0/users/mlavin"
+      },
+      "repositories":{  
+         "href":"https://bitbucket.org/!api/2.0/repositories/mlavin"
+      },
+      "html":{  
+         "href":"https://bitbucket.org/mlavin"
+      },
+      "followers":{  
+         "href":"https://bitbucket.org/!api/2.0/users/mlavin/followers"
+      },
+      "avatar":{  
+         "href":"https://secure.gravatar.com/avatar/de77fafcd2dd1e7d5a159793ea51b563?d=https%3A%2F%2Fd3oaxc4q5k2d6q.cloudfront.net%2Fm%2F069454acc352%2Fimg%2Fdefault_avatar%2F32%2Fuser_blue.png&s=32"
+      },
+      "following":{  
+         "href":"https://bitbucket.org/!api/2.0/users/mlavin/following"
+      }
+   },
+   "created_on":"2009-07-06T14:39:20.563539+00:00",
+   "location":"Raleigh, North Carolina",
+   "type":"user"
+}
+            </code></pre>
+            <aside class="notes">
+                The information I asked about (my user info) and then links to
+                related resources.
+
+                Sadly most of the clients haven't made this switch or still build
+                the URLs themselves.
+            </aside>
+        </section>
+
+        <section>
+          <h2>Weak HTTP Support</h2>
+          <p>This is mostly a challenge for JS (browser-based) clients where DELETE/PUT/PATCH support
+          can be lacking.</p>
+          <aside class="notes">
+            Some servers allow working around this with an X-HTTP-Method-Override header but
+            if they don't then you are out of luck.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Managing State</h2>
+          <p>HTTP - Stateless</p>
+          <p>Server - Stateless</p>
+          <p>Guess who has to manage state?</p>
+          <aside class="notes">
+            Managing state is hard particularly when you are trying to build a flexible library
+            and don't know how it will be used (i.e which state to hold on to)
+          </aside>
+        </section>
+
+        <section>
+          <h2>API Client Best Practices</h2>
+          <ul>
+            <li>Build Useful Objects</li>
+            <li>Use Cache Headers</li>
+            <li>Avoid Hardcoding Paths</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Useful Objects</h2>
+          <p>Resource responses should be translated into useful objects by the client.</p>
+          <aside class="notes">
+            This should link to related resources and handle actions (edit, delete, etc)
+            and tracking caching (next slide)
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example: Twilio Python</h2>
+          <pre><code class="python" data-trim>
+# twilio/rest/resources/phone_numbers.py
+
+class AvailablePhoneNumber(InstanceResource):
+    ...
+    def purchase(self, **kwargs):
+        return self.parent.purchase(phone_number=self.phone_number,
+            **kwargs)
+          </code></pre>
+          <aside class="notes">
+            This might seem obvious but it's often missed.
+            At a minimum these objects should know how to edit/delete themselves
+            if that's part of the API.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example Usage: Twilio Python</h2>
+          <pre><code class="python" data-trim>
+from twilio.rest import TwilioRestClient
+
+client = TwilioRestClient('&lt;ACCOUNT_SID&gt;', '&lt;AUTH_TOKEN&gt;')
+numbers = client.phone_numbers.search(area_code=919)
+if numbers:
+    numbers[0].purchase()
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>Cache Headers</h2>
+          <p>These resource objects should track the cache state and send the proper headers.</p>
+          <aside class="notes">
+              Servers should be using these headers and if they are and the client doesn't
+              send them back then you aren't holding up your end of the deal.
+
+              It's easy to take for granted how browsers will do this.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example: github3.py</h2>
+          <pre><code class="python" data-trim>
+# github3/models.py
+
+class GitHubCore(GitHubObject):
+    ...
+    def refresh(self, conditional=False):
+        ...
+        headers = {}
+        if conditional:
+            if self.last_modified:
+                headers['If-Modified-Since'] = self.last_modified
+            elif self.etag:
+                headers['If-None-Match'] = self.etag
+
+        headers = headers or None
+        json = self._json(self._get(self._api, headers=headers), 200)
+        if json is not None:
+            self.__init__(json, self._session)
+        return self
+          </code></pre>
+          <aside class="notes">
+              last_modified and etag are parsed and set by the parent GitHubObject
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example Usage: github3.py</h2>
+          <pre><code class="python" data-trim>
+from github3 import login
+
+client = login('mlavin', password='&lt;password&gt;')
+me = client.user()
+print(me.etag)
+# Does a conditional fetch
+me.refresh(conditional=True)
+          </code></pre>
+          <aside class="notes">
+              Note that this doesn't count towards the rate limit!
+              https://developer.github.com/guides/getting-started/#conditional-requests
+          </aside>
+        </section>
+
+        <section>
+          <h2>Avoid Hardcoding Paths</h2>
+          <p>The client should use URLs and links returned from the server (when available).</p>
+          <p>One place where this is typically implemented is in pagination.</p>
+        </section>
+
+        <section>
+          <h2>Example: pyrax</h2>
+          <pre><code class="python" data-trim>
+# pyrax/clouddns.py
+
+class CloudDNSManager(BaseManager):
+    ...
+
+    def _reset_paging(self, service, body=None):
+        ...
+        links = body.get("links")
+        uri_base = self.uri_base
+        if links:
+            for link in links:
+                href = link["href"]
+                pos = href.index(uri_base)
+                page_uri = href[pos - 1:]
+                if link["rel"] == "next":
+                    svc_dct["next_uri"] = page_uri
+                elif link["rel"] == "previous":
+                    svc_dct["prev_uri"] = page_uri
+          </code></pre>
+          <aside class="notes">
+              Github and github3.py does this for more related resources but I already
+              used them as an example. And this is a more common place where it can be done.
+
+              The entire method isn't shown.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example: pyrax (Cont.)</h2>
+          <pre><code class="python" data-trim>
+# pyrax/clouddns.py
+
+class CloudDNSManager(BaseManager):
+    ...
+
+    def _list(self, uri, obj_class=None, list_all=False):
+        ...
+        self._reset_paging("domain", resp_body)
+        if list_all:
+            dom_paging = self._paging.get("domain", {})
+            while dom_paging.get("next_uri"):
+                next_uri = dom_paging.get("next_uri")
+                ret.extend(self._list(uri=next_uri, obj_class=obj_class,
+                        list_all=False))
+        return ret
+          </code></pre>
+          <aside class="notes">
+              The entire method isn't shown.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example Usage: pyrax</h2>
+          <pre><code class="python" data-trim>
+import pyrax
+
+pyrax.set_setting('identity_type', 'rackspace')
+pyrax.set_credentials('{username}', '{apiKey}')
+
+# Internally this handles paging through all search results which may
+# span more than one page
+for record in pyrax.cloud_dns.search_records('example.com', 'CNAME'):
+    # Do something with the records...
+          </code></pre>
+          <aside class="notes">
+              Here the client hides that the results might span more than one page
+              and assumes that you want all the results regardless of the number of
+              pages it might take.
+
+              Obviously this is good and bad. It's not immediately obvious how
+              many calls this will take.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Stop Making Glorified URL Builders</h2>
+          <p>If your REST client library only builds URLs then both the server
+          and client have failed.</p>
+          <p>Anything claiming to be a "general REST API" client is a lie.</p>
+          <aside class="notes">
+            APIs should be discoverable. Building a client which just makes syntactic
+            sugar for making URLs is just covering up a failure of the server.
+
+            There are no shortcuts. Each API is different. 
+          </aside>
+        </section>
+
+        <section>
+          <h2>Example: Slumber</h2>
+          <pre><code class="python" data-trim>
+import slumber
+## Connect to http://slumber.in/api/v1/
+## with the Basic Auth user/password of demo/demo
+api = slumber.API("http://slumber.in/api/v1/", auth=("demo", "demo"))
+## GET http://slumber.in/api/v1/note/
+api.note.get()
+## POST http://slumber.in/api/v1/note/
+new = api.note.post({
+    "title": "My Test Note",
+    "content": "This is the content of my Test Note!"
+})
+## PUT http://slumber.in/api/v1/note/{id}/
+api.note(new["id"]).put({
+    "content": "I just changed the content of my Test Note!"
+})
+## DELETE http://slumber.in/api/v1/note/{id}/
+pi.note(new["id"]).delete()
+          </code></pre>
+          <aside class="notes">
+            This is syntactic sugar for creating URLs. It's worse than hardcoding the paths themselves
+            in your application because it's actually adding another layer of abstraction
+            making it harder to maintain for the application.
+
+            When /note/ becomes /notes/ everyone using this "client" has to update their
+            code.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Summary</h2>
+          <p>REST is a client-server model.</p>
+          <p>API servers are nothing without clients.</p>
+          <aside class="notes">
+            This interaction and building/layering of services on top of one another
+            is one of the most interesting pieces going on in the web space.
+          </aside>
+        </section>
+
+        <section>
+          <h2>API Creators</h2>
+          <p>Try writing a meaningful client before releasing your server.</p>
+          <p>Show larger examples than a single GET/POST/PUT/DELETE request.</p>
+          <aside class="notes">
+            This is just like documentation. When you have to explain how it works
+            you see how poorly it was designed.
+          </aside>
+        </section>
+
+        <section>
+            <h2>Resources</h2>
+            <p><a href="http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm">Original Thesis</a></p>
+            <p><a href="http://roy.gbiv.com/untangled/2008/rest-apis-must-be-hypertext-driven">"REST APIs must be hypertext-driven"</a></p>
+            <p><a href="http://tools.ietf.org/html/rfc6570">URI Template RFC6570</a></p>
+            <p><a href="https://github.com/twilio/twilio-python">Twilio Python</a></p>
+            <p><a href="https://github.com/sigmavirus24/github3.py">Github3.py</a></p>
+            <p><a href="https://github.com/rackspace/pyrax">PyRax</a></p>
+        </section>
+
+        <section>
+          <h2>Thanks!</h2>
+          <p>Slides - <a href="http://caktus.github.io/talks/oscon/2014/rest/">http://caktus.github.io/talks/oscon/2014/rest/</a></p>
+          <p><a href="https://twitter.com/DrOhYes">@DrOhYes</a></p>
+
+          <a href="http://shop.oreilly.com/product/0636920032502.do">
+            <img height="525" width="400" src="lightweight_django_comp.jpg" alt="Lightweight Django" />
+          </a>
+        </section>
+      </div>
+    </div>
+    <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+    <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        slideNumber: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+          // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+    </script>
+  </body>
+
+</html>
