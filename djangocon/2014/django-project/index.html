@@ -22,6 +22,9 @@
     <!-- For syntax highlighting -->
     <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
 
+    <!-- Minor style customizations -->
+    <link rel="stylesheet" href="custom.css">
+
     <!-- If the query includes 'print-pdf', include the PDF print sheet -->
     <script>
         if( window.location.search.match( /print-pdf/gi ) ) {
@@ -62,6 +65,221 @@
                     <li>Homebrewer</li>
                     <li>Runner/Triathelete</li>
                 </ul>
+            </section>
+
+            <section>
+                <h2>Introduction</h2>
+                <ul>
+                    <li>Technical Director at <a href="http://caktusgroup.com">Caktus Group</a> in Carborro, NC</li>
+                    <li>Co-Author of <a href="http://shop.oreilly.com/product/0636920032502.do">"Lightweight Django"</a> for O'Reilly</li>
+                    <li>Homebrewer</li>
+                    <li>Runner/Triathelete</li>
+                </ul>
+                <aside class="notes">
+                    I'm here to answer one central question...
+                </aside>
+            </section>
+
+            <section>
+                <h2>What is a Django project?</h2>
+
+                <aside class="notes">
+                    A related question is "what is a Django app?" and I'll touch on that as well.
+                </aside>
+            </section>
+
+            <section>
+                <h2>From the Tutorial</h2>
+                <blockquote cite="https://docs.djangoproject.com/en/1.7/intro/tutorial01/">
+                    ..you’ll need to auto-generate some code that establishes a Django project – a collection of settings for an instance of Django, including database configuration, Django-specific options and application-specific settings.
+                </blockquote>
+
+                <aside class="notes">
+                    A project is what you get when you run "startproject".
+                    Seems like a tautology to me.
+
+                    Another sutble point in this wording is the use of the word "need" which
+                    makes "startproject" seem like a requirement. We'll that this isn't true.
+                </aside>
+            </section>
+
+            <section>
+                <h2>startproject</h2>
+                <pre>
+user@host:$ mkvirtualenv myproject
+New python executable in myproject/bin/python
+Installing setuptools, pip...done.
+(myproject)user@host:$ pip install django
+Downloading/unpacking django
+...
+Successfully installed django
+Cleaning up...
+(myproject)user@host:$ django-admin.py startproject myproject
+(myproject)user@host:$ tree myproject/
+<span class="fragment highlight-bold">myproject/
+├── manage.py
+└── myproject
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+
+1 directory, 5 files</span>
+                </pre>
+                <aside class="notes">
+                    So what is the project? The outer directory? The myproject package?
+
+                    Let's look at each file at see what fits the description of a "a collection of settings".
+                </aside>
+            </section>
+
+            <section>
+                <h2>manage.py</h2>
+                <pre><code class="python" data-trim>
+#!/usr/bin/env python
+import os
+import sys
+
+if __name__ == "__main__":
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
+
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)
+                </code></pre>
+                <div class="fragment" data-fragment-index="0">
+                    <h2>djano-admin.py</h2>
+                    <pre><code class="python" data-trim>
+#!/usr/bin/env python
+from django.core import management
+
+if __name__ == "__main__":
+    management.execute_from_command_line()
+                    </code></pre>
+                </div>
+
+                <aside class="notes">
+                    This doesn't look like settings. This is a thin wrapper around execute_from_command_line
+                    The only project specfic thing it does is set DJANGO_SETTINGS_MODULE to use
+                    the new settings file.
+
+                    Compare this to django-admin. If we weren't so lazy we could set this
+                    varible ourself and just use django-admin.
+                </aside>
+            </section>
+
+            <section>
+                <h2>No manage.py</h2>
+                <pre>
+(myproject)user@host:$ cd myproject/
+<span class="fragment highlight-bold">(myproject)user@host:$ add2virtualenv .</span>
+<span class="fragment highlight-bold">(myproject)user@host:$ echo "export DJANGO_SETTINGS_MODULE=myproject.settings" >> $VIRTUAL_ENV/bin/postactivate</span>
+<span class="fragment highlight-bold">(myproject)user@host:$ echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate</span>
+(myproject)user@host:$ deactivate
+user@host:$ workon myproject
+(myproject)user@host:$ rm manage.py
+(myproject)user@host:$ django-admin.py runserver
+                </pre>
+                <aside class="notes">
+                    If you are using virtualenv/virtualenv-wrapper this is easy to do.
+
+                    Step 1: Add current project path to the virtualenv path
+                    Step 2: Set the variable when the virtualenv is activated
+                    Step 3: Unset the variable when the virtualenv is deactivated
+
+                    deactivate/reactivate to see it work
+
+                    manage.py clearly isn't needed. It really only sets an environment variable.
+                    manage.py is not part of this mythical "project".
+
+                    This inner "myproject" must be the project.
+                </aside>
+            </section>
+
+            <section>
+                <h2>settings.py</h2>
+                <pre><code class="python" data-trim>
+"""
+Django settings for myproject project.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/topics/settings/
+
+For the full list of settings and their values, see
+https://docs.djangoproject.com/en/1.6/ref/settings/
+"""
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+...
+                </code></pre>
+
+                <aside class="notes">
+                    This is definately a collection of settings. No question that
+                    whatever a Django project is. This is part of it.
+
+                    Note that BASE_DIR says "Build paths inside the project like this"
+                    and points to the parent directory of this file. manage.py was in
+                    that folder...maybe it is part of the project?
+                </aside>
+            </section>
+
+            <section>
+                <h2>settings.py Continued</h2>
+                <pre><code class="python" data-trim>
+...
+ROOT_URLCONF = 'myproject.urls'
+
+WSGI_APPLICATION = 'myproject.wsgi.application'
+...
+                </code></pre>
+
+                <aside class="notes">
+                    This is definately a collection of settings. No question that
+                    whatever a Django project is. This is part of it.
+
+                    Note that BASE_DIR says "Build paths inside the project like this"
+                    and points to the parent directory of this file. manage.py was in
+                    that folder...maybe it is part of the project?
+                </aside>
+            </section>
+
+            <section>
+                <h2>urls.py</h2>
+                <pre><code class="python" data-trim>
+from django.conf.urls import patterns, include, url
+
+from django.contrib import admin
+admin.autodiscover()
+
+urlpatterns = patterns('',
+    # Examples:
+    # url(r'^$', 'myproject.views.home', name='home'),
+    # url(r'^blog/', include('blog.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
+)
+                </code></pre>
+
+                <aside class="notes">
+                    This is something between code and configuration. Routing
+                    URLs to callables or delegating that responsibilty to another
+                    set of these mappings (include).
+
+                    This is based on 1.6 (admin lines are needed in 1.7)
+                    1.8 will deprecate patterns and passing strings in to url
+                </aside>
+            </section>
+
+            <section>
+                <h2>Thanks! Questions?</h2>
+                <p>Slides - <a href="http://caktus.github.io/talks/djangocon/2014/django-project/">http://caktus.github.io/talks/djangocon/2014/django-project/</a></p>
+                <p><a href="https://twitter.com/DrOhYes">@DrOhYes</a></p>
+
+                <a href="http://shop.oreilly.com/product/0636920032502.do">
+                    <img height="525" width="400" src="lightweight_django_comp.jpg" alt="Lightweight Django" />
+                </a>
             </section>
 
         </div>

@@ -1,0 +1,9 @@
+.reveal .slides section .fragment.highlight-bold,
+.reveal .slides section .fragment.highlight-current-bold {
+    opacity: 1;
+}
+
+.reveal .slides section .fragment.highlight-bold.visible,
+.reveal .slides section .fragment.highlight-current-bold.current-fragment {
+    font-weight: bold;
+}
