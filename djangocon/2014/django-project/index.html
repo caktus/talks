@@ -65,16 +65,6 @@
                     <li>Homebrewer</li>
                     <li>Runner/Triathelete</li>
                 </ul>
-            </section>
-
-            <section>
-                <h2>Introduction</h2>
-                <ul>
-                    <li>Technical Director at <a href="http://caktusgroup.com">Caktus Group</a> in Carborro, NC</li>
-                    <li>Co-Author of <a href="http://shop.oreilly.com/product/0636920032502.do">"Lightweight Django"</a> for O'Reilly</li>
-                    <li>Homebrewer</li>
-                    <li>Runner/Triathelete</li>
-                </ul>
                 <aside class="notes">
                     I'm here to answer one central question...
                 </aside>
@@ -90,12 +80,29 @@
 
             <section>
                 <h2>From the Tutorial</h2>
+
+                <blockquote cite="https://docs.djangoproject.com/en/1.7/intro/tutorial01/">
+                    What’s the difference between a project and an app? An app is a Web application that does something – e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular Web site. A project can contain multiple apps. An app can be in multiple projects.
+                </blockquote>
+
+                <aside class="notes">
+                    Pretty good high-level: apps provide a piece of functionality or interaction
+                    and a project configures and glues them together.
+
+                    This also a bit of a mess because it says an app is a web application but apps can't be run
+                    by themselves. They need to be configured by a project. So an app isn't a web application,
+                    a project is.
+                </aside>
+            </section>
+
+            <section>
+                <h2>From the Tutorial (Continued)</h2>
                 <blockquote cite="https://docs.djangoproject.com/en/1.7/intro/tutorial01/">
                     ..you’ll need to auto-generate some code that establishes a Django project – a collection of settings for an instance of Django, including database configuration, Django-specific options and application-specific settings.
                 </blockquote>
 
                 <aside class="notes">
-                    A project is what you get when you run "startproject".
+                    More low level: A project is what you get when you run "startproject".
                     Seems like a tautology to me.
 
                     Another sutble point in this wording is the use of the word "need" which
@@ -148,7 +155,7 @@ if __name__ == "__main__":
     execute_from_command_line(sys.argv)
                 </code></pre>
                 <div class="fragment" data-fragment-index="0">
-                    <h2>djano-admin.py</h2>
+                    <h2>django-admin.py</h2>
                     <pre><code class="python" data-trim>
 #!/usr/bin/env python
 from django.core import management
@@ -226,26 +233,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
             </section>
 
             <section>
-                <h2>settings.py Continued</h2>
-                <pre><code class="python" data-trim>
-...
-ROOT_URLCONF = 'myproject.urls'
-
-WSGI_APPLICATION = 'myproject.wsgi.application'
-...
-                </code></pre>
-
-                <aside class="notes">
-                    This is definately a collection of settings. No question that
-                    whatever a Django project is. This is part of it.
-
-                    Note that BASE_DIR says "Build paths inside the project like this"
-                    and points to the parent directory of this file. manage.py was in
-                    that folder...maybe it is part of the project?
-                </aside>
-            </section>
-
-            <section>
                 <h2>urls.py</h2>
                 <pre><code class="python" data-trim>
 from django.conf.urls import patterns, include, url
@@ -269,6 +256,314 @@ urlpatterns = patterns('',
 
                     This is based on 1.6 (admin lines are needed in 1.7)
                     1.8 will deprecate patterns and passing strings in to url
+                </aside>
+            </section>
+
+            <section>
+                <h2>wsgi.py</h2>
+                <pre><code class="python" data-trim>
+"""
+WSGI config for myproject project.
+
+It exposes the WSGI callable as a module-level variable named
+``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
+"""
+
+import os
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")
+
+from django.core.wsgi import get_wsgi_application
+application = get_wsgi_application()
+                </code></pre>
+
+                <aside class="notes">
+                    Similar to manage.py. Configures one environment variable and
+                    calls one function. Isn't really part of the Django project. This is
+                    an artifact the WSGI deployment.
+                </aside>
+            </section>
+
+            <section>
+                <h2>settings.py (Revisited)</h2>
+                <pre><code class="python" data-trim>
+...
+ROOT_URLCONF = 'myproject.urls'
+
+WSGI_APPLICATION = 'myproject.wsgi.application'
+...
+                </code></pre>
+
+                <aside class="notes">
+                    The ROOT_URLCONF and WSGI_APPLICATION are configured by the
+                    settings. These don't have to live where they are. They can
+                    live anywhere on the PYTHONPATH as long as these references
+                    are updated.
+
+                    So what are some questions about Django projects?
+                </aside>
+            </section>
+
+            <section>
+                <h2>Common Questions</h2>
+                <ul>
+                    <li>Where should site-wide templates/static resources live?</li>
+                    <li>Should apps live inside the project?</li>
+                    <li>Can a project have views?</li>
+                    <li>Can a project have models?</li>
+                </ul>
+                <aside class="notes">
+                    These all have one answer...
+                </aside>
+            </section>
+
+            <section>
+                <h2>Site-wide Templates</h2>
+                <p>Additional template locations can be defined using the
+                    <strong>TEMPLATE_DIRS</strong> setting</p>
+                <aside class="notes">
+                    By default this will be discovered by the loader before any app
+                    template directories. Can be used to override app templates or
+                    add additional templates. This is empty by default.
+
+                    Django does not care how many of these there are (can be more than one)
+                    or where they live on the file-system (you have to give the full path).
+                </aside>
+            </section>
+
+            <section>
+                <h2>Site-wide Static Resources</h2>
+                <p>Additional static locations can be defined using the
+                    <strong>STATICFILES_DIRS</strong> setting</p>
+                <aside class="notes">
+                    Nearly identical to templates.
+
+                    By default this will be discovered by the loader before any app
+                    static directories. This is empty by default.
+
+                    Django does not care how many of these there are (can be more than one)
+                    or where they live on the file-system (you have to give the full path).
+                </aside>
+            </section>
+
+                
+            <section>
+                <h2>App Location</h2>
+                <p>Django only cares that the app is on your <strong>PYTHONPATH</strong></p>
+                <aside class="notes">
+                    Django doesn't care and neither should you.
+
+                    A better question might be: should my "project" and my app be
+                    in the same code repository.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Project Views</h2>
+                <p>Django only cares that the view is importable</p>
+                 <aside class="notes">
+                    Django doesn't care and neither should you.
+
+                    If you want create a myproject/views.py you can do that. You
+                    don't need an new app but arguably you should created one.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Project Models</h2>
+                <p>Models must live inside of "apps"</p>
+                <aside class="notes">
+                    However, nothing is stopping you from creating a myproject/models.py
+                    and adding it to your installed apps other than the fact that it
+                    might confuse or upset other devs.
+
+                    All of these issues are easily addressed by creating an top-level app.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Alternative Project Layouts</h2>
+            </section>
+
+            <section>
+                <h2>App/Project Layout</h2>
+                <pre>
+newproject
+├── newproject
+│   ├── admin.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── static
+│   │   ├── css
+│   │   ├── img
+│   │   └── js
+│   ├── templates
+│   ├── tests.py
+│   └── views.py
+├── settings.py
+├── urls.py
+└── wsgi.py
+                </pre>
+                <aside class="notes">
+                    No manage.py
+                    Top level newproject is not a package.
+                    newproject namespace for settings/urls/wsgi is removed
+                    inner newproject package is now an app
+                </aside>
+            </section>
+
+            <section>
+                <h2>App Project Settings</h2>
+                <pre><code class="python" data-trim>
+...
+BASE_DIR = os.path.dirname(__file__)
+...
+INSTALLED_APPS = (
+    'newproject',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+)
+...
+ROOT_URLCONF = 'urls'
+
+WSGI_APPLICATION = 'wsgi.application'
+...
+                </code></pre>
+                <aside class="notes">
+                    BASE_DIR removes one parent directory reference
+
+                    newproject app is the first installed app so that its templates/static
+                    are discovered first by the loader.
+
+                    ROOT_URLCONF and WSGI_APPLICATION updated to remove the namespace.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Micro Project Layout</h2>
+                <pre>
+microproject
+└──  microproject.py
+                </pre>
+            </section>
+
+            <section>
+                <h2>Micro Project</h2>
+                <pre><code class="python" data-trim>
+import os
+import sys
+from django.conf.urls import url
+from django.http import HttpResponse
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", __name__)
+
+DEBUG = True
+
+SECRET_KEY = 'foo'
+
+ROOT_URLCONF = [
+    url(r'^$', lambda x: HttpResponse('Hello World'), ),
+]
+
+if __name__ == "__main__":
+    from django.core.management import execute_from_command_line
+
+    execute_from_command_line(sys.argv)
+
+                </code></pre>
+                <aside class="notes">
+                    Something like this has been done a number of times by now.
+
+                    Please don't do this but please know that this can be done.
+                    There are more realistic ways to make this work without impossible
+                    circular imports.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Micro App/Project Layout</h2>
+                <pre>
+microapp/
+├── microapp
+│   ├── admin.py
+│   ├── __init__.py
+│   ├── models.py
+│   ├── static
+│   ├── templates
+│   ├── tests.py
+│   └── views.py
+└── settings.py
+                </pre>
+                <aside class="notes">
+                    Run a single app project (micro-service)
+                </aside>
+            </section>
+
+            <section>
+                <h2>Micro App/Project Settings</h2>
+                <pre><code class="python" data-trim>
+...
+INSTALLED_APPS = (
+    'microapp',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+)
+...
+ROOT_URLCONF = 'microapp.urls'
+...
+WSGI_APPLICATION = 'microapp.application'
+...
+                </code></pre>
+                <aside class="notes">
+                    Uses only the urls from the app. WSGI application is defined
+                    in the microapp/__init__.py similar to the standard wsgi.py
+
+                    Other settings might be configured by the OS variables, config
+                    file parsing, etc
+                </aside>
+            </section>
+
+            <section>
+                <h2>microapp/__init__.py</h2>
+                <pre><code class="python" data-trim>
+import os
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
+
+from django.core.wsgi import get_wsgi_application
+
+application = get_wsgi_application()
+                </code></pre>
+                <aside class="notes">
+
+                </aside>
+            </section>
+
+            <section>
+                <h2>What is a Django project?</h2>
+                <p>There is no such thing as a Django project</p>
+                <aside class="notes">
+                    Please stop worrying and debating about this and let's make
+                    cool stuff with Django.
+
+                    Django settings define a "project" and a "project" **may** have more
+                    than one set of settings.
+
+                    Settings point to a ROOT_URLCONF which again there **can** be more
+                    than one.
+
+                    The myproject package is a namespacing convention and is in
+                    no way required.
                 </aside>
             </section>
 
@@ -297,6 +592,7 @@ urlpatterns = patterns('',
             progress: true,
             history: true,
             center: true,
+            slideNumber: true,
 
             theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
             transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
