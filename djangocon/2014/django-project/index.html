@@ -96,7 +96,7 @@
             </section>
 
             <section>
-                <h2>From the Tutorial (Continued)</h2>
+                <h2>From the Tutorial <br> (Continued)</h2>
                 <blockquote cite="https://docs.djangoproject.com/en/1.7/intro/tutorial01/">
                     ..you’ll need to auto-generate some code that establishes a Django project – a collection of settings for an instance of Django, including database configuration, Django-specific options and application-specific settings.
                 </blockquote>
@@ -180,8 +180,10 @@ if __name__ == "__main__":
                 <pre>
 (myproject)user@host:$ cd myproject/
 <span class="fragment highlight-bold">(myproject)user@host:$ add2virtualenv .</span>
-<span class="fragment highlight-bold">(myproject)user@host:$ echo "export DJANGO_SETTINGS_MODULE=myproject.settings" >> $VIRTUAL_ENV/bin/postactivate</span>
-<span class="fragment highlight-bold">(myproject)user@host:$ echo "unset DJANGO_SETTINGS_MODULE" >> $VIRTUAL_ENV/bin/postdeactivate</span>
+<span class="fragment highlight-bold">(myproject)user@host:$ echo "export DJANGO_SETTINGS_MODULE=myproject.settings" 
+        >> $VIRTUAL_ENV/bin/postactivate</span>
+<span class="fragment highlight-bold">(myproject)user@host:$ echo "unset DJANGO_SETTINGS_MODULE" 
+        >> $VIRTUAL_ENV/bin/postdeactivate</span>
 (myproject)user@host:$ deactivate
 user@host:$ workon myproject
 (myproject)user@host:$ rm manage.py
@@ -287,7 +289,7 @@ application = get_wsgi_application()
             </section>
 
             <section>
-                <h2>settings.py (Revisited)</h2>
+                <h2>settings.py <br> (Revisited)</h2>
                 <pre><code class="python" data-trim>
 ...
 ROOT_URLCONF = 'myproject.urls'
@@ -320,7 +322,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
             </section>
 
             <section>
-                <h2>Site-wide Templates</h2>
+                <h2>Site-wide <br> Templates</h2>
                 <p>Additional template locations can be defined using the
                     <strong>TEMPLATE_DIRS</strong> setting</p>
                 <aside class="notes">
@@ -334,7 +336,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
             </section>
 
             <section>
-                <h2>Site-wide Static Resources</h2>
+                <h2>Site-wide <br> Static Resources</h2>
                 <p>Additional static locations can be defined using the
                     <strong>STATICFILES_DIRS</strong> setting</p>
                 <aside class="notes">
@@ -357,6 +359,11 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
                     A better question might be: should my "project" and my app be
                     in the same code repository.
+
+                    If namespacing under the app makes sense to you do it.
+                    If not, then don't.
+
+                    Zen of Python would say "flat is better than nested."
                 </aside>
             </section>
 
@@ -384,7 +391,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
             </section>
 
             <section>
-                <h2>Alternative Project Layouts</h2>
+                <h2>Alternative <br> Project Layouts</h2>
             </section>
 
             <section>
@@ -408,8 +415,10 @@ newproject
                 </pre>
                 <aside class="notes">
                     No manage.py
-                    Top level newproject is not a package.
+                    Top level newproject is not a package
+                        - which caused double import problems pre 1.4
                     newproject namespace for settings/urls/wsgi is removed
+                        - could cause name collisions if multiple project on the PATH
                     inner newproject package is now an app
                 </aside>
             </section>
@@ -588,6 +597,8 @@ application = get_wsgi_application()
         // Full list of configuration options available here:
         // https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
+            width: 1020,
+            height: 800,
             controls: true,
             progress: true,
             history: true,
