@@ -392,13 +392,18 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
             <section>
                 <h2>Alternative <br> Project Layouts</h2>
+                <pre class="fragment">django-admin.py startproject newproject --template=&lt;path-to-tempalte&gt;</pre>
+                <aside class="notes">
+                    These are just sketches/skeletons but they can be made into
+                    full examples.
+                </aside>
             </section>
 
             <section>
                 <h2>App/Project Layout</h2>
                 <pre>
-newproject
-├── newproject
+project_name
+├── project_name
 │   ├── admin.py
 │   ├── __init__.py
 │   ├── models.py
@@ -415,11 +420,11 @@ newproject
                 </pre>
                 <aside class="notes">
                     No manage.py
-                    Top level newproject is not a package
+                    Top level dir is not a package
                         - which caused double import problems pre 1.4
-                    newproject namespace for settings/urls/wsgi is removed
+                    project_name namespace for settings/urls/wsgi is removed
                         - could cause name collisions if multiple project on the PATH
-                    inner newproject package is now an app
+                    inner project_name package is now an app
                 </aside>
             </section>
 
@@ -430,7 +435,7 @@ newproject
 BASE_DIR = os.path.dirname(__file__)
 ...
 INSTALLED_APPS = (
-    'newproject',
+    '{{ project_name }}',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -457,8 +462,8 @@ WSGI_APPLICATION = 'wsgi.application'
             <section>
                 <h2>Micro Project Layout</h2>
                 <pre>
-microproject
-└──  microproject.py
+project_name
+└──  project_name.py
                 </pre>
             </section>
 
@@ -496,46 +501,49 @@ if __name__ == "__main__":
             </section>
 
             <section>
-                <h2>Micro App/Project Layout</h2>
+                <h2>Turn-key App Layout</h2>
                 <pre>
-microapp/
-├── microapp
+project_name/
+├── project_name
 │   ├── admin.py
 │   ├── __init__.py
 │   ├── models.py
 │   ├── static
 │   ├── templates
 │   ├── tests.py
-│   └── views.py
-└── settings.py
+│   ├── views.py
+│   └── wsgi.py
+└── setup.py
                 </pre>
                 <aside class="notes">
-                    Run a single app project (micro-service)
+                    Run a single app project (micro-service).
+
+                    Usable as both a reusable app and standalone WSGI application.
                 </aside>
             </section>
 
             <section>
-                <h2>Micro App/Project Settings</h2>
+                <h2>Turn-key App wsgi.py</h2>
                 <pre><code class="python" data-trim>
-...
-INSTALLED_APPS = (
-    'microapp',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-)
-...
-ROOT_URLCONF = 'microapp.urls'
-...
-WSGI_APPLICATION = 'microapp.application'
-...
+from django.conf import settings
+
+
+if not settings.configured:
+    # Default settings
+    settings.configure(
+        ROOT_URLCONF='{{ project_name }}.urls',
+        INSTALLED_APPS=(
+            '{{ project_name }',
+            ...
+        ),
+    )
+
+from django.core.wsgi import get_wsgi_application
+
+application = get_wsgi_application()
                 </code></pre>
                 <aside class="notes">
-                    Uses only the urls from the app. WSGI application is defined
-                    in the microapp/__init__.py similar to the standard wsgi.py
+                    Uses only the urls from the app.
 
                     Other settings might be configured by the OS variables, config
                     file parsing, etc
@@ -543,18 +551,19 @@ WSGI_APPLICATION = 'microapp.application'
             </section>
 
             <section>
-                <h2>microapp/__init__.py</h2>
-                <pre><code class="python" data-trim>
-import os
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings")
-
-from django.core.wsgi import get_wsgi_application
-
-application = get_wsgi_application()
-                </code></pre>
+                <h2>Turn-key App Deployment</h2>
+                <pre>
+(trun-key)user@host:$ pip install project_name gunicorn
+(trun-key)user@host:$ gunicorn project_name.wsgi
+                </pre>
                 <aside class="notes">
+                    Again this requires sane defaults with some configuration via
+                    OS (or config file).
 
+                    Has the ability for full settings override.
+
+                    I would love to set this for blog/CMS apps which are already
+                    blur the line between app/project
                 </aside>
             </section>
 
