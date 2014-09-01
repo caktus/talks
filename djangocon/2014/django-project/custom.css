@@ -7,3 +7,8 @@
 .reveal .slides section .fragment.highlight-current-bold.current-fragment {
     font-weight: bold;
 }
+
+.reveal pre {
+    font-size: .65em;
+}
+
