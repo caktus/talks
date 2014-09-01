@@ -79,34 +79,27 @@
             </section>
 
             <section>
-                <h2>From the Tutorial</h2>
-
-                <blockquote cite="https://docs.djangoproject.com/en/1.7/intro/tutorial01/">
-                    What’s the difference between a project and an app? An app is a Web application that does something – e.g., a Weblog system, a database of public records or a simple poll app. A project is a collection of configuration and apps for a particular Web site. A project can contain multiple apps. An app can be in multiple projects.
-                </blockquote>
+                <img src="2432400623_9081e8433d_b.jpg" >
 
                 <aside class="notes">
-                    Pretty good high-level: apps provide a piece of functionality or interaction
-                    and a project configures and glues them together.
+                    Apps provide a piece of functionality or interaction.
 
-                    This also a bit of a mess because it says an app is a web application but apps can't be run
-                    by themselves. They need to be configured by a project. So an app isn't a web application,
-                    a project is.
+                    Some apps are reusable and some of them aren't like those
+                    custom Lego pieces.
+
+                    Many apps can't really run on their own and need other apps
+                    and some global (framework) configuration.
                 </aside>
             </section>
 
             <section>
-                <h2>From the Tutorial <br> (Continued)</h2>
-                <blockquote cite="https://docs.djangoproject.com/en/1.7/intro/tutorial01/">
-                    ..you’ll need to auto-generate some code that establishes a Django project – a collection of settings for an instance of Django, including database configuration, Django-specific options and application-specific settings.
-                </blockquote>
+                <img src="4074047756_e00864e98f_o.jpg" >
 
                 <aside class="notes">
-                    More low level: A project is what you get when you run "startproject".
-                    Seems like a tautology to me.
+                    A project configures and glues apps together.
 
-                    Another sutble point in this wording is the use of the word "need" which
-                    makes "startproject" seem like a requirement. We'll that this isn't true.
+                    This is a high level idea but most people first encounter a "project"
+                    via startproject.
                 </aside>
             </section>
 
@@ -225,7 +218,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
                 </code></pre>
 
                 <aside class="notes">
-                    This is definately a collection of settings. No question that
+                    This is definitely a collection of settings. No question that
                     whatever a Django project is. This is part of it.
 
                     Note that BASE_DIR says "Build paths inside the project like this"
@@ -309,22 +302,33 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
             </section>
 
             <section>
-                <h2>Common Questions</h2>
-                <ul>
-                    <li>Where should site-wide templates/static resources live?</li>
-                    <li>Should apps live inside the project?</li>
-                    <li>Can a project have views?</li>
-                    <li>Can a project have models?</li>
-                </ul>
+                <img src="65098350_b7bd96fc38_b.jpg" >
+
                 <aside class="notes">
+                    Common Questions
+
+                    Where should site-wide templates/static resources live?
+                    Should apps live inside the project?
+                    Can a project have views?
+                    Can a project have models?
+
                     These all have one answer...
                 </aside>
             </section>
 
             <section>
-                <h2>Site-wide <br> Templates</h2>
-                <p>Additional template locations can be defined using the
-                    <strong>TEMPLATE_DIRS</strong> setting</p>
+                <img src="4498944830_52803a9533_o.jpg" >
+
+                <aside class="notes">
+                    There is no such thing as a Django project. There
+                    are only settings files. Any given project/deployment is likely
+                    to have more than on set of settings.
+                </aside>
+            </section>
+
+            <section>
+                <h2>TEMPLATE_DIRS</h2>
+
                 <aside class="notes">
                     By default this will be discovered by the loader before any app
                     template directories. Can be used to override app templates or
@@ -336,9 +340,8 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
             </section>
 
             <section>
-                <h2>Site-wide <br> Static Resources</h2>
-                <p>Additional static locations can be defined using the
-                    <strong>STATICFILES_DIRS</strong> setting</p>
+                <h2>STATICFILES_DIRS</h2>
+
                 <aside class="notes">
                     Nearly identical to templates.
 
@@ -352,10 +355,13 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
                 
             <section>
-                <h2>App Location</h2>
-                <p>Django only cares that the app is on your <strong>PYTHONPATH</strong></p>
+
+                <img src="3985839229_071cafa948_o.jpg" >
+
                 <aside class="notes">
-                    Django doesn't care and neither should you.
+                    Django only cares that the app is on your PYTHONPATH.
+
+                    Namespaces are optional.
 
                     A better question might be: should my "project" and my app be
                     in the same code repository.
@@ -367,7 +373,7 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
                 </aside>
             </section>
 
-            <section>
+<!--             <section>
                 <h2>Project Views</h2>
                 <p>Django only cares that the view is importable</p>
                  <aside class="notes">
@@ -388,11 +394,19 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
                     All of these issues are easily addressed by creating an top-level app.
                 </aside>
+            </section> -->
+
+            <section>
+                <img src="5557452102_dc567bbb9e_o.jpg">
+
+                <aside class="notes">
+                    Proposed alternative layouts
+                </aside>
             </section>
 
             <section>
-                <h2>Alternative <br> Project Layouts</h2>
-                <pre class="fragment">django-admin.py startproject newproject --template=&lt;path-to-tempalte&gt;</pre>
+                <h2>startproject Templates</h2>
+                <pre>django-admin.py startproject newproject --template=&lt;path-to-tempalte&gt;</pre>
                 <aside class="notes">
                     These are just sketches/skeletons but they can be made into
                     full examples.
@@ -404,8 +418,8 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
                 <pre>
 project_name
 ├── project_name
-│   ├── admin.py
 │   ├── __init__.py
+│   ├── admin.py
 │   ├── models.py
 │   ├── static
 │   │   ├── css
@@ -429,7 +443,7 @@ project_name
             </section>
 
             <section>
-                <h2>App Project Settings</h2>
+                <h2>App/Project Settings</h2>
                 <pre><code class="python" data-trim>
 ...
 BASE_DIR = os.path.dirname(__file__)
@@ -501,12 +515,12 @@ if __name__ == "__main__":
             </section>
 
             <section>
-                <h2>Turn-key App Layout</h2>
+                <h2>Turnkey App Layout</h2>
                 <pre>
 project_name/
 ├── project_name
-│   ├── admin.py
 │   ├── __init__.py
+│   ├── admin.py
 │   ├── models.py
 │   ├── static
 │   ├── templates
@@ -523,7 +537,7 @@ project_name/
             </section>
 
             <section>
-                <h2>Turn-key App wsgi.py</h2>
+                <h2>Turnkey App wsgi.py</h2>
                 <pre><code class="python" data-trim>
 from django.conf import settings
 
@@ -551,7 +565,7 @@ application = get_wsgi_application()
             </section>
 
             <section>
-                <h2>Turn-key App Deployment</h2>
+                <h2>Turnkey App Deployment</h2>
                 <pre>
 (trun-key)user@host:$ pip install project_name gunicorn
 (trun-key)user@host:$ gunicorn project_name.wsgi
@@ -568,8 +582,8 @@ application = get_wsgi_application()
             </section>
 
             <section>
-                <h2>What is a Django project?</h2>
-                <p>There is no such thing as a Django project</p>
+                <img src="5609962642_7c1ff4ebd3_b.jpg" >
+
                 <aside class="notes">
                     Please stop worrying and debating about this and let's make
                     cool stuff with Django.
@@ -583,6 +597,21 @@ application = get_wsgi_application()
                     The myproject package is a namespacing convention and is in
                     no way required.
                 </aside>
+            </section>
+
+            <section>
+                <h2>Photo Credits</h2>
+                <ul>
+                    <li>https://www.flickr.com/photos/bdesham/2432400623</li>
+                    <li>https://www.flickr.com/photos/toomuchdew/4074047756</li>
+                    <li>https://www.flickr.com/photos/calavera/65098350/</li>
+                    <li>https://www.flickr.com/photos/starsalive/4498944830/</li>
+                    <li>https://www.flickr.com/photos/macbeck/3985839229/</li>
+                    <li>https://www.flickr.com/photos/alexblanck/5557452102/</li>
+                    <li>https://www.flickr.com/photos/cdevers/5609962642/</li>
+                    <!-- Templates -->
+                    <!-- <li>https://www.flickr.com/photos/hadesigns/4011469179/</li> -->
+                </ul>
             </section>
 
             <section>
@@ -606,8 +635,8 @@ application = get_wsgi_application()
         // Full list of configuration options available here:
         // https://github.com/hakimel/reveal.js#configuration
         Reveal.initialize({
-            width: 1020,
-            height: 800,
+            width: 1280,
+            height: 720,
             controls: true,
             progress: true,
             history: true,
