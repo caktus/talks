@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Data Visualization | Tracking Packages with Ona, Celery, and Leaflet</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+		<!-- Caktus specific styles -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+
+		<!-- table customizations -->
+		<link rel="stylesheet" href="./custom.css">
+
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<aside class="logo">
+				<img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+			</aside>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Data Visualization</h2>
+					<h3>Tracking Packages with Ona, Celery, and Leaflet</h3>
+					<p>
+						<small>David Ray</small>
+					</p>
+					<p>
+						<small>September 18, 2014</small>
+					</p>
+				</section>
+
+				<section>
+					<h2>Background</h2>
+					<ul>
+						<li>Shipments contain Packages with QR Codes</li>
+						<li>Packages are scanned with mobile devices</li>
+						<li>Where is my stuff and how did it get here?</li>
+					</ul>
+				</section>
+
+				<section>
+				  <img src="components.jpg" >
+					<p>
+						<small>CC BY-SA 2.0 <a href="https://www.flickr.com/photos/filu/4899342532/">Filip Federowicz</a></small>
+					</p>
+				</section>
+
+
+				<section>
+					<h2>Ona</h2>
+					<p>SAAS for data collection from mobile/web devices</p>
+				</section>
+
+				<section>
+					<h2>Ona</h2>
+					<p>Form defined via XLSForm</p>
+				</section>
+
+				<section>
+					<h2>Ona</h2>
+<table cellspacing="0">
+  <thead>
+    <tr>
+      <th>survey</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>&nbsp;</td>
+      <td>type</td>
+      <td>name</td>
+      <td>label</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>select_multiple pizza_toppings</td>
+      <td>favorite_toppings</td>
+      <td>What are your favorite pizza toppings?</td>
+    </tr>
+    <tr>
+      <td><strong>choices</strong></td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>list name</td>
+      <td>name</td>
+      <td>label</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>pizza_toppings</td>
+      <td>cheese</td>
+      <td>Cheese</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>pizza_toppings</td>
+      <td>pepperoni</td>
+      <td>Pepperoni</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>pizza_toppings</td>
+      <td>sausage</td>
+      <td>Sausage</td>
+    </tr>
+  </tbody>
+</table>
+				</section>
+
+				<section>
+					<h2>Ona</h2>
+					<p>API via Django Rest Framework</p>
+				</section>
+
+
+				<section>
+				  <img src="haz_sad.jpg" >
+				</section>
+
+				<section>
+					<h2>ODKCollect</h2>
+					<ul>
+						<li>Android App for offline mobile data collection</li>
+					</ul>
+
+				</section>
+
+				<section>
+					<h2>ODKCollect</h2>
+					<ul>
+						<li>Android App for offline mobile data collection</li>
+						<li>VERY important as phones do not have SIM card</li>
+					</ul>
+				</section>
+
+
+				<section>
+					<h2>Celery</h2>
+					<p>Task to ingest and record form submissions to the app database</p>
+				</section>
+
+				<section>
+					<h2>Celery</h2>
+
+				<pre><code class="python" data-trim>
+@app.task
+def update_package_locations():
+    """Updates the local database with new package tracking form submissions"""
+    form_id = settings.ONA_PACKAGE_FORM_ID
+    client = OnaApiClient()
+    submissions = client.get_form_submissions(form_id)
+    for data in submissions:
+        submission = PackageLocationFormSubmission(data)
+        if not FormSubmission.objects.filter(uuid=submission._uuid).exists():
+            FormSubmission.from_ona_form_data(submission)
+				</code></pre>
+				</section>
+
+				<section>
+					<h2>Models</h2>
+					<ul>
+						<li>FormSubmission model with Hstore field</li>
+						<li>Location model with GPS coords</li>
+						<li>Record location instance for each package scan per form submission</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Maps</h2>
+					<p>Integration via django-leaflet</p>
+				</section>
+
+				<section>
+					<h2>Maps</h2>
+					<p>Renders unique locations (lat/lng) per shipment</p>
+				</section>
+
+				<section>
+					<h2>Maps Issues</h2>
+					<ul>
+						<li>1000s of points to render</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Maps Issues</h2>
+					<ul>
+						<li>1000s of points to render</li>
+						<li>Use Leaflet.markercluster to mitigate</li>
+					</ul>
+				</section>
+
+				<section>
+				  <img src="cluster1.png" >
+				</section>
+
+				<section>
+				  <img src="cluster2.png" >
+				</section>
+
+
+				<section>
+					<h2>Maps Issues</h2>
+					<ul>
+						<li>django-leaflet configuration limited</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Maps Issues</h2>
+					<ul>
+						<li>django-leaflet configuration limited</li>
+						<li>Custom JS callback to inject additional configuration</li>
+					</ul>
+				</section>
+
+
+				<section>
+
+				<pre><code class="JAVASCRIPT" data-trim>
+function render_map(map, data) {
+	var Polylines = {};
+	var markers = new L.MarkerClusterGroup();
+
+	// marker creation goes here
+
+	map.addLayer(markers);
+	var en = L.tileLayer('http://.../osm-labels-en/{z}/{x}/{y}.png'), 'English';
+	var ar = L.tileLayer('http://.../osm-labels-ar/{z}/{x}/{y}.png'), 'Arabic';
+	map.layerscontrol.addOverlay(en);
+	map.layerscontrol.addOverlay(ar), 'Arabic');
+}                </code></pre>
+				</section>
+
+				<section>
+				  <img src="controls.png" >
+				</section>
+
+
+
+				<section>
+					<h2>Links!</h2>
+					<p><a href="https://ona.io/">https://ona.io/</a></p>
+					<p><a href="http://xlsform.org/">http://xlsform.org/</a></p>
+					<p><a href="https://play.google.com/store/apps/details?id=org.odk.collect.android&hl=en">https://play.google.com/store/apps/details?id=org.odk.collect.android&hl=en</a></p>
+					<p><a href="http://leafletjs.com/">http://leafletjs.com/</a></p>
+					<p><a href="https://github.com/djangonauts/django-hstore">https://github.com/djangonauts/django-hstore</a></p>
+					<p><a href="https://github.com/makinacorpus/django-leaflet">https://github.com/makinacorpus/django-leaflet</a></p>
+					<p><a href="https://github.com/Leaflet/Leaflet.markercluster">https://github.com/Leaflet/Leaflet.markercluster</a></p>
+				</section>
+
+				<section>
+				  <h2>Questions!??!?</h2>
+				</section>
+
+				<section>
+				  <img src="demo_time.jpg" >
+				</section>
+
+
+			</div>
+
+		</div>
+
+		<script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+		<script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
