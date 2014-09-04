@@ -17,8 +17,8 @@ Directory
         * `OpenBlock: Overview and Initial Experience <http://talks.caktusgroup.com/djangocon/2012/openblock>`_
         * `Is Django for Designers? <http://lanyrd.com/2012/djangocon-us/sxbyd/>`_
     * 2014
-        * `Anatomy of a Django Project <http://talks.caktusgroup.com/djangocon/2014/django-project/`_
-        * `What is the Django admin good for? <http://talks.caktusgroup.com/djangocon/2014/django-admin/`_
+        * `Anatomy of a Django Project <http://talks.caktusgroup.com/djangocon/2014/django-project/>`_
+        * `What is the Django admin good for? <http://talks.caktusgroup.com/djangocon/2014/django-admin/>`_
 * PyCarolinas
     * 2012
         * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating_designers_into_dev_cycle>`_
