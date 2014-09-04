@@ -1,0 +1,32 @@
+Speakers
+Mark Lavin (markdlavin@gmail.com)
+Description
+Have you ever written or used an API wrapper for a webservice? REST is a client-server architecture model and building the server is only half of the challenge. This talk will walk through some of the challenges of building a REST client, describe some best practices and some patterns to avoid, and discuss how we can all work to build better APIs for an open web.
+
+Session type: 40-minute conference session
+Topics: Tools & Techniques
+Abstract
+Many popular services have APIs marketed as RESTful. This term is used with varying degrees of truth. While some services provide and maintain API client wrappers in various programming languages, more often this falls on the larger open source community. Making these useful libraries and keeping them up to date with the latest API changes has its problems and challenges. Some of the problems have to do with the constraints of REST but many come from the rarely implemented and often misunderstood HATEOAS (Hypermedia as the Engine of Application State) principles. This talk will walk through these challenges with examples of the good and bad of what is out there on the client and server side. In the end I hope this talk will inspire API developers on both sides (client and server) to consider how they can work better together. After all what’s a REST server without a client?
+
+Outline
+
+Welcome/Introduction
+Description of REST
+Brief History
+Constraints
+Promises/Gains
+Challenges for the Client
+Faux-RESTful servers (With Examples)
+Weak HTTP support (DELETE/PUT)
+Managing state
+Common Mistakes Problems
+Clients as glorified URL builders
+Forgetting about caching
+Best Practices
+Translate resources and metadata into useful objects
+Ensure proper use of the cache headers
+Avoid coding paths (when possible)
+Appeal for Change:
+API writers: Write a client with meaningful examples
+Client writers: Demand better from the API
+Conclusion/Thanks
