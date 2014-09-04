@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>What is the Django admin good for?</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+    <!-- Caktus specific styles -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
+
+    <!-- Minor style customizations -->
+    <link rel="stylesheet" href="custom.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="reveal">
+        <aside class="logo">
+            <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+        </aside>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h1 style="font-size: 3.2em;">What is the Django admin good for?</h1>
+                <h2 style="font-size: 1.8em; margin-top: 2em;">Karen Tracey<br/>DjangoCon US 2014</h2>
+            </section>
+
+            <section>
+                <h2>Who am I?</h2>
+                <ul>
+                    <li>Using Django since 2006</li>
+                    <ul>
+                        <li>Crossword DB</li>
+                        <li>Cat tracker</li>
+                    </ul>
+                    <li>Core developer since 2008</li>
+                    <li>Working at Caktus since 2010</li>
+                    <ul>
+                        <li>~Dozen client web sites</li>
+                        <li>Varied admin use</li>
+                    </ul>
+                </ul>
+            </section>
+
+            <section>
+                <section>
+                    <h2>What is Django admin?</h2>
+                    <ul>
+                        <li>Django's "killer app"</li>
+                        <li>Easy BREAD interface</li>
+                    </ul>
+                    <div class="fragment" style="margin-top: 1em;">
+                        <img src="default-login.png" alt="Login dialog" />
+                    </div>
+                </section>
+                <section>
+                    <h2>Index page</h2>
+                    <img src="default-index.png" alt="Index page" />
+                </section>
+                <section>
+                    <h2>List view</h2>
+                    <img src="default-list-view.png" alt="List view" />
+                </section>
+                <section>
+                    <h2>Edit page</h2>
+                    <img src="default-user-edit.png" alt="User edit" />
+                </section>
+            </section>
+
+            <section>
+                <h2>Who should use admin?</h2>
+                <ul>
+                    <li class="fragment" style="color: #7fff00;">Developers</li>
+                    <li class="fragment" style="color: yellow;">Site admins</li>
+                    <li class="fragment" style="color: #cd0000;">End users</li>
+                </ul>
+            </section>
+            <section>
+                <section>
+                    <h2>Easy base customization</h2>
+                    <pre><code class="python" data-trim>
+from django.contrib import admin
+
+admin.site.site_header = "Karen's Crossword DB"
+admin.site.site_title = "Crossword DB admin"
+admin.site.index_title = \
+    "Crossword DB site administration"
+                    </code></pre>
+                    <p class="fragment">(Easy new in Django 1.7)</p>
+                </section>
+                <section>
+                    <h2>Custom login</h2>
+                    <img src="custom-login.png" alt="Custom login" />
+                </section>
+                <section>
+                    <h2>Custom index page</h2>
+                    <img src="custom-index-page.png" alt="Custom login" />
+                </section>
+            </section>
+
+            <section>
+                <h2>ModelAdmin objects</h2>
+                <ul>
+                    <li>Representation of model in admin</li>
+                    <li>Usually defined in admin.py</li>
+                    <li>Registered with the admin site</li>
+                    <li>Many many many options</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>ModelAdmin example</h2>
+                <pre><code class="python" data-trim>
+from django.contrib import admin
+from .models import Cat
+from .filters import ActiveFosterHomesFilter
+
+# 1.7: @admin.register(Cat)
+class CatAdmin(admin.ModelAdmin):
+    list_display = ('name', 'intake_date', ...)
+    list_filter = ('status', 'avail',
+        ActiveFosterHomesFilter, ...)
+    list_editable = ('avail',)
+    search_fields = ('name', 'adopted_name',
+        'group__name', 'group__back_story',
+        'adopter__name',)
+    ...
+admin.site.register(Cat, CatAdmin) # pre-1.7
+                </code></pre>
+            </section>
+            <section>
+                <section>
+                    <h2>Custom list page</p>
+                    <img src="custom-list-page.png" alt="Custom list page" />
+                </section>
+
+                <section>
+                    <h2>list_display</h2>
+                    <ul>
+                        <li>May be simple field name</li>
+                        <li>...or callable specified umpteen different ways</li>
+                        <li>Callables take object instance as parameter</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Example: alter date</h2>
+                    <p>Method on the model, 'alter_date' in list_display</p>
+                    <pre><code class="python" data-trim>
+def alter_date(self):
+    if self.sn_date:
+        return dateformat.format(self.sn_date, "M j")
+    else:
+        return \
+            '<span style="color: red;">%s</span>' % \
+            dateformat.format(
+                self.alter_week_asdate(), "M j")
+alter_date.allow_tags = True
+alter_date.admin_order_field = 'est_dob'
+alter_date.short_description = \
+    mark_safe('Alter</br>date')
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>list_filter</h2>
+                    <ul>
+                        <li>May be simple field</li>
+                        <li>...or custom filter code</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>ActiveFosterHomeFilter (1 of 2)</h2>
+                    <pre><code class="python" data-trim>
+from django.contrib.admin import SimpleListFilter
+
+def fh_tuple(fh):
+    # returns tuple of fh.pk and 
+    # human-readable description
+
+class ActiveFosterHomesFilter(SimpleListFilter):
+    title = u'foster home'
+    parameter_name = u'fh'
+
+    def lookups(self, request, model_admin):
+        return [fh_tuple(fh) for fh in
+            FosterHome.objects.filter(active=True)]
+    ...
+                    </code></pre>
+                </section>
+                <section>
+                    <h2>ActiveFosterHomeFilter (2 of 2)</h2>
+                    <pre><code class="python" data-trim>
+class ActiveFosterHomesFilter(SimpleListFilter):
+    ...
+    def queryset(self, request, qs):
+        if self.value():
+            qs = qs.filter(
+                foster_home__pk=self.value())
+        return qs
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>search_fields</h2>
+                    <ul>
+                        <li>May be simple field</li>
+                        <li>May span relationships with __ syntax</li>
+                        <li>e.g.: adopter__name</li>
+                        <li>Prefixes ^=@ can alter search behavior</li>
+                        <li>Admin does not automatically describe what is searched</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Describing search</h2>
+                    <p>Custom cats/templates/admin/ctrac/cat/change_list.html</p>
+                    <pre>
+{% extends "admin/change_list.html" %}
+{% block search %}
+    Search on cat's name, adopted name, adopter's name,
+    description, notes, group name and back story:
+    {{ block.super }}
+{% endblock %}
+                    </pre>
+                </section>
+            </section>
+
+            <section>
+            <section>
+                <h2>Customizing edit</h2>
+                <ul>
+                    <li>fieldsets to organize fields</li>
+                    <li>readonly_fields to show but not allow edit</li>
+                    <li>inlines to show related objects</li>
+                    <li>custom form for additional control</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Fieldsets</h2>
+                <ul>
+                    <li>List of 2-tuples describing sets of fields</li>
+                    <li>First is name string (can be empty)</li>
+                    <li>Second is dict of "options"</li>
+                    <li>Expected keys in dict include fields and classes</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Fieldsets example</h2>
+                <pre><code class="python" data-trim>
+fieldsets = (
+    ('', {
+        'fields':
+            (('name', 'intake_date', 'foster_home',),
+             ('test_date', 'sn_date',),
+             ('adopted_name', 'adoption_date',
+                'adopter'))
+    }),
+    ('Description', {
+        'fields':
+            (('type', 'sex'),
+             ('desc', 'markings'),),
+        'classes': ('collapse',)
+    }),
+)
+                </code></pre>
+                <p>Can get painful!</p>
+            </section>
+
+            <section>
+                <h2>readonly_fields</h2>
+                <ul>
+                    <li>List of "fields" to display but exclude from form</li>
+                    <li>May be callable</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Inlines</h2>
+                <p>Show and allow add/edit/delete of related objects</p>
+                <pre><code class="python" data-trim>
+class InlineAdoptedCat(admin.TabularInline):
+    model = Cat
+    fields = ('name', 'adopted_name', 'microchip_info')
+    readonly_fields = ('name', 'microchip_info')
+    max_num = 0
+    can_delete = False
+
+class CaretakerAdmin(admin.ModelAdmin):
+    ....
+    inlines = [InlinePhone, InlineEmail,
+        InlineAdoptedCat]
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Inlines example</h2>
+                <img src="inline-example.png" alt="Inlines example" />
+            </section>
+            </section>
+
+            <section>
+            <section>
+                <h2>Bulk editing</h2>
+                <ul>
+                    <li>Limited via list_editable</li>
+                    <li>Admin actions very flexible</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Admin actions</h2>
+                <pre><code class="python" data-trim>
+actions = ['vax_cats', 'test_cats', 'move_cats', ...]
+
+def vax_cats(self, request, queryset):
+    selected = ['%s' % pk for pk in
+        queryset.values_list('pk', flat=True)]
+    return HttpResponseRedirect("%s?cpk=%s" % \
+        (reverse('ctrac_vaxcats'), ",".join(selected)))
+vax_cats.short_description = 'Vax selected cats'
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Actions: selecting</h2>
+                <img src="select-cats.png" alt="Select cats" />
+            </section>
+
+            <section>
+                <h2>Actions: next page</h2>
+                <img src="vax-cats.png" alt="Vax cats" />
+            </section>
+            </section>
+
+            <section>
+            <section>
+                <h2>Access control - groups</h2>
+                <p>Groups and permissions for broad access control</p>
+                <img src="group-permissions.png" alt="Group permissions" />
+                </section>
+                <section>
+                <h2>Advanced access control</h2>
+                <ul>
+                    <li>Model admin methods to fetch most of the various options on a per-request basis</li>
+                    <li>Example: allow user edit but not superuser field access to non-superusers</li>
+                </ul>
+            </section>
+            </section>
+
+            <section>
+                <h2>Limits of Admin</h2>
+                <ul>
+                    <li>No "reporting"</li>
+                    <li>No "workflow"</li>
+                    <li>No "dashboard"</li>
+                    <li>No nested inlines (#9025)</li>
+                    <li>Does not look like your site</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Moving beyond admin</h2>
+                <ul>
+                    <li>Model forms...you've likely already got them</li>
+                    <li>CSS frameworks, form presentation helpers</li>
+                    <li>Custom code, crib from admin!</li>
+                </ul>
+            </section>
+            <section>
+                <h2>Questions?</h2>
+                <img src="hickory2.jpeg" alt="Kitten Hickory" />
+            </section>
+        </div>
+
+    </div>
+
+    <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+    <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+    <script>
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            width: 1020,
+            height: 800,
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: true,
+
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+.reveal section p,
+.reveal section ul li {
+    margin-top: .3em;
+    font-size: 1.2em;
+    letter-spacing: 0em;
+}
+
+.reveal pre {
+    font-size: .9em;
+    width: 100%;
+}
+
+.reveal pre code {
+    max-height: 645px;
+}
