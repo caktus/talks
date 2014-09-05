@@ -21,7 +21,7 @@ Directory
         * `What is the Django admin good for? <http://talks.caktusgroup.com/djangocon/2014/django-admin/>`_
 * PyCarolinas
     * 2012
-        * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating_designers_into_dev_cycle>`_
+        * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating-designers>`_
         * `Maintaining Your Sanity While Maintaining Your Open Source App <http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity>`_
         * `Working with Designers <http://lanyrd.com/2012/pycarolinas/syhmt/>`_
 * Lightning Talks
