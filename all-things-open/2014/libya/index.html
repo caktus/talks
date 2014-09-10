@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Text Message Nation: SMS Voter Registration in Libya</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+		<!-- Caktus specific styles -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+
+		<!-- For fullscreen images (optional, uncomment this and JS below to enable) -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<aside class="logo">
+            	<img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+        	</aside>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>SMS Voter Registration</h1>
+					<h3>How Libya's Election Process is Better than the United States'</h3>
+					<p>
+						<small><a href="https://twitter.com/tobiasmcnulty">@TobiasMcNulty</a></small>
+					</p>
+				</section>
+
+				<section>
+					<h1>US Election Tech is<br>Antiquated</h1>
+					<aside class="notes">
+						<ul>
+							<li>50 different systems, sets of requirements</li>
+							<li>nationwide complexity - difficult and costly to administer</li>
+		                    <li>(pause)</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Libya SMS Voter Registration</h2>
+					<ul>
+						<li>Open Source Components</li>
+						<li>User-centered design</li>
+						<li>Agile, Rigorous TDD</li>
+				    <ul>
+					<aside class="notes">
+						<ul>
+							<li>Libya used SMS (text messages) for voter registration</li>
+							<li>proof of concept for Feb 2014 CDA, 1M vs 10,000</li>
+							<li>despite conflict & attempted coup (elec moved 1 mo), 500k more registrants, June 2014 CoR</li>
+							<li>due to success of SMS voter reg, forewent in-person for CoR in June (pause)</li>
+							<li>what I hope to show today: process was agile, product was agile -> adapt quickly</li>
+						    <li>furthermore: success due to open source tools, dev practices (pause)</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Outline</h2>
+					<ul>
+						<li>The Country</li>
+						<li>The Project</li>
+						<li>Open Source Culture</li>
+						<li>US Comparisons</li>
+						<li>Q & A</li>
+						<li>Closing Remarks</li>
+				    <ul>
+					<aside class="notes">
+						<ul>
+							<li>short overview of talk</li>
+							<li>libya & project context</li>
+							<li>look more closely at open source tools, dev practices</li>
+							<li>briefly compare this to the US</li>
+							<li>time for QA, after which will close talk</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>The Country</h1>
+					<aside class="notes">
+						<ul>
+							<li>Libya the country</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-derna-protests.jpg">
+				<!-- image from http://www.universityobserver.ie/2012/01/01/a-year-in-review-the-biggest-news-stories-of-2011/libya-3/ -->
+					<aside class="notes">
+						<ul>
+							<li>protests throughout 2011</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libyan-rebels.jpg">
+				<!-- image from http://en.ria.ru/images/16337/07/163370785.jpg -->
+					<aside class="notes">
+						<ul>
+							<li>led to overthrow & death of Gaddafi, 10/20/11</li>
+							<li>young democracy, many and growing challenges</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libyan-desert.png" fullscreen-size="contain">
+				<!-- image from http://en.wikipedia.org/wiki/Libya#mediaviewer/File:Libya_sat.jpg -->
+					<aside class="notes">
+						<ul>
+							<li>large country 12x NC, 2/3rds pop</li>
+							<li>many communities separated by expansive desert</li>
+							<li>in spite of, because of, OS software, methods best fit</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/Libya-SMS-RapidSMS-text-message-voter-registration.jpg">
+				<!-- image from http://www.caktusgroup.com/case-study/libya-SMS-text-message-voter-registration/ -->
+					<h1>The Project</h1>
+					<aside class="notes">
+						<ul>
+							<li>some of these same reasons - remote, need to register quickly led to use of SMS</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>February 20, 2014</h2>
+					<h4>Constitutional Drafting Assembly (CDA) Election</h4>
+					<aside class="notes">
+						<ul>
+							<li>SMS voter reg first used in Feb 2014 CDA / Constitutional Drafting Assembly - proof of concept</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<blockquote>Given the capacity of the SMS system, which allows for a large number of voters to be processed over a short period of time and which is a simple procedure for the majority of users, this system should be used again in future elections.</blockquote>
+					<p><small>- The Carter Center</small></p>
+				</section>
+
+				<section>
+					<h2>June 20, 2014</h2>
+					<h4>Council of Representatives (CoR) Election</h4>
+					<aside class="notes">
+						<ul>
+							<li>much larger election, many more last minute adjustments</li>
+							<li>50% more registered voters</li>
+							<li>based on success of CDA, no in person period for registration</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>The Sponsors</h2>
+					<p>
+						<img src="img/hnec-logo.jpg" width="300" style="margin: 20px;"/>
+						<img src="img/UNSMIL-AR-EN-LOGO-300.png" width="300" style="margin: 20px;"/>
+					</p>
+					<aside class="notes">
+						<ul>
+							<li>elections conducted by High National Election Commission (HNEC) of Libya, support from UN</li>
+							<li>very forward thinking of HNEC to use SMS, allowed them to hold elections quickly, support rapidly changing political climate</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/caktus-libya-team.jpg">
+				<!-- image by speaker -->
+					<h2>The Team</h2>
+					<aside class="notes">
+						<ul>
+							<li>6 devs, 1 PM in NC</li>
+							<li>2 support staff on-site during election - data management, custom reporting, system monitoring</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/ahmed-tobias.jpg">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>limited in-country tech, very luck to have Ahmed on-staff at HNEC to support project locally</li>
+							<li>earned a masters in CS from UCSF thru fulbright</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>The System</h2>
+					<aside class="notes">
+						<ul>
+							<li>The system itself - as you can see from this...</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-dataflow-sanitized.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>... is an ecosystem of user facing and admin reporting tools</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-dataflow-sanitized-rapidsms.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>majority of user-facing business logic in RapidSMS app</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-dataflow-sanitized-vumi.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>with help from the Praekelt Foundation, used Vumi to integrate with MNOs</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>A Culture of Open Source</h1>
+				</section>
+
+				<section>
+					<h2>Open Source<br>Components</h2>
+					<p>
+						<img style="border: none; padding: 10px;" src="img/python-logo-master-v3-TM-flattened.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/django-logo-negative.png" height="75"><br>
+						<img style="border: none; padding: 10px;" src="img/rapidsms-logo.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/vumi-logo-lrg.png" height="75">
+					</p>
+					<aside class="notes">
+						<ul>
+							<li>vast majority of code in Python</li>
+							<li>Django for web portion, RapidSMS for SMS business logic, Vumi for MNO connectivity</li>
+							<li>toolchain of choice at Caktus - eases creation & *reuse* of flexible, modular components throughout the app</li>
+							<li>in addition MNOs, had to integrate w/ civil registry DB to verify national IDs - using these tools made that easy</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>User-centered Design</h2>
+				</section>
+
+				<section>
+					<h2>Agile, Rigorous Test-driven Development</h2>
+				</section>
+
+				<section>
+					<h1>Would this Work in the US?</h1>
+				</section>
+
+				<section>
+					<h1>Q & A</h1>
+				</section>
+
+				<section>
+					<h1>Closing<br>Remarks</h1>
+				</section>
+
+				<section>
+					<h2>#1: Open Source<br>is a Model</h2>
+				</section>
+
+				<section>
+					<h2>#2: Apply Open Source<br>Methods Widely</h2>
+				</section>
+
+				<section>
+					<h1>Thank you.</h1>
+					<p>
+						<small><a href="https://twitter.com/tobiasmcnulty">@TobiasMcNulty</a></small>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+		<script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				// Note: Don't forget to add preceding commas when enabling!
+				dependencies: [
+					{ src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
