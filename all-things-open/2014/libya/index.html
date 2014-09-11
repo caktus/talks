@@ -75,7 +75,7 @@
 					<ul>
 						<li>Open Source Components</li>
 						<li>User-centered design</li>
-						<li>Agile, Rigorous TDD</li>
+						<li>Agile, Test-driven Development</li>
 				    <ul>
 					<aside class="notes">
 						<ul>
@@ -92,9 +92,9 @@
 				<section>
 					<h2>Outline</h2>
 					<ul>
-						<li>The Country</li>
-						<li>The Project</li>
+						<li>Country & Project Context</li>
 						<li>Open Source Culture</li>
+						<li>Challenges</li>
 						<li>US Comparisons</li>
 						<li>Q & A</li>
 						<li>Closing Remarks</li>
@@ -262,7 +262,8 @@
 				</section>
 
 				<section>
-					<h2>Open Source<br>Components</h2>
+					<h2>Open Source</h2>
+					<h4>Components, Cost, Culture</h4>
 					<p>
 						<img style="border: none; padding: 10px;" src="img/python-logo-master-v3-TM-flattened.png" height="75">
 						<img style="border: none; padding: 10px;" src="img/django-logo-negative.png" height="75"><br>
@@ -275,36 +276,93 @@
 							<li>Django for web portion, RapidSMS for SMS business logic, Vumi for MNO connectivity</li>
 							<li>toolchain of choice at Caktus - eases creation & *reuse* of flexible, modular components throughout the app</li>
 							<li>in addition MNOs, had to integrate w/ civil registry DB to verify national IDs - using these tools made that easy</li>
+							<li>all requirements very custom, these tools fit the task well</li>
+							<li>while writing complex, custom software is never cheap, the use of these tools kept costs contained</li>
+							<li>finally, relied heavily not only on tools, also on culture of OS. b/c subcontractors familiar w/OS, already had common language. not only programming language, but also our process for coordinating changes, conducting code reviews</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Challenges</h1>
+					<aside class="notes">
+						<ul>
+							<li>as you can imagine, this project was not without challenges (pause)</li>
+							<li>scope = quite large, changes to it relatively constant -> risk that one change will impact functionality elsewhere</li>
+							<li>additionally, writing a system in another language, let a lone a non-western, right-to-left alphabet, created challenges at times (pause)</li>
+							<li>many of these issues emerged during the initial and continuing design for the system</li>
 						</ul>
 					</aside>
 				</section>
 
 				<section>
 					<h2>User-centered Design</h2>
+					<aside class="notes">
+						<ul>
+							<li>again as a testament to the Libyan's dedication to this technology, much of the system was conceived by HNEC and UN prior to Caktus becoming involved</li>
+							<li>that said, holes in spec were discovered, but through our iterative design & development process they were soon uncovered and the requirements clarified</li>
+							<li>of huge importance to this process was having a team in country to work hand in hand with the Libyans and the UN - without this first hand experience of their process and workflow, project would have been incredibly difficult</li>
+							<li>small anecdote: on a number of occassions HNEC staff sent home due to security concerns, need for our process to adapt on a daily basis</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
-					<h2>Agile, Rigorous Test-driven Development</h2>
+					<h2>Agile, Test-driven Development</h2>
+					<aside class="notes">
+						<ul>
+							<li>after initial designs were clarified and the requirements understood by our team, changes continued to be made and new features were continually added</li>
+							<li>always a challenge, but particularlly so when software needs to be internationalized, and deadlines are tight</li>
+							<li>ensuring all code was well tested with granular unit tests made it easy to change things while minimizing the risk of breaking the code elsewhere</li>
+							<li>anecdote: The CDA election in June was originally scheduled for July, but was moved up by one month. not only did the tool itself allow HNEC to quickly schedule the election, but the unit tests and highly structured development process made the team confident that the system would be ready one month earlier than originally planned</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h1>Would this Work in the US?</h1>
+					<aside class="notes">
+						<ul>
+							<li>briefly comparing this to US: no significant action since Help America Vote Act in 2002, established minimum standards</li>
+							<li>again, reform difficult b/c elections administered by states -> 50 different complex systems, 50 different effective clients</li>
+							<li>more recently, obama made improving elections a presidential priority, Voter Empowerment Act introduced Jan 2013 (pause)</li>
+							<li>unfortunately, according to govtrack.us, this bill has only a 1% chance of passing in current legislative environment</li>
+							<li>finally, biggest reason this might not work in the US is voter registration is tied to political parties, controlling how and when people register is strategy used by both parties to influence elections outcomes</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h1>Q & A</h1>
+					<aside class="notes">
+						<ul>
+							<li>and now before i close my talk i have a few minutes for questions</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h1>Closing<br>Remarks</h1>
+					<aside class="notes">
+						<ul>
+							<li>in summary, libya SMS voter registration = difficult project, many challenges, both technical and programmatic</li>
+							<li>the technical success of project due in large part to use not only of open source tools, but of processes, methodologies common to OSS communities</li>
+							<li>incredibly rewarding project to work on, in many ways because of the energy and pride our counterparts in Libya brought to the project (pause)</li>
+							<li>the violence in Libya is ongoing, and I hope you will join us in recognizing and praying for our friends and family there</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
-					<h2>#1: Open Source<br>is a Model</h2>
-				</section>
-
-				<section>
-					<h2>#2: Apply Open Source<br>Methods Widely</h2>
+					<h2>Apply Open Source<br>Methods Widely</h2>
+					<aside class="notes">
+						<ul>
+							<li>in terms of what to take home from this talk today, my primary hope is that I've convinced you - if you weren't already convinced - that OS is a model not only for free, publicly available software, but also for company & client projects, and when used well, projects will be more successful because of that</li>
+							<li>many opportunities to get involved - Code For America, Voter Information Project</li>
+							<li>countless OS tools & projects, find one you are passionate about and get involved - maybe by fixing a small bug, or by championing a feature you're excited about</li>
+							<li>finally, I'd be remiss if I didn't say that early voting in NC starts (in just over a month|TOMORROW) - so go vote!</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
