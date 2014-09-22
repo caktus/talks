@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Reaching Beyond the Web: Using RapidSMS to power democracy in Libya</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+        <!-- Caktus specific styles -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/docco.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+         .slides .footer p {
+             position: absolute;
+             font-size: 50%;
+             top: 440px;
+             right: 0px;
+             text-align: right;
+             padding: 5px;
+             /* background-color: #117F89; */
+         }
+        </style>
+        <!--[if lt IE 9]>
+        <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+            <aside class="logo">
+                <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+            </aside>
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h1>Reaching Beyond The Web</h1>
+                    <h4>Using RapidSMS to power democracy in Libya</h4>
+                    <p>
+                        <small><a href="https://twitter.com/vkurup">Vinod Kurup</a></small>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Take home points</h2>
+                    <ol>
+                        <li class="fragment">Why build SMS apps?</li>
+                        <li class="fragment">How to use RapidSMS?</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>Libyan SMS Voter Registration</li>
+                        <li>RapidSMS</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Libyan SMS Voter Registration</h1>
+                </section>
+
+                <section data-background="img/libya-derna-protests.jpg">
+                <!-- image from http://www.universityobserver.ie/2012/01/01/a-year-in-review-the-biggest-news-stories-of-2011/libya-3/ -->
+                </section>
+
+                <section>
+                    <h2>Government of Libya Mandates:</h2>
+                    <h4>Build an <span class="fragment grow highlight-red">SMS</span> Voter Registration System</h4>
+                </section>
+
+                <section>
+                    <h1>Why SMS?</h1>
+                </section>
+
+                <section data-background="img/election-line.jpg">
+                    <div class="footer">
+                        <h1 style="color: #117F89">Why electronic?</h1>
+                        <p>photo by <a href="https://flickr.com/photos/joshmt/">Josh Thompson</a> <a href="http://creativecommons.org/licenses/by/2.0">cc-by-2.0</a>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Why electronic?</h3>
+                    <ul>
+                        <li class="fragment">User's time</li>
+                        <li class="fragment">Protests</li>
+                        <li class="fragment">Expense
+                            <ul>
+                                <li>Staff</li>
+                                <li>Materials</li>
+                            </ul></li>
+                        <li class="fragment">Access</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/lbydens.png" data-background-size="1400px">
+                    <!-- image from http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-density/maps -->
+                    <div class="footer">
+                        <p>Courtesy of <a href="http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-density/maps?contains=libya">NASA</a></p>
+                    </div>
+                </section>
+
+                <section data-background="img/spider-web.jpg">
+                    <h1>Why not the web?</h1>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <h4>Expensive!</h4>
+                    <img class="fragment" height="300" src="img/macbook-air.jpg">
+                    <img class="fragment" height="300" src="img/phone.jpg">
+                    <div class="fragment">
+                        <br><br><br>
+                        <p style="text-align: right"><small>photos by <a href="https://www.flickr.com/photos/alejandropinto/">Alejandro Pinto</a> and <a href="https://www.flickr.com/photos/mecklenburg/">Thomas Kohler</a> <a href="http://creativecommons.org/licenses/by/2.0">cc-by-2.0</a></small></p>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <h4>Developer time</h4>
+                    <ul class="fragment">
+                        <li>No HTML</li>
+                        <li>No JS</li>
+                        <li>No CSS</li>
+                        <li>No Fonts</li>
+                        <li>No Colors</li>
+                        <li>No Forms</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <ul>
+                        <li>User's time</li>
+                    </ul>
+                    <p>
+                        <img src="img/loading.gif">
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <h4>The most important reason....</h4>
+                </section>
+
+                <section data-background="img/no-access.jpg">
+                    <div class="footer">
+                        <p>Courtesy <a href="https://www.flickr.com/photos/sweetone/">Neal Jennings</a> <a href="http://creativecommons.org/licenses/by/2.0">cc-by-2.0</a></p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Access</h2>
+                    <table style="margin: 0 auto">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Internet</th>
+                                <th>SMS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Libya</td>
+                                <td>16%</td>
+                                <td>165%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Africa</td>
+                                <td>21%</td>
+                                <td>80%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>South Africa</td>
+                                <td>49%</td>
+                                <td>147%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>United States</td>
+                                <td>87%</td>
+                                <td>96%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>World</td>
+                                <td>39%</td>
+                                <td>97%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><br><small>Sources: <a href="http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use">Wikipedia</a> and <a href="http://data.worldbank.org/indicator/IT.CEL.SETS.P2?order=wbapi_data_value_2013+wbapi_data_value+wbapi_data_value-last&sort=asc">World Bank</a></small></p>
+                </section>
+
+                <section>
+                    <h2>SMS Summary</h2>
+                    <ul>
+                        <li class="fragment">Widely accessible</li>
+                        <li class="fragment">User friendly</li>
+                        <li class="fragment">Inexpensive</li>
+                        <li class="fragment">Libya made a wise choice!</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/Libya-SMS-RapidSMS-text-message-voter-registration.jpg">
+                    <h1>The Project</h1>
+                </section>
+
+                <section>
+                    <h2>Timeline</h2>
+                    <ul>
+                        <li class="fragment">2012: Libya mandates HNEC to build SMS VR system</li>
+                        <li class="fragment">Sep 2013: Caktus and partners join team</li>
+                        <li class="fragment">Dec 2013: ~ 1 million voters register via SMS</li>
+                        <li class="fragment">Jan 2014: In person registration period</li>
+                        <li class="fragment">Feb 2014: CDA elections (60 seats)</li>
+                        <li class="fragment">May 2014: additional 500K voters register via SMS</li>
+                        <li class="fragment">Jun 2014: CoR elections (200 seats)</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>What is Registration?</h2>
+                    <ul>
+                        <li class="fragment">Link a voter to a polling center</li>
+                        <li class="fragment">Every voter has a 12 digit NID</li>
+                        <li class="fragment">Every center has a 5 digit shortcode</li>
+                        <li class="fragment">1600+ centers</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>How do I register?</h2>
+                    <ul>
+                        <li class="fragment">10010 is the HNEC short code</li>
+                        <li class="fragment">Send to 10010: <pre><code>111222333444 # 12345</code></pre></li>
+                        <li class="fragment">We respond: <q>You are registered</q> or with an error message</li>
+                        <blockquote class="fragment">{person}، تم تسجيلك فى مركز {centre}. رقم مركز الاقتراع {code}. إذا كان المركز غير صحيح أو تريد أن تغير مركزك، الرجاء إعادة التسجيل مستخدما نفس رقم الهاتف. للتأكد من تسجيلك، يرجي ارسال رقمك الوطني إلى الرقم 10010. (الرسالة رقم 1)</blockquote>
+                    </ul>
+                </section>
+
+                <section data-background="img/registration-flowchart.png" data-background-size="1400px">
+                </section>
+
+                <section>
+                    <h1>Other Features</h1>
+                </section>
+
+                <section>
+                    <h2>Voter query</h2>
+                    <ul>
+                        <li class="fragment">Send to 10010: <pre><code>111222333444</code></pre></li>
+                        <li class="fragment">We respond with your registration status</li>
+                        <li class="fragment">Also available via the web at <a href="https://libyavotes.ly">https://libyavotes.ly</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>In Person Registration</h2>
+                    <ul>
+                        <li class="fragment">First election only</li>
+                        <li class="fragment">Separate short codes (10030, 10050)</li>
+                        <li class="fragment">Accessible to staff via a Whitelist</li>
+                        <li class="fragment">Submit forms statistics via SMS to Tripoli</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Translations</h2>
+                    <ul>
+                        <li>Standard Django setup</li>
+                        <li>Transifex</li>
+                        <li class="fragment"><img src="img/transifex-screenshot.png"></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Encodings</h2>
+                    <ul>
+                        <li>Easy with Python</li>
+                        <li>Not easy when communicating with MNOs</li>
+                        <li>Thank you Praekelt!</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Reporting</h2>
+                    <ul>
+                        <li>Central staff needs to monitor polling centers in real-time</li>
+                        <li class="fragment">With 1600 centers, voice phone is not feasible</li>
+                        <li class="fragment">Staff reports number of voters with SMS to 10030: <pre><code>11007 # 3 # 932</code></pre></li>
+                        <li class="fragment"><img src="img/poll-report.png"></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Creativity</h2>
+                    <ul>
+                        <li>Polling reporting was requested within days of election</li>
+                        <li>If you can think of it, you can do it</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Analytics</h2>
+                    <ul>
+                        <li class="fragment">Fraud monitoring</li>
+                        <li class="fragment">Status reports</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/data.libyavotes.png" data-background-size="1400px">
+                </section>
+
+                <section>
+                    <h1>Voter Roll Generation</h1>
+                </section>
+
+                <section>
+                    <h2>Help Desk</h2>
+                    <img src="img/helpdesk.png">
+                </section>
+
+                <section>
+                    <h2>Bulk Outgoing SMS</h2>
+                    <ul>
+                        <li class="fragment">Remind voters to vote</li>
+                        <li class="fragment">Inform voters of registration center changes</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Deployment</h2>
+                    <ul>
+                        <li class="fragment">Fabric</li>
+                        <li class="fragment">Salt scripts</li>
+                        <li class="fragment">Caktus Django Project Template</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Code quality</h2>
+                    <ul>
+                        <li class="fragment">Flake8 compliant</li>
+                        <li class="fragment">Code coverage ~ 90%</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Intro to RapidSMS</h1>
+                    <img src="img/rapidsms-photo.jpg">
+                    <p><small>&copy; 2010, courtesy <a href="https://www.flickr.com/photos/39477815@N07/sets/">RapidSMS on Flickr</a></small></p>
+                </section>
+
+                <section>
+                    <h2>RapidSMS: Overview</h2>
+                    <ul>
+                        <li class="fragment">UNICEF developed in 2007</li>
+                        <li class="fragment">Free and Open Source (BSD)</li>
+                        <li class="fragment"><a href="https://github.com/rapidsms/rapidsms">https://github.com/rapidsms/rapidsms</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>RapidSMS: Installation</h2>
+                    <p>
+                        <pre><code>
+                            pip install rapidsms
+                        </code></pre>
+                    </p>
+                </section>
+
+                <section data-background="img/rapidsms-architecture.png" data-background-size="1400px">
+                </section>
+
+                <section>
+                    <h2>RapidSMS: How To</h2>
+
+                    <ol>
+                        <li class="fragment">Setup a Backend</li>
+                        <li class="fragment">Create an App</li>
+                        <li class="fragment">There is no step 3</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>RapidSMS Concepts</h2>
+                    <h4>Backends</h4>
+                    <ul>
+                        <li class="fragment">Twilio</li>
+                        <li class="fragment">Android phone</li>
+                        <li class="fragment">GSM Modem</li>
+                        <li class="fragment">Vumi</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>RapidSMS Backend</h2>
+
+                    <ol style="display: inline">
+                        <li class="fragment">Configuration settings
+                            <pre><code data-trim>
+INSTALLED_BACKENDS = {
+  "libyana": {
+      "ENGINE": "rapidsms.backends.vumi.VumiBackend",
+      "sendsms_url": 'http://127.0.0.1/libyana',
+  },
+}
+                            </code></pre>
+                        </li>
+
+                        <li class="fragment">URL for incoming messages
+                            <pre><code data-trim>
+urlpatterns += patterns('',
+  url(r"^backend/vumi-libyana/$",
+      VumiBackendView.as_view(backend_name="libyana")))
+                            </code></pre>
+                        </li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>RapidSMS Backend</h2>
+
+                    <ul>
+                        <li class="fragment">Wide variety</li>
+                        <li class="fragment">Hardest part of an SMS app</li>
+                        <li class="fragment">High scalability, reliability -> Vumi</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>RapidSMS Apps</h2>
+
+                    <ul style="display: inline">
+                        <li class="fragment">Just Django!
+                            <pre><code data-trim>
+from rapidsms.apps.base import AppBase
+
+class PingPong(AppBase):
+
+    def handle(self, msg):
+        if msg.text == 'ping':
+            msg.respond('pong')
+            return True
+        return False
+                            </code></pre>
+                        </li>
+                        <li class="fragment">Messages are just text</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>RapidSMS Apps</h2>
+
+                    <ul style="display: inline">
+                        <li class="fragment">Multiple apps</li>
+                        <li class="fragment">Multiple phases
+                            <pre><code data-trim>
+from rapidsms.apps.base import AppBase
+
+class PingPong(AppBase):
+
+    def filter(self, msg):
+        pass
+
+    def parse(self, msg):
+        pass
+
+    def handle(self, msg):
+        pass
+
+    def default(self, msg):
+        pass
+
+    def cleanup(self, msg):
+        pass
+
+                            </code></pre>
+                        </li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Libya Example</h2>
+                    <pre><code data-trim>
+import re
+from rapidsms.apps.base import AppBase
+
+class PreprocessApp(AppBase):
+    def parse(self, msg):
+        NONDIGITS_RE = re.compile('[^\d]', flags=re.UNICODE)
+        msg.number_list = [n for n in NONDIGITS_RE.split(msg_text) if n]
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>RapidSMS Handlers</h2>
+
+                    <pre><code data-trim>
+from rapidsms.contrib.handlers import PatternHandler
+
+class RegistrationMessageHandler(PatternHandler):
+    """
+    When a user sends in a syntactically valid registration message,
+    process it and respond with the result.
+    """
+
+    pattern = r'^(\d{%d})\*(\d{%d})$' % (NID_LENGTH, CENTER_ID_LENGTH,)
+
+    def handle(self, nid, center_id):
+        result = process_registration_request(
+            center_id, nid, self.msg.sms
+        )
+        self.respond(result.message)
+                    </code></pre>
+                <p class="fragment">
+                    Don't use them! Apps are more flexible.
+                </p>
+                </section>
+
+                <section>
+                    <h2>Other RapidSMS concepts</h2>
+
+                    <ul style="display: inline">
+                        <li class="fragment">Router
+                            <pre><code data-trim>
+RAPIDSMS_ROUTER = "rapidsms.router.celery.CeleryRouter"
+                            </code></pre>
+                        </li>
+                        <li class="fragment">Connection / Contacts</li>
+                        <li class="fragment">Message Tester</li>
+                        <li class="fragment">Message Log</li>
+                        <li class="fragment">Third party modules</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/conclusion.jpg">
+                    <h1>Conclusion</h1>
+                </section>
+
+                <section>
+                    <h2>Take home points</h2>
+
+                    <ol>
+                        <li class="fragment">Is access important to your project?</li>
+                        <ul class="fragment">
+                            <li>Then SMS is important to your project.</li>
+                            <li>Easy to add to a web app</li>
+                        </ul>
+                        <li class="fragment">RapidSMS is easy to set up</li>
+                        <ul class="fragment">
+                            <li>RapidSMS is flexible and scalable</li>
+                            <li>RapidSMS is NOT the only option</li>
+                        </ul>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>Thanks!</h2>
+                    <ul>
+                        <li>Caktus: Colin, Dan, Daryl, <span class="fragment grow highlight-red">Elliott</span>, Hao, Jeff, Michael, Nicole, Philip, Scott, Tobias, Victor</li>
+                        <li>Reboot: Hunter, Josh, Justin</li>
+                        <li>Praekelt: Ben, JP, Simon, Simon</li>
+                        <li>HNEC: Ahmed, Fadia, Munir</li>
+                        <li>MIS: Ian, Joe</li>
+                        <li>UN: Ajay, Panto</li>
+                    </ul>
+                    <img src="img/caktus-libya-team.jpg" width="580">
+                </section>
+
+                <section data-background="img/superheroes.jpg" data-background-size="850px">
+                    <h2>Questions?</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+        <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                // Note: Don't forget to add preceding commas when enabling!
+                dependencies: [
+                    { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
