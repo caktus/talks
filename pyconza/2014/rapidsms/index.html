@@ -70,7 +70,9 @@
                 <section>
                     <h2>Take home points</h2>
                     <ol>
-                        <li class="fragment">Why build SMS apps?</li>
+                        <li class="fragment">Why build SMS apps?
+                            <ul><li>SMS = Short Message Service (i.e. 'text' message)</li></ul>
+                        </li>
                         <li class="fragment">RapidSMS is very simple.</li>
                     </ol>
                 </section>
@@ -338,9 +340,9 @@
                 <section data-background="img/data.libyavotes.png" data-background-size="1400px">
                 </section>
 
-                <section>
-                    <h1>Voter Roll Generation</h1>
-                </section>
+                <!-- <section>
+                <h1>Voter Roll Generation</h1>
+                </section> -->
 
                 <section>
                     <h2>Help Desk</h2>
@@ -367,9 +369,9 @@
                 <section>
                     <h2>Code quality</h2>
                     <ul>
-                        <li class="fragment">Flake8 compliant</li>
+                        <li class="fragment">Flake8 compliant (lint, standard best practices)</li>
                         <li class="fragment">Code coverage ~ 90%</li>
-                        <li class="fragment">Load tested with Apache Jmeter</li>
+                        <li class="fragment">Load tested with Apache JMeter</li>
                         <li class="fragment">Will be open sourced</li>
                     </ul>
                 </section>
@@ -462,7 +464,7 @@ urlpatterns += patterns('',
                     <h2>RapidSMS Apps</h2>
 
                     <ul style="display: inline">
-                        <li class="fragment">Just Django!
+                        <li class="fragment">Just Python!
                             <pre><code data-trim>
 from rapidsms.apps.base import AppBase
 
@@ -563,6 +565,14 @@ RAPIDSMS_ROUTER = "rapidsms.router.celery.CeleryRouter"
                         <li class="fragment">Message Log</li>
                         <li class="fragment">Third party modules</li>
                     </ul>
+                </section>
+
+                <section>
+                    <h2>Cool RapidSMS projects</h2>
+
+                    <ul>
+                        <li><a href="http://www.caktusgroup.com/blog/2014/09/19/rapidsms-africa/">1000 Days</a> - A project aimed at decreasing child mortality during the critical 1000 days after birth.</li>
+                        <li><a href="http://www.caktusgroup.com/case-study/Project-Mwana/">Project Mwana</a> - A project to provide HIV test results and tracking to to infants, their mothers, and caregivers.</li>
                 </section>
 
                 <section data-background="img/conclusion.jpg">
