@@ -22,6 +22,9 @@
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
 
+		<!-- For fullscreen images (optional, uncomment this and JS below to enable) -->
+		<!--link rel="stylesheet" href="../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.css"-->
+
 		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
 		<script>
 			if( window.location.search.match( /print-pdf/gi ) ) {
@@ -60,6 +63,7 @@
 					<h2>Slide #2</h2>
 					<p> 
 						<a href="#">This is a test</a>
+					</p>
 				</section>
 
 			</div>
@@ -83,6 +87,7 @@
 				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Optional libraries used to extend on reveal.js
+				// Note: Don't forget to add preceding commas when enabling!
 				dependencies: [
 					{ src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
 					{ src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
@@ -90,6 +95,7 @@
 					{ src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
 					{ src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
 					{ src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.js', async: true, condition: function() { return !!document.body.classList; } }
 					// { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
 					// { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
 				]
