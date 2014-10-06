@@ -27,6 +27,7 @@ Directory
 * Lightning Talks
     * 2014
         * `Deploying WordPress using best practices <http://talks.caktusgroup.com/lightning-talks/2014/wordpress-deploy>`_
+        * `Data Visualization | Tracking Packages with Ona, Celery, and Leaflet <http://talks.caktusgroup.com/lightning-talks/2014/mapping-form-data>`_
     * 2013
         * `Emmet <http://talks.caktusgroup.com/lightning-talks/2013/emmet>`_
         * `Salt with a Master and Git <http://talks.caktusgroup.com/lightning-talks/2013/salt-master>`_
