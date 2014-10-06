@@ -64,30 +64,94 @@
 				</section>
 
 				<section>
-					<h2>Background</h2>
+					<h2>Who Am I?</h2>
 					<ul>
-						<li>Shipments contain Packages with QR Codes</li>
-						<li>Packages are scanned with mobile devices</li>
-						<li>Where is my stuff and how did it get here?</li>
+						<li>Sales Engineer & Developer at Caktus</li>
 					</ul>
 				</section>
 
 				<section>
+					<h2>Who Am I?</h2>
+					<pre><code data-trim>
+{% if lightning_talk %}
+	{{ who_am_i|truncatechars:0 }}
+{% endif %}
+</code></pre>
+				</section>
+
+				<section>
+					<h2>What are we talking about?</h2>
+					<ul>
+						<li>Toolchain used to render package scans on a map</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>What are we talking about?</h2>
+					<ul>
+						<li>Toolchain used to render package scans on a map</li>
+						<li>Gotcha discovered along the way</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Background</h2>
+					<ul>
+						<li>Client tracks 100,000s of packages</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Background</h2>
+					<ul>
+						<li>Client tracks 100,000s of packages</li>
+						<li>Shipments contain Packages with QR Codes</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Background</h2>
+					<ul>
+						<li>Client tracks 100,000s of packages</li>
+						<li>Shipments contain Packages with QR Codes</li>
+						<li>Packages are scanned with mobile devices during transit</li>
+					</ul>
+				</section>
+				<section>
+					<h2>Background</h2>
+					<ul>
+						<li>Client tracks 100,000s of packages</li>
+						<li>Shipments contain Packages with QR Codes</li>
+						<li>Packages are scanned with mobile devices during transit</li>
+						<li>Where is my stuff and how did it get there?</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Where is my stuff and how did it get there?</h2>
+
 				  <img src="components.jpg" >
 					<p>
 						<small>CC BY-SA 2.0 <a href="https://www.flickr.com/photos/filu/4899342532/">Filip Federowicz</a></small>
 					</p>
 				</section>
 
-
 				<section>
-					<h2>Ona</h2>
-					<p>SAAS for data collection from mobile/web devices</p>
+					<h2>Components</h2>
+					<p>Ona</p>
+					<p>ODK Collect</p>
+					<p>Celery</p>
+					<p>Hstore</p>
+					<p>GeoDjango</p>
+					<p>Leaflet</p>
 				</section>
 
 				<section>
 					<h2>Ona</h2>
-					<p>Form defined via XLSForm</p>
+					<p>SaaS for collecting form submissions from mobile/web devices</p>
+				</section>
+
+				<section>
+					<h2>Ona</h2>
+					<p>Forms defined via XLSForm</p>
 				</section>
 
 				<section>
@@ -150,13 +214,11 @@
 
 				<section>
 					<h2>Ona</h2>
-					<p>API via Django Rest Framework</p>
+					<p>Web Form</p>
+					  <img src="web_form.png" >
+
 				</section>
 
-
-				<section>
-				  <img src="haz_sad.jpg" >
-				</section>
 
 				<section>
 					<h2>ODKCollect</h2>
@@ -174,6 +236,20 @@
 					</ul>
 				</section>
 
+				<section>
+				  <img src="odk_location.png" >
+				</section>
+
+				<section>
+					<h2>Ona</h2>
+					<p>Retrieve submissions API via Django Rest Framework</p>
+				</section>
+
+				<section>
+					<h2>Ona</h2>
+					<p>Retrieve submissions API via Django Rest Framework</p>
+					<p>Yay!!!</p>
+				</section>
 
 				<section>
 					<h2>Celery</h2>
@@ -207,13 +283,119 @@ def update_package_locations():
 				</section>
 
 				<section>
-					<h2>Maps</h2>
+					<h2>Models -- GeoDjango</h2>
+					<ul>
+						<li>Location instances need to know what Country they are in</li>
+						<li>WorldBorders via default GeoDjango tutorial</li>
+					</ul>
+				</section>
+
+
+				<section>
+					<h2>Models -- GeoDjango</h2>
+					<ul>
+						<li>Location instances need to know what Country they are in</li>
+						<li>WorldBorders via default GeoDjango tutorial</li>
+					</ul>
+				<pre><code class="python" data-trim>
+def save(self, *args, **kwargs):
+    if not self.country:
+        point = 'POINT (%s %s )' % (self.longitude, self.latitude)
+        qs = WorldBorder.objects.filter(mpoly__contains=point)
+        if qs:
+            self.country = qs[0]
+    super(Location, self).save(*args, **kwargs)
+				</code></pre>
+				</section>
+
+
+				<section>
+					<h2>Data Visualization &mdash; Mapping</h2>
 					<p>Integration via django-leaflet</p>
 				</section>
 
 				<section>
-					<h2>Maps</h2>
+					<h2>Data Visualization &mdash; Mapping</h2>
 					<p>Renders unique locations (lat/lng) per shipment</p>
+				</section>
+
+				<section>
+					<h2>Maps Issues</h2>
+					<ul>
+						<li>django-leaflet configuration limited</li>
+					</ul>
+				</section>
+
+				<section>
+
+				<pre><code class="python" data-trim>
+LEAFLET_CONFIG = {
+    'DEFAULT_CENTER': (34.81, 39.04),
+    'DEFAULT_ZOOM': 8,
+    'MIN_ZOOM': 3,
+    'MAX_ZOOM': 18,
+    'RESET_VIEW': False,
+    'PLUGINS': {
+        'cluster': {
+            'css': [
+                'lib/Leaflet.markercluster/MarkerCluster.Default.css',
+                'lib/Leaflet.markercluster/MarkerCluster.css'
+            ],
+            'js': 'lib/Leaflet.markercluster/leaflet.markercluster.js',
+            'auto-include': True,
+        },
+    },
+    'TILES': [
+        ('ESRI', 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', ''),  # noqa
+        ('OSM', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', ''),
+    ]
+}
+                </code></pre>
+				</section>
+
+				<section>
+					<h2>Maps Issues</h2>
+					<ul>
+						<li>Custom JS callback to inject additional configuration</li>
+					</ul>
+				</section>
+
+
+				<section>
+
+				<pre><code class="javascript" data-trim>
+function render_map(map, data) {
+    var Polylines = {};
+    var markerList = [];
+    var markers = L.markerClusterGroup({disableClusteringAtZoom: 12});
+
+    for (var i = 0; i < data.shipments.length; i++) {
+          var shipment = data.shipments[i];
+          var shipment_locs = [];
+          for (var idx = 0; idx < shipment.locations.length; idx++) {
+            var scan_no = idx+1;
+            var loc = shipment.locations[idx];
+            var lat_lng = L.latLng(loc.latitude, loc.longitude);
+            shipment_locs.push(lat_lng);
+
+            // Create the waypoint(s)
+            var waypoint  = ['Scan ' + scan_no + ' on: ' + loc.when + '<br />Shipment ' + shipment.descr, loc.latitude, loc.longitude];
+            marker = new L.marker([waypoint[1],waypoint[2]], {icon: L.divIcon({html: scan_no, iconSize: null, className: 'waypoint'})})
+              .bindPopup(waypoint[0]);
+            markerList.push(marker);
+          }
+          Polylines["polyline" + i] = L.polyline(
+            shipment_locs
+          ,{
+              weight: 4,
+              readOnly: true,
+              color: shipment.colour
+          }).addTo(map);
+    }
+    markers.addLayers(markerList);
+    map.addLayer(markers);
+
+}                </code></pre>
 				</section>
 
 				<section>
@@ -232,52 +414,108 @@ def update_package_locations():
 				</section>
 
 				<section>
-				  <img src="cluster1.png" >
+					<h2>Marker Clusters</h2>
+   				  <img src="cluster1.png" >
 				</section>
 
 				<section>
-				  <img src="cluster2.png" >
+					<h2>Marker Clusters Gotcha!</h2>
+				  <img src="no_tiles.png" >
+				</section>
+
+				<section>
+					<h2>Marker Clusters Gotcha!</h2>
+					<p>Do not disable clustering if you need spidering</p>
+				<pre><code class="javascript" data-trim>
+var markers = L.markerClusterGroup({disableClusteringAtZoom: 12});
+                </code></pre>
+
+				</section>
+
+				<section>
+				  <img src="no_spider.png" >
+				</section>
+
+
+				<section>
+					<h2>Marker Clusters Gotcha!</h2>
+					<p>Set Tileset Max Zoom if you need spidering</p>
+				<pre><code class="python" data-trim>
+LEAFLET_CONFIG = {
+	...
+    'MAX_ZOOM': 16,
+	...
+}
+                </code></pre>
+
+				</section>
+
+				<section>
+				  <img src="spidered_tile.png" >
 				</section>
 
 
 				<section>
 					<h2>Maps Issues</h2>
 					<ul>
-						<li>django-leaflet configuration limited</li>
+						<li>Leaflet missing helper methods</li>
 					</ul>
 				</section>
 
 				<section>
 					<h2>Maps Issues</h2>
-					<ul>
-						<li>django-leaflet configuration limited</li>
-						<li>Custom JS callback to inject additional configuration</li>
-					</ul>
+					<p>Clear Layers</p>
+
+				<pre><code class="javascript" data-trim>
+function clearMap(map) {
+  for(i in map._layers) {
+      if(map._layers[i]._path != undefined || map._layers[i]._popup != undefined || map._layers[i]._needsRemoving != undefined ) {
+          try {
+              map.removeLayer(map._layers[i]);
+          }
+          catch(e) {
+              console.log("problem with " + e + map._layers[i]);
+          }
+      }
+  }
+}
+                </code></pre>
+				</section>
+
+				<section>
+					<h2>Maps Issues</h2>
+					<p>Programmatically Recenter & Zoom Map</p>
+				<pre><code class="javascript" data-trim>
+if ($.isEmptyObject(markers._featureGroup._layers)) {
+  map.panTo(map.options.center);
+  map.setZoom(map.options.zoom);
+} else {
+  map.fitBounds(markers.getBounds())
+}
+                </code></pre>
 				</section>
 
 
 				<section>
-
-				<pre><code class="JAVASCRIPT" data-trim>
-function render_map(map, data) {
-	var Polylines = {};
-	var markers = new L.MarkerClusterGroup();
-
-	// marker creation goes here
-
-	map.addLayer(markers);
-	var en = L.tileLayer('http://.../osm-labels-en/{z}/{x}/{y}.png'), 'English';
-	var ar = L.tileLayer('http://.../osm-labels-ar/{z}/{x}/{y}.png'), 'Arabic';
-	map.layerscontrol.addOverlay(en);
-	map.layerscontrol.addOverlay(ar), 'Arabic');
-}                </code></pre>
+					<h2>Maps Issues</h2>
+					<p>How do I do X in Leaflet?</p>
 				</section>
 
 				<section>
-				  <img src="controls.png" >
+					<h2>Maps Issues</h2>
+					<p>How do I do X?</p>
+					<p><b>console.log(map_component)</b> is your friend</p>
 				</section>
 
 
+				<section>
+				  <img src="demo_time.jpg" >
+				</section>
+
+
+				<section>
+				  <h2>Questions!??!?</h2>
+				</section>
 
 				<section>
 					<h2>Links!</h2>
@@ -285,17 +523,10 @@ function render_map(map, data) {
 					<p><a href="http://xlsform.org/">http://xlsform.org/</a></p>
 					<p><a href="https://play.google.com/store/apps/details?id=org.odk.collect.android&hl=en">https://play.google.com/store/apps/details?id=org.odk.collect.android&hl=en</a></p>
 					<p><a href="http://leafletjs.com/">http://leafletjs.com/</a></p>
+					<p><a href="https://docs.djangoproject.com/en/dev/ref/contrib/gis/tutorial/">https://docs.djangoproject.com/en/dev/ref/contrib/gis/tutorial/</a></p>
 					<p><a href="https://github.com/djangonauts/django-hstore">https://github.com/djangonauts/django-hstore</a></p>
 					<p><a href="https://github.com/makinacorpus/django-leaflet">https://github.com/makinacorpus/django-leaflet</a></p>
 					<p><a href="https://github.com/Leaflet/Leaflet.markercluster">https://github.com/Leaflet/Leaflet.markercluster</a></p>
-				</section>
-
-				<section>
-				  <h2>Questions!??!?</h2>
-				</section>
-
-				<section>
-				  <img src="demo_time.jpg" >
 				</section>
 
 
