@@ -1,0 +1,36 @@
+Intro
+Outline
+Traffic Spike
+
+Tips and Tricks
+  CSS
+  JS
+    placement in templates
+    minification
+    CDN
+    AKAMAI
+    S3
+
+  GZIP
+    Compression
+  User Uploaded Images
+    thumbnailing
+
+  Cacheing
+    what is it?
+      template fragments
+      full page
+      objects
+      database queries
+
+  Server Side
+    load balancer (varnish)
+
+  Scenarios
+    Single page anon static
+
+
+  dev tools
+    YSlow
+  benchmarking
+    JMeter, Siege, AB

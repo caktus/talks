@@ -1,0 +1,54 @@
+.slides .footer p {
+    position: absolute;
+    font-size: 50%;
+    top: 440px;
+    right: 0;
+    text-align: right;
+    padding: 5px;
+}
+
+.reveal .fa {
+  font-family: 'FontAwesome';
+  font-style: normal;
+}
+
+ .fa-2x {
+  font-size: 2em !important;
+  line-height: 1em !important;
+}
+
+ .fa-3x {
+  font-size: 3em !important;
+  line-height: 1em !important;
+}
+
+ .fa-4x {
+  font-size: 4em !important;
+  line-height: 1em !important;
+}
+
+ .fa-5x {
+  font-size: 5em !important;
+  line-height: 1em !important;
+}
+
+.background-slide h1, .background-slide h2 {
+    margin-top: -400px;
+}
+
+.table-list li {
+    font-size: .75em;
+}
+
+.reveal table td, .reveal table td {
+    text-align: center;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5, .reveal h6 {
+  line-height: 1.25em;
+}
+
+aside.logo img {
+  width: 100px;
+  margin-bottom: 20px;
+}
