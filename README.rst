@@ -24,6 +24,9 @@ Directory
         * `Integrating Designers Into Your Development Cycle <http://talks.caktusgroup.com/pycarolinas/2012/integrating-designers>`_
         * `Maintaining Your Sanity While Maintaining Your Open Source App <http://talks.caktusgroup.com/pycarolinas/2012/maintaining-sanity>`_
         * `Working with Designers <http://lanyrd.com/2012/pycarolinas/syhmt/>`_
+* PyconZA
+    * 2014
+        * `Reaching Beyond The Web <http://talks.caktusgroup.com/pyconza/2014/rapidsms>`_
 * Lightning Talks
     * 2014
         * `Deploying WordPress using best practices <http://talks.caktusgroup.com/lightning-talks/2014/wordpress-deploy>`_
