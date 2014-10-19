@@ -1167,8 +1167,13 @@ director nginx round-robin {
                 <section>
                     <h2>Backend</h2>
                     <ul>
-                      <li>Identify Slow Queries</li>
-                      <li>Async tasks (minidam CSV generation)</li>
+                      <li>Identify Slow Queries
+                          <ul>
+                            <li>django-debug-toolbar in dev</li>
+                            <li>New Relic or smilar in production</li>
+                          </ul>
+                      </li>
+                      <li>Async long running processes tasks (CSV Reports)</li>
                     </ul>
                 </section>
 
