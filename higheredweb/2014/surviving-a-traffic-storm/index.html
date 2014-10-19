@@ -995,36 +995,183 @@ AWS_S3_CUSTOM_DOMAIN = 'sXXXXX.cloudfront.net'
                 <section>
                     <h2>Application Cache</h2>
                     <ul>
-                      <li>Template Fragments</li>
                       <li>Full Page</li>
-                      <li>Objects</li>
-                      <li>Database Queries</li>
+                      <li>Page Fragments</li>
+                      <li>Low level API</li>
                     </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>A fundamental trade-off in dynamic Web sites is, well, they’re dynamic. Each time a user requests a page, the Web server makes all sorts of calculations – from database queries to template rendering to business logic – to create the page that your site’s visitor sees. This is a lot more expensive, from a processing-overhead perspective, than your standard read-a-file-off-the-filesystem server arrangement.                    </li>
+                    </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Application Cache Setup</h2>
+                    <ul>
+                      <li>Memcached &mdash; Caching server</li>
+                      <li>Key Value Store</li>
+                    </ul>
+                <pre><code data-trim class="python">
+{'pageX': 'a bunch of HTML'}
+                </code></pre>
+
+                </section>
+
+                <section>
+                    <h2>Full Page Cache</h2>
+<pre><code>
+given a URL, try finding that page in the cache
+if the page is in the cache:
+    return the cached page
+else:
+    generate the page
+    save the generated page in the cache (for next time)
+    return the generated page
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>Full Page Cache</h2>
+                <pre><code data-trim class="python">
+from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 15)
+def my_view(request):
+    # expensive business logic here
+                </code></pre>
+                  <aside class="notes">
+                    <ul>
+                      <li>decorator wrapped the view method and does the cache get or set</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+                <section>
+                    <h2>Page Fragment Cache</h2>
+                    <ul>
+                      <li>Fine grained control</li>
+                    </ul>
+                <pre><code data-trim class="html">
+{% load cache %}
+{% cache 500 sidebar request.user.username %}
+    .. sidebar for logged in user ..
+{% endcache %}
+                </code></pre>
+                  <aside class="notes">
+                    <ul>
+                      <li>expensive calculations per user</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+                <section>
+                    <h2>Low Level API caching</h2>
+                    <ul>
+                      <li>Full/Partial Page Overkill</li>
+                      <li>Complex business logic</li>
+                    </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>several expensive queries</li>
+                      <li>results change at different intervals </li>
+                      <li>low level api allows caching at any level of granularity</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+
+                <section>
+                    <h2>Low Level API caching</h2>
+                <pre><code data-trim class="python">
+from django.core.cache import cache
+
+active_users = cache.get('active_users')
+if active_users is None:
+    active_users = get_active_users(days=5, number=6)
+    cache.set('active_users', active_users, 60 * 60)
+
+                </code></pre>
+                </section>
+
+                <section>
+                    <h2>HTTP Accelerator</h2>
+                    <ul>
+                      <li>Reverse Proxy</li>
+                      <li>Retrieves resources on behalf of a client from server(s)</li>
+                    </ul>
+                    <img src="http-accel.png" style="background-color: #FFF;" alt="">
+                </section>
+
+                <section>
+                    <h2>Varnish</h2>
+                    <ul>
+                      <li>HTTP Accelerator
+                        <ul>
+                          <li>Follows cache directives</li>
+                        </ul></li>
+                      <li>Load Balancer
+                        <ul>
+                          <li>round robin</li>
+                        </ul></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Varnish Configuration</h2>
+                <pre><code data-trim class="">
+backend nginx01 {
+    .host = "104.131.82.132";
+    .port = "80";
+    .probe = {
+                .url = "/";
+                .interval = 5s;
+                .timeout = 1 s;
+                .window = 5;
+                .threshold = 3;
+  }
+}
+backend nginx02 {
+    .host = "104.131.112.28";
+     ...
+  }
+}
+director nginx round-robin {
+    { .backend = nginx01; }
+    { .backend = nginx02; }
+}
+
+
+                </code></pre>
+                  <aside class="notes">
+                    <ul>
+                      <li>The probe specifies that Varnish should fetch the / object every 5s.</li>
+                      <li>If it takes more then a second it is considered a failure.</li>
+                      <li>If more then 3 out of the 5 last probes are OK the backend is considered healthy.</li>
+                      <li>DEMO!</li>
+                      <li>view 104.131.82.132 web1 /usr/local/nginx/sbin/nginx -s stop</li>
+                      <li>view 104.131.112.28 web2</li>
+                      <li>view 104.131.111.216 varnish</li>
+                      <li>ssh root@104.131.82.132</li>
+                      <li>/usr/local/nginx/sbin/nginx -s stop</li>
+                      <li>view 104.131.111.216 varnish</li>
+                    </ul>
+                  </aside>
+
+
                 </section>
 
                 <section>
                     <h2>Backend</h2>
                     <ul>
-                      <li>Slow queries and how to profile and identify</li>
+                      <li>Identify Slow Queries</li>
                       <li>Async tasks (minidam CSV generation)</li>
                     </ul>
                 </section>
 
-                <section>
-                    <h2>load balancer</h2>
-                    <ul>
-                      <li>what is it?</li>
-                      <li>varnish ex</li>
-                    </ul>
-                </section>
-
-                <section>
-                    <h2>dev tools</h2>
-                    <ul>
-                      <li>PageSpeed</li>
-                      <li>YSlow</li>
-                    </ul>
-                </section>
 
                 <section>
                     <h2>Load Testing</h2>
@@ -1041,12 +1188,9 @@ AWS_S3_CUSTOM_DOMAIN = 'sXXXXX.cloudfront.net'
                     </ul>
                 </section>
 
-
                 <section>
                     <h2>Questions?</h2>
                 </section>
-
-
 
             </div>
 
