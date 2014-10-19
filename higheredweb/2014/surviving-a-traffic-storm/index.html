@@ -150,12 +150,12 @@
                     <h2>Example &mdash; Shark Tank</h2>
                     <table class="reveal">
                       <tr>
-                        <td class="fragment fade">
+                        <td class="">
                             <img src="villy-custom-logo.jpg" />
                             <br />
                             <p><small><a href="http://www.villycustoms.com/">Villy Custom</a></small></p>
                         </td>
-                        <td class="fragment fade" style="width: 40%; vertical-align: top">
+                        <td class="" style="width: 40%; vertical-align: top">
                           <ul class="table-list">
                               <li>Thirty minute time frame </li>
                               <li>3.2 million page hits</li>
@@ -170,10 +170,10 @@
                     <h2>Villy Custom</h2>
                     <table class="reveal">
                       <tr>
-                        <td class="fragment fade">
+                        <td class="">
                             <img src="villy-stats.png" />
                         </td>
-                        <td class="fragment fade" style="width: 40%; vertical-align: top">
+                        <td style="width: 40%; vertical-align: top">
                           <ul class="table-list">
                               <li>Redesigned site with HTML5/CSS3 </li>
                               <li>Content Delivery Network (CDN) for static files</li>
@@ -200,7 +200,7 @@
 
                 <section>
                     <h2>Horizontal Scaling</h2>
-                        <i class="fragment roll-in fa fa-cube fa-2x"></i>
+                        <i class="fa fa-cube fa-2x"></i>
                         <div class="fragment roll-in">
                           <i class="fa fa-angle-double-down"></i>
                           <i class="fa fa-angle-double-down"></i>
@@ -244,8 +244,11 @@
                         <ul>
                           <li>AKA scaling OUT</li>
                           <li>Add new nodes to infrastructure</li>
+                          <li>NEXT FRAGMENT</li>
                           <li>applicable to replicating web, database servers</li>
+                          <li>NEXT FRAGMENT</li>
                           <li>or add piece to infrastructure -- SOLR, load balancer, etc</li>
+                          <li>NEXT FRAGMENT</li>
                         </ul>
                       </aside>
                 </section>
@@ -253,7 +256,7 @@
                 <section>
                     <h2>Vertical Scaling</h2>
                     <table class="reveal">
-                      <tr class="fragment roll-in">
+                      <tr class="">
                         <td style="text-align: center;"><i class="fa fa-cube fa-2x"></i></td>
                         <td style="vertical-align: middle;">Single Node</td>
                       </tr>
@@ -274,6 +277,7 @@
                         <ul>
                           <li>AKA scaling up</li>
                           <li>increase resource(s) on a single node</li>
+                          <li>NEXT FRAGMENT</li>
                         </ul>
                       </aside>
                 </section>
@@ -302,8 +306,10 @@
                   </table>
                   <aside class="notes">
                     <ul>
+                      <li>NEXT FRAGMENT</li>
                       <li>Cheaper to scaled out than up 2 4TB drives @500 total va $1000 for 8TB drive</li>
                       <li>fault tolerance increases with properly configured nodes</li>
+                          <li>NEXT FRAGMENT</li>
                       <li>Managing the system *can* be more complicated</li>
                     </ul>
                   </aside>
@@ -334,6 +340,15 @@
                       </tr>
                     </tbody>
                   </table>
+                  <aside class="notes">
+                    <ul>
+                      <li>NEXT FRAGMENT</li>
+                      <li>cheaper facilities costs</li>
+                        <li>NEXT FRAGMENT</li>
+                      <li>high cost per upgrade, limited upgrade capabilites</li>
+                      <li>HD physical storage limits</li>
+                    </ul>
+                  </aside>
                 </section>
 
                 <section data-background="parts.jpg" class="background-slide"  data-transition="slide" data-background-transition="slide">
@@ -357,9 +372,35 @@
                       <aside class="notes">
                         <ul>
                           <li>backend vs rendered page</li>
+                          <li>illuminates where to start the process</li>
                         </ul>
                       </aside>
                 </section>
+
+                <section>
+                    <h2>General Tuning Rules</h2>
+                    <ul>
+                      <li class="fragment roll-in" >Single person can accomplish</li>
+                      <li class="fragment roll-in" >Does not require complex processes</li>
+                      <li class="fragment roll-in" >Minimal or zero ongoing maintenance efforts</li>
+                    </ul>
+                      <aside class="notes">
+                        <li>single person NEXT</li>
+                        <li>not complicated NEXT</li>
+                        <li>no/low maintenace NEXT</li>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Best Practices</h2>
+                    <ul>
+                      <li><a href="https://developer.yahoo.com/performance/rules.html">https://developer.yahoo.com/performance/rules.html</a></li>
+                      <li><a href="https://developers.google.com/speed/docs/insights/rules">https://developers.google.com/speed/docs/insights/rules</a></li>
+                    </ul>
+                      <aside class="notes">
+                      </aside>
+                </section>
+
 
                 <section>
                     <h2>Web pages are only getting bigger....</h2>
@@ -470,16 +511,7 @@
                       </aside>
                 </section>
 
-                <section>
-                    <h2>General Tuning Rules</h2>
-                    <ul>
-                      <li class="fragment roll-in" >Single person can accomplish</li>
-                      <li class="fragment roll-in" >Does not require complex processes</li>
-                      <li class="fragment roll-in" >Minimal or zero ongoing maintenance efforts</li>
-                    </ul>
-                      <aside class="notes">
-                      </aside>
-                </section>
+
 
                 <section>
                     <h2>HTTP compression</h2>
@@ -580,11 +612,11 @@ gzip_vary on;
 
                 <section>
                     <h2>Reduce Number of HTTP Requests</h2>
-                      <p class="fragment roll-in">One endpoint, many assets</p>
+                      <p class="">One endpoint, many assets</p>
                       <ul>
-                        <li class="fragment roll-in">JS</li>
-                        <li class="fragment roll-in">CSS</li>
-                        <li class="fragment roll-in">Images</li>
+                        <li class="">JS</li>
+                        <li class="">CSS</li>
+                        <li class="">Images</li>
                       </ul>
                       <aside class="notes">
                         End users are accessing a URL, it is uknown to them how many underlying
@@ -639,7 +671,7 @@ gzip_vary on;
                     <p>Optimize and trim!!</p>
                     <p><a href="http://cssminifier.com/">CSS Minifier</a></p>
 
-                          <pre class="fragment"><code data-trim class="css">
+                          <pre><code data-trim class="css">
 a {
   background: transparent;
 }
@@ -656,6 +688,11 @@ a:hover {
                           <pre class="fragment"><code data-trim class="css">
 a{background:0 0}a:focus{outline:dotted thin}a:active,a:hover{outline:0}
                           </code></pre>
+                  <aside class="notes">
+                    <ul>original sample NEXT</ul>
+                    <ul>miinified</ul>
+
+                  </aside>
 
                 </section>
 
@@ -663,9 +700,9 @@ a{background:0 0}a:focus{outline:dotted thin}a:active,a:hover{outline:0}
                     <h2>Image Sprites</h2>
                     <ul>
                       <li>Combine your background images into a single image</li>
-                      <li class="fragment">Use the CSS <b>background-image</b> and <b>background-position</b> properties to display the desired image segment</li>
+                      <li>Use the CSS <b>background-image</b> and <b>background-position</b> properties to display the desired image segment</li>
                     </ul>
-                    <div class="fragment">
+                    <div>
                       <img style="background-color: #FFF" src="yahoo_sprites.png">
                     </div>
                     <aside class="notes">
@@ -679,7 +716,7 @@ a{background:0 0}a:focus{outline:dotted thin}a:active,a:hover{outline:0}
 
                 <section>
                     <h2>Image Sprites</h2>
-                    <pre class="fragment"><code data-trim class="css">
+                    <pre><code data-trim class="css">
 
 html>body .img-sprite {
   background-image: url(./path/to/sprites.png);
@@ -1043,6 +1080,7 @@ def my_view(request):
                   <aside class="notes">
                     <ul>
                       <li>decorator wrapped the view method and does the cache get or set</li>
+                      <li>Demo Albums View</li>
                     </ul>
                   </aside>
 
@@ -1089,10 +1127,11 @@ def my_view(request):
                 <pre><code data-trim class="python">
 from django.core.cache import cache
 
-active_users = cache.get('active_users')
-if active_users is None:
-    active_users = get_active_users(days=5, number=6)
-    cache.set('active_users', active_users, 60 * 60)
+def my_view(request):
+    active_users = cache.get('active_users')
+    if active_users is None:
+        active_users = get_active_users(days=5, number=6)
+        cache.set('active_users', active_users, 60 * 60)
 
                 </code></pre>
                 </section>
@@ -1173,7 +1212,7 @@ director nginx round-robin {
                             <li>New Relic or smilar in production</li>
                           </ul>
                       </li>
-                      <li>Async long running processes tasks (CSV Reports)</li>
+                      <li>Async long running processes tasks</li>
                     </ul>
                 </section>
 
@@ -1186,10 +1225,10 @@ director nginx round-robin {
                 </section>
 
                 <section>
-                    <h2>Additional References</h2>
+                    <h2>Summary</h2>
                     <ul>
-                      <li>https://developer.yahoo.com/performance/rules.html</li>
-                      <li>https://developers.google.com/speed/docs/insights/rules</li>
+                      <li>Research Best Practices</li>
+                      <li>Iterative Cycles</li>
                     </ul>
                 </section>
 
