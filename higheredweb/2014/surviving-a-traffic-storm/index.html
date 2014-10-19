@@ -87,13 +87,16 @@
                 <section>
                     <h2>Outline</h2>
                   <ul>
+                    <li class="fragment roll-in">What can you do??</li>
                     <li class="fragment roll-in">What is a traffic spike?</li>
                     <li class="fragment roll-in">Where and How to prepare</li>
                   </ul>
                   <aside class="notes">
                     <ul>
                       <li>A look at what a programmer can do to build a site that handles a traffic spike.</li>
+                      <li>NEXT FRAGMENT</li>
                       <li>Understanding the details can shine a light on where to mitigate</li>
+                      <li>NEXT FRAGMENT</li>
                       <li>Discuss paint points up and down the stack and ways to address them</li>
                     </ul>
                   </aside>
@@ -110,11 +113,16 @@
                       <aside class="notes">
                         <ul>
                           <li>Larry Niven sci fi novella 1973</li>
+                          <li>Metaphor of sorts to our traffic spikes</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>Each person is a request</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>the location is like the server; can only accomodate so much</li>
                           <li>Mass disarray and confusion upon arrival, or queueing for a spot</li>
-                          <li>Modern day Flash Mobs</li>
                         </ul>
                       </aside>
                 </section>
+
 
                 <section data-background="queue.jpg" class="background-slide">
                     <h1>Traffic Spike</h1>
@@ -124,7 +132,7 @@
                     <h2>Traffic Spike</h2>
                       <ul>
                         <li class="">Sudden urge in demand from your users</li>
-                        <li class="fragment roll-in">Accidental DDoS</li>
+                        <li class="fragment roll-in">Distributed Denial of Service</li>
                       </ul>
                       <aside class="notes">
                         <ul>
@@ -132,6 +140,8 @@
                           <li>Saturate the web server with requests</li>
                           <li>Cannot respond in a timely manner or so slow it is unusable</li>
                           <li>Consume all CPU, memory, or storage and effectively kill the machine</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>DDOS yourself</li>
                         </ul>
                       </aside>
                 </section>
@@ -166,7 +176,7 @@
                         <td class="fragment fade" style="width: 40%; vertical-align: top">
                           <ul class="table-list">
                               <li>Redesigned site with HTML5/CSS3 </li>
-                              <li>CDN for static files</li>
+                              <li>Content Delivery Network (CDN) for static files</li>
                               <li>12 web servers</li>
                               <li>load balancer</li>
                           </ul>
@@ -241,6 +251,34 @@
                 </section>
 
                 <section>
+                    <h2>Vertical Scaling</h2>
+                    <table class="reveal">
+                      <tr class="fragment roll-in">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-2x"></i></td>
+                        <td style="vertical-align: middle;">Single Node</td>
+                      </tr>
+                      <tr class="fragment roll-in">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-3x"></i></td>
+                        <td style="vertical-align: middle;">Additional CPUs</td>
+                      </tr>
+                      <tr class="fragment roll-in">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-4x"></i></td>
+                        <td style="vertical-align: middle;">Additional RAM</td>
+                      </tr>
+                      <tr class="fragment roll-in">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-5x"></i></td>
+                        <td style="vertical-align: middle;">Additional storage</td>
+                      </tr>
+                    </table>
+                      <aside class="notes">
+                        <ul>
+                          <li>AKA scaling up</li>
+                          <li>increase resource(s) on a single node</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
                   <h2>Horizontal Scaling</h2>
                   <table class="reveal">
                     <thead>
@@ -273,34 +311,6 @@
 
 
                 <section>
-                    <h2>Vertical Scaling</h2>
-                    <table class="reveal">
-                      <tr class="fragment roll-in">
-                        <td style="text-align: center;"><i class="fa fa-cube fa-2x"></i></td>
-                        <td style="vertical-align: middle;">Single Node</td>
-                      </tr>
-                      <tr class="fragment roll-in">
-                        <td style="text-align: center;"><i class="fa fa-cube fa-3x"></i></td>
-                        <td style="vertical-align: middle;">Additional CPUs</td>
-                      </tr>
-                      <tr class="fragment roll-in">
-                        <td style="text-align: center;"><i class="fa fa-cube fa-4x"></i></td>
-                        <td style="vertical-align: middle;">Additional RAM</td>
-                      </tr>
-                      <tr class="fragment roll-in">
-                        <td style="text-align: center;"><i class="fa fa-cube fa-5x"></i></td>
-                        <td style="vertical-align: middle;">Additional storage</td>
-                      </tr>
-                    </table>
-                      <aside class="notes">
-                        <ul>
-                          <li>AKA scaling up</li>
-                          <li>increase resource(s) on a single node</li>
-                        </ul>
-                      </aside>
-                </section>
-
-                <section>
                   <h2>Vertical Scaling</h2>
                   <table class="reveal">
                     <thead>
@@ -312,12 +322,13 @@
                     <tbody>
                       <tr>
                         <td class="fragment" data-fragment-index="2">
+                          <br />
                           Lower power consumption<br />
                           Easier to implement<br />
                         </td>
                         <td class="fragment" data-fragment-index="3">
                           $$$<br />
-                          SPOF concerns<br />
+                          Single Point of Failure (SPOF)<br />
                           Limited upgrade potential
                         </td>
                       </tr>
@@ -338,13 +349,14 @@
 
                 <section>
                     <h2>Performance Golden Rule</h2>
-                      <p class="fragment roll-in"></p>
-                      <p class="fragment">
+                      <p>
                         <q>&ldquo;80-90% of the end-user response time is spent on the frontend.&rdquo;</q>  &mdash; Steve Souders, CPO @ Fastly
                       </p>
+
+
                       <aside class="notes">
                         <ul>
-                          <li>2 issues --> front end time consuming and (next slide)</li>
+                          <li>backend vs rendered page</li>
                         </ul>
                       </aside>
                 </section>
@@ -366,6 +378,49 @@
                 </section>
 
                 <section>
+                    <h2>JS</h2>
+                      <div>
+                        <img src="js.png">
+                        <br>
+                        <p><small><a href="http://httparchive.org/trends.php/">Http Archive Trends  </a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>80K</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>CSS</h2>
+                      <div>
+                        <img src="css.png">
+                        <br>
+                        <p><small><a href="http://httparchive.org/trends.php/">Http Archive Trends  </a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>15K</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Images</h2>
+                      <div>
+                        <img src="chart.png">
+                        <br>
+                        <p><small><a href="http://httparchive.org/trends.php/">Http Archive Trends  </a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>400K</li>
+                          <li>Not many more images, just bigger ones</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
                     <h2>Request &#8644; Response</h2>
                       <div>
                         <img src="cycle.png">
@@ -381,17 +436,36 @@
                 </section>
 
                 <section>
-                    <h2>CNN</h2>
-                    <h3>Un-primed cache</h3>
-                      <div>
+                    <h2>CNN vs Stack Overflow</h2>
+                    <p>Most visitors during a traffic spike will have an <b>unprimed cache</b></p>
+                      <div class="fragment">
                         <img src="cnn.png">
+                        <img src="stack_overflow.png">
                       </div>
                       <aside class="notes">
                         <ul>
-                          <li>loaded 8 seconds</li>
-                          <li>DOMContentLoaded2.2 MB</li>
-                          <li>spanning 225 requests</li>
+                          <li>Unprimed</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>loaded 8 seconds vs 1</li>
+                          <li>DOMContentLoaded 1.9 MB vs 260K (7x smaller footprint!)</li>
+                          <li>spanning 225 requests vs 29</li>
                           <li>The DOMContentLoaded event is fired when the document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading (the load event can be used to detect a fully-loaded page).</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Added Overhead on Mobile!</h2>
+                    <p>3G still the most prevalent mobile spectrum</p>
+                      <div>
+                        <img style="background: #FFF" src="mobile.png">
+                      </div>
+
+                      <aside class="notes">
+                        <ul>
+                          <li >DNS lookup to resolve the hostname (e.g. google.com) to an IP address</li>
+                          <li >Network roundtrip to perform the TCP handshake</li>
+                          <li >Full network roundtrip to send the HTTP request</li>
                         </ul>
                       </aside>
                 </section>
@@ -428,33 +502,38 @@
                       <div>
                         <img src="HTTP_request_compressed.png">
                       </div>
-                      <div class="fragment">
+                      <div>
                         <p class="fragment grow">Browser: <i>Accept-Encoding: gzip, deflate</i></p>
                         <p class="fragment grow">Response: <i>Content-Encoding: gzip</i></p>
                       </div>
                       <aside class="notes">
                         <ul>
-                          <li>Browser sends a header</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>Browser sends a header with the request</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>Server compresses response where possible if enabled</li>
                         </ul>
                       </aside>
                 </section>
 
                 <section>
-                    <h2>HTTP compression Apache mod_gzip</h2>
+                    <h2>HTTP compression Apache mod_deflate</h2>
                 <pre><code data-trim class="apache">
-<ifModule mod_gzip.c>
-  mod_gzip_on Yes
-  mod_gzip_dechunk Yes
-  mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
-  mod_gzip_item_include mime ^text/.*
-  mod_gzip_item_include mime ^application/x-javascript.*
-  mod_gzip_item_exclude mime ^image/.*
-  mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>
+SetOutputFilter DEFLATE
+SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|ico|png)$ \ no-gzip dont-vary
+SetEnvIfNoCase Request_URI \.(?:exe|t?gz|zip|bz2|sit|rar)$ \no-gzip dont-vary
+SetEnvIfNoCase Request_URI \.pdf$ no-gzip dont-vary
+
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
                 </code></pre>
                       <aside class="notes">
                         <ul>
-                          <li>syntax highligher done goofed</li>
+                          <li>ln 1 enables</li>
+                          <li>ln 2 does not compress images</li>
+                          <li>ln 3 does not compress compressed </li>
+                          <li>ln 4 no PDF</li>
                         </ul>
                       </aside>
                 </section>
@@ -484,27 +563,19 @@ gzip_vary on;
                 </section>
 
                 <section>
-                    <h2>GZip tools</h2>
-                    <p><a href="http://www.whatsmyip.org/http-compression-test/">What's My IP Compression Test</a></p>
-                      <div>
-                        <img src="whatismyip-compression.png">
-                      </div>
-                      <aside class="notes">
-                      </aside>
-                </section>
-
-                <section>
-                    <h2>GZip tools</h2>
-                    <p><a href="http://gzipwtf.com/">gzipWTF</a></p>
-                      <div>
-                        <img src="gzipwtf.png">
-                      </div>
-                      <aside class="notes">
-                        <ul>
-                          <li>90 seconds between requests</li>
-                          <li>displays individual asset info</li>
-                        </ul>
-                      </aside>
+                    <h2>Sidebar</h2>
+                    <h3><i class="fa fa-wrench"></i> Developer Tools <i class="fa fa-wrench fa-flip-horizontal"></i> </h3>
+                    <ul>
+                      <li>Yahoo <a href="https://developer.yahoo.com/yslow/">YSlow</a></li>
+                      <li>Google <a href="https://developers.google.com/speed/pagespeed/insights/">PageSpeed Insights</a></li>
+                      <li><a href="http://gtmetrix.com/">GTmetrix</a></li>
+                    </ul>
+                  <aside class="notes">
+                  <ul>
+                    <li>Browser utilities to analyze performance</li>
+                    <li>Each is opinionated about what to measure</li>
+                  </ul>
+                  </aside>
                 </section>
 
                 <section>
@@ -591,12 +662,19 @@ a{background:0 0}a:focus{outline:dotted thin}a:active,a:hover{outline:0}
                 <section>
                     <h2>Image Sprites</h2>
                     <ul>
-                      <li class="fragment">Combine your background images into a single image</li>
+                      <li>Combine your background images into a single image</li>
                       <li class="fragment">Use the CSS <b>background-image</b> and <b>background-position</b> properties to display the desired image segment</li>
                     </ul>
                     <div class="fragment">
                       <img style="background-color: #FFF" src="yahoo_sprites.png">
                     </div>
+                    <aside class="notes">
+                    </aside>
+                    <ul>
+                      <li>though each image is tiny, there is a nontrivial overhead to each request and response</li>
+                    </ul>
+
+
                 </section>
 
                 <section>
@@ -621,6 +699,29 @@ html>body .img-sprite {
                     <img class="fragment" src="yahoo.png">
                 </section>
 
+                <section>
+                    <h2>Image Sprites</h2>
+                    <a href="http://draeton.github.io/stitches/">Stitches</a>
+                    <ul>
+                      <li>Web based utility to create spritesheets</li>
+                    </ul>
+                    <aside class="notes">
+                      <ul>
+                        <li>30~50K each image (180K ~ 300K) and 6 requests</li>
+                        <li>7K spritesheet 1 requests</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>SVG Image Sprites</h2>
+                      <ul>
+                        <li>Current browsers support SVG</li>
+                        <li>Exponentially smaller and scalable</li>
+                      </ul>
+                    <aside class="notes">
+                    </aside>
+                </section>
 
                 <section>
                     <h2>Use Appropriate Image Types</h2>
@@ -661,11 +762,14 @@ html>body .img-sprite {
                       <li class="fragment">Progress indicator for end user</li>
                     </ul>
                 <pre class="fragment"><code data-trim class="html">
-<html>
-  <head>
+&lt;html&gt;
+  &lt;head&gt;
     <link rel="stylesheet" href="./CACHE/css/site.css" type="text/css" charset="utf-8">
-  </head>
-</html>
+  &lt;/head&gt;
+  &lt;body&gt;
+    <!-- stuff -->
+  &lt;/body&gt;
+&lt;/html&gt;
                 </code></pre>
 
                 </section>
@@ -705,18 +809,47 @@ html>body .img-sprite {
                           <li class="fragment">Maximizes browser's concurrent connections</li>
                         </ul>
                       </li>
-                      <li class="fragment"><a href="">SPDY</a> protocol
-                        <ul>
-                          <li class="fragment">supports concurrent requests & request prioritization</li>
-                          <li class="fragment">Chrome, Firefox, Opera, and IE 11</li>
-                        </ul>
+                    <aside class="notes">
+                      <ul>
+                        <li>2 - 8 concurrent cnx</li>
+                        <li>2 - 4 shards</li>
+                        <li>every new hostname will require an additional DNS lookup</li>
+                      <li>require the site author to manually manage where and how the resources are split</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Content Storage and Distribution</h2>
+                    <h3>Amazon Web Services Simple Storage Service (AWS S3)</h3>
+                    <ul>
+                      <li class="fragment">Offload entire storage infrastructure
                       </li>
+                      <li class="fragment">Scalable</li>
+                      <li class="fragment">Pay as you grow</li>
                     </ul>
                     <aside class="notes">
                       <ul>
-                        <li>Situational...</li>
+                        <li>Example of Horizontal scaling</li>
+                        <li>Adding Nodes</li>
                       </ul>
                     </aside>
+                </section>
+
+                <section>
+                    <h2>Django-storages</h2>
+                <pre><code data-trim class="python">
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_QUERYSTRING_AUTH = False
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# these next two aren't used, but staticfiles will complain without them
+STATIC_URL = "https://%s.s3.amazonaws.com/" % os.environ['AWS_STORAGE_BUCKET_NAME']
+STATIC_ROOT = ''
+                </code></pre>
                 </section>
 
                 <section>
@@ -727,11 +860,20 @@ html>body .img-sprite {
                       <li class="fragment">server selection based on network proximity
                       </li>
                     </ul>
+                    <aside class="notes">
+                      <ul>
+                        <li>What does this look like?</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Content Delivery Network</h2>
                     <img  class="fragment" src="cdn.png" />
 
                     <aside class="notes">
                       <ul>
-                        <li>Disperse static content</li>
+                        <li>Describe origin to PoP (edge)</li>
                       </ul>
                     </aside>
                 </section>
@@ -759,43 +901,112 @@ html>body .img-sprite {
                 <pre><code data-trim class="python">
 AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
 AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+# unsigned URL
 AWS_QUERYSTRING_AUTH = False
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-AWS_S3_CUSTOM_DOMAIN = 'sXXXXX.cloudfront.net'
-# see http://developer.yahoo.com/performance/rules.html#expires
-AWS_HEADERS = {
-  'Cache-Control': 'max-age=86400',
-  'Expires': 'Thu, 31 Dec 2015 23:55:55 GMT'
-}
+
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 # these next two aren't used, but staticfiles will complain without them
 STATIC_URL = "https://%s.s3.amazonaws.com/" % os.environ['AWS_STORAGE_BUCKET_NAME']
 STATIC_ROOT = ''
+
+AWS_S3_CUSTOM_DOMAIN = 'sXXXXX.cloudfront.net'
                 </code></pre>
+                    <aside class="notes">
+                      <ul>
+                        <li>Also need to configure AWS CloudFront account</li>
+                      </ul>
+                    </aside>
+                </section>
+
+              <section data-background="currency.jpg" class="background-slide" data-background-transition="slide">
+                  <h1 style="color: #000">Caching</h1>
+              </section>
+
+              <section>
+                <h2>Cache</h2>
+                    <ul>
+                      <li>A <b>temporary</b> storage of web assets
+                        <ul>
+                          <li>Reduce bandwidth usage</li>
+                          <li>Reduce server load</li>
+                          <li>Reduce lag</li>
+                        </ul>
+                      </li>
+                    </ul>
+              </section>
+
+                <section>
+                    <h2>Server Response</h2>
+                    <img style="background: #FFF" src="http-request.png" alt="">
+                  <aside class="notes">
+                    <ul>
+                      <li>Server response must specify a cache policy</li>
+                      <li>Cache Control --> directives for expiring cache</li>
+                      <li>Etag -->  validation token</li>
+                    </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Cache Control Directives</h2>
+                    <ul>
+                      <li><b>max-age:</b> time to live in seconds</li>
+                      <li><b>public:</b> mark asset as cacheable</li>
+                      <li><b>private:</b> OK for browser to cache, not an intermediary</li>
+                      <li><b>no-cache:</b> validate Etag token else redownload</li>
+                      <li><b>no-store:</b> disallow caching (private data)</li>
+                    </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>public -- tpyically not need due to max age</li>
+                      <li>private -- user profile info, for example </li>
+                    </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Cache Invalidation</h2>
+                      <p>
+                        <q>&ldquo;There are only two hard things in Computer Science: cache invalidation and naming things.
+&rdquo;</q> <br> &mdash; Phil Karlton, Chief Curmudgeon @ Netscape
+                      </p>
+                </section>
+
+                <section>
+                    <h2>Cache Invalidation</h2>
+                    <img src="http-cache-hierarchy.png" style="background: #FFF" alt="">
+                  <aside class="notes">
+                    <ul>
+                      <li>Locally cached responses are used until the resource 'expires'</li>
+                      <li>HTML asserts Etag or redownload</li>
+                      <li>CSS expires after 1 year and can be cached by browser or CDN</li>
+                      <li>Embedding a file content fingerprint in the URL enables us to force the client to update to a new version of the response</li>
+                      <li>JS has private info, browser only</li>
+                      <li>photo 1 day</li>
+                      <li>Each application needs to define its own cache hierarchy for optimal performance</li>
+                    </ul>
+                  </aside>
+
                 </section>
 
 
-
-
-
                 <section>
-                    <h2>Cacheing</h2>
+                    <h2>Application Cache</h2>
                     <ul>
-                      <li>what is it?</li>
-                      <li>cache headers</li>
-                      <li>template fragments</li>
-                      <li>full page</li>
-                      <li>objects</li>
-                      <li>database queries</li>
+                      <li>Template Fragments</li>
+                      <li>Full Page</li>
+                      <li>Objects</li>
+                      <li>Database Queries</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>load balancer</h2>
+                    <h2>Backend</h2>
                     <ul>
-                      <li>what is it?</li>
-                      <li>varnish ex</li>
+                      <li>Slow queries and how to profile and identify</li>
+                      <li>Async tasks (minidam CSV generation)</li>
                     </ul>
                 </section>
 
@@ -810,8 +1021,8 @@ STATIC_ROOT = ''
                 <section>
                     <h2>dev tools</h2>
                     <ul>
+                      <li>PageSpeed</li>
                       <li>YSlow</li>
-                      <li>browser dev tools</li>
                     </ul>
                 </section>
 
@@ -819,21 +1030,23 @@ STATIC_ROOT = ''
                     <h2>Load Testing</h2>
                     <ul>
                       <li>JMeter, Siege, AB</li>
-                      <li>browser dev tools</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>Load Testing</h2>
+                    <h2>Additional References</h2>
                     <ul>
-                      <li>JMeter, Siege, AB</li>
-                      <li>browser dev tools</li>
+                      <li>https://developer.yahoo.com/performance/rules.html</li>
+                      <li>https://developers.google.com/speed/docs/insights/rules</li>
                     </ul>
                 </section>
+
 
                 <section>
                     <h2>Questions?</h2>
                 </section>
+
+
 
             </div>
 
