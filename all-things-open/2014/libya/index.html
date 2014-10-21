@@ -104,6 +104,7 @@
 							<li>short overview of talk</li>
 							<li>libya & project context</li>
 							<li>look more closely at open source tools, dev practices</li>
+							<li>talk about some challenges</li>
 							<li>briefly compare this to the US</li>
 							<li>time for QA, after which will close talk</li>
 						</ul>
@@ -123,7 +124,7 @@
 				<!-- image from http://www.universityobserver.ie/2012/01/01/a-year-in-review-the-biggest-news-stories-of-2011/libya-3/ -->
 					<aside class="notes">
 						<ul>
-							<li>protests throughout 2011</li>
+							<li>protests throughout 2011 (ns)</li>
 						</ul>
 					</aside>
 				</section>
@@ -133,7 +134,7 @@
 					<aside class="notes">
 						<ul>
 							<li>led to overthrow & death of Gaddafi, 10/20/11</li>
-							<li>young democracy, many and growing challenges</li>
+							<li>young democracy, many and growing challenges (pause)</li>
 						</ul>
 					</aside>
 				</section>
@@ -165,6 +166,8 @@
 					<aside class="notes">
 						<ul>
 							<li>SMS voter reg first used in Feb 2014 CDA / Constitutional Drafting Assembly - proof of concept</li>
+							<li>important but smaller election</li>
+							<li>1M registered voters</li>
 						</ul>
 					</aside>
 				</section>
@@ -172,6 +175,11 @@
 				<section>
 					<blockquote>Given the capacity of the SMS system, which allows for a large number of voters to be processed over a short period of time and which is a simple procedure for the majority of users, this system should be used again in future elections.</blockquote>
 					<p><small>- The Carter Center</small></p>
+					<aside class="notes">
+						<ul>
+							<li>carter center wrote a report about this election - effectively blessing the use of SMS in future elections (pause)</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
@@ -195,7 +203,7 @@
 					<aside class="notes">
 						<ul>
 							<li>elections conducted by High National Election Commission (HNEC) of Libya, support from UN</li>
-							<li>very forward thinking of HNEC to use SMS, allowed them to hold elections quickly, support rapidly changing political climate</li>
+							<li>have to say - was very forward thinking of HNEC to use SMS, allowed them to hold elections quickly, support rapidly changing political climate</li>
 						</ul>
 					</aside>
 				</section>
@@ -207,6 +215,7 @@
 						<ul>
 							<li>6 devs, 1 PM in NC</li>
 							<li>2 support staff on-site during election - data management, custom reporting, system monitoring</li>
+							<li>i was very honored to be one of those people to travel to libya to support most recent election</li>
 						</ul>
 					</aside>
 				</section>
@@ -216,7 +225,7 @@
 					<aside class="notes">
 						<ul>
 							<li>limited in-country tech, very luck to have Ahmed on-staff at HNEC to support project locally</li>
-							<li>earned a masters in CS from UCSF thru fulbright</li>
+							<li>native of Tripoli (capital of Libya), but earned a masters in CS from UCSF thru fulbright</li>
 						</ul>
 					</aside>
 				</section>
@@ -244,6 +253,17 @@
 					<aside class="notes">
 						<ul>
 							<li>majority of user-facing business logic in RapidSMS app</li>
+							<li>in addition to handling voter registration, tool also supported "polling day reporting" (pause)</li>
+							<li>this allowed poll workers (teachers in Libya) to text in count of votes throughout the day to get ongoing estimate of turnout...</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-dataflow-sanitized-dashboard.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>...which, in turn, could be viewed by staff at HNEC headquarters throughout election day</li>
 						</ul>
 					</aside>
 				</section>
@@ -252,13 +272,19 @@
 				<!-- image by speaker -->
 					<aside class="notes">
 						<ul>
-							<li>with help from the Praekelt Foundation, used Vumi to integrate with MNOs</li>
+							<li>in addition, with help from the Praekelt Foundation, used a technology called "Vumi" to integrate with mobile network operators</li>
+							<li>so, given all of these parameters...</li>
 						</ul>
 					</aside>
 				</section>
 
 				<section>
 					<h1>A Culture of Open Source</h1>
+					<aside class="notes">
+						<ul>
+					        <li>what are some of the tools and practices we used along the way?</li>
+					    </ul>
+					</aside>
 				</section>
 
 				<section>
