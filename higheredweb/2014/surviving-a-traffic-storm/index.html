@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Surviving a traffic storm &mdash; A look at what a programmer can do to build a site that handles a traffic spike</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Caktus specific styles -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+        <link rel="stylesheet" href="./custom.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/docco.css">
+
+
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = 'css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+            <aside class="logo">
+                <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+            </aside>
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+              <section data-background="traffic-storm.jpg" class="background-slide" data-background-transition="slide">
+                <!-- image from http://articles.latimes.com/ -->
+                    <h1 style="color: #000">Surviving a traffic storm</h1>
+                    <p>
+                        <strong><a style="color: #000"href="https://twitter.com/david_codes">David Ray</a></strong>
+                    </p>
+                </section>
+
+                <section>
+                  <h2>Who am I?</h2>
+                  <ul>
+                    <li class="fragment roll-in">Sales Engineer & Developer at <a href="http://caktusgroup.com">Caktus Group</a> in Durham, NC</li>
+                    <li class="fragment roll-in">Former applications analyst at UNC Chapel Hill </li>
+                    <li class="fragment roll-in">Co-developer of eduCommons OpenCourseWare platform at Utah State University </li>
+                  </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>At Caktus we build web applications with Django, a Python based web framwork.
+                          <ul>
+                            <li>UNC CH</li>
+                            <li>University of Chicago</li>
+                            <li>Unicef</li>
+                            <li>startups as well as established entities</li>
+                          </ul>
+                      </li>
+                      <li>UNC CH -- Built LIMS and Core Facility services and invoicing softwares</li>
+                      <li>USU -- born out of MIT OCW, first OSS turnkey OCW platform, 1/3 of the market</li>
+                    </ul>
+                  </aside>
+                </section>
+
+
+                <section>
+                    <h2>Outline</h2>
+                  <ul>
+                    <li class="fragment roll-in">What can you do??</li>
+                    <li class="fragment roll-in">What is a traffic spike?</li>
+                    <li class="fragment roll-in">Where and How to prepare</li>
+                  </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>A look at what a programmer can do to build a site that handles a traffic spike.</li>
+                      <li>NEXT FRAGMENT</li>
+                      <li>Understanding the details can shine a light on where to mitigate</li>
+                      <li>NEXT FRAGMENT</li>
+                      <li>Discuss paint points up and down the stack and ways to address them</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+                <section data-background="transporter.jpg" data-transition="slide" data-background-transition="slide">
+                <!-- image from http://en.memory-alpha.org/ -->
+                    <h2>Flash Crowd</h2>
+                      <ul>
+                        <li class="fragment roll-in">Publicly available teleportion booths</li>
+                        <li class="fragment roll-in">Near instant congregations of 1000s of people</li>
+                      </ul>
+                      <aside class="notes">
+                        <ul>
+                          <li>Larry Niven sci fi novella 1973</li>
+                          <li>Metaphor of sorts to our traffic spikes</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>Each person is a request</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>the location is like the server; can only accomodate so much</li>
+                          <li>Mass disarray and confusion upon arrival, or queueing for a spot</li>
+                        </ul>
+                      </aside>
+                </section>
+
+
+                <section data-background="queue.jpg" class="background-slide">
+                    <h1>Traffic Spike</h1>
+                </section>
+
+                <section>
+                    <h2>Traffic Spike</h2>
+                      <ul>
+                        <li class="">Sudden urge in demand from your users</li>
+                        <li class="fragment roll-in">Distributed Denial of Service</li>
+                      </ul>
+                      <aside class="notes">
+                        <ul>
+                          <li>Too many requests for the servers to handle at once</li>
+                          <li>Saturate the web server with requests</li>
+                          <li>Cannot respond in a timely manner or so slow it is unusable</li>
+                          <li>Consume all CPU, memory, or storage and effectively kill the machine</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>DDOS yourself</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Example &mdash; Shark Tank</h2>
+                    <table class="reveal">
+                      <tr>
+                        <td class="">
+                            <img src="villy-custom-logo.jpg" />
+                            <br />
+                            <p><small><a href="http://www.villycustoms.com/">Villy Custom</a></small></p>
+                        </td>
+                        <td class="" style="width: 40%; vertical-align: top">
+                          <ul class="table-list">
+                              <li>Thirty minute time frame </li>
+                              <li>3.2 million page hits</li>
+                              <li>120K page views / minute </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Villy Custom</h2>
+                    <table class="reveal">
+                      <tr>
+                        <td class="">
+                            <img src="villy-stats.png" />
+                        </td>
+                        <td style="width: 40%; vertical-align: top">
+                          <ul class="table-list">
+                              <li>Redesigned site with HTML5/CSS3 </li>
+                              <li>Content Delivery Network (CDN) for static files</li>
+                              <li>12 web servers</li>
+                              <li>load balancer</li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>Strategies</h2>
+                      <ul>
+                        <li class="fragment roll-in">Horizontal Scaling</li>
+                        <li class="fragment roll-in">Vertical Scaling</li>
+                        <li class="fragment roll-in">Performance Tuning</li>
+                      </ul>
+                      <aside class="notes">
+                        <ul>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Horizontal Scaling</h2>
+                        <i class="fa fa-cube fa-2x"></i>
+                        <div class="fragment roll-in">
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+                          <i class="fa fa-angle-double-down"></i>
+
+                          <br />
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                        </div>
+                        <div class="fragment roll-in">
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                        </div>
+                        <div class="fragment roll-in">
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                          <i class="fa fa-cube fa-2x"></i>
+                        </div>
+
+                      <aside class="notes">
+                        <ul>
+                          <li>AKA scaling OUT</li>
+                          <li>Add new nodes to infrastructure</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>applicable to replicating web, database servers</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>or add piece to infrastructure -- SOLR, load balancer, etc</li>
+                          <li>NEXT FRAGMENT</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Vertical Scaling</h2>
+                    <table class="reveal">
+                      <tr class="">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-2x"></i></td>
+                        <td style="vertical-align: middle;">Single Node</td>
+                      </tr>
+                      <tr class="fragment roll-in">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-3x"></i></td>
+                        <td style="vertical-align: middle;">Additional CPUs</td>
+                      </tr>
+                      <tr class="fragment roll-in">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-4x"></i></td>
+                        <td style="vertical-align: middle;">Additional RAM</td>
+                      </tr>
+                      <tr class="fragment roll-in">
+                        <td style="text-align: center;"><i class="fa fa-cube fa-5x"></i></td>
+                        <td style="vertical-align: middle;">Additional storage</td>
+                      </tr>
+                    </table>
+                      <aside class="notes">
+                        <ul>
+                          <li>AKA scaling up</li>
+                          <li>increase resource(s) on a single node</li>
+                          <li>NEXT FRAGMENT</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                  <h2>Horizontal Scaling</h2>
+                  <table class="reveal">
+                    <thead>
+                      <tr class="fragment" data-fragment-index="1">
+                        <th class="fragment grow" data-fragment-index="2">PROS</th>
+                        <th class="fragment grow" data-fragment-index="3">CONS</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="fragment" data-fragment-index="2">
+                          $$$<br />
+                          Increased durability<br />
+                          Easier to upgrade<br />
+                        </td>
+                        <td class="fragment" data-fragment-index="3">
+                          larger topology<br />
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <aside class="notes">
+                    <ul>
+                      <li>NEXT FRAGMENT</li>
+                      <li>Cheaper to scaled out than up 2 4TB drives @500 total va $1000 for 8TB drive</li>
+                      <li>fault tolerance increases with properly configured nodes</li>
+                          <li>NEXT FRAGMENT</li>
+                      <li>Managing the system *can* be more complicated</li>
+                    </ul>
+                  </aside>
+                </section>
+
+
+                <section>
+                  <h2>Vertical Scaling</h2>
+                  <table class="reveal">
+                    <thead>
+                      <tr class="fragment" data-fragment-index="1">
+                        <th class="fragment grow" data-fragment-index="2">PROS</th>
+                        <th class="fragment grow" data-fragment-index="3">CONS</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="fragment" data-fragment-index="2">
+                          <br />
+                          Lower power consumption<br />
+                          Easier to implement<br />
+                        </td>
+                        <td class="fragment" data-fragment-index="3">
+                          $$$<br />
+                          Single Point of Failure (SPOF)<br />
+                          Limited upgrade potential
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <aside class="notes">
+                    <ul>
+                      <li>NEXT FRAGMENT</li>
+                      <li>cheaper facilities costs</li>
+                        <li>NEXT FRAGMENT</li>
+                      <li>high cost per upgrade, limited upgrade capabilites</li>
+                      <li>HD physical storage limits</li>
+                    </ul>
+                  </aside>
+                </section>
+
+                <section data-background="parts.jpg" class="background-slide"  data-transition="slide" data-background-transition="slide">
+                <!-- image from http://www.mbandf.com/mad-gallery/press/other/oefner -->
+                    <h2>Performance Tuning</h2>
+                      <aside class="notes">
+                        <ul>
+                          <li>Depends on the level of access you, as the developer, have to the stack</li>
+                          <li>We'll start with a the standard punchlist of things to optimize and work out way deeper</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Performance Golden Rule</h2>
+                      <p>
+                        <q>&ldquo;80-90% of the end-user response time is spent on the frontend.&rdquo;</q>  &mdash; Steve Souders, CPO @ Fastly
+                      </p>
+
+
+                      <aside class="notes">
+                        <ul>
+                          <li>backend vs rendered page</li>
+                          <li>illuminates where to start the process</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>General Tuning Rules</h2>
+                    <ul>
+                      <li class="fragment roll-in" >Single person can accomplish</li>
+                      <li class="fragment roll-in" >Does not require complex processes</li>
+                      <li class="fragment roll-in" >Minimal or zero ongoing maintenance efforts</li>
+                    </ul>
+                      <aside class="notes">
+                        <li>single person NEXT</li>
+                        <li>not complicated NEXT</li>
+                        <li>no/low maintenace NEXT</li>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Best Practices</h2>
+                    <ul>
+                      <li><a href="https://developer.yahoo.com/performance/rules.html">https://developer.yahoo.com/performance/rules.html</a></li>
+                      <li><a href="https://developers.google.com/speed/docs/insights/rules">https://developers.google.com/speed/docs/insights/rules</a></li>
+                    </ul>
+                      <aside class="notes">
+                      </aside>
+                </section>
+
+
+                <section>
+                    <h2>Web pages are only getting bigger....</h2>
+                      <div>
+                        <img src="transfer-size.png">
+                        <br>
+                        <p><small><a href="http://httparchive.org/trends.php/">Http Archive Trends  </a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>2 year time span</li>
+                          <li>avg total page size is 1.6MB</li>
+                          <li>spanning 117 requests</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>JS</h2>
+                      <div>
+                        <img src="js.png">
+                        <br>
+                        <p><small><a href="http://httparchive.org/trends.php/">Http Archive Trends  </a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>80K</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>CSS</h2>
+                      <div>
+                        <img src="css.png">
+                        <br>
+                        <p><small><a href="http://httparchive.org/trends.php/">Http Archive Trends  </a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>15K</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Images</h2>
+                      <div>
+                        <img src="chart.png">
+                        <br>
+                        <p><small><a href="http://httparchive.org/trends.php/">Http Archive Trends  </a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>400K</li>
+                          <li>Not many more images, just bigger ones</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Request &#8644; Response</h2>
+                      <div>
+                        <img src="cycle.png">
+                        <br>
+                        <p><small><a href="http://rafekettler.com/">Rafe Kettler</a></small></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>End user requests an asset from the web server</li>
+                          <li>Web server computes and respondes</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>CNN vs Stack Overflow</h2>
+                    <p>Most visitors during a traffic spike will have an <b>unprimed cache</b></p>
+                      <div class="fragment">
+                        <img src="cnn.png">
+                        <img src="stack_overflow.png">
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>Unprimed</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>loaded 8 seconds vs 1</li>
+                          <li>DOMContentLoaded 1.9 MB vs 260K (7x smaller footprint!)</li>
+                          <li>spanning 225 requests vs 29</li>
+                          <li>The DOMContentLoaded event is fired when the document has been completely loaded and parsed, without waiting for stylesheets, images, and subframes to finish loading (the load event can be used to detect a fully-loaded page).</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Added Overhead on Mobile!</h2>
+                    <p>3G still the most prevalent mobile spectrum</p>
+                      <div>
+                        <img style="background: #FFF" src="mobile.png">
+                      </div>
+
+                      <aside class="notes">
+                        <ul>
+                          <li >DNS lookup to resolve the hostname (e.g. google.com) to an IP address</li>
+                          <li >Network roundtrip to perform the TCP handshake</li>
+                          <li >Full network roundtrip to send the HTTP request</li>
+                        </ul>
+                      </aside>
+                </section>
+
+
+
+                <section>
+                    <h2>HTTP compression</h2>
+                      <div>
+                        <img src="HTTP_request.png">
+                      </div>
+                      <div>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>Uncompressed</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>HTTP compression</h2>
+                      <div>
+                        <img src="HTTP_request_compressed.png">
+                      </div>
+                      <div>
+                        <p class="fragment grow">Browser: <i>Accept-Encoding: gzip, deflate</i></p>
+                        <p class="fragment grow">Response: <i>Content-Encoding: gzip</i></p>
+                      </div>
+                      <aside class="notes">
+                        <ul>
+                          <li>NEXT FRAGMENT</li>
+                          <li>Browser sends a header with the request</li>
+                          <li>NEXT FRAGMENT</li>
+                          <li>Server compresses response where possible if enabled</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>HTTP compression Apache mod_deflate</h2>
+                <pre><code data-trim class="apache">
+SetOutputFilter DEFLATE
+SetEnvIfNoCase Request_URI \.(?:gif|jpe?g|ico|png)$ \ no-gzip dont-vary
+SetEnvIfNoCase Request_URI \.(?:exe|t?gz|zip|bz2|sit|rar)$ \no-gzip dont-vary
+SetEnvIfNoCase Request_URI \.pdf$ no-gzip dont-vary
+
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+                </code></pre>
+                      <aside class="notes">
+                        <ul>
+                          <li>ln 1 enables</li>
+                          <li>ln 2 does not compress images</li>
+                          <li>ln 3 does not compress compressed </li>
+                          <li>ln 4 no PDF</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>HTTP compression nginx</h2>
+                <pre><code data-trim class="nginx">
+gzip on;
+gzip_comp_level 1;
+gzip_proxied any;
+gzip_min_length 1100;
+gzip_buffers 16 8k;
+gzip_types text/plain text/html text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+# Disable for IE < 6 because there are some known problems
+gzip_disable "MSIE [1-6].(?!.*SV1)";
+
+# Add a vary header for downstream proxies to avoid sending cached gzipped files to IE6
+gzip_vary on;
+                </code></pre>
+                  <p><a href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html">Nginx GZip Module</a></p>
+                  <aside class="notes">
+                  <ul>
+                    <li>Suggest reading more about each directive and what they do</li>
+                  </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Sidebar</h2>
+                    <h3><i class="fa fa-wrench"></i> Developer Tools <i class="fa fa-wrench fa-flip-horizontal"></i> </h3>
+                    <ul>
+                      <li>Yahoo <a href="https://developer.yahoo.com/yslow/">YSlow</a></li>
+                      <li>Google <a href="https://developers.google.com/speed/pagespeed/insights/">PageSpeed Insights</a></li>
+                      <li><a href="http://gtmetrix.com/">GTmetrix</a></li>
+                    </ul>
+                  <aside class="notes">
+                  <ul>
+                    <li>Browser utilities to analyze performance</li>
+                    <li>Each is opinionated about what to measure</li>
+                  </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Reduce Number of HTTP Requests</h2>
+                      <p class="">One endpoint, many assets</p>
+                      <ul>
+                        <li class="">JS</li>
+                        <li class="">CSS</li>
+                        <li class="">Images</li>
+                      </ul>
+                      <aside class="notes">
+                        End users are accessing a URL, it is uknown to them how many underlying
+                        assets they are requesting
+                      </aside>
+                </section>
+
+                <section data-background="stitch.JPG" class="background-slide"  data-transition="slide" data-background-transition="slide">
+                <!-- image from http://bigbgsd.blogspot.com/2012_12_01_archive.html -->
+                    <h2  style="color: #117F89">Combine assets</h2>
+                      <aside class="notes">
+                        <ul>
+                          <li>Sitch together assets</li>
+                          <li>Reduces ## of Http Requests</li>
+                          <li>Applicable to CSS and JS files</li>
+                        </ul>
+                      </aside>
+                </section>
+
+
+                <section>
+                    <h2>Compression Example</h2>
+                <pre><code data-trim class="html">
+{% load compress %}
+
+{% compress css %}
+    <link rel="stylesheet" href="/static/css/one.css" type="text/css" charset="utf-8">
+    <style type="text/css">p { border:5px solid green;}</style>
+    <link rel="stylesheet" href="/static/css/two.css" type="text/css" charset="utf-8">
+{% endcompress %}
+                </code></pre>
+                      <aside class="notes">
+                        <ul>
+                          <li>Most platforms have compression libraries</li>
+                          <li>Allow you to keep CSS/JS organized in separate files on the FS</li>
+                          <li>Compress and cache on deploy</li>
+                        </ul>
+                      </aside>
+                </section>
+
+                <section>
+                    <h2>Compression Example</h2>
+                  <pre><code data-trim class="html">
+<link rel="stylesheet" href="/static/CACHE/css/f7c661b7a124.css" type="text/css" charset="utf-8">
+                  </code></pre>
+                  <aside class="notes">
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Minification</h2>
+                    <p>Optimize and trim!!</p>
+                    <p><a href="http://cssminifier.com/">CSS Minifier</a></p>
+
+                          <pre><code data-trim class="css">
+a {
+  background: transparent;
+}
+
+a:focus {
+  outline: thin dotted;
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+                          </code></pre>
+                          <pre class="fragment"><code data-trim class="css">
+a{background:0 0}a:focus{outline:dotted thin}a:active,a:hover{outline:0}
+                          </code></pre>
+                  <aside class="notes">
+                    <ul>original sample NEXT</ul>
+                    <ul>miinified</ul>
+
+                  </aside>
+
+                </section>
+
+                <section>
+                    <h2>Image Sprites</h2>
+                    <ul>
+                      <li>Combine your background images into a single image</li>
+                      <li>Use the CSS <b>background-image</b> and <b>background-position</b> properties to display the desired image segment</li>
+                    </ul>
+                    <div>
+                      <img style="background-color: #FFF" src="yahoo_sprites.png">
+                    </div>
+                    <aside class="notes">
+                    </aside>
+                    <ul>
+                      <li>though each image is tiny, there is a nontrivial overhead to each request and response</li>
+                    </ul>
+
+
+                </section>
+
+                <section>
+                    <h2>Image Sprites</h2>
+                    <pre><code data-trim class="css">
+
+html>body .img-sprite {
+  background-image: url(./path/to/sprites.png);
+}
+
+.flag-sprite, .img-sprite {
+  background-repeat: no-repeat;
+  background-color: transparent;
+}
+
+#nav-mail {
+  background-position: -43px -66px;
+}
+
+<i id="nav-mail" class="img-sprite"></i>
+                    </code></pre>
+                    <img class="fragment" src="yahoo.png">
+                </section>
+
+                <section>
+                    <h2>Image Sprites</h2>
+                    <a href="http://draeton.github.io/stitches/">Stitches</a>
+                    <ul>
+                      <li>Web based utility to create spritesheets</li>
+                    </ul>
+                    <aside class="notes">
+                      <ul>
+                        <li>30~50K each image (180K ~ 300K) and 6 requests</li>
+                        <li>7K spritesheet 1 requests</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>SVG Image Sprites</h2>
+                      <ul>
+                        <li>Current browsers support SVG</li>
+                        <li>Exponentially smaller and scalable</li>
+                      </ul>
+                    <aside class="notes">
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Use Appropriate Image Types</h2>
+                    <ul>
+                      <li><b>JPEG:</b> Photographs</li>
+                      <li><b>PNG:</b> Generated images (charts, logos, etc.) or transparency (image overlays)</li>
+                      <li><b>GIF:</b> Animation required</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Misuse</h2>
+                    <table class="reveal">
+                      <tr>
+                        <td><img src="horses.png" alt=""></td>
+                        <td><img src="horses.jpg" alt=""></td>
+                      </tr>
+                      <tr class="fragment">
+                        <td>Type: <b>PNG</b></td>
+                        <td>Type: <b>JPEG</b></td>
+                      </tr>
+                      <tr>
+                        <td class="fragment">Size: <b>111.8kB</b></td>
+                        <td class="fragment">Size: <b>14.3kB</b></td>
+                      </tr>
+                      <tr class="fragment">
+                        <td align="center" colspan="2"><b>8x</b></td>
+                      </tr>
+                    </table>
+                </section>
+
+
+                <section>
+                    <h2>Stylesheet Placement</h2>
+                    <ul>
+                      <li class="fragment">Place in <b>head</b> section of DOM</li>
+                      <li class="fragment">Progressive rendering</li>
+                      <li class="fragment">Progress indicator for end user</li>
+                    </ul>
+                <pre class="fragment"><code data-trim class="html">
+&lt;html&gt;
+  &lt;head&gt;
+    <link rel="stylesheet" href="./CACHE/css/site.css" type="text/css" charset="utf-8">
+  &lt;/head&gt;
+  &lt;body&gt;
+    <!-- stuff -->
+  &lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
+
+                </section>
+
+                <section>
+                    <h2>Javascript Placement</h2>
+                    <ul>
+                      <li class="fragment">Place right before <b>&lt;/body&gt;</b> section of DOM</li>
+                      <li class="fragment">JS download is blocking</li>
+                    </ul>
+                <pre class="fragment"><code data-trim class="html">
+&lt;html&gt;
+  &lt;body&gt;
+    <!-- stuff -->
+    &lt;script src="../../../conf/themes/reveal.js/js/reveal.min.js">&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
+
+                  <aside class="notes">
+                    <ul>
+                      <li>Prevents parallel downloads from occuring</li>
+                      <li>Not always possible -- document.write, for example</li>
+                    </ul>
+                  </aside>
+                </section>
+
+
+                <section>
+                    <h2>Parellization</h2>
+                    <h3>To shard or not to shard?</h3>
+                    <ul>
+                      <li class="fragment">Split resources across multiple domains
+                        <ul>
+                          <li class="fragment">shard1.domain.com</li>
+                          <li class="fragment">shard2.domain.com</li>
+                          <li class="fragment">Maximizes browser's concurrent connections</li>
+                        </ul>
+                      </li>
+                    <aside class="notes">
+                      <ul>
+                        <li>2 - 8 concurrent cnx</li>
+                        <li>2 - 4 shards</li>
+                        <li>every new hostname will require an additional DNS lookup</li>
+                      <li>require the site author to manually manage where and how the resources are split</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Content Storage and Distribution</h2>
+                    <h3>Amazon Web Services Simple Storage Service (AWS S3)</h3>
+                    <ul>
+                      <li class="fragment">Offload entire storage infrastructure
+                      </li>
+                      <li class="fragment">Scalable</li>
+                      <li class="fragment">Pay as you grow</li>
+                    </ul>
+                    <aside class="notes">
+                      <ul>
+                        <li>Example of Horizontal scaling</li>
+                        <li>Adding Nodes</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Django-storages</h2>
+                <pre><code data-trim class="python">
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_QUERYSTRING_AUTH = False
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# these next two aren't used, but staticfiles will complain without them
+STATIC_URL = "https://%s.s3.amazonaws.com/" % os.environ['AWS_STORAGE_BUCKET_NAME']
+STATIC_ROOT = ''
+                </code></pre>
+                </section>
+
+                <section>
+                    <h2>Content Delivery Network</h2>
+                    <ul>
+                      <li class="fragment">collection of web servers distributed across multiple locations
+                      </li>
+                      <li class="fragment">server selection based on network proximity
+                      </li>
+                    </ul>
+                    <aside class="notes">
+                      <ul>
+                        <li>What does this look like?</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Content Delivery Network</h2>
+                    <img  class="fragment" src="cdn.png" />
+
+                    <aside class="notes">
+                      <ul>
+                        <li>Describe origin to PoP (edge)</li>
+                      </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>Content Delivery Network</h2>
+                    <table class="reveal">
+                      <tr class="fragment">
+                        <td>External Storage Backend</td>
+                        <td>CDN itself</td>
+                      </tr>
+                      <tr class="fragment">
+                        <td><img src="amz_s3.jpg" alt=""></td>
+                        <td><img src="amz-cf.jpg" alt=""></td>
+                      </tr>
+                      <tr class="fragment">
+                        <td><img src="rs_cf.jpg" alt=""></td>
+                        <td><img src="akamai.png" alt=""></td>
+                      </tr>
+                    </table>
+                </section>
+
+                <section>
+                    <h2>CDN Django example</h2>
+                <pre><code data-trim class="python">
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+# unsigned URL
+AWS_QUERYSTRING_AUTH = False
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+# these next two aren't used, but staticfiles will complain without them
+STATIC_URL = "https://%s.s3.amazonaws.com/" % os.environ['AWS_STORAGE_BUCKET_NAME']
+STATIC_ROOT = ''
+
+AWS_S3_CUSTOM_DOMAIN = 'sXXXXX.cloudfront.net'
+                </code></pre>
+                    <aside class="notes">
+                      <ul>
+                        <li>Also need to configure AWS CloudFront account</li>
+                      </ul>
+                    </aside>
+                </section>
+
+              <section data-background="currency.jpg" class="background-slide" data-background-transition="slide">
+                  <h1 style="color: #000">Caching</h1>
+              </section>
+
+              <section>
+                <h2>Cache</h2>
+                    <ul>
+                      <li>A <b>temporary</b> storage of web assets
+                        <ul>
+                          <li>Reduce bandwidth usage</li>
+                          <li>Reduce server load</li>
+                          <li>Reduce lag</li>
+                        </ul>
+                      </li>
+                    </ul>
+              </section>
+
+                <section>
+                    <h2>Server Response</h2>
+                    <img style="background: #FFF" src="http-request.png" alt="">
+                  <aside class="notes">
+                    <ul>
+                      <li>Server response must specify a cache policy</li>
+                      <li>Cache Control --> directives for expiring cache</li>
+                      <li>Etag -->  validation token</li>
+                    </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Cache Control Directives</h2>
+                    <ul>
+                      <li><b>max-age:</b> time to live in seconds</li>
+                      <li><b>public:</b> mark asset as cacheable</li>
+                      <li><b>private:</b> OK for browser to cache, not an intermediary</li>
+                      <li><b>no-cache:</b> validate Etag token else redownload</li>
+                      <li><b>no-store:</b> disallow caching (private data)</li>
+                    </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>public -- tpyically not need due to max age</li>
+                      <li>private -- user profile info, for example </li>
+                    </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Cache Invalidation</h2>
+                      <p>
+                        <q>&ldquo;There are only two hard things in Computer Science: cache invalidation and naming things.
+&rdquo;</q> <br> &mdash; Phil Karlton, Chief Curmudgeon @ Netscape
+                      </p>
+                </section>
+
+                <section>
+                    <h2>Cache Invalidation</h2>
+                    <img src="http-cache-hierarchy.png" style="background: #FFF" alt="">
+                  <aside class="notes">
+                    <ul>
+                      <li>Locally cached responses are used until the resource 'expires'</li>
+                      <li>HTML asserts Etag or redownload</li>
+                      <li>CSS expires after 1 year and can be cached by browser or CDN</li>
+                      <li>Embedding a file content fingerprint in the URL enables us to force the client to update to a new version of the response</li>
+                      <li>JS has private info, browser only</li>
+                      <li>photo 1 day</li>
+                      <li>Each application needs to define its own cache hierarchy for optimal performance</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+
+                <section>
+                    <h2>Application Cache</h2>
+                    <ul>
+                      <li>Full Page</li>
+                      <li>Page Fragments</li>
+                      <li>Low level API</li>
+                    </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>A fundamental trade-off in dynamic Web sites is, well, they’re dynamic. Each time a user requests a page, the Web server makes all sorts of calculations – from database queries to template rendering to business logic – to create the page that your site’s visitor sees. This is a lot more expensive, from a processing-overhead perspective, than your standard read-a-file-off-the-filesystem server arrangement.                    </li>
+                    </ul>
+                  </aside>
+                </section>
+
+                <section>
+                    <h2>Application Cache Setup</h2>
+                    <ul>
+                      <li>Memcached &mdash; Caching server</li>
+                      <li>Key Value Store</li>
+                    </ul>
+                <pre><code data-trim class="python">
+{'pageX': 'a bunch of HTML'}
+                </code></pre>
+
+                </section>
+
+                <section>
+                    <h2>Full Page Cache</h2>
+<pre><code>
+given a URL, try finding that page in the cache
+if the page is in the cache:
+    return the cached page
+else:
+    generate the page
+    save the generated page in the cache (for next time)
+    return the generated page
+</code></pre>
+                </section>
+
+                <section>
+                    <h2>Full Page Cache</h2>
+                <pre><code data-trim class="python">
+from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 15)
+def my_view(request):
+    # expensive business logic here
+                </code></pre>
+                  <aside class="notes">
+                    <ul>
+                      <li>decorator wrapped the view method and does the cache get or set</li>
+                      <li>Demo Albums View</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+                <section>
+                    <h2>Page Fragment Cache</h2>
+                    <ul>
+                      <li>Fine grained control</li>
+                    </ul>
+                <pre><code data-trim class="html">
+{% load cache %}
+{% cache 500 sidebar request.user.username %}
+    .. sidebar for logged in user ..
+{% endcache %}
+                </code></pre>
+                  <aside class="notes">
+                    <ul>
+                      <li>expensive calculations per user</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+                <section>
+                    <h2>Low Level API caching</h2>
+                    <ul>
+                      <li>Full/Partial Page Overkill</li>
+                      <li>Complex business logic</li>
+                    </ul>
+                  <aside class="notes">
+                    <ul>
+                      <li>several expensive queries</li>
+                      <li>results change at different intervals </li>
+                      <li>low level api allows caching at any level of granularity</li>
+                    </ul>
+                  </aside>
+
+                </section>
+
+
+                <section>
+                    <h2>Low Level API caching</h2>
+                <pre><code data-trim class="python">
+from django.core.cache import cache
+
+def my_view(request):
+    active_users = cache.get('active_users')
+    if active_users is None:
+        active_users = get_active_users(days=5, number=6)
+        cache.set('active_users', active_users, 60 * 60)
+
+                </code></pre>
+                </section>
+
+                <section>
+                    <h2>HTTP Accelerator</h2>
+                    <ul>
+                      <li>Reverse Proxy</li>
+                      <li>Retrieves resources on behalf of a client from server(s)</li>
+                    </ul>
+                    <img src="http-accel.png" style="background-color: #FFF;" alt="">
+                </section>
+
+                <section>
+                    <h2>Varnish</h2>
+                    <ul>
+                      <li>HTTP Accelerator
+                        <ul>
+                          <li>Follows cache directives</li>
+                        </ul></li>
+                      <li>Load Balancer
+                        <ul>
+                          <li>round robin</li>
+                        </ul></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Varnish Configuration</h2>
+                <pre><code data-trim class="">
+backend nginx01 {
+    .host = "104.131.82.132";
+    .port = "80";
+    .probe = {
+                .url = "/";
+                .interval = 5s;
+                .timeout = 1 s;
+                .window = 5;
+                .threshold = 3;
+  }
+}
+backend nginx02 {
+    .host = "104.131.112.28";
+     ...
+  }
+}
+director nginx round-robin {
+    { .backend = nginx01; }
+    { .backend = nginx02; }
+}
+
+
+                </code></pre>
+                  <aside class="notes">
+                    <ul>
+                      <li>The probe specifies that Varnish should fetch the / object every 5s.</li>
+                      <li>If it takes more then a second it is considered a failure.</li>
+                      <li>If more then 3 out of the 5 last probes are OK the backend is considered healthy.</li>
+                      <li>DEMO!</li>
+                      <li>view 104.131.82.132 web1 /usr/local/nginx/sbin/nginx -s stop</li>
+                      <li>view 104.131.112.28 web2</li>
+                      <li>view 104.131.111.216 varnish</li>
+                      <li>ssh root@104.131.82.132</li>
+                      <li>/usr/local/nginx/sbin/nginx -s stop</li>
+                      <li>view 104.131.111.216 varnish</li>
+                    </ul>
+                  </aside>
+
+
+                </section>
+
+                <section>
+                    <h2>Backend</h2>
+                    <ul>
+                      <li>Identify Slow Queries
+                          <ul>
+                            <li>django-debug-toolbar in dev</li>
+                            <li>New Relic or smilar in production</li>
+                          </ul>
+                      </li>
+                      <li>Async long running processes tasks</li>
+                    </ul>
+                </section>
+
+
+                <section>
+                    <h2>Load Testing</h2>
+                    <ul>
+                      <li>JMeter, Siege, AB</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Summary</h2>
+                    <ul>
+                      <li>Research Best Practices</li>
+                      <li>Iterative Cycles</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Questions?</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+        <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                // Note: Don't forget to add preceding commas when enabling!
+                dependencies: [
+                    { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

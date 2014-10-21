@@ -1,0 +1,47 @@
+  Cacheing
+    what is it?
+      template fragments
+      full page
+      objects
+      database queries
+
+Backend
+  * Slow queries and how to profile and identify
+  * async
+
+Server Side
+    load balancer (varnish)
+
+  dev tools
+    YSlow
+  benchmarking
+    JMeter, Siege, AB
+
+Reference
+* Yahoo dev
+* Google PageSpeed
+
+
+* google page speed
+* scale images based on viewport
+
+  * design as performance
+  * progressive enhancement BBC Mosaic for example
+    * base built on
+    * IA Design strategy with performance in mind rather than after thought
+
+
+Higher ed audience
+  * planned right vs planned wrong and crashed...
+    * what happens if something goes awry
+
+
+CCSR as an example
+  * look at scaling talk
+
+
+UNC CH scandal sites
+  * user does not discern between main portal and dept w scandal
+
+
+

@@ -52,19 +52,29 @@
 			<div class="slides">
 
 				<section>
-					<h1>SMS Voter Registration</h1>
-					<h3>How Libya's Election Process is Better than the United States'</h3>
+					<h1>Text Message Nation</h1>
+					<h3>Voter Registration in Libya</h3>
 					<p>
 						<small><a href="https://twitter.com/tobiasmcnulty">@TobiasMcNulty</a></small>
 					</p>
 				</section>
 
 				<section>
-					<h1>US Election Tech is<br>Antiquated</h1>
+					<h2>In the US,<br>Elections are Dysfunctional</h2>
 					<aside class="notes">
 						<ul>
 							<li>50 different systems, sets of requirements</li>
 							<li>nationwide complexity - difficult and costly to administer</li>
+							<li>highly partisan politics, furthermore, make improvements all but impossible today</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- image from http://www.thenation.com/blog/178057/infrastructure-american-democracy-dysfunctional -->
+				<section data-background="img/voting_fl_ap.jpg">
+					<aside class="notes">
+						<ul>
+							<li>Florida voters standing in line for early voting, just over 2 yrs ago today in 2012 election</li>
 		                    <li>(pause)</li>
 						</ul>
 					</aside>
@@ -88,16 +98,17 @@
 						</ul>
 					</aside>
 				</section>
-
+                
 				<section>
 					<h2>Outline</h2>
 					<ul>
-						<li>Country & Project Context</li>
-						<li>Open Source Culture</li>
-						<li>Challenges</li>
-						<li>US Comparisons</li>
-						<li>Q & A</li>
-						<li>Closing Remarks</li>
+						<li class="fragment">Why SMS?</li>
+						<li class="fragment">Project Overview</li>
+						<li class="fragment">Open Source Culture</li>
+						<li class="fragment">Challenges</li>
+						<li class="fragment">US Comparisons</li>
+						<li class="fragment">Q & A</li>
+						<li class="fragment">Closing Remarks</li>
 				    <ul>
 					<aside class="notes">
 						<ul>
@@ -110,17 +121,18 @@
 						</ul>
 					</aside>
 				</section>
-
-				<section>
-					<h1>The Country</h1>
+			
+                <section>
+                    <h1>Why SMS?</h1>
 					<aside class="notes">
 						<ul>
-							<li>Libya the country</li>
-						</ul>
+							<li>Election commission in Libya received a mandate from the gov't to do voter registration by SMS</li>
+							<li>but there are a number of reasons why this made sense in this context</li>
+					    </ul>
 					</aside>
-				</section>
+                </section>
 
-				<section fullscreen-img="img/libya-derna-protests.jpg">
+				<section data-background="img/libya-derna-protests.jpg">
 				<!-- image from http://www.universityobserver.ie/2012/01/01/a-year-in-review-the-biggest-news-stories-of-2011/libya-3/ -->
 					<aside class="notes">
 						<ul>
@@ -129,7 +141,7 @@
 					</aside>
 				</section>
 
-				<section fullscreen-img="img/libyan-rebels.jpg">
+				<section data-background="img/libyan-rebels.jpg">
 				<!-- image from http://en.ria.ru/images/16337/07/163370785.jpg -->
 					<aside class="notes">
 						<ul>
@@ -139,8 +151,8 @@
 					</aside>
 				</section>
 
-				<section fullscreen-img="img/libyan-desert.png" fullscreen-size="contain">
-				<!-- image from http://en.wikipedia.org/wiki/Libya#mediaviewer/File:Libya_sat.jpg -->
+                <section fullscreen-img="img/lbydens.png" fullscreen-size="contain">
+                <!-- image from http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-density/maps -->
 					<aside class="notes">
 						<ul>
 							<li>large country 12x NC, 2/3rds pop</li>
@@ -148,9 +160,59 @@
 							<li>in spite of, because of, OS software, methods best fit</li>
 						</ul>
 					</aside>
-				</section>
+                </section>
+			
+                <section>
+                    <h2>Why Not the Web?</h2>
+                </section>
+                
+                <section>
+                    <h2>Access</h2>
+                    <table style="margin: 0 auto">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Internet</th>
+                                <th>SMS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Libya</td>
+                                <td>16%</td>
+                                <td>165%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Africa</td>
+                                <td>21%</td>
+                                <td>80%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>United States</td>
+                                <td>87%</td>
+                                <td>96%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>World</td>
+                                <td>39%</td>
+                                <td>97%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><br><small>Sources: <a href="http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use">Wikipedia</a> and <a href="http://data.worldbank.org/indicator/IT.CEL.SETS.P2?order=wbapi_data_value_2013+wbapi_data_value+wbapi_data_value-last&sort=asc">World Bank</a></small></p>
+                </section>
 
-				<section fullscreen-img="img/Libya-SMS-RapidSMS-text-message-voter-registration.jpg">
+                <section>
+                    <h2>SMS Summary</h2>
+                    <ul>
+                        <li class="fragment">Widely accessible</li>
+                        <li class="fragment">Robust despite instability</li>
+                        <li class="fragment">Built-in engagement tool</li>
+                        <li class="fragment">Libya made a wise choice!</li>
+                    </ul>
+                </section>
+
+				<section data-background="img/Libya-SMS-RapidSMS-text-message-voter-registration.jpg">
 				<!-- image from http://www.caktusgroup.com/case-study/libya-SMS-text-message-voter-registration/ -->
 					<h1>The Project</h1>
 					<aside class="notes">
@@ -159,6 +221,19 @@
 						</ul>
 					</aside>
 				</section>
+
+                <section>
+                    <h2>Timeline</h2>
+                    <ul>
+                        <li class="fragment">2012: Libya mandates HNEC to build SMS VR system</li>
+                        <li class="fragment">Sep 2013: Caktus and partners join team</li>
+                        <li class="fragment">Dec 2013: > 1 million registrations</li>
+                        <!-- <li class="fragment">Jan 2014: In person registration period</li> -->
+                        <li class="fragment">Feb 2014: CDA elections (60 seats)</li>
+                        <li class="fragment">May 2014: additional 500K registrations</li>
+                        <li class="fragment">Jun 2014: CoR elections (200 seats)</li>
+                    </ul>
+                </section>
 
 				<section>
 					<h2>February 20, 2014</h2>
@@ -208,7 +283,7 @@
 					</aside>
 				</section>
 
-				<section fullscreen-img="img/caktus-libya-team.jpg">
+				<section data-background="img/caktus-libya-team.jpg">
 				<!-- image by speaker -->
 					<h2>The Team</h2>
 					<aside class="notes">
@@ -220,7 +295,7 @@
 					</aside>
 				</section>
 
-				<section fullscreen-img="img/ahmed-tobias.jpg">
+				<section data-background="img/ahmed-tobias.jpg">
 				<!-- image by speaker -->
 					<aside class="notes">
 						<ul>
@@ -229,6 +304,130 @@
 						</ul>
 					</aside>
 				</section>
+				
+                <section>
+                    <h2>How do I register?</h2>
+                    <ul>
+                        <li>10010 is the HNEC short code</li>
+                        <li class="fragment">Send to 10010: <pre><code>111222333444 # 12345</code></pre></li>
+                        <li class="fragment">We respond: <q>You are registered</q> or with an error message</li>
+                        <!-- <blockquote class="fragment">{person}، تم تسجيلك فى مركز {centre}. رقم مركز الاقتراع {code}. إذا كان المركز غير صحيح أو تريد أن تغير مركزك، الرجاء إعادة التسجيل مستخدما نفس رقم الهاتف. للتأكد من تسجيلك، يرجي ارسال رقمك الوطني إلى الرقم 10010. (الرسالة رقم 1)</blockquote> -->
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Other Features</h1>
+                </section>
+
+                <section>
+                    <h2>Voter query</h2>
+                    <ul>
+                        <li>Send to 10010: <pre><code>111222333444</code></pre></li>
+                        <li class="fragment">We respond with your registration status</li>
+                        <li class="fragment">Also available via the web</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Translations</h2>
+                    <ul>
+                        <li>Standard Django setup</li>
+                        <li>Transifex</li>
+                        <li class="fragment"><img src="img/transifex-screenshot.png"></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Encodings</h2>
+                    <ul>
+                        <li>Easy with Python</li>
+                        <li>Not easy when communicating with MNOs</li>
+                        <li>Thank you Praekelt!</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Reporting</h2>
+                    <ul>
+                        <li>Central staff needs to monitor polling centers in real-time</li>
+                        <li>Parallel Voting Tabulation (PVT)</li>
+                        <li class="fragment">With 1600 centers, voice phone is not feasible</li>
+                        <li class="fragment">Staff reports number of voters with SMS to 10050: <pre><code>11007 # 3 # 932</code></pre></li>
+                        <li class="fragment"><img src="img/poll-report.png"></li>
+                    </ul>
+                </section>
+
+                <!-- <section>
+                <h2>Creativity</h2>
+                <ul>
+                <li>Polling reporting was requested within days of election</li>
+                <li>If you can think of it, you can do it</li>
+                </ul>
+                </section> -->
+
+                <section>
+                    <h2>Analytics</h2>
+                    <ul>
+                        <li class="fragment">Fraud monitoring</li>
+                        <li class="fragment">Status reports</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/data.libyavotes.png" data-background-size="1400px">
+                </section>
+
+                <!-- <section>
+                <h1>Voter Roll Generation</h1>
+                </section> -->
+
+                <section>
+                    <h2>Help Desk</h2>
+                    <img src="img/helpdesk.png">
+                </section>
+
+                <section>
+                    <h2>Bulk Outgoing SMS</h2>
+                    <ul>
+                        <li class="fragment">Remind voters to vote</li>
+                        <li class="fragment">Inform voters of registration center changes</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Dev Ops</h1>
+                </section>
+
+                <section data-background="img/libya-systems.png" data-background-size="768px">
+                </section>
+
+                <section>
+                    <h2>Code quality</h2>
+                    <ul>
+                        <li class="fragment">Flake8 compliant (lint, standard best practices)</li>
+                        <li class="fragment">Code coverage ~ 90%</li>
+                        <li class="fragment">Load tested with Apache JMeter</li>
+                        <li class="fragment">Will be open sourced</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Testing</h2>
+                    <ul>
+                        <li class="fragment">Automated unit tests</li>
+                        <li class="fragment">Load testing with JMeter</li>
+                        <li class="fragment">HNEC staff testing</li>
+                        <li class="fragment">End-to-end SMS testing</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Deployment</h2>
+                    <ul>
+                        <li class="fragment">Fabric</li>
+                        <li class="fragment">Salt scripts</li>
+                        <li class="fragment">Caktus Django Project Template <a href="https://github.com/caktus/django-project-template/">https://github.com/caktus/django-project-template/</a></li>
+                    </ul>
+                </section>
 
 				<section>
 					<h2>The System</h2>
@@ -239,6 +438,9 @@
 					</aside>
 				</section>
 
+                <section fullscreen-img="img/registration-flowchart.png" fullscreen-size="contain">
+                </section>
+				
 				<section fullscreen-img="img/libya-dataflow-sanitized.png" fullscreen-size="contain">
 				<!-- image by speaker -->
 					<aside class="notes">
@@ -292,9 +494,14 @@
 					<h4>Components, Cost, Culture</h4>
 					<p>
 						<img style="border: none; padding: 10px;" src="img/python-logo-master-v3-TM-flattened.png" height="75">
-						<img style="border: none; padding: 10px;" src="img/django-logo-negative.png" height="75"><br>
-						<img style="border: none; padding: 10px;" src="img/rapidsms-logo.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/django-logo-negative.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/rapidsms-logo.png" height="75"><br/>
 						<img style="border: none; padding: 10px;" src="img/vumi-logo-lrg.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/postgres.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/rabbit_header_logo.jpg" height="75"><br/>
+						<img style="border: none; padding: 10px;" src="img/ubuntu-logo14.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/Nginx-logo.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/haproxy-logo.png" height="75">
 					</p>
 					<aside class="notes">
 						<ul>
@@ -308,6 +515,15 @@
 						</ul>
 					</aside>
 				</section>
+				
+				<section fullscreen-img="img/libya-dataflow-sanitized.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>particulary important b/c every single component that made open the whole we customized - and we were able to do that because all the pieces were open source</li>
+						</ul>
+					</aside>
+				</section>
 
 				<section>
 					<h1>Challenges</h1>
@@ -315,6 +531,8 @@
 						<ul>
 							<li>as you can imagine, this project was not without challenges (pause)</li>
 							<li>scope = quite large, changes to it relatively constant -> risk that one change will impact functionality elsewhere</li>
+							<li>due to the nature of the work, a lot of ideas for features came last minute - e.g., polling reporting or broadcast SMS</li>
+							<li>while SMS coverage was generally good across Libya, there were remote areas where Sat phones were required instead</li>
 							<li>additionally, writing a system in another language, let a lone a non-western, right-to-left alphabet, created challenges at times (pause)</li>
 							<li>many of these issues emerged during the initial and continuing design for the system</li>
 						</ul>
@@ -416,7 +634,7 @@
 				center: true,
 
 				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
-				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
 
 				// Optional libraries used to extend on reveal.js
 				// Note: Don't forget to add preceding commas when enabling!
