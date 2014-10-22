@@ -57,12 +57,23 @@
 					<p>
 						<small><a href="https://twitter.com/tobiasmcnulty">@TobiasMcNulty</a></small>
 					</p>
+					<aside class="notes">
+						<ul>
+							<li>recently had privilege of building Libya's electronic voter reg. system - this talk is about that</li>
+							<li>how many of you have built a web app before?</li>
+							<li>how about an SMS app?</li>
+							<li>and how many of you have worked on elections technology projects?</li>
+							<li> ok great - like many of you I'd worked on plenty of web apps, SMS apps before, but never on an election project before this project</li>
+							<li>this talk is about some of things we learned working on this project</li>
+						</ul>
+					</aside>
 				</section>
 
 				<section>
 					<h2>In the US,<br>Elections are Dysfunctional</h2>
 					<aside class="notes">
 						<ul>
+							<li>one of the biggest takeaways for me is that - things tumultuous in Libya, but in US, elections a mess</li>
 							<li>50 different systems, sets of requirements</li>
 							<li>nationwide complexity - difficult and costly to administer</li>
 							<li>highly partisan politics, furthermore, make improvements all but impossible today</li>
@@ -70,15 +81,16 @@
 					</aside>
 				</section>
 
-				<!-- image from http://www.thenation.com/blog/178057/infrastructure-american-democracy-dysfunctional -->
+				<!-- image from http://www.thenation.com/blog/178057/infrastructure-american-democracy-dysfunctional >
 				<section data-background="img/voting_fl_ap.jpg">
 					<aside class="notes">
 						<ul>
 							<li>Florida voters standing in line for early voting, just over 2 yrs ago today in 2012 election</li>
+		                    <li>situations like this have become so commonplace we barely think about them anymore</li>
 		                    <li>(pause)</li>
 						</ul>
 					</aside>
-				</section>
+				</section-->
 
 				<section>
 					<h2>Libya SMS Voter Registration</h2>
@@ -113,7 +125,7 @@
 					<aside class="notes">
 						<ul>
 							<li>short overview of talk</li>
-							<li>libya & project context</li>
+							<li>libya & project context - why SMS was a good fit</li>
 							<li>look more closely at open source tools, dev practices</li>
 							<li>talk about some challenges</li>
 							<li>briefly compare this to the US</li>
@@ -156,14 +168,35 @@
 					<aside class="notes">
 						<ul>
 							<li>large country 12x NC, 2/3rds pop</li>
-							<li>many communities separated by expansive desert</li>
-							<li>in spite of, because of, OS software, methods best fit</li>
+							<li>what you see here is map of libya.. (explain shading)</li>
+							<li>-> libya big country, populations spread out, need a system that can work in this env.</li>
 						</ul>
 					</aside>
                 </section>
 			
                 <section>
+                    <h2>Why Electronic?</h2>
+					<ul>
+						<li class="fragment">Expense of in-person registration</li>
+						<li class="fragment">Need to organize elections quickly</li>
+				    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>using an electronic solution saves both users time and the expense of having to open in-person registration centers</li>
+                            <li>setting up in-person reg expensive, esp. when population so spread out & given threat of violence</li>
+                            <li>given how young the democracy in Libya is, need ability schedule and prepare for elections quickly</li>
+                        </ul>
+                    </aside>
+                </section>
+			
+                <section>
                     <h2>Why Not the Web?</h2>
+                    <aside class="notes">
+                        <ul>
+                            <li>so the need for something other than in-person reg is clear, but why didn't the commission select another tech solution like the web?</li>
+                            <li>as a web developer that's my natural inclination, but the choice becomes clear when you look at access (ns)</li>
+                        </ul>
+                    </aside>
                 </section>
                 
                 <section>
@@ -200,6 +233,13 @@
                         </tbody>
                     </table>
                     <p><br><small>Sources: <a href="http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use">Wikipedia</a> and <a href="http://data.worldbank.org/indicator/IT.CEL.SETS.P2?order=wbapi_data_value_2013+wbapi_data_value+wbapi_data_value-last&sort=asc">World Bank</a></small></p>
+                    <aside class="notes">
+                        <ul>
+                            <li>SMS access across Libya is incredible - according to the WB & Wikipedia, there are approxmiately 1.6 cell phones with subscriptions for every person in the country</li>
+                            <li>when you compare the number of internet subscriptions to the total population, however, access is about 1/10th of access to cell phone subscriptions</li>
+                            <li>in pretty much every other market that you look at, SMS access still exceeds internet access, sometimes by a significant margin</li>
+                        </ul>
+                    </aside>
                 </section>
 
                 <section>
@@ -208,8 +248,12 @@
                         <li class="fragment">Widely accessible</li>
                         <li class="fragment">Robust despite instability</li>
                         <li class="fragment">Built-in engagement tool</li>
-                        <li class="fragment">Libya made a wise choice!</li>
                     </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>in summary, SMS is widely accessible, it can operate in areas where in-person centers might not be able to open due to violence, and it also can serve as a highly scalable messaging tool to help get out the vote</li>
+                        </ul>
+                    </aside>
                 </section>
 
 				<section data-background="img/Libya-SMS-RapidSMS-text-message-voter-registration.jpg">
@@ -217,7 +261,7 @@
 					<h1>The Project</h1>
 					<aside class="notes">
 						<ul>
-							<li>some of these same reasons - remote, need to register quickly led to use of SMS</li>
+							<li>for these reasons - SMS voter registration in Libya was born</li>
 						</ul>
 					</aside>
 				</section>
@@ -233,6 +277,15 @@
                         <li class="fragment">May 2014: additional 500K registrations</li>
                         <li class="fragment">Jun 2014: CoR elections (200 seats)</li>
                     </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>shortly after the fall of gadafi, Libyan gov't mandates use of SMS</li>
+                            <li>Caktus and partners began developing the project just over a year ago</li>
+                            <li>first usage was just several months later - incredible time pressure to get the system online</li>
+                            <li>first election was held in February, and the second in June</li>
+                            <li>I'd like to highlight a couple things about these two elections</li>
+                        </ul>
+                    </aside>
                 </section>
 
 				<section>
@@ -253,6 +306,8 @@
 					<aside class="notes">
 						<ul>
 							<li>carter center wrote a report about this election - effectively blessing the use of SMS in future elections (pause)</li>
+							<li>the carter center - for those who may not be familiar - is an internationally trusted elections observer - have observed 81 elections in 33 countries over the past 25 years</li>
+							<li>know what they're talking about WRT legitimacy of elections</li>
 						</ul>
 					</aside>
 				</section>
@@ -278,7 +333,7 @@
 					<aside class="notes">
 						<ul>
 							<li>elections conducted by High National Election Commission (HNEC) of Libya, support from UN</li>
-							<li>have to say - was very forward thinking of HNEC to use SMS, allowed them to hold elections quickly, support rapidly changing political climate</li>
+							<li>have to say - we're very proud to support this project, but it was not our idea to use SMS. something we've realized through working on this project and reflecting on our situation in the US is how incredibly forward thinking it was of Libya to use SMS for voter registration - as mentioned earlier, allowed them to hold elections quickly, support elections in rapidly changing political climate</li>
 						</ul>
 					</aside>
 				</section>
@@ -313,6 +368,12 @@
                         <li class="fragment">We respond: <q>You are registered</q> or with an error message</li>
                         <!-- <blockquote class="fragment">{person}، تم تسجيلك فى مركز {centre}. رقم مركز الاقتراع {code}. إذا كان المركز غير صحيح أو تريد أن تغير مركزك، الرجاء إعادة التسجيل مستخدما نفس رقم الهاتف. للتأكد من تسجيلك، يرجي ارسال رقمك الوطني إلى الرقم 10010. (الرسالة رقم 1)</blockquote> -->
                     </ul>
+					<aside class="notes">
+						<ul>
+							<li>before going further I thought it'd be helpful to do a brief walkthrough of the system and its features</li>
+							<li>(explain registering)
+						</ul>
+					</aside>
                 </section>
 
                 <section>
@@ -335,6 +396,12 @@
                         <li>Transifex</li>
                         <li class="fragment"><img src="img/transifex-screenshot.png"></li>
                     </ul>
+					<aside class="notes">
+						<ul>
+							<li>as you may know Arabic is national language in Libya - not much English is spoken</li>
+							<li>our team, however, is entirely US-based and none of the dev team speaks Arabic</li>
+						</ul>
+					</aside>
                 </section>
 
                 <section>
@@ -350,7 +417,7 @@
                     <h2>Reporting</h2>
                     <ul>
                         <li>Central staff needs to monitor polling centers in real-time</li>
-                        <li>Parallel Voting Tabulation (PVT)</li>
+                        <li>Parallel Vote Tabulation (PVT)</li>
                         <li class="fragment">With 1600 centers, voice phone is not feasible</li>
                         <li class="fragment">Staff reports number of voters with SMS to 10050: <pre><code>11007 # 3 # 932</code></pre></li>
                         <li class="fragment"><img src="img/poll-report.png"></li>
@@ -395,27 +462,27 @@
 
                 <section>
                     <h1>Dev Ops</h1>
+					<aside class="notes">
+						<ul>
+							<li>for those interested in the backend server side of things...</li>
+						</ul>
+					</aside>
                 </section>
 
                 <section data-background="img/libya-systems.png" data-background-size="768px">
-                </section>
-
-                <section>
-                    <h2>Code quality</h2>
-                    <ul>
-                        <li class="fragment">Flake8 compliant (lint, standard best practices)</li>
-                        <li class="fragment">Code coverage ~ 90%</li>
-                        <li class="fragment">Load tested with Apache JMeter</li>
-                        <li class="fragment">Will be open sourced</li>
-                    </ul>
+					<aside class="notes">
+						<ul>
+							<li>there was a fair amount of infrastructure and testing that went into supporting this project</li>
+						</ul>
+					</aside>
                 </section>
 
                 <section>
                     <h2>Testing</h2>
                     <ul>
-                        <li class="fragment">Automated unit tests</li>
-                        <li class="fragment">Load testing with JMeter</li>
-                        <li class="fragment">HNEC staff testing</li>
+                        <li class="fragment">Automated unit tests (Travis CI)</li>
+                        <li class="fragment">Load testing (JMeter)</li>
+                        <li class="fragment">HNEC staff smoke testing</li>
                         <li class="fragment">End-to-end SMS testing</li>
                     </ul>
                 </section>
@@ -429,17 +496,24 @@
                     </ul>
                 </section>
 
+                <section>
+                    <h2>Code quality</h2>
+                    <ul>
+                        <li class="fragment">Flake8 compliant (lint, standard best practices)</li>
+                        <li class="fragment">Code coverage - ~90%</li>
+                        <li class="fragment">Load tested with Apache JMeter - 100 SMS/sec</li>
+                        <li class="fragment">Will be open sourced</li>
+                    </ul>
+                </section>
+
 				<section>
 					<h2>The System</h2>
 					<aside class="notes">
 						<ul>
-							<li>The system itself - as you can see from this...</li>
+							<li>The system itself - as we've discussed...</li>
 						</ul>
 					</aside>
-				</section>
-
-                <section fullscreen-img="img/registration-flowchart.png" fullscreen-size="contain">
-                </section>
+				</section>  
 				
 				<section fullscreen-img="img/libya-dataflow-sanitized.png" fullscreen-size="contain">
 				<!-- image by speaker -->
@@ -456,7 +530,7 @@
 						<ul>
 							<li>majority of user-facing business logic in RapidSMS app</li>
 							<li>in addition to handling voter registration, tool also supported "polling day reporting" (pause)</li>
-							<li>this allowed poll workers (teachers in Libya) to text in count of votes throughout the day to get ongoing estimate of turnout...</li>
+							<li>which allowed poll workers (teachers in Libya) to text in count of votes throughout the day to get estimate of turnout...</li>
 						</ul>
 					</aside>
 				</section>
@@ -484,7 +558,7 @@
 					<h1>A Culture of Open Source</h1>
 					<aside class="notes">
 						<ul>
-					        <li>what are some of the tools and practices we used along the way?</li>
+					        <li>one of the things I want to emphasize in particular, esp. given the conference we're at, is the wealth of open source tools and practices that went into this project</li>
 					    </ul>
 					</aside>
 				</section>
@@ -511,7 +585,8 @@
 							<li>in addition MNOs, had to integrate w/ civil registry DB to verify national IDs - using these tools made that easy</li>
 							<li>all requirements very custom, these tools fit the task well</li>
 							<li>while writing complex, custom software is never cheap, the use of these tools kept costs contained</li>
-							<li>finally, relied heavily not only on tools, also on culture of OS. b/c subcontractors familiar w/OS, already had common language. not only programming language, but also our process for coordinating changes, conducting code reviews</li>
+							<li>one of my revelations - b/c subcontractors and caktus were open source devs, had common language to to communicate. We all used GitHub, made obsessive use of unit tests, and made sure we always got a code review and "ship it" on a feature branch from another dev before merging.</li>
+							<li>because we spoke this common language, establishing a shared process across many geographically dispersed teams was a non-issue</li>
 						</ul>
 					</aside>
 				</section>
@@ -520,7 +595,7 @@
 				<!-- image by speaker -->
 					<aside class="notes">
 						<ul>
-							<li>particulary important b/c every single component that made open the whole we customized - and we were able to do that because all the pieces were open source</li>
+							<li>particulary important b/c every single component in this diagram we customized - and we were able to do that - in a large part - because all the pieces were open source</li>
 						</ul>
 					</aside>
 				</section>
@@ -532,9 +607,8 @@
 							<li>as you can imagine, this project was not without challenges (pause)</li>
 							<li>scope = quite large, changes to it relatively constant -> risk that one change will impact functionality elsewhere</li>
 							<li>due to the nature of the work, a lot of ideas for features came last minute - e.g., polling reporting or broadcast SMS</li>
-							<li>while SMS coverage was generally good across Libya, there were remote areas where Sat phones were required instead</li>
-							<li>additionally, writing a system in another language, let a lone a non-western, right-to-left alphabet, created challenges at times (pause)</li>
-							<li>many of these issues emerged during the initial and continuing design for the system</li>
+							<li>while SMS coverage was generally good across Libya, there were remote areas where Sat phones were required instead. (pause)</li>
+							<li>in addition to the system itself I'd like to talk about the design process that went into this system up front</li>
 						</ul>
 					</aside>
 				</section>
@@ -609,12 +683,18 @@
 					</aside>
 				</section>
 
-				<section>
-					<h1>Thank you.</h1>
-					<p>
-						<small><a href="https://twitter.com/tobiasmcnulty">@TobiasMcNulty</a></small>
-					</p>
-				</section>
+                <section>
+                    <h1>Thank you!</h1>
+                    <ul>
+                        <li>Caktus: Colin, Dan, Daryl, Elliott, Hao, Jeff, Michael, Nicole, Philip, Scott, Tobias, Victor, Vinod*</li>
+                        <li>Reboot: Hunter, Josh, Justin</li>
+                        <li>Praekelt: Ben, JP, Simon, Simon, Vincent</li>
+                        <li>HNEC: Ahmed, Munir, Fadia, Dr. Emad</li>
+                        <li>MIS: Ian, Joe</li>
+                        <li>UN: Ajay, Panto</li>
+                    </ul>
+                    <p><small>* A special thanks to Vinod for lending me some of his slides!</small></p>
+                </section>
 
 			</div>
 
