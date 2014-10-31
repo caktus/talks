@@ -1,0 +1,772 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Libya: Using Python to Power Democracy</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+		<!-- Caktus specific styles -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+
+		<!-- For fullscreen images (optional, uncomment this and JS below to enable) -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<aside class="logo">
+            	<img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+        	</aside>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h1>Libya</h1>
+					<h3>Using Python to Power Democracy</h3>
+					<p>
+						<small><a href="https://twitter.com/tobiasmcnulty">@TobiasMcNulty</a></small>
+					</p>
+					<aside class="notes">
+						<ul>
+							<li>recently had privilege of building Libya's electronic voter reg. system - this talk is about that</li>
+							<li>how many of you have built a web app before?</li>
+							<li>how about an SMS app?</li>
+							<li>and how many of you have worked on elections technology projects?</li>
+							<li>ok great - like many of you I'd worked on plenty of web apps, SMS apps before, but never on an election project before this project</li>
+							<li>this talk is about some of things we learned working on this project</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>In the US,<br>Elections are Dysfunctional</h2>
+					<aside class="notes">
+						<ul>
+							<li>one of the biggest takeaways for me is that - things tumultuous in Libya, but in US, elections a mess</li>
+							<li>50 different states -> 50 different systems, sets of requirements</li>
+							<li>nationwide complexity - difficult and costly to administer</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Libya SMS Voter Registration</h2>
+					<ul>
+						<li class="fragment">User-centered Design</li>
+						<li class="fragment">Agile, Test-driven Development</li>
+						<li class="fragment">Open Source Components & Culture</li>
+				    <ul>
+					<aside class="notes">
+						<ul>
+							<li>Libya used SMS (text messages) for voter registration</li>
+							<li>proof of concept for Feb 2014 CDA, 1M vs 10,000</li>
+							<li>despite conflict & attempted coup (elec moved 1 mo), 500k more registrants, June 2014 CoR</li>
+							<li>due to success of SMS voter reg, forewent in-person for CoR in June (pause)</li>
+							<li>what I hope to show today: success of project due to the Libyan's user centered design, and our agile dev process</li>
+						    <li>in many ways Libya unlikely candidate for this, but the country's use of open source tools and dev practices is driving innovation in elections tech today</li>
+						</ul>
+					</aside>
+				</section>
+                
+				<section>
+					<h2>Outline</h2>
+					<ul>
+						<li class="fragment">Why SMS?</li>
+						<li class="fragment">Project Overview</li>
+						<li class="fragment">Open Source Culture</li>
+						<li class="fragment">Challenges</li>
+						<li class="fragment">US Comparisons</li>
+						<li class="fragment">Q & A</li>
+						<li class="fragment">Closing Remarks</li>
+				    <ul>
+					<aside class="notes">
+						<ul>
+							<li>short overview of talk</li>
+							<li>libya & project context - why SMS was a good fit</li>
+							<li>look more closely at open source tools, dev practices</li>
+							<li>talk about some challenges</li>
+							<li>briefly compare this to the US</li>
+							<li>time for QA, after which will close talk</li>
+						</ul>
+					</aside>
+				</section>
+			
+                <section>
+                    <h1>Why SMS?</h1>
+					<aside class="notes">
+						<ul>
+							<li>Election commission in Libya received a mandate from the gov't to do voter registration by SMS</li>
+							<li>but there are a number of reasons why this made sense in this context</li>
+					    </ul>
+					</aside>
+                </section>
+
+				<section data-background="img/libya-derna-protests.jpg">
+				<!-- image from http://www.universityobserver.ie/2012/01/01/a-year-in-review-the-biggest-news-stories-of-2011/libya-3/ -->
+					<aside class="notes">
+						<ul>
+							<li>protests throughout 2011 (ns)</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background="img/libyan-rebels.jpg">
+				<!-- image from http://en.ria.ru/images/16337/07/163370785.jpg -->
+					<aside class="notes">
+						<ul>
+							<li>led to overthrow & death of Gaddafi, 10/20/11</li>
+							<li>young democracy, many and growing challenges (pause)</li>
+						</ul>
+					</aside>
+				</section>
+
+                <section fullscreen-img="img/lbydens.png" fullscreen-size="contain">
+                <!-- image from http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-density/maps -->
+					<aside class="notes">
+						<ul>
+							<li>large country 12x NC, 2/3rds pop</li>
+							<li>what you see here is map of libya.. (explain shading, 1000-fold difference)</li>
+							<li>-> libya big country, populations spread out, need a system that can work in this env.</li>
+						</ul>
+					</aside>
+                </section>
+			
+                <section>
+                    <h2>Why Electronic?</h2>
+					<ul>
+						<li class="fragment">Expense of in-person registration</li>
+						<li class="fragment">Need to organize elections quickly</li>
+				    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>using an electronic solution saves both users time and the expense of having to open in-person registration centers</li>
+                            <li>(a) setting up in-person reg expensive, esp. when population so spread out & given threat of violence</li>
+                            <li>(a) given how young the democracy in Libya is, need ability schedule and prepare for elections quickly</li>
+                        </ul>
+                    </aside>
+                </section>
+			
+                <section>
+                    <h2>Why Not the Web?</h2>
+                    <aside class="notes">
+                        <ul>
+                            <li>so the need for something other than in-person reg is clear, but why didn't the commission select another tech solution like the web?</li>
+                            <li>as a web developer that's my natural inclination, but the choice becomes clear when you look at access (ns)</li>
+                        </ul>
+                    </aside>
+                </section>
+                
+                <section>
+                    <h2>Access</h2>
+                    <table style="margin: 0 auto">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Internet</th>
+                                <th>SMS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Libya</td>
+                                <td>16%</td>
+                                <td>165%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Africa</td>
+                                <td>21%</td>
+                                <td>80%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>United States</td>
+                                <td>87%</td>
+                                <td>96%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>World</td>
+                                <td>39%</td>
+                                <td>97%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><br><small>Sources: <a href="http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use">Wikipedia</a> and <a href="http://data.worldbank.org/indicator/IT.CEL.SETS.P2?order=wbapi_data_value_2013+wbapi_data_value+wbapi_data_value-last&sort=asc">World Bank</a></small></p>
+                    <aside class="notes">
+                        <ul>
+                            <li>SMS access across Libya is incredible - according to the WB & Wikipedia, there are approxmiately 1.6 cell phones with subscriptions for every person in the country</li>
+                            <li>when you compare the number of internet subscriptions to the total population, however, internet access is only about 1/10th of access to cell phone subscriptions</li>
+                            <li>in pretty much every other market that you look at, SMS access still exceeds internet access, sometimes by a significant margin</li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h2>SMS Summary</h2>
+                    <ul>
+                        <li class="fragment">Widely accessible</li>
+                        <li class="fragment">Robust despite instability</li>
+                        <li class="fragment">Built-in engagement tool</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>in summary, SMS is widely accessible, it can operate in areas where in-person centers might not be able to open due to violence, and it also can serve as a highly scalable messaging tool to help get out the vote or inform voters of changes</li>
+                        </ul>
+                    </aside>
+                </section>
+
+                <section>
+                    <h1>Timeline</h1>
+                    <ul>
+                        <li class="fragment">2012: Libya mandates HNEC to build SMS VR system</li>
+                        <li class="fragment">Sep 2013: Caktus and partners join team</li>
+                        <li class="fragment">Dec 2013: > 1 million registrations</li>
+                        <!-- <li class="fragment">Jan 2014: In person registration period</li> -->
+                        <li class="fragment">Feb 2014: CDA elections (60 seats)</li>
+                        <li class="fragment">May 2014: additional 500K registrations</li>
+                        <li class="fragment">Jun 2014: CoR elections (200 seats)</li>
+                    </ul>
+                    <aside class="notes">
+                        <ul>
+                            <li>the time we had to get this system online was pretty short</li>
+                            <li>shortly after the fall of gadafi, Libyan gov't mandates use of SMS</li>
+                            <li>Caktus and partners began developing the project just over a year ago</li>
+                            <li>first usage was just several months later - in Dec</li>
+                            <li>first election was held in February, and the second in June</li>
+                            <li>I'd like to highlight a couple things about these two elections</li>
+                        </ul>
+                    </aside>
+                </section>
+
+				<section>
+					<h2>February 20, 2014</h2>
+					<h4>Constitutional Drafting Assembly (CDA) Election</h4>
+					<aside class="notes">
+						<ul>
+							<li>SMS voter reg first used in Feb 2014 CDA / Constitutional Drafting Assembly - proof of concept</li>
+							<li>important but smaller election</li>
+							<li>1M registered voters</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<blockquote>Given the capacity of the SMS system, which allows for a large number of voters to be processed over a short period of time and which is a simple procedure for the majority of users, this system should be used again in future elections.</blockquote>
+					<p><small>- The Carter Center</small></p>
+					<aside class="notes">
+						<ul>
+							<li>carter center wrote a report about this election - effectively blessing the use of SMS in future elections (pause)</li>
+							<li>the carter center - for those who may not be familiar - is an internationally trusted elections observer - have observed 81 elections in 33 countries over the past 25 years</li>
+							<li>know what they're talking about WRT legitimacy of elections</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>June 20, 2014</h2>
+					<h4>Council of Representatives (CoR) Election</h4>
+					<aside class="notes">
+						<ul>
+							<li>much larger election, many more last minute adjustments</li>
+							<li>50% more registered voters</li>
+							<li>based on success of CDA, no in person period for registration</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>The Sponsors</h2>
+					<p>
+						<img src="img/hnec-logo.jpg" width="300" style="margin: 20px;"/>
+						<img src="img/UNSMIL-AR-EN-LOGO-300.png" width="300" style="margin: 20px;"/>
+					</p>
+					<aside class="notes">
+						<ul>
+							<li>elections conducted by High National Election Commission (HNEC) of Libya, support from UN</li>
+							<li>have to say - we're very proud to support this project, but it was not our idea to use SMS. something we've realized through working on this project and reflecting on our situation in the US is how incredibly forward thinking it was of Libya to use SMS for voter registration - no other system would have given them the power and flexibility that using SMS has</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background="img/caktus-libya-team.jpg">
+				<!-- image by speaker -->
+					<h1>The Team</h1>
+					<aside class="notes">
+						<ul>
+							<li>6 devs, 1 PM in NC</li>
+							<li>2 support staff on-site during election - data management, custom reporting, system monitoring</li>
+							<li>i was very honored to be one of those people to travel to libya to support most recent election</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background="img/ahmed-tobias.jpg">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>limited in-country tech, very luck to have Ahmed on-staff at HNEC to support project locally</li>
+							<li>native of Tripoli (capital of Libya), but earned a masters in CS from UCSF thru fulbright</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background="img/libya-ops.jpg">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>photo of the operations room @ HNEC HQ on E-day</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+                    <ul>
+                        <li>Caktus: Colin, Dan, Daryl, Elliott, Hao, Jeff, Michael, Nicole, Philip, Scott, Tobias, Victor, Vinod</li>
+                        <li>Reboot: Hunter, Josh, Justin</li>
+                        <li>Praekelt: Ben, JP, Simon H., Simon C., Vincent</li>
+                        <li>HNEC: Ahmed, Munir, Fadia, Dr. Emad</li>
+                        <li>MIS: Ian, Joe</li>
+                        <li>UN: Ajay, Panto</li>
+                    </ul>
+					<aside class="notes">
+						<ul>
+							<li>barely fits on one slide - just to give you a sense of how many people and teams were involved - this is just for tech, not everything else that goes into an election</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section data-background="img/Libya-SMS-RapidSMS-text-message-voter-registration.jpg">
+				<!-- image from http://www.caktusgroup.com/case-study/libya-SMS-text-message-voter-registration/ -->
+					<h1>The Project</h1>
+					<aside class="notes">
+						<ul>
+							<li>for these reasons - SMS voter registration in Libya was born</li>
+						</ul>
+					</aside>
+				</section>
+				
+                <section>
+                    <h2>How do I register?</h2>
+                    <ul>
+                        <li>10010 is the HNEC short code</li>
+                        <li class="fragment">Send to 10010: <pre><code>111222333444 # 12345</code></pre></li>
+                        <li class="fragment">We respond: <q>You are registered</q> or with an error message</li>
+                        <!-- <blockquote class="fragment">{person}، تم تسجيلك فى مركز {centre}. رقم مركز الاقتراع {code}. إذا كان المركز غير صحيح أو تريد أن تغير مركزك، الرجاء إعادة التسجيل مستخدما نفس رقم الهاتف. للتأكد من تسجيلك، يرجي ارسال رقمك الوطني إلى الرقم 10010. (الرسالة رقم 1)</blockquote> -->
+                    </ul>
+					<aside class="notes">
+						<ul>
+							<li>before going further I thought it'd be helpful to do a brief walkthrough of the system and its features</li>
+							<li>(explain registering)
+						</ul>
+					</aside>
+                </section>
+
+                <section>
+                    <h1>Other Features</h1>
+                </section>
+
+                <section>
+                    <h2>Voter query</h2>
+                    <ul>
+                        <li>Send to 10010: <pre><code>111222333444</code></pre></li>
+                        <li class="fragment">We respond with your registration status</li>
+                        <li class="fragment">Also available via the web</li>
+                    </ul>
+                </section>
+
+                <!--section>
+                    <h2>Translations</h2>
+                    <ul>
+                        <li>Standard Django setup</li>
+                        <li>Transifex</li>
+                        <li class="fragment"><img src="img/transifex-screenshot.png"></li>
+                    </ul>
+					<aside class="notes">
+						<ul>
+							<li>as you may know Arabic is national language in Libya - not much English is spoken</li>
+							<li>our team, however, is entirely US-based and none of the dev team speaks Arabic</li>
+						</ul>
+					</aside>
+                </section-->
+
+                <!--section>
+                    <h2>Encodings</h2>
+                    <ul>
+                        <li>Easy with Python</li>
+                        <li>Not easy when communicating with MNOs</li>
+                        <li>Thank you Praekelt!</li>
+                    </ul>
+                </section-->
+
+                <section>
+                    <h2>Reporting</h2>
+                    <ul>
+                        <li>Central staff needs to monitor polling centers in real-time</li>
+                        <li>Parallel Vote Tabulation (PVT)</li>
+                        <li class="fragment">With 1600 centers, voice phone is not feasible</li>
+                        <li class="fragment">Staff reports number of voters with SMS to 10050: <pre><code>11007 # 3 # 932</code></pre></li>
+                        <li class="fragment"><img src="img/poll-report.png"></li>
+                    </ul>
+                </section>
+
+                <!-- <section>
+                <h2>Creativity</h2>
+                <ul>
+                <li>Polling reporting was requested within days of election</li>
+                <li>If you can think of it, you can do it</li>
+                </ul>
+                </section> -->
+
+                <section>
+                    <h2>Analytics</h2>
+                    <ul>
+                        <li class="fragment">Fraud monitoring</li>
+                        <li class="fragment">Status reports</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/data.libyavotes.png" data-background-size="1024px">
+                </section>
+
+                <!-- <section>
+                <h1>Voter Roll Generation</h1>
+                </section> -->
+
+                <section>
+                    <h2>Help Desk</h2>
+                    <img src="img/helpdesk.png">
+                </section>
+
+                <section>
+                    <h2>Bulk Outgoing SMS</h2>
+                    <ul>
+                        <li class="fragment">Remind voters to vote</li>
+                        <li class="fragment">Inform voters of registration center changes</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Dev Ops</h1>
+					<aside class="notes">
+						<ul>
+							<li>for those interested in the backend server side of things...</li>
+						</ul>
+					</aside>
+                </section>
+
+                <section data-background="img/libya-systems.png" data-background-size="768px">
+					<aside class="notes">
+						<ul>
+							<li>there was a fair amount of infrastructure and testing that went into supporting this project</li>
+						</ul>
+					</aside>
+                </section>
+
+                <section>
+                    <h2>Testing</h2>
+                    <ul>
+                        <li class="fragment">Automated unit tests (Travis CI)</li>
+                        <li class="fragment">Load testing (JMeter)</li>
+                        <li class="fragment">HNEC staff smoke testing</li>
+                        <li class="fragment">End-to-end SMS testing</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Deployment</h2>
+                    <ul>
+                        <li class="fragment">Fabric</li>
+                        <li class="fragment">Salt scripts</li>
+                        <li class="fragment">Caktus Django Project Template <a href="https://github.com/caktus/django-project-template/">https://github.com/caktus/django-project-template/</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Code Quality</h2>
+                    <ul>
+                        <li class="fragment">Flake8 compliant (lint, standard best practices)</li>
+                        <li class="fragment">Code coverage - ~90%</li>
+                        <li class="fragment">Load tested with Apache JMeter - 100 SMS/sec</li>
+                        <li class="fragment">Will be open sourced</li>
+                    </ul>
+                </section>
+
+				<section>
+					<h2>The System</h2>
+					<aside class="notes">
+						<ul>
+							<li>The system itself - as we've discussed...</li>
+						</ul>
+					</aside>
+				</section>  
+				
+				<section fullscreen-img="img/libya-dataflow-sanitized.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>... is an ecosystem of user facing and admin reporting tools</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-dataflow-sanitized-rapidsms.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>majority of user-facing business logic in RapidSMS app</li>
+							<li>in addition to handling voter registration, tool also supported "polling day reporting" (pause)</li>
+							<li>which allowed poll workers (teachers in Libya) to text in count of votes throughout the day to get estimate of turnout...</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-dataflow-sanitized-dashboard.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>...which, in turn, could be viewed by staff at HNEC headquarters throughout election day</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section fullscreen-img="img/libya-dataflow-sanitized-vumi.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>in addition, with help from the Praekelt Foundation, used a technology called "Vumi" to integrate with mobile network operators</li>
+							<li>so, given all of these parameters...</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>A Culture of Open Source</h1>
+					<aside class="notes">
+						<ul>
+					        <li>one of the things I want to emphasize in particular, esp. given the conference we're at, is the wealth of open source tools and practices that went into this project</li>
+					    </ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Open Source</h2>
+					<h4>Components, Cost, Culture</h4>
+					<p>
+						<img style="border: none; padding: 10px;" src="img/python-logo-master-v3-TM-flattened.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/django-logo-negative.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/rapidsms-logo.png" height="75"><br/>
+						<img style="border: none; padding: 10px;" src="img/vumi-logo-lrg.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/postgres.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/rabbit_header_logo.jpg" height="75"><br/>
+						<img style="border: none; padding: 10px;" src="img/ubuntu-logo14.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/Nginx-logo.png" height="75">
+						<img style="border: none; padding: 10px;" src="img/haproxy-logo.png" height="75">
+					</p>
+					<aside class="notes">
+						<ul>
+							<li>vast majority of code in Python</li>
+							<li>Django for web portion, RapidSMS for SMS business logic, Vumi for MNO connectivity</li>
+							<li>toolchain of choice at Caktus - eases creation & *reuse* of flexible, modular components throughout the app</li>
+							<li>in addition MNOs, had to integrate w/ civil registry DB to verify national IDs - using these tools made that easy</li>
+							<li>all requirements very custom, these tools fit the task well</li>
+							<li>while writing complex, custom software is never cheap, the use of these tools kept costs contained</li>
+							<li>one of my revelations - b/c subcontractors and caktus were open source devs, had common language to to communicate. We all used GitHub, made obsessive use of unit tests, and made sure we always got a code review and "ship it" on a feature branch from another dev before merging.</li>
+							<li>because we spoke this common language, establishing a shared process across many geographically dispersed teams was a non-issue</li>
+						</ul>
+					</aside>
+				</section>
+				
+				<section fullscreen-img="img/libya-dataflow-sanitized.png" fullscreen-size="contain">
+				<!-- image by speaker -->
+					<aside class="notes">
+						<ul>
+							<li>particulary important b/c every single component in this diagram we customized - and we were able to do that - in a large part - because all the pieces were open source</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Challenges</h1>
+					<aside class="notes">
+						<ul>
+							<li>as you can imagine, this project was not without challenges (pause)</li>
+							<li>scope = quite large, changes to it relatively constant -> risk that one change will impact functionality elsewhere</li>
+							<li>due to the nature of the work, a lot of ideas for features came last minute - e.g., polling reporting or broadcast SMS</li>
+							<li>while SMS coverage was generally good across Libya, there were remote areas where Sat phones were required instead. (pause)</li>
+							<li>in addition to the system itself I'd like to talk about the design process that went into this system up front</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>User-centered Design</h2>
+					<aside class="notes">
+						<ul>
+							<li>again as a testament to the Libyan's dedication to this technology, much of the system was conceived by HNEC and UN prior to Caktus becoming involved</li>
+							<li>that said, holes in spec were discovered, but through our iterative design & development process they were soon uncovered and the requirements clarified</li>
+							<li>of huge importance to this process was having a team in country to work hand in hand with the Libyans and the UN - without this first hand experience of their process and workflow, project would have been incredibly difficult</li>
+							<li>small anecdote: on a number of occassions HNEC staff sent home due to security concerns, need for our process to adapt on a daily basis</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h2>Agile, Test-driven Development</h2>
+					<aside class="notes">
+						<ul>
+							<li>after initial designs were clarified and the requirements understood by our team, changes continued to be made and new features were continually added</li>
+							<li>always a challenge, but particularlly so when software needs to be internationalized, and deadlines are tight</li>
+							<li>ensuring all code was well tested with granular unit tests made it easy to change things while minimizing the risk of breaking the code elsewhere</li>
+							<li>anecdote: The CDA election in June was originally scheduled for July, but was moved up by one month. not only did the tool itself allow HNEC to quickly schedule the election, but the unit tests and highly structured development process made the team confident that the system would be ready one month earlier than originally planned</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Would this Work in the US?</h1>
+					<aside class="notes">
+						<ul>
+							<li>briefly comparing this to US: no significant action since Help America Vote Act in 2002, established minimum standards</li>
+							<li>again, reform difficult b/c elections administered by states -> 50 different complex systems, 50 different effective clients</li>
+							<li>more recently, obama made improving elections a presidential priority, Voter Empowerment Act introduced Jan 2013 (pause)</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- image from https://www.govtrack.us/congress/bills/113/hr12 -->
+				<section>
+				    <img src="img/HR-12.png"/>
+					<aside class="notes">
+						<ul>
+							<li>unfortunately, according to govtrack.us, this bill has only a 1% chance of passing in current legislative environment</li>
+						</ul>
+					</aside>
+				</section>
+
+				<!-- image from http://www.thenation.com/blog/178057/infrastructure-american-democracy-dysfunctional -->
+				<section data-background="img/voting_fl_ap.jpg">
+					<aside class="notes">
+						<ul>
+							<li>finally, biggest reason this might not work in the US is voter registration is tied to political parties, controlling how and when people register is strategy used by both parties to influence elections outcomes</li>
+							<li>Florida voters standing in line for early voting, just over 2 yrs ago today in 2012 election</li>
+		                    <li>situations like this have become so commonplace we barely think about them anymore</li>
+		                    <li>(pause)</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Q & A</h1>
+					<aside class="notes">
+						<ul>
+							<li>and now before i close my talk i have a few minutes for questions</li>
+						</ul>
+					</aside>
+				</section>
+
+				<section>
+					<h1>Closing<br>Remarks</h1>
+					<aside class="notes">
+						<ul>
+							<li>in summary, libya SMS voter registration = difficult project, many challenges, both technical and programmatic</li>
+							<li>the technical success of project due in large part to use not only of open source tools, but of processes, methodologies common to OSS communities</li>
+							<li>incredibly rewarding project to work on, in many ways because of the energy and pride our counterparts in Libya brought to the project (pause)</li>
+						</ul>
+					</aside>
+				</section>
+
+                <section data-background="img/libya-inked-fingers.jpg">
+					<aside class="notes">
+						<ul>
+							<li>the violence in Libya is ongoing, and I hope you will join us in recognizing and praying for our friends and family there</li>
+						</ul>
+					</aside>
+                </section>
+
+				<section>
+					<h2>Apply Open Source<br>Methods Widely</h2>
+					<aside class="notes">
+						<ul>
+							<li>in terms of what to take home from this talk today, my primary hope is that I've convinced you - if you weren't already convinced - that OS is a model not only for free, publicly available software, but also for company & client projects, and when used well, projects will be more successful because of that</li>
+							<li>many opportunities to get involved - Code For America, Voter Information Project</li>
+							<li>countless OS tools & projects, find one you are passionate about and get involved - maybe by fixing a small bug, or by championing a feature you're excited about</li>
+							<li>finally, I'd be remiss if I didn't say that early voting in NC starts (in just over a month|TOMORROW) - so go vote!</li>
+						</ul>
+					</aside>
+				</section>
+
+                <section>
+                    <h1>Thank you!</h1>
+                    <p>Twitter: <a href="https://twitter.com/tobiasmcnulty">@TobiasMcNulty</a> and <a href="https://twitter.com/caktusgroup">@CaktusGroup</a>*</p>
+                    <p>Slides: <a href="http://cakt.us/pycon-libya">cakt.us/pycon-libya</a></p>
+                    <p><small>* We're <a href="http://www.caktusgroup.com/careers">hiring</a>!</small></p>
+                </section>
+
+			</div>
+
+		</div>
+
+		<script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+		<script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'fade', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				// Note: Don't forget to add preceding commas when enabling!
+				dependencies: [
+					{ src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
