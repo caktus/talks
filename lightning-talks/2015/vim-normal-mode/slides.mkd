@@ -1,0 +1,275 @@
+# Vim Normal Mode
+
+Caleb Smith
+
+@@
+
+### About Me
+I work at Caktus Consulting Group LLC in Durham, NC
+
+I mostly program Python and JavaScript
+
+Sometimes C, Scheme, .... and VimScript.
+
+I also enjoy music theory and teaching
+
+github: calebsmith
+
+twitter: @calebsmithnc
+@@
+
+### Church of Emacs
+
+![RMS as saint iGNUcious](images/church.jpg)
+@@
+
+### Reasons
+
+* Ubiquity
+* A Long-term Investment
+* Efficiency
+* Composability
+@@
+
+### Emacs Pinky
+![x-ray of broken hand](images/pinky.jpg)
+@@
+
+### Ubiquity
+
+Quick edits, especially over SSH
+
+Dazzling speed not required
+@@
+
+### Vimception
+* evil mode
+* vintage-mode
+* vim-mode
+* Even inside of Eclipse
+@@
+
+### Investment
+Tools with staying power
+
+@@
+
+### Efficiency
+![no mouse](images/no-mouse.png)
+@@
+
+### Create Vs Edit
+
+More time editting
+@@
+
+### Intro
+
+Modes:
+
+* Insert
+* Normal
+* Visual
+@@
+
+### First commands
+```
+i       - insert mode
+
+Esc     - Normal mode
+
+:wq     - Write and quit
+```
+@@
+
+### Cheat Sheet
+
+![vim cheat sheet](images/vim-cheat-sheet.gif)
+@@
+
+### Motions
+
+```
+hjkl - arrow keys
+
+web - word, end, begin
+```
+@@
+
+### Why? Why? Why?
+
+Legacy!
+
+![keyboard](images/keyboard.svg)
+@@
+
+### More Motions
+
+```
+0    - start of line
+
+$    - end of line
+
+%    - matching pair
+
+{    - paragraph back
+
+}    - paragraph forward
+```
+@@
+
+### Numbers
+
+{number}{motion}
+
+```
+10j
+5e
+```
+@@
+
+### Commands
+
+```
+i - insert
+
+a - append
+
+r - replace
+
+u - undo
+
+. - repeat command
+```
+@@
+
+### Number + Command
+
+{number}{command}
+
+```
+5i
+10.
+```
+@@
+
+### Operator
+
+```
+c - change
+
+d - delete
+
+y - yank
+
+p - paste
+
+> - indent
+```
+@@
+
+### Operator + Motion
+
+{operator}{motion}
+
+```
+>}
+
+dw
+
+d$
+```
+
+@@
+
+### Operator Double Up
+
+{operator}{operator}
+
+```
+dd
+
+yy
+
+>>
+```
+@@
+
+### Operator + Number + Motion
+
+{operator}{number}{motion}
+
+```
+d10e
+y3{
+```
+@@
+
+### Operator + Modifier + Object
+
+{operator}{modifier}{object}
+
+modifier - i inside, a around
+
+```
+ci( - Change Inside ()
+```
+@@
+
+### Objects
+
+```
+w word
+
+s sentence
+
+p paragraph
+
+({<['" parens, brace, etc...
+```
+@@
+
+### Operator + Modifier + Object
+
+```
+ci(
+ci"
+da{
+daw
+ya<
+```
+@@
+
+### Further Reading
+
+vimtutor
+
+Vim cheatsheet:
+http://www.viemu.com/vi-vim-cheat-sheet.gif
+
+Online game:
+http://vim-adventures.com/
+
+Online sandbox
+http://www.openvim.com/tutorial.html
+@@
+
+### Questions
+![editor wars](images/cops.jpg)
+@@
+
+### References
+St. iGNUcious:
+http://en.wikipedia.org/wiki/Emacs
+
+No Mouse
+http://www.bighungrygeek.com/
+
+Vim cheatsheet:
+http://www.viemu.com/vi-vim-cheat-sheet.gif
+
+Old Keyboard
+http://en.wikipedia.org/wiki/Vi
+
+Ending Comic
+http://texteditors.org/cgi-bin/wiki.pl?EmacsHumor
