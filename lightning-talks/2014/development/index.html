@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Caktus Development Process</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+    <!-- Caktus specific styles -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '../../../conf/themes/reveal.js/css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div class="reveal">
+        <aside class="logo">
+            <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+        </aside>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h2>Development Methodology</h2>
+                <p>Ligthning Talk Lunch</p>
+                <p>Dec. 2014</p>
+                <p>Mark Lavin</p>
+            </section>
+
+            <section>
+                <img src="3321308066_797b94cbd8_b.jpg" alt="Development Process">
+                <aside class="notes">
+                    What do I mean by "Development Methodology"?
+                    I mean the process by which we create applications.
+                    Not specifically about the tools. The tools are meant to empower the
+                    process not dictate the process.
+                </aside>
+            </section>
+
+            <section>
+                <img src="14997838535_558aff9b1b_z.jpg" alt="Why?" >
+                <aside class="notes">
+                    Why give this talk? We do this everyday. Don't we already know this?
+
+                    New staff/contractors. No formal training on this. It's been
+                    folklore. Whispers passed on from Tobias, Colin, Mark, and Karen.
+
+                    This is also for the non-technical staff to understand our
+                    workflow and how our thought process is motivated when discussing
+                    projects and timelines. At times we talk about it like everyone
+                    already knows it but
+                </aside>
+            </section>
+
+            <section>
+                <h2>Agile Inspired</h2>
+                <aside class="notes">
+                    We/I frequently talk about our process as agile inspired or practical agile.
+                    To me this means incorporating the agile manifesto in a way that
+                    fits the task at hand depending on team size/experience, project
+                    stability and project timeline. It's not Scrum or Kanban or
+                    Extreme Programming. It's whatever works for the client and the
+                    team that has to deliver the project. Project leads and project
+                    managers shape how they want the project to run.
+
+                    But what is "Agile"? It seems like an abstract buzzword like webscale.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Agile Manifesto</h2>
+                <aside class="notes">
+                    It's short and to the point.
+
+                    Individuals and interactions over processes and tools
+                    Working software over comprehensive documentation
+                    Customer collaboration over contract negotiation
+                    Responding to change over following a plan
+
+                    There is also a 12 principles which spell this out even more.
+                    If you've never read it you should.
+                </aside>
+            </section>
+
+            <section>
+                <img src="xp-cover.jpg" alt="Extreme Programming">
+                <aside class="notes">
+                    We have a few copies of this book around (small pocket version). Again
+                    this isn't something we are strict about but there are some ideas which
+                    drive out development process.
+
+                    In particular the ideas of code review, rigorous unittesting, and simple/clean code
+                    (i.e. waiting on features until they are needed, no early optimizations).
+                </aside>
+            </section>
+
+            <section>
+                <img src="6007112319_1fcd7295c2_b.jpg" alt="Timeboxing">
+                <aside class="notes">
+                    In the book there is a great description of timeboxing as of tuning a development
+                    project with a set of knobs: Resources/Cost, Time/Schedule, Scope, and Quality
+
+                    We don't like to cut quality (and it can only be cut so much before it stops working).
+                    So if you want to add scope you have to either add time or resources. Adding
+                    resources has a diminishing return. The classic example being that 9 women
+                    can't make a baby in 1 month.
+                </aside>
+            </section>
+
+            <section>
+                <img src="5798812875_05fd362d9f_o.jpg" alt="Open Source Influences" >
+                <aside class="notes">
+                    Tobias talked about using Open Source methodologies though it's vague what
+                    exactly that means. So I thought about open source projects and philosophies
+                    that shape how we think about development. I came up with three that
+                    I think fit the best and again share a lot in common with the agile
+                    manifesto.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Zen of Python</h2>
+                <pre><code class="python" data-trim>
+>>> import this
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+...
+                </code></pre>
+                <aside class="notes">
+                    This drives not only how we write Python but it inspires Django's philosophy
+                    as well as drives us towards/away from other tools.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Unix Philosophy</h2>
+                <pre>
+        ps auxww | grep celery | grep -v grep | awk '{print $2}' | xargs sudo kill -TERM
+                </pre>
+                <aside class="notes">
+                    The Unix philosophy emphasizes building short, simple, clear, modular,
+                    and extensible code that can be easily maintained and repurposed by
+                    developers other than its creators. The Unix philosophy favors
+                    composability as opposed to monolithic design.
+
+                    Write programs that do one thing and do it well.
+                    Write programs to work together.
+
+                    Eric Raymond's 17 Unix Rules
+                </aside>
+            </section>
+
+            <section>
+                <h2>Conclusion</h2>
+
+                <aside class="notes">
+                    That's a brief rundown the philosophies which drive development at
+                    Caktus. I hope you all see those values reflected in the work we
+                    do and use those to drive your future work.
+                </aside>
+            </section>
+
+            <section>
+                <h2>References</h2>
+                <ul>
+                    <li>http://agilemanifesto.org/</li>
+                    <li>https://www.python.org/dev/peps/pep-0020/</li>
+                    <li>http://en.wikipedia.org/wiki/Unix_philosophy</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Photo Credits</h2>
+                <ul>
+                    <li>https://www.flickr.com/photos/ideonexus/3321308066/</li>
+                    <li>https://www.flickr.com/photos/archer10/14997838535/</li>
+                    <li>https://www.flickr.com/photos/jaysonlorenzen/6007112319/</li>
+                    <li>https://www.flickr.com/photos/tappnel/5798812875/</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Thanks! Questions?</h2>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+    <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+    <script>
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            width: 1280,
+            height: 720,
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: true,
+
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+    </script>
+</body>
+</html>
