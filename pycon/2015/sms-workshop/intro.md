@@ -25,7 +25,7 @@ Caktus Group - PyCon 2015
 
 <img style="float: left" src="./img/mark.jpg">
 
-- Technical Director
+- Caktus Technical Director
 - Triathlete
 - Beer Enthusiast
 
