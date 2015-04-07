@@ -243,9 +243,24 @@ Add `'smsgroups'` to  `INSTALLED_APPS`
 Notes:
 This is the end of 2-data-model tag
 
+
+@@
+
+## Adding Handlers
+
+```bash
+(smsdemo) $ mkdir smsgroups/handlers
+(smsdemo) $ touch smsgroups/handlers/__init__.py
+```
+
 @@
 
 ## Create Groups via SMS
+
+```bash
+(smsdemo) $ touch smsgroups/handlers/create_group.py
+```
+
 
 ```python
 from __future__ import unicode_literals
@@ -291,6 +306,18 @@ def handle(self):
     self.respond(reply)
 ```
 
+@@
+
+## Register Handler
+
+```python
+...
+RAPIDSMS_HANDLERS = (
+    'smsgroups.handlers.create_group.CreateHandler',
+)
+...
+```
+
 Notes:
 This is the end of 3-create-groups tag
 
@@ -307,6 +334,11 @@ Go to http://localhost:8000/httptester/
 @@
 
 ## Join Groups via SMS
+
+```bash
+(smsdemo) $ touch smsgroups/handlers/join_group.py
+```
+
 
 ```python
 from __future__ import unicode_literals
@@ -371,6 +403,19 @@ def handle(self, text):
             self.respond(reply)
 ```
 
+@@
+
+## Register Handler
+
+```python
+...
+RAPIDSMS_HANDLERS = (
+    'smsgroups.handlers.create_group.CreateHandler',
+    'smsgroups.handlers.join_group.JoinHandler',
+)
+...
+```
+
 Notes:
 This is the end of 4-join-groups tag
 
@@ -385,3 +430,320 @@ This is the end of 4-join-groups tag
 Go to http://localhost:8000/httptester/
 
 @@
+
+## Group Messages
+
+```bash
+(smsdemo) $ touch smsgroups/handlers/msg_group.py
+```
+
+
+```python
+from __future__ import unicode_literals
+
+from rapidsms.contrib.handlers import PatternHandler
+from rapidsms.models import Contact, Connection
+from rapidsms.router import send
+
+from ..models import Group
+
+class BroadcastHandler(PatternHandler):
+    pattern = '^([0-9]{10}):\s?(\S+)'
+
+    def handle(self, slug, text):
+        """Broadcast messages to users in a group."""
+        ...
+```
+
+
+```
+def handle(self, slug, text):
+    try:
+        group = Group.objects.get(slug=slug)
+    except Group.DoesNotExist:
+        self.respond('Unknown group id "%s"' % slug.strip())
+    else:
+        ...
+```
+
+
+```
+def handle(self, slug, text):
+    ...
+    else:
+        # Check for membership
+        connection = self.msg.connections[0]
+        contacts = Contact.objects.filter(member__group=group)
+        if not contacts.filter(connection__pk=connection.pk):
+            self.respond('You are not a member of this group.')
+        else:
+            connections = Connection.objects.filter(
+                contact__in=contacts, backend=connection.backend,
+            ).exclude(pk=connection.pk)
+            count = connections.count()
+            if count:
+                send('From %s: %s' % (slug, text), connections=connections)
+            self.respond('Message was sent to %s member%s.' % (
+                count, count != 1 and 's' or ''))
+```
+
+@@
+
+## Register Handler
+
+```python
+...
+RAPIDSMS_HANDLERS = (
+    'smsgroups.handlers.create_group.CreateHandler',
+    'smsgroups.handlers.join_group.JoinHandler',
+    'smsgroups.handlers.msg_group.BroadcastHandler',
+)
+...
+```
+
+Notes:
+This is the end of 5-group-messages tag
+
+@@
+
+## Message Group Demo
+
+```bash
+(smsdemo) $ python manage.py runserver
+```
+
+Go to http://localhost:8000/httptester/
+
+@@
+
+## Automated Testing
+
+```bash
+(smsdemo) $ mkdir smsgroups/tests
+(smsdemo) $ touch smsgroups/tests/__init__.py
+(smsdemo) $ mv smsgroups/tests.py smsgroups/tests/test_handlers.py
+```
+
+
+```python
+from __future__ import unicode_literals
+
+from django.test import TestCase
+
+from ..handlers.create_group import CreateHandler
+from ..models import Group
+
+class CreateHandlerTestCase(TestCase):
+    """Create new SMS group."""
+
+    def test_create_group(self):
+        """Create a new group with the CREATE command."""
+
+        replies = CreateHandler.test('CREATE')
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        group = Group.objects.latest('pk')
+        self.assertIn('Group "%s" created!' % group.slug, replies[0])
+        self.assertEqual(group.member_set.count(), 1)
+```
+
+@@
+
+## PASSED!
+
+```bash
+(smsdemo) $ python manage.py test smsgroups
+Creating test database for alias 'default'...
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.058s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+Notes:
+This is the end of 6-initial-testing tag
+
+@@
+
+## More Testing
+
+```bash
+(smsdemo) $ pip install mock
+```
+
+
+```python
+...
+class CreateHandlerTestCase(TestCase):
+    """Create new SMS group."""
+    ...
+
+class JoinHandlerTestCase(TestCase):
+    """Join an existing SMS group."""
+    ...
+
+@mock.patch('smsgroups.handlers.msg_group.send')
+class BroadcastHandlerTestCase(TestCase):
+    """Send message to other members of a group."""
+    ...
+```
+
+
+```python
+class JoinHandlerTestCase(TestCase):
+
+    def setUp(self):
+        self.group = Group.objects.create(slug='1234567890')
+
+    def test_join_group(self):
+        """Join group with the JOIN command."""
+
+        replies = JoinHandler.test('JOIN %s' % self.group.slug)
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertIn('You are now a member.', replies[0])
+        self.assertEqual(self.group.member_set.count(), 1)
+```
+
+
+```python
+    def test_help(self):
+        """If group ID is missing then show the HELP message."""
+
+        replies = JoinHandler.test('JOIN')
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertEqual(
+            'To join a group, send JOIN <id> for an existing group.',
+            replies[0])
+
+    def test_unknown_group(self):
+        """Handle invalid group IDs."""
+
+        slug = self.group.slug
+        self.group.delete()
+        replies = JoinHandler.test('JOIN %s' % self.group.slug)
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertEqual('Unknown group id "%s"' % slug, replies[0])
+```
+
+
+```python
+    def test_already_joined(self):
+        """Handle a user which has already joined the group."""
+
+        JoinHandler.test('JOIN %s' % self.group.slug, identity='abcxyz')
+        replies = JoinHandler.test(
+            'JOIN %s' % self.group.slug, identity='abcxyz')
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertIn('You are already a member.', replies[0])
+        self.assertEqual(self.group.member_set.count(), 1)
+```
+
+
+```python
+@mock.patch('smsgroups.handlers.msg_group.send')
+class BroadcastHandlerTestCase(TestCase):
+    """Send message to other members of a group."""
+
+    def setUp(self):
+        self.group = Group.objects.create(slug='1234567890')
+        self.backend = Backend.objects.create(name='test_backend')
+        self.test_contact = Contact.objects.create(name='test')
+        self.test_connection = Connection.objects.create(
+            identity='test', backend=self.backend,
+            contact=self.test_contact)
+        self.test_member = Member.objects.create(
+            group=self.group, contact=self.test_contact)
+        self.other_contact = Contact.objects.create(name='other')
+        self.other_connection = Connection.objects.create(
+            identity='other', backend=self.backend,
+            contact=self.other_contact)
+        self.other_member = Member.objects.create(
+            group=self.group, contact=self.other_contact)
+        BroadcastHandler._mock_backend = self.backend
+```
+
+
+```python
+    def test_send_message(self, mock_send):
+        """Send messages to the other user in the group."""
+
+        replies = BroadcastHandler.test(
+            '%s: hello' % self.group.slug,
+            identity=self.test_connection.identity)
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertEqual('Message was sent to 1 member.', replies[0])
+        self.assertTrue(mock_send.called)
+        args, kwargs = mock_send.call_args
+        self.assertEqual(args, ('From %s: hello' % self.group.slug, ))
+        recipients = kwargs['connections']
+        self.assertItemsEqual(recipients, [self.other_connection, ])
+```
+
+
+```python
+    def test_unknown_group(self, mock_send):
+        """Handle unknown group."""
+
+        replies = BroadcastHandler.test(
+            '0987654321: hello',
+            identity=self.test_connection.identity)
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertEqual('Unknown group id "0987654321"', replies[0])
+        self.assertFalse(mock_send.called)
+
+    def test_not_a_member(self, mock_send):
+        """Handle message from user not in the group."""
+
+        replies = BroadcastHandler.test(
+            '%s: hello' % self.group.slug, identity='unknown')
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertEqual('You are not a member of this group.', replies[0])
+        self.assertFalse(mock_send.called)
+```
+
+
+```python
+    def test_no_other_members(self, mock_send):
+        """Handle group with only one memember."""
+
+        self.other_member.delete()
+        replies = BroadcastHandler.test(
+            '%s: hello' % self.group.slug,
+            identity=self.test_connection.identity)
+        self.assertTrue(replies)
+        self.assertEqual(len(replies), 1)
+        self.assertEqual('Message was sent to 0 members.', replies[0])
+        self.assertFalse(mock_send.called)
+```
+
+@@
+
+## SUCH TESTING!
+
+```bash
+(smsdemo) $ python manage.py test smsgroups
+Creating test database for alias 'default'...
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.371s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+Notes:
+This is the end of 7-more-testing tag
+
+@@
+
+## Scripted Tests
+
