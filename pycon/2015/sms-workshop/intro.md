@@ -52,34 +52,48 @@ Caktus Group - PyCon 2015
 
 ## What is RapidSMS?
 
-- Collection of tools that extend Django to support processing SMS texts  <!-- .element: class="fragment" data-fragment-index="1" -->
-  - Application Framework  <!-- .element: class="fragment" data-fragment-index="2" -->
-  - Pluggable Backends  <!-- .element: class="fragment" data-fragment-index="3" -->
-  - Documentaion & Sample Applications  <!-- .element: class="fragment" data-fragment-index="4" -->
+- Collection of tools that extend Django to support processing SMS texts
+  - Application Framework  <!-- .element: class="fragment" data-fragment-index="1" -->
+  - Pluggable Backends  <!-- .element: class="fragment" data-fragment-index="2" -->
+  - Documentation  <!-- .element: class="fragment" data-fragment-index="3" -->
+  - Sample & Contrib Applications  <!-- .element: class="fragment" data-fragment-index="4" -->
 
 Notes:
 
+- NEXT FRAGMENT
 - Framework for writing code to be invoked when a text message is received and respond to it
 - NEXT FRAGMENT
 - Backend required as there's no universal standard for sending and receiving text messages over the Internet.
 - Often we get access to the messages via a third party vendor, like Twilio or Tropo, that provides a proprietary interface
 - RapidSMS isolates us from the differences among vendors.
 - NEXT FRAGMENT
+- Great documentation (will link to later)
+- NEXT FRAGMENT
+- Similar to Django, contrib apps come with RapidSMS core and many external apps also available
 
 @@
 
 ## Why RapidSMS?
 
-- Built on Django  <!-- .element: class="fragment" data-fragment-index="1" -->
-- Open Source (BSD License)  <!-- .element: class="fragment" data-fragment-index="2" -->
-- Vendor Neutral  <!-- .element: class="fragment" data-fragment-index="3" -->
+- Built on Django
+- Open Source (BSD License)  <!-- .element: class="fragment" data-fragment-index="1" -->
+- More importantly...  <!-- .element: class="fragment" data-fragment-index="2" -->
 
 Notes:
 
 - Django: In our wheelhouse
 - NEXT FRAGMENT
 - BSD: Free to use, extend, give back to the larger community
-- NEXT FRAGMENT
+
+
+@@
+
+## Why RapidSMS?
+
+- Vendor Neutral
+
+Notes:
+
 - Dev our applications without being tied to any particular vendor of text messaging services.
   - Don't have to pick a vendor before we can start.
   - Change vendors in the future without having to rewrite the applications.
@@ -87,7 +101,21 @@ Notes:
 
 @@
 
-## RapidSMS Structure
+## Practical Application
+
+- **Registration:** Libya National Voter Registration
+-  <!-- .element: class="fragment" data-fragment-index="1" --> **Health Logistics:** 1000 Days Projects
+
+Notes:
+
+- Voter registration: text national id and polling location
+- NEXT FRAGMENT
+- Maternal Health: track pre & post natal care of mother's and babies (Rwana, Zambia, other countries)
+
+
+@@
+
+## RapidSMS
 
 <img style="float: left" src="./img/rapidsms-architecture.png" />
 
@@ -156,7 +184,7 @@ Notes:
 
 @@
 
-## Processing Phases
+## 5 Processing Phases
 
 - <!-- .element: class="fragment" data-fragment-index="1" --> **filter:** *abort further processing*
 - <!-- .element: class="fragment" data-fragment-index="2" --> **parse:** *globally modify message*
