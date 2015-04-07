@@ -243,3 +243,145 @@ Add `'smsgroups'` to  `INSTALLED_APPS`
 Notes:
 This is the end of 2-data-model tag
 
+@@
+
+## Create Groups via SMS
+
+```python
+from __future__ import unicode_literals
+
+from django.db import transaction
+from django.utils.crypto import get_random_string
+
+from rapidsms.contrib.handlers import PatternHandler
+from rapidsms.models import Contact
+
+from ..models import Group, Member
+
+class CreateHandler(PatternHandler):
+    pattern = 'create'
+
+    def handle(self):
+        """Create a new group."""
+        ...
+```
+
+
+```
+def handle(self):
+    created = False
+    while not created:
+        slug = get_random_string(
+            length=10, allowed_chars='01234567890')
+        with transaction.atomic():
+            group, created = Group.objects.get_or_create(slug=slug)
+            if created:
+                connection = self.msg.connections[0]
+                contact = connection.contact
+                if not contact:
+                    contact = Contact.objects.create(name='')
+                    connection.contact = contact
+                    connection.save(update_fields=('contact', ))
+                Member.objects.create(
+                    contact=contact, group=group, is_creator=True)
+    reply = (
+        'Group "%(slug)s" created! '
+        'Use this identifier to SEND msgs or for others to JOIN.'
+    ) % {'slug': slug}
+    self.respond(reply)
+```
+
+Notes:
+This is the end of 3-create-groups tag
+
+@@
+
+## Create Group Demo
+
+```bash
+(smsdemo) $ python manage.py runserver
+```
+
+Go to http://localhost:8000/httptester/
+
+@@
+
+## Join Groups via SMS
+
+```python
+from __future__ import unicode_literals
+
+from django.db import transaction
+
+from rapidsms.contrib.handlers import KeywordHandler
+from rapidsms.models import Contact
+
+from ..models import Group, Member
+
+class JoinHandler(KeywordHandler):
+    keyword = 'join'
+
+    def handle(self, text):
+        """Join an existing group."""
+        ...
+
+    def help(self):
+        """Handle message which is missing the slug parameter."""
+        ...
+```
+
+
+```python
+def help(self):
+    self.respond('To join a group, send JOIN <id> for an existing group.')
+```
+
+
+```python
+def handle(self, text):
+    try:
+        group = Group.objects.get(slug=text.strip())
+    except Group.DoesNotExist:
+        self.respond('Unknown group id "%s"' % text.strip())
+    else:
+        ...
+```
+
+
+```python
+def handle(self, text):
+    ...
+    else:
+        with transaction.atomic():
+            connection = self.msg.connections[0]
+            contact = connection.contact
+            if not contact:
+                contact = Contact.objects.create(name='')
+                connection.contact = contact
+                connection.save(update_fields=('contact', ))
+            _, created = Member.objects.get_or_create(
+                contact=contact, group=group,
+                defaults={'is_creator': False})
+            if created:
+                reply = 'You are now a member.'
+            else:
+                reply = 'You are already a member.'
+            reply = '%s SEND msgs the group by using the "%s:" prefix.' % (
+                reply, group.slug)
+            self.respond(reply)
+```
+
+Notes:
+This is the end of 4-join-groups tag
+
+@@
+
+## Join Group Demo
+
+```bash
+(smsdemo) $ python manage.py runserver
+```
+
+Go to http://localhost:8000/httptester/
+
+@@
