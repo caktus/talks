@@ -94,7 +94,7 @@ Notes:
 
 Notes:
 
-- Dev our applications without being tied to any particular vendor of text messaging services.
+- Develop the application without being tied to any particular vendor of text messaging services.
   - Don't have to pick a vendor before we can start.
   - Change vendors in the future without having to rewrite the applications.
   - Deploy applications to different countries that might not have any common vendor for messaging services.
@@ -126,14 +126,27 @@ Notes:
 
 @@
 
+## SMS Application Flow
+
+App ← HTTP → Gateway ← SMPP → MNO
+
+Notes:
+
+- App communicates via HTTP
+- Gateway
+  - The gateway acts as a relay, translating one protocol into another
+  - System component a la nginx
+    - use a service if you can, pay someone else to run it
+- MNO send and receives to mobile device
+
+@@
+
 ## RapidSMS Overview
 
 <img style="float: left" src="./img/rapidsms-architecture.png" />
 
 Notes:
 
-- Gateway
-  - The gateway acts as a relay, translating one protocol into another
 - Backend
   - Defines how RapidSMS communicates with the outside world
     - Incoming messages via HTTP, processed by Router

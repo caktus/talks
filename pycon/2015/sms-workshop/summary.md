@@ -1,5 +1,12 @@
 ## Next Steps
 
+- Have users identify themselves in the group
+- Private/protected groups
+- Have a way to leave the group
+- Have a way to list members
+- Have a way to remove members
+- Have a way to delete a group
+
 @@
 
 ## Resources
