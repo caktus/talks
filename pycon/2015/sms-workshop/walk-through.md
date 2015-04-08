@@ -747,3 +747,145 @@ This is the end of 7-more-testing tag
 
 ## Scripted Tests
 
+```bash
+(smsdemo) $ touch smsgroups/tests/test_scripts.py
+```
+
+
+```python
+import mock
+
+from rapidsms.contrib.handlers.app import App as HandlerApp
+from rapidsms.tests.harness import TestScript
+
+class GroupTestCase(TestScript):
+    """Integration testing of the group interactions."""
+
+    apps = (HandlerApp, )
+
+    def test_multiple_user_script(self):
+        """One user creates the group,
+        another joins and says ping,
+        reply with pong."""
+
+        with mock.patch('smsgroups.handlers.create_group.get_random_string') as mock_random:
+            mock_random.return_value = '1234567890'
+            self.runScript('''
+15553437777 > create
+15553437777 < Group "1234567890" created! Use this identifier to SEND msgs or for others to JOIN.
+15557773434 > join 1234567890
+15557773434 < You are now a member. SEND msgs the group by using the "1234567890:" prefix.
+15557773434 > 1234567890: ping
+15557773434 < Message was sent to 1 member.
+15553437777 < From 1234567890: ping
+15553437777 > 1234567890: pong
+15553437777 < Message was sent to 1 member.
+15557773434 < From 1234567890: pong
+            ''')
+```
+
+@@
+
+## All Together
+
+```bash
+(smsdemo) $ python manage.py test smsgroups
+Creating test database for alias 'default'...
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.479s
+
+OK
+Destroying test database for alias 'default'...
+```
+
+Notes:
+This is the end of 8-scripted-test
+
+@@
+
+## Into the Real World
+
+@@
+
+## Twilio Account
+
+@@
+
+## Twilio Configuration
+
+```bash
+(smsdemo) $ pip install rapdisms-twilio
+```
+
+
+## Configure Settings
+
+Add `'rtwilio'` to  `INSTALLED_APPS`
+
+```python
+...
+if all('TWILIO_%s' % name in os.environ 
+    for name in ['ACCOUNT_SID', 'AUTH_TOKEN', 'NUMBER']):
+    INSTALLED_BACKENDS['twilio-backend'] = {
+        'ENGINE': 'rtwilio.outgoing.TwilioBackend',
+        'config': {
+            'account_sid': os.environ['TWILIO_ACCOUNT_SID'],
+            'auth_token': os.environ['TWILIO_AUTH_TOKEN'],
+            'number': os.environ['TWILIO_NUMBER'],
+        }
+    }
+...
+```
+
+
+## Connect URLs
+
+```python
+...
+from rtwilio.views import TwilioBackendView
+...
+
+if 'twilio-backend' in settings.INSTALLED_BACKENDS:
+    urlpatterns += [
+        url(
+            r'^backend/twilio/$',
+            TwilioBackendView.as_view(backend_name='twilio-backend'),
+        ),
+    ]
+```
+
+
+## Migrate
+
+```bash
+(smsdemo) $ python manage.py migrate
+```
+
+
+## Set Environment
+
+```bash
+(smsdemo) $ export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXXXXXXXX
+(smsdemo) $ export TWILIO_AUTH_TOKEN=YYYYYYYYYYYYYYYYYYY
+(smsdemo) $ export TWILIO_NUMBER=ZZZZZZZZZZ
+```
+
+Notes:
+This is the end of 9-twilio-configuration
+
+@@
+
+## Ngrok
+
+@@
+
+## End to End Demo
+
+```bash
+(smsdemo) $ python manage.py runserver
+```
+
+```bash
+$ ./ngrok 8000
+```
