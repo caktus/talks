@@ -19,7 +19,7 @@ Notes:
 - http://rapidsms.readthedocs.org/
 - http://rapidsms.org/
 - https://groups.google.com/forum/#!forum/rapidsms
-- http://talks.caktusgroup.com/djangocon/pycon/2015/sms-workshop
+- http://talks.caktusgroup.com/pycon/2015/sms-workshop
 
 @@
 
