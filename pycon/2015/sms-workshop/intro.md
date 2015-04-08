@@ -101,21 +101,32 @@ Notes:
 
 @@
 
-## Practical Application
+## Example Projects
 
 - **Registration:** Libya National Voter Registration
--  <!-- .element: class="fragment" data-fragment-index="1" --> **Health Logistics:** 1000 Days Projects
+  - 1.5 million registrations  <!-- .element: class="fragment" data-fragment-index="1" -->
+  - 6 million messages  <!-- .element: class="fragment" data-fragment-index="2" -->
 
 Notes:
 
 - Voter registration: text national id and polling location
-- NEXT FRAGMENT
-- Maternal Health: track pre & post natal care of mother's and babies (Rwana, Zambia, other countries)
-
 
 @@
 
-## RapidSMS
+## Example Projects
+
+- **Health Logistics:** 1000 Days Projects
+  - Well baby checkups  <!-- .element: class="fragment" data-fragment-index="1" -->
+  - Vaccination records  <!-- .element: class="fragment" data-fragment-index="2" -->
+  - Dispatch emergency services  <!-- .element: class="fragment" data-fragment-index="3" -->
+
+Notes:
+
+- Maternal Health: track pre & post natal care of mother's and babies (Rwana, Zambia, other countries)
+
+@@
+
+## RapidSMS Overview
 
 <img style="float: left" src="./img/rapidsms-architecture.png" />
 
