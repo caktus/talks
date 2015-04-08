@@ -9,6 +9,8 @@ Directory
 * PyCon
     * 2013
         * `Designers + Developers: Collaborating on your Python project <http://lanyrd.com/2013/pycon/scdyym/>`_
+    * 2015
+        * `Building SMS Applications with Django <http://talks.caktusgroup.com/djangocon/pycon/2015/sms-workshop>`_
 * OSCON
     * 2013
         * Designers + Developers: Collaborating on your Open Source project
