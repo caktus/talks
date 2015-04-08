@@ -129,6 +129,7 @@ Notes:
 ## Example Projects
 
 - **Booth Projects:** PyCon 2013 Raspberry Pi Poll Center
+
 ![RapidSMS Overview](./img/PyCon2013Booth.jpg)
 
 Notes:
