@@ -46,7 +46,7 @@ Caktus Group - PyCon 2015
 - What is RapidSMS?
 - Why RapidSMS?
 - Application Walkthrough
-- <blink>Live Demo</blink>
+- ***LIVE DEMO***  <!-- .element: class="blink" -->
 - Next Steps
 
 @@
