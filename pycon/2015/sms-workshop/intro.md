@@ -13,7 +13,7 @@ Caktus Group - PyCon 2015
 
 ## Caleb Smith
 
-<img style="float: left" src="./img/caleb.jpg">
+![Caleb Smith](./img/caleb.jpg) <!-- .element: style="float: left" -->
 
 - Astro Code School Lead Instructor
 - Former Caktus Developer
@@ -23,7 +23,7 @@ Caktus Group - PyCon 2015
 
 ## Mark Lavin
 
-<img style="float: left" src="./img/mark.jpg">
+![Mark Lavin](./img/mark.jpg) <!-- .element: style="float: left" -->
 
 - Caktus Technical Director
 - Triathlete
@@ -33,7 +33,7 @@ Caktus Group - PyCon 2015
 
 ## David Ray
 
-<img style="float: left" src="./img/david.jpg">
+![David Ray](./img/david.jpg) <!-- .element: style="float: left" -->
 
 - Caktus Developer & Sales Engineer
 - Operatic Tenor
@@ -46,6 +46,7 @@ Caktus Group - PyCon 2015
 - What is RapidSMS?
 - Why RapidSMS?
 - Application Walkthrough
+- <blink>Live Demo</blink>
 - Next Steps
 
 @@
@@ -143,7 +144,7 @@ Notes:
 
 ## RapidSMS Overview
 
-<img style="float: left" src="./img/rapidsms-architecture.png" />
+![RapidSMS Overview](./img/rapidsms-architecture.png) <!-- .element: style="float: left" -->
 
 Notes:
 
