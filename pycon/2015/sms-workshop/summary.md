@@ -1,11 +1,10 @@
 ## Next Steps
 
+- Refactor the 10 digit random group ID
 - Have users identify themselves in the group
 - Private/protected groups
-- Have a way to leave the group
-- Have a way to list members
-- Have a way to remove members
-- Have a way to delete a group
+- Have a way to leave and delete a group
+- Have a way to list and remove members
 
 @@
 
