@@ -122,7 +122,7 @@ Notes:
 
 Notes:
 
-- Maternal Health: track pre & post natal care of mother's and babies (Rwana, Zambia, other countries)
+- Maternal Health: track pre & post natal care of mother's and babies (Rwanda, Zambia, other countries)
 
 @@
 
@@ -134,7 +134,7 @@ Notes:
 
 - App communicates via HTTP
 - Gateway
-  - The gateway acts as a relay, translating one protocol into another
+  - The gateway acts as a relay, allows the computer to send and receive SMS to and from the telco
   - System component a la nginx
     - use a service if you can, pay someone else to run it
 - MNO send and receives to mobile device
