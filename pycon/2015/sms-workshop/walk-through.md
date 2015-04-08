@@ -243,7 +243,6 @@ Add `'smsgroups'` to  `INSTALLED_APPS`
 Notes:
 This is the end of 2-data-model tag
 
-
 @@
 
 ## Adding Handlers
@@ -770,7 +769,11 @@ class GroupTestCase(TestScript):
 
         with mock.patch('smsgroups.handlers.create_group.get_random_string') as mock_random:
             mock_random.return_value = '1234567890'
-            self.runScript('''
+            self.runScript(...)
+```
+
+
+```python
 15553437777 > create
 15553437777 < Group "1234567890" created! Use this identifier to SEND msgs or for others to JOIN.
 15557773434 > join 1234567890
@@ -781,7 +784,6 @@ class GroupTestCase(TestScript):
 15553437777 > 1234567890: pong
 15553437777 < Message was sent to 1 member.
 15557773434 < From 1234567890: pong
-            ''')
 ```
 
 @@
@@ -808,7 +810,11 @@ This is the end of 8-scripted-test
 
 @@
 
-## Twilio Account
+## Twilio
+
+https://www.twilio.com/
+
+![Twilio logo](./img/twilio-logo.png)
 
 @@
 
@@ -868,7 +874,7 @@ if 'twilio-backend' in settings.INSTALLED_BACKENDS:
 ```bash
 (smsdemo) $ export TWILIO_ACCOUNT_SID=XXXXXXXXXXXXXXXXXXXX
 (smsdemo) $ export TWILIO_AUTH_TOKEN=YYYYYYYYYYYYYYYYYYY
-(smsdemo) $ export TWILIO_NUMBER=ZZZZZZZZZZ
+(smsdemo) $ export TWILIO_NUMBER=+14387938022
 ```
 
 Notes:
@@ -877,6 +883,8 @@ This is the end of 9-twilio-configuration
 @@
 
 ## Ngrok
+
+https://ngrok.com/
 
 @@
 
@@ -889,3 +897,5 @@ This is the end of 9-twilio-configuration
 ```bash
 $ ./ngrok 8000
 ```
+
+Our number: +1 (438) 793 - 8022
