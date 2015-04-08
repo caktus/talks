@@ -3,6 +3,7 @@
 }
 
 .blink {
+    color: red;
     -webkit-animation-name: blinker;
     -webkit-animation-duration: 1s;
     -webkit-animation-timing-function: linear;
