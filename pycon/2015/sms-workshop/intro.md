@@ -86,7 +86,6 @@ Notes:
 - NEXT FRAGMENT
 - BSD: Free to use, extend, give back to the larger community
 
-
 @@
 
 ## Why RapidSMS?
@@ -127,6 +126,17 @@ Notes:
 
 @@
 
+## Example Projects
+
+- **Booth Projects:** PyCon 2013 Raspberry Pi Poll Center
+![RapidSMS Overview](./img/PyCon2013Booth.jpg)
+
+Notes:
+
+- Maternal Health: track pre & post natal care of mother's and babies (Rwanda, Zambia, other countries)
+
+@@
+
 ## SMS Application Flow
 
 App ← HTTP → Gateway ← SMPP → MNO
@@ -159,10 +169,10 @@ Notes:
   - Custom (rapidsms-twilio)
 - Router:
   - Messaging processing component
-  - It provides the infrastructure and defines the workflow to receive, process and send text messages.
-    - Blocking (synchronous)
-    - Celery (async)
-    - Database (queues in DB but uses Celery for async)
+    - It provides the infrastructure and defines the workflow to receive, process and send text messages.
+  - BlockingRouter (synchronous, default)
+  - CeleryRouter (async, not smart about doing retries for failed messages)
+  - DatabaseRouter (queues in DB but uses Celery for async, records all messages)
   - Incoming messages are processed in 5 phases; each providing application hooks
 - Application:
   - Provides custom logic for processing incoming and outgoing messages; aligns
