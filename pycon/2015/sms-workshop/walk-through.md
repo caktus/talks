@@ -447,7 +447,7 @@ from rapidsms.router import send
 from ..models import Group
 
 class BroadcastHandler(PatternHandler):
-    pattern = '^([0-9]{10}):\s?(\S+)'
+    pattern = '^([0-9]{10}):\s?(\S.*)'
 
     def handle(self, slug, text):
         """Broadcast messages to users in a group."""
