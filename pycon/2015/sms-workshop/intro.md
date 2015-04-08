@@ -217,6 +217,11 @@ Notes:
 - <!-- .element: class="fragment" data-fragment-index="4" --> **default:** *default action if **NO** app handle returns*
 - <!-- .element: class="fragment" data-fragment-index="5" --> **cleanup:** *perform any needed cleanup from prior phases*
 
+Notes:
+
+- handle method is similar to a Django view
+- other phases are similar to Django middlewarez
+
 @@
 
 ## Handlers Contrib App

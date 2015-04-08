@@ -6,6 +6,12 @@
 - Have a way to leave and delete a group
 - Have a way to list and remove members
 
+Notes:
+
+ - Refeactor to create user selected identifier
+   - workflow for duplicate names
+ - No way to self identify your number with a user
+
 @@
 
 ## Resources
