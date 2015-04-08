@@ -17,7 +17,7 @@ Caktus Group - PyCon 2015
 
 - Astro Code School Lead Instructor
 - Former Caktus Developer
-- Music Theorist
+- Death Metal Music Theorist
 
 @@
 
