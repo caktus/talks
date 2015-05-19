@@ -30,6 +30,9 @@ Directory
     * 2014
         * `Reaching Beyond The Web <http://talks.caktusgroup.com/pyconza/2014/rapidsms>`_
 * Lightning Talks
+    * 2015
+        * `MPTT <http://talks.caktusgroup.com/lightning-talks/2015/mptt>`_
+        * `VIM Normal Mode <http://talks.caktusgroup.com/lightning-talks/2015/vim-normal-mode>`_
     * 2014
         * `Deploying WordPress using best practices <http://talks.caktusgroup.com/lightning-talks/2014/wordpress-deploy>`_
         * `Data Visualization | Tracking Packages with Ona, Celery, and Leaflet <http://talks.caktusgroup.com/lightning-talks/2014/mapping-form-data>`_
