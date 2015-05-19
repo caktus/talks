@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>reveal.js - The HTML Presentation Framework</title>
+		<title>Lightning Talk: MPTT </title>
 
 		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
 		<meta name="author" content="Hakim El Hattab">
@@ -20,7 +20,7 @@
 		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
 
 		<!-- For syntax highlighting -->
-		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/zenburn.css">
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
 
 		<!-- For fullscreen images (optional, uncomment this and JS below to enable) -->
 		<!--link rel="stylesheet" href="../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.css"-->
@@ -35,6 +35,16 @@
 				document.getElementsByTagName( 'head' )[0].appendChild( link );
 			}
 		</script>
+
+		<!-- My own style to highlight certain words with an accent color-->
+		<style TYPE="text/css">
+			.accent { color: #8dd35f; font-weight: 900 !important;}
+			.reveal section img {
+			  margin: 15px 0;
+			  background: transparent;
+			  border: 0 solid transparent;
+			  box-shadow: none; }
+		</style>
 
 		<!--[if lt IE 9]>
 		<script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
@@ -52,20 +62,212 @@
 			<div class="slides">
 
 				<section>
-					<h1>Caktus Slide Theme</h1>
-					<h3>Template for Creating Talks with Reveal.js</h3>
+					<h2>MPTT</h2>
+					<h3><span class="accent">Adding hierarchical nesting to Django models</span></h3>
+					<p>Rob Lineberger</p>
 					<p>
-						<small>Created by Julia Elman</small>
+						<small>2015-05-21</small>
 					</p>
 				</section>
-
+	 <!-- ============================================================== -->
 				<section>
-					<h2>Slide #2</h2>
-					<p> 
-						<a href="#">This is a test</a>
-					</p>
+					<h2>What is MPTT?</h2>
+					<h3><span class="accent">M</span>odified</h3>
+					<h3><span class="accent">P</span>reorder</h3>
+					<h3><span class="accent">T</span>ree</h3>
+					<h3><span class="accent">T</span>raversal</h3>
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+					<h3>MPTT is a way to store</h3>
+					<h3>hierarchical data</h3>
+					<h3>in a flat structure.</h3>
+					<h5>(Such as a database table.)</h5>
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+					<p>Beware of many class names describing the same basic content type in an arbitrary hierarchy</p>
+					<img src="images/fake_model_tree1.svg">
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+				  <p>Beware of awkward containment structures</p>
+					<img src="images/fake_model_tree2.svg">
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+					<h2>Instead, use MPTT</h2>
+					<img src="images/fake_model_tree3.svg">
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+					<h2>MPTT tradeoffs</h2>
+					<ul>
+						<li>With a couple of fields (lft, rght) you can determine
+						    tree structure</li>
+						<li>Retrieval operations very efficient</li>
+						<li>Inserts and moves are slow</li>
+					</ul>
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+				  <h3>Example tree</h3>
+					<img src="images/market_builder_example_tree.svg">
 				</section>
 
+	 <!-- ============================================================== -->
+				<section>
+				  <h3>How it acts in the database</h3>
+					<pre>
+						SELECT * FROM example_tree WHERE lft BETWEEN 2 AND 10;
+					</pre>
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+					<h3>django-mptt</h3>
+					<ul>
+					  <li>Provides a base model, MPTTModel, which implements tree fields for you
+					     (<span class="accent">level</span>, <span class="accent">lft</span>,
+					      <span class="accent">rght</span>, and <span class="accent">tree_id</span>)</li>
+					  <li>In multiple inheritance cases, list MPTTModel first</li>
+					  <li>Provides a list of convenience methods (next slide) which abstract the tree fields</li>
+    			</ul>
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+					<ul>
+					  <li>get_ancestors(ascending=False, include_self=False)</li>
+    			  <li>get_children()</li>
+    			  <li>get_descendants(include_self=False)</li>
+    			  <li>get_descendant_count()</li>
+    			  <li>get_family()</li>
+    			  <li>get_next_sibling()</li>
+    			  <li>get_previous_sibling()</li>
+    			  <li><span class="accent">get_root()</span></li>
+    			  <li>get_siblings(include_self=False)</li>
+    			  <li><span class="accent">insert_at(target, position='first-child', save=False)</span></li>
+    			  <li>is_child_node()</li>
+    			  <li>is_leaf_node()</li>
+    			  <li>is_root_node()</li>
+    			  <li>move_to(target, position='first-child')</li>
+    			</ul>
+				</section>
+	 <!-- ============================================================== -->
+				<section>
+					<h3>Example Class</h3>
+					<pre>
+						<code>
+from mptt.models import MPTTModel, TreeForeignKey
+
+class Company(MPTTModel):
+    name = models.CharField(max_length=255)
+    parent = TreeForeignKey(
+        'self', related_name='client_parent', blank=True, null=True)
+    is_global_ultimate = models.NullBooleanField()
+    is_domestic_ultimate = models.NullBooleanField()
+						 </code>
+					</pre>
+			  </section>
+	 <!-- ============================================================== -->
+				<section>
+					<h3>Using the tree</h3>
+					<p>This example method finds the domestic headquarters for any given company in a tree.</p>
+					<pre>
+						<code>
+@property
+def get_domestic_ultimate(self):
+    """
+    If current company is flagged as domestic ultimate, return self.
+    Otherwise iterate through anscestors and look for the
+    first domestic ultimate.
+    """
+    if self.is_domestic_ultimate:
+        return self
+    mytree = self.get_ancestors(ascending=True, include_self=False)
+    for comp in mytree:
+        if comp.is_domestic_ultimate:
+            return comp
+    return None
+						 </code>
+					</pre>
+			  </section>
+
+	 <!-- ============================================================== -->
+			  <section>
+			  <h3>Setting up a test Tree</h3>
+
+					<pre>
+						<code>
+class CompanyTestCase(TestCase):
+    def setUp(self):
+        self.globalcorp = factories.CompanyFactory(name="GlobalCorp",
+                                               is_global_ultimate=True,)
+
+        self.usacorp = factories.CompanyFactory(parent=self.globalcorp,
+                                            is_domestic_ultimate=True,
+                                            name="USACorp")
+
+        self.companya = factories.CompanyFactory(parent=self.usacorp,
+                                             is_headquarters=True,
+                                             name="Company A")
+
+        self.companyb = factories.CompanyFactory(parent=self.usacorp,
+                                             name="Company B")
+						</code>
+					</pre>
+			  </section>
+	 <!-- ============================================================== -->
+			  <section>
+			  <h3>Testing the Tree</h3>
+
+					<pre>
+						<code>
+def test_tree_parameters(self):
+  self.assertEqual(self.globalcorp.lft, 1)
+  self.assertEqual(self.globalcorp.rght, 20)
+  self.assertEqual(self.globalcorp.level, 0))
+  self.assertEqual(self.asiacorp.lft, 10)
+  self.assertEqual(self.asiacorp.rght, 19)
+  self.assertEqual(self.asiacorp.level, 1)
+  self.assertEqual(self.globalcorp.get_descendant_count(), 9)
+  self.assertEqual(self.usacorp.get_descendant_count(), 3)
+  self.assertEqual(self.asiacorp.get_descendant_count(), 4)
+						</code>
+					</pre>
+			  </section>
+
+   <!-- ============================================================== -->
+			  <section>
+			  <h3>One last gotcha</h3>
+			  <p>Incompatibility with <span class="accent">django-mptt</span> and
+			     <span class="accent">GIS</span> in <span class="accent">PostGreSQL</span>.</p>
+			  <p>If you are using django-mptt and 'CREATE EXTENSION postgis;', you can't use MPPTMeta attributes:</p>
+					<pre>
+						<code>
+class MPTTMeta:
+	level_attr = 'mptt_level'
+	order_insertion_by=['name']
+						</code>
+					</pre>
+
+					<p>It won't do anything obviously wrong.  It will cheerfully report an incorrect tree structure.</p>
+			  </section>
+
+ <!-- ============================================================== -->
+			  <section>
+			  <h3>References</h3>
+				  <ul>
+				  	<li><a href="http://www.sitepoint.com/series/storing-hierarchical-data-in-a-database/">
+				  	    Storing Hierarchical Data in a Database</a> by Gijs Van Tulder</li>
+				  	<li><a href="https://github.com/django-mptt/django-mptt/">django-mptt</a></li>
+				  	<li><a href="http://stackoverflow.com/questions/1682318/django-treebeard-what-are-differences-between-al-ns-mp">
+				  		   Django treebeard what are differences between AL, NS, MP
+				  	</a> by Pedro Werneck</li>
+				  </ul>
+
+
+				</section>
+	 <!-- ============================================================== -->
 			</div>
 
 		</div>
