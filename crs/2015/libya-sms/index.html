@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>How SMS Powers Democracy in Libya</title>
+
+        <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+        <meta name="author" content="Hakim El Hattab">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+        <!-- Caktus specific styles -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/docco.css">
+
+        <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+        <script>
+            if( window.location.search.match( /print-pdf/gi ) ) {
+                var link = document.createElement( 'link' );
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = '../../../conf/themes/reveal.js/css/print/pdf.css';
+                document.getElementsByTagName( 'head' )[0].appendChild( link );
+            }
+        </script>
+
+        <style>
+         .slides .footer p {
+             position: absolute;
+             font-size: 50%;
+             top: 440px;
+             right: 0px;
+             text-align: right;
+             padding: 5px;
+             /* background-color: #117F89; */
+         }
+        </style>
+        <!--[if lt IE 9]>
+        <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>
+
+        <div class="reveal">
+            <aside class="logo">
+                <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+            </aside>
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+
+                <section>
+                    <h2>How SMS Powers Democracy in Libya</h2>
+                    <p>
+                      <br>
+                      <a href="https://twitter.com/vkurup">Vinod Kurup, MD</a><br>
+                      <a href="https://twitter.com/vkurup">@vkurup</a><br>
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Take home point</h2>
+                    <ul>
+                        <li class="fragment">Build SMS apps.</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Outline</h2>
+                    <ul>
+                        <li>Why SMS?</li>
+                        <li>Libyan SMS Voter Registration</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Hallway Track</h2>
+                    <ul>
+                        <li>Python / Django programmer</li>
+                        <li>Open Source enthusiast</li>
+                        <li>Practicing physician</li>
+                        <li>Cheesehead!</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/libya-derna-protests.jpg">
+                <!-- image from http://www.universityobserver.ie/2012/01/01/a-year-in-review-the-biggest-news-stories-of-2011/libya-3/ -->
+                </section>
+
+                <section>
+                    <h2>Government of Libya Mandates</h2>
+                    <h4>Build an <span class="fragment grow highlight-red">SMS</span> Voter Registration System</h4>
+                </section>
+
+                <section>
+                    <h1>Why SMS?</h1>
+                </section>
+
+                <section data-background="img/election-line.jpg">
+                    <div class="footer">
+                        <h1 style="color: #117F89">Why electronic?</h1>
+                        <p>photo by <a href="https://flickr.com/photos/joshmt/">Josh Thompson</a> <a href="http://creativecommons.org/licenses/by/2.0">cc-by-2.0</a>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Why electronic?</h3>
+                    <ul>
+                        <li class="fragment">User's time</li>
+                        <li class="fragment">Protests</li>
+                        <li class="fragment">Expense
+                            <ul>
+                                <li>Staff</li>
+                                <li>Materials</li>
+                            </ul></li>
+                        <li class="fragment">Access</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/lbydens.png" data-background-size="1400px">
+                    <!-- image from http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-density/maps -->
+                    <div class="footer">
+                        <p>Courtesy of <a href="http://sedac.ciesin.columbia.edu/data/set/grump-v1-population-density/maps?contains=libya">NASA</a></p>
+                    </div>
+                </section>
+
+                <section data-background="img/spider-web.jpg">
+                    <h1>Why not the web?</h1>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <h4>Expensive!</h4>
+                    <img class="fragment" height="300" src="img/macbook-air.jpg">
+                    <img class="fragment" height="300" src="img/phone.jpg">
+                    <div class="fragment">
+                        <br><br><br>
+                        <p style="text-align: right"><small>photos by <a href="https://www.flickr.com/photos/alejandropinto/">Alejandro Pinto</a> and <a href="https://www.flickr.com/photos/mecklenburg/">Thomas Kohler</a> <a href="http://creativecommons.org/licenses/by/2.0">cc-by-2.0</a></small></p>
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <h4>Developer time</h4>
+                    <ul class="fragment">
+                        <li>No HTML</li>
+                        <li>No JS</li>
+                        <li>No CSS</li>
+                        <li>No Fonts</li>
+                        <li>No Colors</li>
+                        <li>No Forms</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <ul>
+                        <li>User's time</li>
+                    </ul>
+                    <p>
+                        <img src="img/loading.gif">
+                    </p>
+                </section>
+
+                <section>
+                    <h3>Why not the web?</h3>
+                    <h4>The most important reason....</h4>
+                </section>
+
+                <section data-background="img/no-access.jpg">
+                    <div class="footer">
+                        <p>Courtesy <a href="https://www.flickr.com/photos/sweetone/">Neal Jennings</a> <a href="http://creativecommons.org/licenses/by/2.0">cc-by-2.0</a></p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>Access</h2>
+                    <table style="margin: 0 auto">
+                        <thead>
+                            <tr>
+                                <th>&nbsp;</th>
+                                <th>Internet</th>
+                                <th>SMS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Libya</td>
+                                <td>16%</td>
+                                <td>165%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>Africa</td>
+                                <td>21%</td>
+                                <td>80%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>United States</td>
+                                <td>87%</td>
+                                <td>96%</td>
+                            </tr>
+                            <tr class="fragment">
+                                <td>World</td>
+                                <td>39%</td>
+                                <td>97%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><br><small>Sources: <a href="http://en.wikipedia.org/wiki/List_of_countries_by_number_of_mobile_phones_in_use">Wikipedia</a> and <a href="http://data.worldbank.org/indicator/IT.CEL.SETS.P2?order=wbapi_data_value_2013+wbapi_data_value+wbapi_data_value-last&sort=asc">World Bank</a></small></p>
+                </section>
+
+                <section>
+                    <h2>SMS Summary</h2>
+                    <ul>
+                        <li class="fragment">Widely accessible</li>
+                        <li class="fragment">User friendly</li>
+                        <li class="fragment">Inexpensive</li>
+                        <li class="fragment">Libya made a wise choice!</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/Libya-SMS-RapidSMS-text-message-voter-registration.jpg">
+                    <h1>The Project</h1>
+                </section>
+
+                <section>
+                    <h2>Timeline</h2>
+                    <ul>
+                        <li class="fragment">2012: Libya mandates HNEC to build SMS VR system</li>
+                        <li class="fragment">Sep 2013: Caktus and partners join team</li>
+                        <li class="fragment">Dec 2013: > 1 million registrations</li>
+                        <!-- <li class="fragment">Jan 2014: In person registration period</li> -->
+                        <li class="fragment">Feb 2014: CDA elections (60 seats)</li>
+                        <li class="fragment">May 2014: additional 500K registrations</li>
+                        <li class="fragment">Jun 2014: CoR elections (200 seats)</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>What is Registration?</h2>
+                    <ul>
+                        <li class="fragment">Link a voter to a polling center</li>
+                        <li class="fragment">Every voter has a 12 digit NID</li>
+                        <li class="fragment">Every center has a 5 digit code</li>
+                        <li class="fragment">1600+ centers</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>How do I register?</h2>
+                    <ul>
+                        <li>10010 is the HNEC short code</li>
+                        <li class="fragment">Send to 10010: <pre><code>111222333444 # 12345</code></pre></li>
+                        <li class="fragment">We respond: <q>You are registered</q> or with an error message</li>
+                        <blockquote class="fragment">{person}، تم تسجيلك فى مركز {centre}. رقم مركز الاقتراع {code}. إذا كان المركز غير صحيح أو تريد أن تغير مركزك، الرجاء إعادة التسجيل مستخدما نفس رقم الهاتف. للتأكد من تسجيلك، يرجي ارسال رقمك الوطني إلى الرقم 10010. (الرسالة رقم 1)</blockquote>
+                    </ul>
+                </section>
+
+                <section data-background="img/registration-flowchart.png" data-background-size="1400px">
+                </section>
+
+                <section>
+                    <h1>Other Features</h1>
+                </section>
+
+                <section>
+                    <h2>Voter query</h2>
+                    <ul>
+                        <li>Send to 10010: <pre><code>111222333444</code></pre></li>
+                        <li class="fragment">We respond with your registration status</li>
+                        <li class="fragment">Also available via the web at <a href="https://libyavotes.ly">https://libyavotes.ly</a></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Reporting</h1>
+                </section>
+
+                <section data-background="img/data.libyavotes.png" data-background-size="1400px">
+                </section>
+
+                <section>
+                    <h2>Polling Day</h2>
+                    <ul>
+                        <li>Central staff needs to monitor polling centers in real-time</li>
+                        <li>Parallell Voting Tabulation (PVT)</li>
+                        <li class="fragment">With 1600 centers, voice phone is not feasible</li>
+                        <li class="fragment">Staff reports number of voters with SMS to 10050: <pre><code>11007 # 3 # 932</code></pre></li>
+                        <li class="fragment"><img src="img/poll-report.png"></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Help Desk</h2>
+                    <img src="img/helpdesk.png">
+                </section>
+
+                <section>
+                    <h2>Bulk Outgoing SMS</h2>
+                    <ul>
+                        <li class="fragment">Remind voters to vote</li>
+                        <li class="fragment">Inform voters of registration center changes</li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h1>Deployment</h1>
+                </section>
+
+                <section data-background="img/libya-systems.png" data-background-size="1200px">
+                </section>
+
+                <section>
+                    <h1>Challenges</h1>
+
+                    <ul>
+                      <li class="fragment">Translation</li>
+                      <li class="fragment">Performance</li>
+                      <li class="fragment">Last minute changes</li>
+                </section>
+
+                <section>
+                    <h2>Testing</h2>
+                    <ul>
+                        <li>Automated tests</li>
+                        <li class="fragment">HNEC staff testing</li>
+                        <li class="fragment">... (message 58)</li>
+                        <li class="fragment"><img height="600" src="img/googly.png"></li>
+                    </ul>
+                </section>
+
+                <section>
+                    <h2>Our Tools</h2>
+                    <ul>
+                        <li class="fragment">RapidSMS</li>
+                        <li class="fragment">Django</li>
+                        <li class="fragment">Python</li>
+                        <li class="fragment">PostgreSQL</li>
+                        <li class="fragment">... and many others</li>
+                        <li class="fragment">All Free and Open Source</li>
+                    </ul>
+                </section>
+
+                <section data-background="img/conclusion.jpg">
+                    <h1>Conclusion</h1>
+                </section>
+
+                <section>
+                    <h2>Take home point</h2>
+
+                    <ol>
+                        <li class="fragment">Is access important to your project?</li>
+                        <ul class="fragment">
+                            <li>Then SMS is important to your project.</li>
+                            <li>Easy to add to a web app</li>
+                        </ul>
+                        <li class="fragment">Accepting data via SMS speeds up your access to that data.</li>
+                    </ol>
+                </section>
+
+                <section data-background="img/superheroes.jpg" data-background-size="850px">
+                    <br><br><br>
+                    <h2>Thanks! Questions?</h2>
+                </section>
+
+            </div>
+
+        </div>
+
+        <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+        <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Optional libraries used to extend on reveal.js
+                // Note: Don't forget to add preceding commas when enabling!
+                dependencies: [
+                    { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                    // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
