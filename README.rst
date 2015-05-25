@@ -29,6 +29,9 @@ Directory
 * PyconZA
     * 2014
         * `Reaching Beyond The Web <http://talks.caktusgroup.com/pyconza/2014/rapidsms>`_
+* Catholic Relief Services
+    * 2015
+        * `How SMS Powers Democracy in Libya <http://talks.caktusgroup.com/crs/2015/libya-sms>`_
 * Lightning Talks
     * 2015
         * `MPTT <http://talks.caktusgroup.com/lightning-talks/2015/mptt>`_
