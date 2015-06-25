@@ -36,6 +36,7 @@ Directory
     * 2015
         * `MPTT <http://talks.caktusgroup.com/lightning-talks/2015/mptt>`_
         * `VIM Normal Mode <http://talks.caktusgroup.com/lightning-talks/2015/vim-normal-mode>`_
+        * `Pinboard <http://talks.caktusgroup.com/lightning-talks/2015/pinboard>`_
     * 2014
         * `Deploying WordPress using best practices <http://talks.caktusgroup.com/lightning-talks/2014/wordpress-deploy>`_
         * `Data Visualization | Tracking Packages with Ona, Celery, and Leaflet <http://talks.caktusgroup.com/lightning-talks/2014/mapping-form-data>`_
