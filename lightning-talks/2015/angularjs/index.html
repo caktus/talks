@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>A Practical Approach to Angular</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+    <!-- Caktus specific styles -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if( window.location.search.match( /print-pdf/gi ) ) {
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = '../../../conf/themes/reveal.js/css/print/pdf.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div class="reveal">
+        <aside class="logo">
+            <img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+        </aside>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+
+            <section>
+                <h2>A Practical Approach to Angular for Django Developers</h2>
+                <p>Lightning Talk Lunch</p>
+                <p>Feb. 2015</p>
+                <p>Victor Rocha</p>
+            </section>
+
+            <section>
+                <!-- <h2>Why</h2> -->
+                <h2>About Me</h2>
+                <ul>
+                    <li>Full time software consultant at Caktus Consulting Group</li>
+                    <li>Manage and run AccountLegal.com</li>
+                    <li>Angular Enthusiast</li>
+                    <li>Avid member of the Code for America Brigade</li>
+                    <li>Runner, chess player, break dancer.</li>
+                </ul>
+
+                <aside class="notes">
+
+                </aside>
+            </section>
+
+            <section>
+                <!-- <h2>Why</h2> -->
+                <h2>Myths</h2>
+                <ul>
+                    <li>Heavy weight</li>
+                    <li>Better suited for bigger apps</li>
+                    <li>Can't write regular javascript</li>
+                    <li>No knowledge transfer</li>
+                    <li>Invalid HTML markup</li>
+                    <li>Too much boiler plate</li>
+                </ul>
+
+                <aside class="notes">
+                    There are a lot of misconceptions about angular, and I will try
+                    by the end of this talk prove them wrong. I will show how angular
+                    can be suited for all projects that involve javascript.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Simplest Web App</h2>
+
+                        <pre class="fragment"><code>
+from django.conf import settings
+from django.conf.urls import include, url
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.views.generic import TemplateView
+
+
+admin.autodiscover()
+
+urlpatterns = [
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^/$', TemplateView.as_view(template_name="index.html")),
+    url(r'^about/$', TemplateView.as_view(template_name="about.html")),
+    url(r'^contact-us/$', TemplateView.as_view(template_name="contact.html")),
+
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+                        </code></pre>
+
+                <aside class="notes">
+                    The simplest web app we can have is a static app. In django,
+                    it is pretty simple to accomplish this. The only thing we need
+                    is a list of URLS and the templates that we want to rednder.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Angular routes</h2>
+                <pre class="fragment"><code>
+app.config(['$routeProvider', function($routeProvider) {
+    $routeProvider
+        .when('/about/', {templateUrl: 'templates/about.html'})
+        .when('/contact-us/', {templateUrl: 'templates/contact.html'})
+        .when('/', {templateUrl: 'templates/index.html'})
+}]);
+                </code></pre>
+
+                <aside class="notes">
+                    Routes is the angular word for URL patterns. As you can see our
+                    django app was translated in about the same number of lines
+                    as it took us to write it in python.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Boiler Plate</h2>
+                <ul>
+                    <li>Defining angular objects (app, controllers, directives, etc)</li>
+                </ul>
+                <pre class="fragment"><code>
+// Defining the app object
+var app = angular.module("LightningTalkApp", ['ngRoute',]);
+
+// controller
+app.controller('LightningTalkController', ['$scope', function($scope) {
+
+}])
+
+// directive
+app.directive('lightningTalkDirective', ['$scope', function($scope) {
+
+}])
+
+// etc
+
+                </code></pre>
+                <aside class="notes">
+                    In both the django and angular, there is some boiler plate that
+                    we need to write in order to start actually working on our application.
+                    In django, we have the django project template. In angular,
+                    we also have a few projects, such as the angular seed project,
+                    that can help you avoid writing most of the boiler plate.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Dependency injection (imports)</h2>
+
+                <pre class="fragment"><code>
+// controller
+app.controller('LightningTalkController', ['$scope', '$http', function($scope, $http) {
+    $http.get('/users').success(function(data) {
+        $scope.users = data;
+    });
+
+}])
+                </code></pre>
+                <aside class="notes">
+                    Angular is a modular framework that allows you to import and reuse code.
+                    You need to import any objects that you want to use in the current scope.
+
+                    So how do you import a module that you need to use?
+                    - First you include the js file in the doc
+                    - Then you pass it into your object
+
+                    This is not the most elegant way to import a module, but it is nice to
+                    be able to use imports in javascript.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Dynamic Applications</h2>
+                <h3>Django</h3>
+                <ul>
+                    <li>Define a URL pattern that calls a view</li>
+                    <li>The view returns a dynamic response</li>
+                </ul>
+                <h3>Angular</h3>
+                <ul>
+                    <li>Define a URL pattern (route) that calls a view (controller)</li>
+                    <li>The view(controller) returns a dynamic response*</li>
+                </ul>
+
+                <aside class="notes">
+                    As you can see, there is no much difference how django works and how angular does.
+                </aside>
+            </section>
+
+            <section>
+                <h2>What does that look like?</h2>
+                <pre class="fragment"><code>
+app.config(['$routeProvider', 'LightningTalkController', function($routeProvider, LightningTalkController) {
+    $routeProvider
+        .when('/article/:id', {
+            controller: 'LightningTalkController',
+            templateUrl: 'templates/details.html'
+         })
+}]);
+                </code></pre>
+
+<pre class="fragment"><code>
+// controller
+app.controller('LightningTalkController', ['$scope', '$http', function($scope, $http) {
+    var article: {
+        headline: 'The best 10 open source projects ever',
+        content: 'loremp ipsum loremp ipsum loremp ipsum loremp ipsum..'
+        views: 20
+    }
+    $scope.article = article;
+}])
+</code></pre>
+               <aside class="notes">
+                    Mention that a angular controller creates the context for the template.
+                    In angular, you can declare any variables or method, and if you want
+                   them accessible in the template, then they need to be attached to the
+                   the $scope.
+                </aside>
+            </section>
+
+            <section>
+                <h2>details.html</h2>
+<pre class="fragment"><code>
+<h1>{{ article.headline }} <span class="views">{{ article.views }}</span></h1>
+<div>
+    {{ article.content }}
+</div>
+</code></pre>
+                <aside class="notes">
+                    So what does the template looks like? Does anything look familiar?
+                    It does, it looks just like a django template!
+                </aside>
+            </section>
+
+            <section>
+                <h2><a href="example/index.html">A complete app</a></h2>
+<pre class="fragment"><code>
+<!--<!DOCTYPE html>-->
+<!--<html data-ng-app="GithubApp">-->
+    <!--<head>-->
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lightning Talks</title>
+        <meta name="apple-mobile-web-app-title" content="Lightning Talks">
+
+        <!--Include CSS-->
+
+        <!--Include JS-->
+
+        <script type="text/javascript">
+            var app = angular.module("GithubApp", ['ngRoute']);
+
+            app.config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {
+                $routeProvider
+                    .when('/', {
+                        controller: 'GithubController',
+                        templateUrl: 'repos.html'
+                        })
+            }]);
+
+            app.controller('GithubController', ['$scope', '$http', function($scope, $http) {
+                $http.get('https://api.github.com/users/caktus/repos').success(function(data) {
+                    $scope.repos = data;
+                });
+            }]);
+
+            app.directive('contributors', ['$http', function($http) {
+                var linker = function(scope, element, attrs) {
+                    $http.get(scope.repo.contributors_url).success(function(data) {
+                        scope.contributors = data;
+                    });
+                };
+
+                return {
+                    restrict: 'E',
+                    templateUrl: 'contributors.html',
+                    link: linker
+                }
+            }]);
+        </script>
+        <!-- endbuild -->
+    <!--</head>-->
+
+    <!--<body>-->
+        <div data-ng-view></div>
+    <!--</body>-->
+<!--</html>-->
+</code></pre>
+            </section>
+
+            <section>
+                <h2>Services and Factories</h2>
+<pre class="fragment"><code>
+    app.factory('GithubUserFactory', ['$http', function($http) {
+        return {
+            get: function(username) {
+                var url = 'https://api.github.com/users/' + username + '/repos'
+                return $http.get(url)
+            },
+            update: function(user) {
+                // update user
+            },
+            delete: function(user) {
+                // delete user
+            }
+        }
+    }]);
+    app.controller('GithubController', ['$scope', '$http', 'GithubUserFactory' function($scope, $http, GithubUserFactory) {
+        GithubUserFactory.get('caktus').success(function(data) {
+             $scope.repos = data;
+        });
+    }]);
+</code></pre>
+                <aside class="notes">
+                    The first thing that I want you to know is that you are not
+                    required to use services or factories in order to write an
+                    angular application. This is only if you want to write
+                    reusable code.
+
+                    So the question is when to use them? Youl will want to use them
+                    Once your code start growing, you will see yourself writing the
+                    same patterns over and over again. For this, angular provides
+                    a few recipes.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Directives</h2>
+                <aside class="notes">
+                    You can think of a directive almost in the same way you think of
+                    a template tag. (include tag). A directive is a way to abstract
+                    common html away into it's own template tag.
+
+                    I won't go much into detail at this time.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Code Organization</h2>
+
+                <aside class="notes">
+                    I will be honest, I haven't built a huge single page application yet.
+                    However, I like to separate my code per "feature/app" and inside this directory
+                    I like to include all the relevant controllers/directives/modules.
+                    I will show you an example.
+
+                </aside>
+            </section>
+
+            <section>
+                Conclusion
+                <aside class="notes">
+                    There are a lot of things I don't like about angular yet I
+                    prefer it over any of the other frameworks that I have tried.
+                    Angular just make sense.
+
+                    Angular is a very friendly framework that welcomes beginners
+                    but at the same time offers incredible powers to those who
+                    need.
+                </aside>
+            </section>
+
+            <section>
+                <h2>Built with angular</h2>
+                <ul>
+                    <li><a href="https://schools.codefordurham.com/#/">School Inspector</a></li>
+                    <li><a href="https://play.google.com/store/apps/details?id=com.pulgalatina.mobile&hl=en">Pulga Latina</a></li>
+                    <li><a href="https://www.accountlegal.com">Account Legal</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Thanks! Questions?</h2>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+    <script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+    <script>
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            width: 1280,
+            height: 720,
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+            slideNumber: true,
+
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                { src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+                // { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+            ]
+        });
+    </script>
+</body>
+</html>

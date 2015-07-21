@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#" data-ng-app="GithubApp">
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Lightning Talks</title>
+        <meta name="apple-mobile-web-app-title" content="Lightning Talks">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular-resource.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular-route.min.js"></script>
+
+        <script type="text/javascript">
+            var app = angular.module("GithubApp", ['ngRoute']);
+
+            app.config(['$httpProvider', '$routeProvider', function($httpProvider, $routeProvider) {
+                $routeProvider
+                    .when('/:username', {
+                        controller: 'GithubController',
+                        templateUrl: 'repos.html'
+                        })
+                    .when('/', {
+                        controller: 'GithubController',
+                        templateUrl: 'repos.html'
+                        })
+            }]);
+
+            app.controller('GithubController', ['$scope', '$http', '$routeParams',
+                    function($scope, $http, $routeParams) {
+                $scope.username = $routeParams.username || 'caktus';
+                var url = 'https://api.github.com/users/' + $scope.username + '/repos';
+                $http.get(url).success(function(data) {
+                    $scope.repos = data;
+                });
+            }]);
+
+            app.directive('contributors', ['$http', function($http) {
+                var linker = function(scope, element, attrs) {
+                    $http.get(scope.repo.contributors_url).success(function(data) {
+                        scope.contributors = data;
+                    });
+                };
+
+                return {
+                    restrict: 'E',
+                    templateUrl: 'contributors.html',
+                    link: linker
+                }
+            }])
+        </script>
+        <!-- endbuild -->
+    </head>
+
+    <body class="container">
+        <div data-ng-view></div>
+    </body>
+</html>
