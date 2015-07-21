@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Python + Django: Web Development Batteries Included</title>
+
+		<meta name="description" content="The "batteries included" philosophy of the Python language and its most popular web framework Django help you develop dynamic websites quickly. In this brief introduction learn what amazing tools come included with this powerful framework.">
+		<meta name="author" content="Mark Lavin">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/reveal.min.css">
+
+		<!-- Caktus specific styles -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="../../../conf/themes/reveal.js/lib/css/googlecode.css">
+
+		<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+		<script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = '../../../conf/themes/reveal.js/css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="../../../conf/themes/reveal.js/lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+			<aside class="logo">
+            	<img src="../../../conf/themes/reveal.js/img/caktus-logo.png">
+        	</aside>
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+
+				<section>
+					<h2>Python + Django</h2>
+					<h3>Web Development <br> Batteries Included</h3>
+					<p>Mark Lavin - Caktus Group</p>
+				</section>
+
+				<section>
+                    <section>
+                        <img src="python-logo.png" >
+                        <aside class="notes">
+                            Python is open source programming language which is both
+                            powerful and expressive while being easy to learn and use.
+                            It's syntax emphasizes readability.
+                        </aside>
+                    </section>
+                    <section>
+                        <h3>Imperative Python</h3>
+                        <pre><code class="python" data-trim>
+# hello.py
+def hello(recipient):
+    print('Hello, {}!'.format(recipient))
+
+if __name__ == '__main__':
+    hello('World')
+                        </code></pre>
+                        <pre class="fragment"><code class="python" data-trim>
+$ python hello.py
+Hello, World!
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h3>Object-Oriented Python</h3>
+                        <pre><code class="python" data-trim>
+# gretting.py
+class Greeting(object):
+
+    def __init__(self, recipient):
+        self.recipient = recipient
+
+    def speak(self):
+        print('Hello, {}!'.format(self.recipient))
+
+
+if __name__ == '__main__':
+    greeting = Greeting('Diamond Hacks')
+    greeting.speak()
+                        </code></pre>
+                        <pre class="fragment"><code class="python" data-trim>
+$ python gretting.py
+Hello, Diamond Hacks!
+                        </code></pre>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Standard Library</h2>
+                        <ul>
+                            <li>argparse</li>
+                            <li>collections/queue</li>
+                            <li>datetime</li>
+                            <li>hashlib</li>
+                            <li>math/statitics</li>
+                            <li>os/pathlib/sys</li>
+                            <li>re/html/xml</li>
+                            <li>threading/multiprocessing/asyncio</li>
+                            <li>unittest</li>
+                        </ul>
+                        <p><a href="https://docs.python.org/3/library/index.html">https://docs.python.org/3/library/index.html</a></p>
+                        <aside class="notes">
+                            Beyond it's beautiful syntax and support for multiple programming
+                            paradigms, Python ships with an extensive standard library with additional
+                            types and functions for common programming tasks.
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class="python" data-trim> >>> import this</code></pre>
+                        <pre class="fragment">
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+                        </pre>
+                        <aside class="notes">
+                            There is wisdom in the standard library.
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class="python" data-trim> >>> import antigravity</code></pre>
+                        <p class="fragment">
+                            Opens <a href="http://xkcd.com/353/">http://xkcd.com/353/</a> in a browser
+                            <img src="http://imgs.xkcd.com/comics/python.png">
+                        </p>
+                        <aside class="notes">
+                            And humor.
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <img src="django-logo.png">
+                        <aside class="notes">
+                            Django is Python's most popular web framework and takes on much of the
+                            same philosophy as Python.
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class="python" data-trim>
+from django.shortcuts import render
+
+
+def home(request):
+    return render(request, 'home.html', {'title': 'My Homepage'})
+                        </code></pre>
+                        <aside class="notes">
+                            At its most fundamental level, Django routes incoming HTTP requests
+                            to Python functions/callables which return HTTP response. Those responses
+                            might be HTML (like this one) or JSON, XML, etc
+                        </aside>
+                    </section>
+                    <section>
+                        <pre><code class="python" data-trim>
+from django.db import models
+
+
+class Subject(model.Model):
+    name =  models.CharField(max_length=200, unique=True)
+
+
+class Student(model.Model):
+    name =  models.CharField(max_length=200)
+    major = models.ForeignKey(Subject)
+
+
+if __name__ == '__main__':
+    math, _ = Subject.objects.get_or_create('Mathematics')
+    me = Student.objects.create(name='Mark', major=math)
+                        </code></pre>
+                        <aside class="notes">
+                            Django also comes with a flexible Object-relational mapper (ORM) for
+                            accessing relational databases for the storage of any type of
+                            content you which to model. The declarative style helps with readability.
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Django Features</h2>
+                        <ul>
+                            <li>User authentication/session management</li>
+                            <li>Flexible template rendering engine</li>
+                            <li>CSRF/XSS/Clickjacking projection</li>
+                            <li>Caching utilities</li>
+                            <li>Internationalization and localization utilities</li>
+                            <li>One-time "flash" messages</li>
+                            <li>Email sending</li>
+                        </ul>
+                        <p><a href="https://docs.djangoproject.com/en/stable/">https://docs.djangoproject.com/en/stable/</a></p>
+                        <aside class="notes">
+                            Beyond pieces you might expect from a web framework like URL routing or
+                            form processing, Django includes a number of features common to web applications.
+
+                            Many of these pieces are pluggable and swappable.
+
+                            Even with all of these the best feature of Python and Django is...
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <section>
+                        <h2>Community</h2>
+                        <aside class="notes">
+                            The Python community is a place the celebrates its diversity in both
+                            technical and non-technical forms. Python is equally proud to be used
+                            for scientific computation, financial analysis, data visualization,
+                            machine learning, web development, game development, and system
+                            administration as it is for having a diverse set of developers using
+                            it.
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Diversity Statement</h2>
+                        <p><a href="https://www.python.org/community/diversity/">https://www.python.org/community/diversity/</a></p>
+                        <aside class="notes">
+                            Python Software Foundation requires a code of conduct in place for any conference it sponsors.
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Code of Conduct</h2>
+                        <p><a href="https://www.djangoproject.com/conduct/">https://www.djangoproject.com/conduct/</a></p>
+                        <aside class="notes">
+                            Django project has an established code of conduct for how it expects people to behave at its
+                            conferences, mailing lists, and other sponsored events.
+                        </aside>
+                    </section>
+                    <section>
+                        <img src="pyladies-logo.png" width="350">
+                        <img src="django-girls-logo.jpg" width="350">
+                        <aside class="notes">
+                            Organizations like PyLadies and Django Girls have been working endlessly
+                            to empower women like yourselves in this technical community and it's working.
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>It's Working!</h2>
+                        <blockquote class="twitter-tweet" lang="en"><p>Hello from your <a href="https://twitter.com/pycon">@PyCon</a> Diversity Outreach Chair. % PyCon talks by women: (2011: 1%), (2012: 7%), (2013: 15%), (2014: 33%). Outreach works.</p>&mdash; Jessica McKellar (@jessicamckellar) <a href="https://twitter.com/jessicamckellar/status/413009020522221568">December 17, 2013</a></blockquote> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <aside class="notes">
+                            Python's largest conference PyCon is next month and here's a look back at how
+                            it's changed in recent years. This is something that our community values and I'm
+                            not sure the same can be said for all tech communities.
+                        </aside>
+                    </section>
+                </section>
+                <section>
+                    <h2>Code Without <br>Concession</h2>
+                    <aside class="notes">
+                        Python and Django have all the technical tools you need to build amazing web applications
+                        but also a community that is welcoming and supportive. Come join a community where
+                        you can be valued and successful. Don't settle for less.
+                    </aside> 
+                </section>
+                <section>
+                    <h2>Thanks!</h2>
+                    <p>Mark Lavin - <a href="https://twitter.com">@DrOhYes</a></p>
+                    <p><a href="http://talks.caktusgroup.com/diamondhacks/2015/python/">http://talks.caktusgroup.com/diamondhacks/2015/python/</a></p>
+                    <img src="lightweight_django_comp.jpg" height="400">
+                    <aside class="notes">
+                        Again my name is Mark. I work for Caktus Group. You can find me on Twitter.
+                        And you can check out my book from O'Reilly "Lightweight Django".
+                    </aside>
+                </section>
+			</div>
+		</div>
+
+		<script src="../../../conf/themes/reveal.js/lib/js/head.min.js"></script>
+		<script src="../../../conf/themes/reveal.js/js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Optional libraries used to extend on reveal.js
+				// Note: Don't forget to add preceding commas when enabling!
+				dependencies: [
+					{ src: '../../../conf/themes/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: '../../../conf/themes/reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: '../../../conf/themes/reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+					// { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
