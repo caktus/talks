@@ -207,9 +207,252 @@ class FunctionalTests(StaticLiveServerTestCase):
             'Login form should still be visible.')
 ```
 
-Note:
+Notes:
 We want to test the things that users do and sometimes they make mistakes. You
 should test those as well.
+
+These end-to-end tests are great but they are slow and can be fragile. If the DOM
+changes slightly, changed element ID or class name, they can break even though the
+overall functionality isn't broken.
+
+@@
+
+## JS Testing
+
+![Javascript Testing](./img/4439062727_52444dd185_z.jpg)
+
+Notes:
+For particular endcases in logic it's hard to beat a good isolated unittest. However,
+this often goes out the window when writing JS. Since I feel like in general the
+Django community values testing, there has to be a reason. Largely I think
+it's education.
+
+There are a number of different testing frameworks in the Javascript community.
+Many have names that don't really tell you what they do.
+Qunit, Jasmine, Mocha (no logo), Karma, Protractor
+
+
+## Why QUnit?
+
+<img alt="QUnit Logo" src="./img/qunit.png" class="logo qunit">
+
+Notes:
+Why choose QUnit over any others?
+Familiar xUnit style (many JS frameworks are more BDD)
+Used by large popular projects like jQuery and Django itself (Thanks Trey Hunter!)
+
+@@
+
+## QUnit Setup
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>QUnit Test Suite</title>
+    <link rel="stylesheet" href="libs/qunit.css">
+</head>
+<body>
+    <div id="qunit"></div>
+    <div id="qunit-fixture"></div>
+    <script src="libs/qunit.js">
+    <script src="../../static/libs/jquery.js">
+    <script src="../../static/libs/underscore.js">
+    <script src="../../static/libs/backbone.js">
+    <script src="../../static/js/models.js">
+    <script src="../../static/js/views.js">
+    <script src="tests/test_models.js">
+    <script src="tests/test_views.js">
+</body>
+</html>
+```
+
+Notes:
+This is a static HTML file which includes the QUnit CSS and JS. It also includes
+the files we want to tests (models.js and views.js) and there dependencies (jquery, underscore, backbone).
+
+The last two files are the tests themselves.
+
+I know the end of the script tags are missing. There was some wonky issue with Reveal.JS + Markdown + Highlight.JS
+
+
+## First QUnit Test
+
+```javascript
+QUnit.test('Model Provided URL', function (assert) {
+    var uploads = new config.collections.UploadCollection(),
+        file = {
+            name: 'test.png',
+            size: 200,
+            created: '2015-01-14T01:21:56.870',
+            links: {
+                self: '/uploads/test.png'
+            }
+        },
+        model = uploads.push(file);
+    assert.equal(model.url(), '/uploads/test.png');
+});
+```
+
+Notes:
+The Qunit.test function takes the name of the test then a function for the tests itself. The
+test function is given a single argument which is the assert object which has all of the assert
+APIs on it.
+
+In this test we are adding a new model to our Backbone collection and asserting that the
+model.url method returns the url we expect. Pretty standard unittest. Create an instance of
+a class, call one method on the class, assert the return value.
+
+
+## Setup/TearDown
+
+```javascript
+QUnit.module('UploadListingView Tests', {
+    beforeEach: function () {
+        $('#qunit-fixture').append($('<div>', {id: 'files'}));
+        this.view = new config.views.UploadListingView();
+    },
+    afterEach: function () {
+        this.view.remove();
+    }
+});
+```
+
+Notes:
+Setup and tear down are done using the Qunit.module function. This groups all of the tests declared
+after it. That implicit module grouping is one of the uglier pieces of the API.
+
+This setup creates a
+new instance of the UploadListingView and appends it to the DOM. After each test that
+view instance is destroyed.
+Any state attached to `this` will be available in each test in the module.
+
+
+## Setup/TearDown Cont..
+
+```javascript
+QUnit.test('Add Upload', function (assert) {
+    var uploads = new config.collections.UploadCollection(),
+        upload = uploads.push({
+            name: 'test.png',
+            size: 200,
+            created: '2015-01-14T01:21:56.870',
+            links: {
+                self: '/uploads/test.png'
+            }
+        });
+    this.view.addFile(upload);
+    assert.equal($('.file', this.view.$el).length, 1);
+});
+```
+
+Notes:
+This is an example of a test in that module. It calls the the addFile function of
+the view class and asserts that there is a new element in the DOM. This is again not
+handling any user interaction. No clicks or API calls. This just calling methods
+on objects.
+
+
+## Bonus: Mocking with Sinon
+
+```javascript
+QUnit.module('NewUploadView Tests', {
+    beforeEach: function () {
+        $('#qunit-fixture').append($('<div>', {id: 'upload'}));
+        this.uploads = new config.collections.UploadCollection();
+        this.view = new config.views.NewUploadView(
+            {uploads: this.uploads});
+        sinon.stub(this.uploads, 'create');
+    },
+    afterEach: function () {
+        this.view.remove();
+        this.uploads.create.restore();
+    }
+});
+```
+
+Notes:
+QUnit itself doesn't come with any mock objects but it does play nicely with
+a mock library called Sinon.
+
+In testing the view which handles the drag and drop uploads, we don't actually want
+to make the AJAX call to POST to the server. Instead we patch the `create` method
+of the Backbone collection.
+
+
+## Mocking with Sinon Cont..
+
+```javascript
+QUnit.test('Drop File', function (assert) {
+    var e = $.Event('drop'),
+        file = {'name': 'test.txt'};
+    e.originalEvent = {
+        dataTransfer: {files: [file, ]}
+    };
+    this.view.$el.addClass('hover');
+    this.view.drop(e);
+    assert.ok(this.uploads.create.calledOnce);
+    assert.equal(this.view.$el.hasClass('hover'), false);
+});
+
+```
+
+Notes:
+In this test we create a fake DOM event which mimics what would happen when a user
+drops a file. We call the `drop` event handler with this fake event and assert
+that the collection.create method was called.
+
+@@
+
+## Running QUnit Tests
+
+<insert screenshot of QUnit tests run>
+
+Notes:
+To run the QUnit test suite you simply need to load the HTML file in your browser.
+There are also command line tools to run it using phantomjs with your favorite JS
+task runner like grunt or gulp.
+
+Of course we also know a nice way to automate a browser in Python...Selenium!
+
+
+## QUnit + Selenium
+
+```python
+from django.test.utils import modify_settings
+...
+@modify_settings(STATICFILES_DIRS={
+    'append': os.path.join(os.path.dirname(__file__), 'static')})
+class QunitTests(StaticLiveServerTestCase):
+    ...
+    # Same Selenium setUpClass/tearDownClass as before
+    ...
+    def test_qunit(self):
+        """Load the QUnit tests and check for failures."""
+        test_url = (self.live_server_url +
+            settings.STATIC_URL + 'index.html')
+        self.browser.get(test_url)
+        results = WebDriverWait(self.browser, 5).until(
+            expected_conditions.visibility_of_element_located(
+                (By.ID, 'qunit-testresult')))
+        total = int(results.find_element_by_class_name('total').text)
+        failed = int(results.find_element_by_class_name('failed').text)
+        self.assertTrue(total and not failed, results.text)
+```
+
+Notes:
+The modify_settings decorator adds the path where we've stored this static HTML
+along with the Qunit JS, CSS and the JS test files themselves. In this case they
+all live inside of the tests/ folder in a static folder.
+
+This will load that HTML with Selenium and wait for the test results. It then
+asserts that there were tests and none failed. Otherwise it will print the text
+in the results element.
+
+@@
+
+<insert screenshot of final test run with Nyan cat>
 
 @@
 
@@ -218,8 +461,15 @@ should test those as well.
 - https://docs.djangoproject.com/en/1.8/topics/testing/
 - https://selenium-python.readthedocs.org/
 - https://qunitjs.com/
+- http://sinonjs.org/
 
 @@
+
+## Photo Credits
+
+- https://www.flickr.com/photos/alikins/4439062727/
+
+@@ 
 
 ## Thanks!
 
