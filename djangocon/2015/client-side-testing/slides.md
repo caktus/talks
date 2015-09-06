@@ -16,7 +16,7 @@ Mark Lavin - DjangoCon 2015
 
 ## Goals
 
-![Javascript Testing](./img/4564135455_4c14304e48_z.jpg)
+![Goals/Outline](./img/4564135455_4c14304e48_z.jpg)
 
 Notes:
 
@@ -25,13 +25,7 @@ This isn't an in-depth review of all testing tools.
 Also not going to try to convince you to do testing.
 I don't think that argument needs to be made anymore.
 
-@@
-
-## Outline
-
-- Example Project
-- Integration Tests with Selenium
-- Unittests with Qunit
+Example Project, Integration Tests with Selenium, Unittests with Qunit
 
 @@
 
