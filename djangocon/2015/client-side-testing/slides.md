@@ -16,6 +16,8 @@ Mark Lavin - DjangoCon 2015
 
 ## Goals
 
+![Javascript Testing](./img/4564135455_4c14304e48_z.jpg)
+
 Notes:
 
 Get you started testing with a pratical starting point.
@@ -39,11 +41,18 @@ Demo: http://fileapi.mlavin.org/
 
 Source: https://github.com/mlavin/fileapi
 
-<insert screenshot of finished project>
-
 Notes:
 This is a minimal REST API (using JWT for auth) which allows drag and drop file uploads.
 On the front-end it uses Backbone.
+
+
+![Project Screenshot Page 1](./img/project-page-1.png)
+
+
+![Project Screenshot Page 2](./img/project-page-2.png)
+
+
+![Project Screenshot Page 3](./img/project-page-3.png)
 
 @@
 
@@ -407,7 +416,7 @@ that the collection.create method was called.
 
 ## Running QUnit Tests
 
-<insert screenshot of QUnit tests run>
+![Complete QUnit Suite](./img/qunit-tests.png)
 
 Notes:
 To run the QUnit test suite you simply need to load the HTML file in your browser.
@@ -452,7 +461,7 @@ in the results element.
 
 @@
 
-<insert screenshot of final test run with Nyan cat>
+![Complete Test Suite](./img/test-screenshot.png)
 
 @@
 
@@ -467,9 +476,10 @@ in the results element.
 
 ## Photo Credits
 
+- https://www.flickr.com/photos/angietorres/4564135455/
 - https://www.flickr.com/photos/alikins/4439062727/
 
-@@ 
+@@
 
 ## Thanks!
 
