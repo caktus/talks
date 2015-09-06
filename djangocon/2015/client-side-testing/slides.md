@@ -79,11 +79,6 @@ Notes:
 User's don't care about your fancy pure-REST server implementation. They want
 to do things: login to the site, navigate around, submit data, etc.
 
-@@
-
-## Testing What Users Do
-
-Notes:
 This is what Selenium is good at. It drives a web browser. You can interact with the DOM,
 filling out forms, clicking links, etc.
 
