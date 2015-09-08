@@ -1,4 +1,4 @@
-## Into to Client-Side Testing
+## Intro to Client-Side Testing
 Mark Lavin - DjangoCon 2015
 
 @@
