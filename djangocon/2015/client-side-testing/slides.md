@@ -3,7 +3,7 @@ Mark Lavin - DjangoCon 2015
 
 @@
 
-## WHOAMI
+## Mark Lavin
 
 ![Mark Lavin](./img/mark.jpg) <!-- .element: style="float: left" -->
 
@@ -67,7 +67,7 @@ You are welcome to review the view code but that isn't really the focus here.
 
 @@
 
-## Users Don't Care About Any of This
+## Users Don't Care About REST
 
 Notes:
 User's don't care about your fancy pure-REST server implementation. They want
@@ -452,6 +452,11 @@ in the results element.
 
 ![Complete Test Suite](./img/test-screenshot.png)
 
+Notes:
+That's the basics of creating and running Selenium and QUnit tests. These
+slides were a subset of those tests and the full site code and the test
+examples are available in the repo.
+
 @@
 
 ## Resources
@@ -471,8 +476,6 @@ in the results element.
 @@
 
 ## Thanks!
-
-### Questions?
 
 http://talks.caktusgroup.com/djangocon/2015/client-side-testing/
 
