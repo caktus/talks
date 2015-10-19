@@ -1,0 +1,9 @@
+aside.twitter {
+    position: fixed;
+    bottom: 47px;
+    right: 155px;
+}
+
+aside.credit {
+    font-size: 0.5em;
+}
