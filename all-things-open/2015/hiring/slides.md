@@ -234,13 +234,30 @@ We build job descriptions out of a formulated performance profile. It doesn't
 list what you need to know to apply. It lists what you will do and when you
 were here along with the timeline of the first 90 days of work. While these
 can get technology buzzword heavy, they again hightlight what you will do, not
-what you already know. What will you do: Work collaboratively, Help evaluate,
-Architect and develop, Implement, Code review.
+what you already know.
+Also the process of creating these profiles informs the hiring team:
+what is it exactly that we want this person to do when they are here?
 
+@@
+
+## Hiring as Company Culture
+
+![Welcome](./img/17209937482_1036c7df02_z.jpg)
+
+<aside class="credit">
+    <a href="https://www.flickr.com/photos/caktusgroup/17209937482/">
+        https://www.flickr.com/photos/caktusgroup/17209937482/
+    </a>
+</aside>
+
+Notes:
+What will you do: Work collaboratively, Help evaluate,
+Architect and develop, Implement, Code review.
 These reflect not only what we need in terms of skills but also what it's like
 to work here. Hopefully in reading it candidates can begin to see themselves working
-with us. Also the process of creating these profiles informs the hiring team:
-what is it exactly that we want this person to do when they are here?
+with us. In a job market where there is a shortage of candidates, it's my belief
+that the top candidates are interviewing you as much as you are interviewing them.
+Another reason to be nice.
 
 @@
 
@@ -256,15 +273,37 @@ what is it exactly that we want this person to do when they are here?
 
 Notes:
 As with everyone, we look through resumes and cover letters which are submitted
-through our application form. We ask for links to open source work, which is
-nice but not required. If it isn't provided we'll typically still search for
-it. We aren't looking for particular degrees or experience, just something which
-makes us believe that they could be effective working here. A well formulated
-cover letter should detail why the applicant feels that they are a good fit.
+through our application form. We aren't looking for particular degrees or experience,
+just something which makes us believe that they could be effective working here.
+A well formulated cover letter should detail why the applicant feels that they are a good fit.
 
 Phone screens is an optional part of our hiring workflow. It's typically reserved for
 people we are on the fence about or non-local candidates. Here we want answers
 to the questions we had when looking at the materials they provided.
+
+@@
+
+## Github is Not Your Resume
+
+![Github not your Resume](./img/4329380377_f442acac63_o.png)
+
+<aside class="credit">
+    <a href="https://www.flickr.com/photos/bpedro/4329380377/">
+        https://www.flickr.com/photos/bpedro/4329380377/
+    </a>
+</aside>
+
+Notes:
+We ask for links to open source work, which is nice but not required. I won't even say it helps
+If it isn't provided we'll typically still search for it. I'll be honest that
+having open code samples does not always help candidates. It does help me when
+I see your terrible code.
+
+We don't require it because open source contribution as a requirement would bias
+our candidate pools to people who have the time, access, and privelage to contribute.
+You can so "oh anyone can contribute" but it takes time and mentorship to effectively
+and meaningfully contribute to open source and it's simply not true that everyone has even one
+of those.
 
 @@
 
@@ -416,6 +455,29 @@ Those candidates struggle in this type of interview and we've probably passed
 on good people because of it. There are also biases which we haven't addressed
 which can come into play at the resume screening, such as just being able to
 see people's names and guess their gender.
+
+@@
+
+## Moving Goals Posts
+
+![Moving Goals](./img/4137252546_92ea34071b_z.jpg)
+
+<aside class="credit">
+    <a href="https://www.flickr.com/photos/russellstreet/4137252546/">
+        https://www.flickr.com/photos/russellstreet/4137252546/
+    </a>
+</aside>
+
+Notes:
+One of the most challenging parts of this process that we haven't addressed
+well yet is dealing with really nice and articulate people who just aren't the
+right fit because of missing experience. When I say "we" I suppose I really mean
+this is a weakness I see in myself. It can be tempting to shift the requirements
+for the position to favor these people over others. The written profiles don't
+have as hard a set of requirements as those huge check-lists. In the end it's important
+to remember that bringing someone in at the wrong skill level for the position
+isn't setting them up to be successful and will ultimately damage the team and
+this person.
 
 @@
 
