@@ -135,13 +135,26 @@ What do I think is special about Caktus? Well first a little more about us.
 Notes:
 At roughly 30 employees, we are the largest Django-specific development firm in the US.
 So we are big for what we are but not a big company by most definitions.
+We hire 3-4 developers each year which again isn't very many, but a because we
+are small a bad hire for us is very costly.
+
+@@
+
+![Caktus Info](./img/caktus-info.png)
+
+<aside class="credit">
+    <a href="https://www.caktusgroup.com/blog/2015/10/16/peek-behind-scenes-caktus/">
+        https://www.caktusgroup.com/blog/2015/10/16/peek-behind-scenes-caktus/
+    </a>
+</aside>
+
+Notes:
 We did an internal survey back in July and at that time, 63% of our development
 staff had a non-computer science degree. Many have related degrees in engineering
 fields but we also have trained opera singers, painters, and tap dancers on
-our development staff.
-
-We hire 3-4 developers each year which again isn't very many, but a because we
-are small a bad hire for us is very costly.
+our development staff. Women as an indidication of diversity is an over-simplification
+but we are proud to have women well represented as leaders in
+the company.
 
 @@
 
@@ -372,10 +385,27 @@ team when they are here?
 
 Notes:
 We do not ask deeply technical questions nor do we ask people to write code
-during their interviews. We don't ask for sample projects. Again we do look
-at open source code if it's available but it isn't a hard requirement. Coding
+during their interviews. We don't ask for sample projects. Coding
 in interviews and sample projects need to stop. They are meant to be objective
-but they aren't. They reenforce imposter syndrome.
+but they aren't. They reenforce imposter syndrome for non-CS grad (most of our staff).
+UNC CS department asked us to help...
+
+@@
+
+## Heard on the Street
+
+![Heard on the Street](./img/heard-on-the-street.jpg)
+
+Notes:
+Before working at Caktus doing web development, I worked in finance. Finance
+is another industry with terrible hiring practices and ridiculous questions
+about how many oranges are consumed each morning. I was a manager then too and
+I'll admit that I maintained this broken status quo. My favorite way why alarm clock
+snooze buttons are set to 7 mins by default. It was a rite of passage.
+I had to go through this so everyone must. But it didn't help our team. People
+that succeed in this style of interview are the ones that are willing to deal
+with broken process, not fix it. I was part of the problem back then but I
+won't do it anymore.
 
 @@
 
@@ -390,7 +420,8 @@ but they aren't. They reenforce imposter syndrome.
 </aside>
 
 Notes:
-Most importantly they aren't reflective of the work we do. We have not once locked
+They didn't help our team then and won't help us now because they aren't reflective
+of the work we do. We have not once locked
 an employee in a room with no internet and asked them to code a depth-first search.
 This isn't a skill we need. We need to know how the candidates will function
 on a team, our team in particular. Make your questions a reflection of that.
