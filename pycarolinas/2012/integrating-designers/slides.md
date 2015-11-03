@@ -19,7 +19,7 @@ Notes:
 
 ## About Me
 
-![David Ray](./img/david.jpg) <!-- .element: style="float: left" -->
+![David Ray](./static/david.jpg) <!-- .element: style="float: left" -->
 
 - Caktus Developer & Sales Engineer
 - Operatic Tenor
@@ -52,10 +52,10 @@ Notes:
 ## Problem Space
 
 - Scenario 1
-  - *"Traditional"* Designer / Design Cycle <!-- .element: class="fragment" data-fragment-index="1" -->
+  - Traditional' Designer / Design Cycle <!-- .element: class="fragment" data-fragment-index="1" -->
   - Photoshop/Fireworks <!-- .element: class="fragment" data-fragment-index="2" -->
   - Multiple Revisions <!-- .element: class="fragment" data-fragment-index="3" -->
-    - **At some point** translate into Django templates <!-- .element: class="fragment" data-fragment-index="4" -->
+    - At some point translate into Django templates <!-- .element: class="fragment" data-fragment-index="4" -->
 
 Notes:
 
@@ -120,7 +120,7 @@ Notes:
 
 ## Not Big
 
-![Aida](./staic/aida-web.jpg)
+![Aida](./static/aida-web.jpg)
 
 Photo: http://redoubtreporter.wordpress.com
 
@@ -258,7 +258,9 @@ Notes:
     {% includes "includes/some_include.html" %}
 ```
 
-@@ Don't leave them 'hangin'
+@@
+
+## Don't leave them 'hangin'
 
 - Provide docs
   - https://docs.djangoproject.com/en/dev/ref/templates/
@@ -275,7 +277,6 @@ Notes:
 @@
 
 ## Django Comps
-
 
 - Provides an entry point for deeper integration of front end designers with little to no experience into a project.
 
