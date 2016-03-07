@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Upgrading Margarita</title>
+
+    <meta name="description" content="Upgrading Margarita">
+    <meta name="author" content="Vinod Kurup <vkurup@caktusgroup.com>">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="theme/css/reveal.min.css">
+
+    <!-- Caktus specific styles -->
+    <link rel="stylesheet" href="theme/css/theme/caktus.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="theme/lib/css/zenburn.css">
+
+    <!-- For fullscreen images (optional, uncomment this and JS below to enable) -->
+    <!--link rel="stylesheet" href="theme/plugin/fullscreen-img/fullscreen-img.css"-->
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+     if( window.location.search.match( /print-pdf/gi ) ) {
+       var link = document.createElement( 'link' );
+       link.rel = 'stylesheet';
+       link.type = 'text/css';
+       link.href = 'css/print/pdf.css';
+       document.getElementsByTagName( 'head' )[0].appendChild( link );
+     }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="theme/lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+      <aside class="logo">
+        <img src="theme/img/caktus-logo.png">
+      </aside>
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+
+        <section>
+          <h1>Pinning Margarita</h1>
+          <p>
+            Vinod Kurup
+          </p>
+        </section>
+
+        <section>
+          <h2>What is Margarita and why would you want to pin it?</h2>
+        </section>
+
+        <section>
+          <h2>Background</h2>
+
+          <pre><code>django-admin.py startproject</code></pre>
+        </section>
+
+        <section>
+          <h2>Hardcoded secret key</h2>
+
+          <pre><code>
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'u(!lzq*w^4(rl@!75&-l(gmfiiob_(w0*^agmxc#_ns!iz40x6'
+          </code></pre>
+
+          <aside class="notes">
+            Over time, we've made changes to the Django settings that we would want on all projects. One example
+            is to load SECRET_KEY from the enviroment rather than hardcoding it in the settings file, but there
+            are numerous others.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Customized startproject</h3>
+
+          <pre><code>
+django-admin.py startproject \
+  --template=https://github.com/caktus/django-project-template/zipball/master \
+  --extension=py,rst,yml \
+  --name=Makefile,gulpfile.js,package.json
+  myproject
+          </code></pre>
+
+          <aside class="notes">
+            Fortunately Django lets you override the default project template with your own. This is what our
+            beloved Django Project Template is. It's a set of files and configuration that we've honed over the
+            years to work well for immediate development.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Deployment</h2>
+          <aside class="notes">
+            The other problem with the default startproject command is that it is optimized for setting up a
+            local development instance, but if you want that project to be deployed for public use, you'd have
+            a lot of work to do.
+
+            When you override Django's startproject template, you are allowed to include other directories and
+            files in that template. Our project template works well for local development, but also includes
+            some addition files which make it easier to translate to a production deployed setup. This includes
+            the fabfile and the conf directory.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Deployment Tools</h2>
+
+          <ul>
+            <li>Fabric</li>
+            <li>Salt</li>
+            <li>Vagrant</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Salt</h2>
+
+          <aside class="notes">
+            Salt lets you write a YAML file describing how a server should be set up. I could talk much more
+            about salt, but at its core, it lets you write files like this:
+          </aside>
+
+          <pre><code>{% set python_version = pillar.get('python_version', '2.7') %}
+{% if python_version == '2.7' and pillar.get('python_backport') %}
+deadsnakes-python2.7:
+  pkgrepo.managed:
+    - humanname: Deadsnakes PPA for 2.7
+    - ppa: fkrull/deadsnakes-python2.7
+    - require_in:
+      - pkg: python-pkgs
+{% endif %}
+
+python-pkgs:
+  pkg.installed:
+    - pkgs:
+      - python-pip
+      - ...
+      - python{{ python_version }}
+      - python{{ python_version }}-dev
+      {% for name in pillar.get('python_headers', []) %}
+      - {{ name }}
+      {% endfor %}
+
+virtualenv:
+  pip.installed:
+    - upgrade: True
+    - require:
+      - pip: pip
+
+/usr/lib/libz.so:
+  file.symlink:
+    - target: /usr/lib/{{ grains['cpuarch'] }}-linux-gnu/libz.so
+    - require:
+      - pkg: python-pkgs
+          </code></pre>
+        </section>
+
+        <section>
+          <h2>top.sls</h2>
+          <pre><code>base:
+  '*':
+    - base
+    - sudo
+    - sshd
+    - sshd.github
+    - locale.utf8
+    - newrelic_sysmon
+    - project.devs
+  'environment:local':
+    - match: grain
+    - vagrant.user
+  'roles:salt-master':
+    - match: grain
+    - salt.master
+  'roles:web':
+    - match: grain
+    - project.web.app
+  'roles:worker':
+    - match: grain
+    - project.worker.default
+    - project.worker.beat
+  'roles:balancer':
+    - match: grain
+    - project.web.balancer
+  'roles:db-master':
+    - match: grain
+    - project.db
+  'roles:queue':
+    - match: grain
+    - project.queue
+  'roles:cache':
+    - match: grain
+    - project.cache
+          </code></pre>
+
+          <aside class="notes">
+            Then you tell salt which salt states should be included for which roles
+          </aside>
+        </section>
+
+        <section>
+          <h2>Highstate</h2>
+
+          <pre><code>
+        fab staging deploy
+          </code></pre>
+
+          <aside class="notes">
+            Then you tell salt to do its thing. In salt terminology, this is called highstate. We use a fabric
+            command to accomplish this.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Result</h3>
+
+          <pre><code>
+Summary
+-------------
+Succeeded: 12 (changed=3)
+Failed:     0
+-------------
+Total states run:     12
+          </code></pre>
+
+          <aside class="notes">
+            salt then looks at your top.sls and gathers the list of required state files for each of the roles
+            you are setting up, and checks to make sure each of those states are set up properly. Salt is
+            responsible for the checking whether a state is already properly set up. If it is, nothing should be
+            done, and you'll see this.
+          </aside>
+        </section>
+
+        <section>
+          <h1>Changes</h1>
+        </section>
+
+        <section>
+          <h3>Project Template contents</h3>
+
+          <ul>
+            <li>Django settings</li>
+            <li>Salt state files describing our deployment</li>
+            <li>Fabfile to communicate with salt</li>
+          </ul>
+
+          <aside class="notes">
+            So now we had a project template that had the Django settings we wanted, with a list of Salt files
+            describing what systems should be set up, and fab commands to communicate with Salt.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Problems</h3>
+
+          <ul>
+            <li>Reuse</li>
+            <li>Migrating improvements among projects</li>
+          </ul>
+
+          <aside class="notes">
+            It was quickly clear that many of those salt files were unrelated to the project in question. For
+            example, once we set up RabbitMQ for a project, that salt file to setup RabbitMQ should be useful
+            for any other project. So we created Margarita as a place to keep our common salt states.
+          </aside>
+        </section>
+
+        <section>
+          <h1>Margarita!</h1>
+
+        </section>
+
+        <section>
+          <h3>Reuse</h3>
+
+          <aside class="notes">
+            This improved the reuse problem, but didn't help much for the 'migrate improvements' problem.
+
+            We created a system to look at our Project Template conf directory first for states, and then fall
+            back to Margarita if not found. This allowed for projects to override margarita configurations.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Migrating deployment improvements</h3>
+
+          <aside class="notes">
+            The problem with this system is that it became difficult to make improvements to the system.
+            Changes to margarita could potentially be picked up by every running project, even if those projects
+            were on older OS versions which might not be compatible with the new changes.
+
+          </aside>
+        </section>
+
+        <section>
+          <h3>Margarita improvements</h3>
+
+          <ol>
+            <li>Start versioning Margarita</li>
+            <li>Move all(*) salt states to Margarita</li>
+          </ol>
+          <aside class="notes">
+            1. so that old projects would be able to upgrade only explicitly
+            2. separating code from deployment, as much as possible
+          </aside>
+          <small>* - Not all states</small>
+        </section>
+
+        <section>
+          <h3>Project Template now</h3>
+
+          <ul>
+            <li><code>top.sls</code> file</li>
+            <li><code>margarita.sls</code> file</li>
+            <li>Fabric commands to run deploys</li>
+          </ul>
+
+          <aside class="notes">
+            Now the only deployment pieces left in the project template are... ^
+
+            A side benefit is that it more clearly delineates the interface between project and its deployment,
+            making it potentially possible to use an alternate deployment system in the future, without too much
+            change in our configuration
+          </aside>
+        </section>
+
+        <section>
+          <h3>Pillar</h3>
+
+          <ul>
+            <li>List of configuration values that salt states can use</li>
+            <li>We use it to scope by environment</li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Current state of affairs</h3>
+
+          <ol>
+            <li>Your project is newish and is already using a pinned version of Margarita</li>
+            <li>Your project is not using a pinned version of Margarita</li>
+          </ol>
+
+          <aside class="notes">
+            Spreadsheet tracking this manually
+          </aside>
+        </section>
+
+        <section>
+          <h3>Already Pinned</h3>
+
+          <code>conf/pillar/project.sls</code>
+
+          <pre><code>
+margarita_version: 1.5.0
+          </code></pre>
+
+          <aside class="notes">
+            <p>
+              Update your <code>margarita_version</code> and follow the <a href="https://github.com/caktus/margarita/blob/develop/CHANGES.rst">CHANGES.rst</a> document.
+            </p>
+
+            You should be able to review the Margarita release notes and upgrade to newer versions by
+            following those notes. Please report any issues with the release notes.
+
+            If your version is less than 1.5.0, you may want to look at the upgrade instructions. Not all of
+            it will apply to you, but it may make your work a bit easier to have a template to follow.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Unpinned</h3>
+
+          <p>
+            That is what this talk is about!
+          </p>
+          <img src="margarita-versions.png">
+
+          <aside class="notes">
+            The master branch of margarita will not receive updates (except for a rare case, and only if we
+            think we can make a backwards compatible update). If you don't want to update, you shouldn't need
+            to.
+          </aside>
+        </section>
+
+        <section>
+          <h3>High level list of changes</h3>
+
+          <aside class="notes">
+            High level list of main changes between master branch and margarita 1.5.0:
+          </aside>
+          <ul>
+
+            <li>Salt needs to be upgraded to a known 'good' version 2015.5.8, and prevented from automatically
+              updating</li>
+            <li>Secrets are no longer maintained in plaintext. They're encrypted now, so they can be stored in the repo</li>
+            <li>vagrant setup changed</li>
+            <li>Most salt states moved from project template to margarita</li>
+            <li>staging.py and production.py settings files merged</li>
+            <li>All logs go to syslog</li>
+            <li>dotenv used for env var management</li>
+            <li>ALLOWED_HOSTS includes only the DOMAIN env var, by default</li>
+            <li>Calvin's frontend improvements</li>
+            <li>fabfile improvements</li>
+            <li>Makefile improvements</li>
+            <li>Coverage by default, .gitignore updates, Travis setup
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h3>Upgrade document</h3>
+
+          <a href="https://caktus.github.io/developer-documentation/margarita/upgrading.html">The document</a>
+        </section>
+      </div>
+
+    </div>
+
+    <script src="theme/lib/js/head.min.js"></script>
+    <script src="theme/js/reveal.min.js"></script>
+
+    <script>
+
+     // Full list of configuration options available here:
+     // https://github.com/hakimel/reveal.js#configuration
+     Reveal.initialize({
+       controls: true,
+       progress: true,
+       history: true,
+       center: true,
+       help: true,
+
+       theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+       transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+       // Optional libraries used to extend on reveal.js
+       // Note: Don't forget to add preceding commas when enabling!
+       dependencies: [
+         { src: 'theme/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+         { src: 'theme/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+         { src: 'theme/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+         { src: 'theme/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+         { src: 'theme/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+         { src: 'theme/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+         // { src: 'theme/plugin/fullscreen-img/fullscreen-img.js', async: true, condition: function() { return !!document.body.classList; } }
+         // { src: 'theme/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+         // { src: 'theme/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+       ]
+     });
+
+    </script>
+
+  </body>
+</html>
