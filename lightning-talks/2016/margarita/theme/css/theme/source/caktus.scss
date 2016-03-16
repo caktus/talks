@@ -1,0 +1,59 @@
+/*  
+
+!!!WARNING :: DO NOT EDIT THE css/theme/caktus.css FILE DIRECTLY. EDIT THE css/source/caktus.scss FILE, COMPILE LOCALLY AND COMMIT BOTH FILES. kthxbai
+
+
+/**
+ * Caktus Consulting Group slide theme for reveal.js.
+*/
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+// Include theme-specific fonts
+@import url(https://fonts.googleapis.com/css?family=Montserrat:700);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic,700italic);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic);
+
+// Caktus theme settings
+$headingTextShadow: none;
+$backgroundColor: #000;
+$linkColor: #9ec16c;
+$linkColorHover: lighten( $linkColor, 20% );
+$headingFont: 'Montserrat', sans-serif;
+$headingTextTransform: none;
+$headingLineHeight: 1em;
+
+
+// Background generator
+@mixin bodyBackground() {
+	@include radial-gradient(#117F89, #117F89);
+}
+
+aside.logo {
+    position: fixed;
+    left: 25px;
+    bottom: 25px;
+    z-index: 30;
+    
+    img {
+    	width: 200px;
+    }
+}
+
+.reveal pre {
+	background-color: #fff;
+	color:#434a49;
+	padding: 10px 15px;
+}
+
+.reveal pre code {
+	padding: 10px 15px !important;
+	max-height: 450px;
+}
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
