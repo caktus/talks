@@ -1,0 +1,12 @@
+.reveal section[data-background] h1,
+.reveal section[data-background] h2,
+.reveal section[data-background] h3 {
+    text-shadow: -1px -1px 0 #333, 1px -1px 0 #333, -1px 1px 0 #333, 1px 1px 0 #333;
+}
+
+aside.twitter {
+    position: fixed;
+    bottom: 47px;
+    right: 155px;
+    z-index: 10;
+}
