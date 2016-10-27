@@ -177,7 +177,7 @@ A ***topic*** exchange routes messages to queues based on topic patterns
 in the routing key and the binding key.
 
 Notes:
-A nice in-between is a topic exchange. This allows for selective pu
+A nice in-between is a topic exchange. This allows for selective pub/sub.
 The routing keys for topic messages need to be delimited by dots/periods. The
 binding keys for topic exchanges can contain wild cards for either single "word"
 matches or multiple words.
@@ -202,14 +202,11 @@ I hope that it will be helpful to people who don't normally use or read Python.
 Notes:
 We are going to build a general purpose webhook reciever. It's going to take
 webhook message from a fake service and translate them into AMQP messages to be handled
-by a variety of potential consumers: logging, task queues, notifications
+by a build/task/worker server.
 
-Incoming requests are going to come to our web server and those are going to be
-translated into messages for our other applications. We are going to have
-a logging server which listens for all messages and logs them for audit purposes.
-We have task runner which only cares about certain kinds of messages which trigger
-a task/build of some kind. Those builds as well as the web requests themselves
-are going to trigger notifications which will be handled by websockets.
+We'll also have a websocket handler which give live updates of incoming jobs,
+when they've started and when they've completed with their status. Hopefully
+this looks something like you've built before or maybe thought about building.
 
 @@
 
@@ -287,7 +284,7 @@ Now we're looking at the web hook code itself. Recall that we are only routing
 POST requests to the endpoint. The first thing it does is try to pull two
 variables out of the POST: user and project. Obviously this could use more
 validation but for brevity just check that they are non-empty. The routing
-key is incoming.project.use. We construct a small JSON encoded message and
+key is incoming.project.user. We construct a small JSON encoded message and
 broadcast it over the exchange. Then we send back a 200 response.
 
 @@
