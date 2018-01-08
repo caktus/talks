@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Teach Your Sites to Call For Help</title>
+
+    <meta name="description" content="Automate problem reporting for online services">
+    <meta name="author" content="Dan Poirier">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="../../conf/themes/reveal.js-3.6.0/css/reveal.css">
+
+    <!-- Caktus specific styles -->
+    <link rel="stylesheet" href="../../conf/themes/reveal.js/css/theme/caktus.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="../../conf/themes/reveal.js-3.6.0/lib/css/zenburn.css">
+
+    <!-- For fullscreen images (optional, uncomment this and JS below to enable) -->
+    <!--link rel="stylesheet" href="../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.css"-->
+
+    <script>
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match( /print-pdf/gi ) ? '../../conf/themes/reveal.js-3.6.0/css/print/pdf.css' : '../../conf/themes/reveal.js-3.6.0/css/print/paper.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="../../conf/themes/reveal.js-3.6.0/lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <style>
+        .reveal .slides  section  code { text-align:left; }
+        .reveal .slides section ul { text-align: left; }
+        .reveal .slides section ol { text-align: left; }
+        .nocenter { text-align: left;}
+    </style>
+</head>
+
+<body>
+
+<div class="reveal">
+    <aside class="logo">
+        <img src="../../conf/themes/reveal.js/img/caktus-logo.png">
+    </aside>
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+
+        <section>
+            <h1>Teach your sites to call for help</h1>
+            <h3>Automate problem reporting for online services</h3>
+            <p>
+                <small>Dan Poirier</small>
+            </p>
+            <p>
+                <small>Caktus Consulting Group</small>
+            </p>
+            <p>
+                <small>https://caktusgroup.com</small>
+            </p>
+        </section>
+
+        <section>
+            <h3>Since 1992...</h3>
+            <ul>
+                <li>1992-2011: IBM</li>
+                <li>2011-present: Caktus</li>
+            </ul>
+
+
+            <aside class="notes">
+              <p>  I started working in this business in 1992 at IBM, and
+                moved to Caktus in 2011. Things I've worked on have almost
+                always affected real customers and included having to
+                diagnose and fix problems they run into.</p>
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Libyan Voter Registration</h3>
+            <img height="70%" width="70%" src="Libya.jpg">
+            <aside class="notes">
+             <p>   I'd like to use a concrete example for this talk. I always find it
+                easier to understand things from concrete examples, in addition to
+                the abstract theory.</p>
+
+                <p>One of Caktus's projects that provided a lot of experience
+                    relevant to this talk was helping to build a voter registration system
+                    for Libya.</p>
+
+                <p>After the fall of Khadaffi, there was an urgent desire to bootstrap
+                    a democracy. One part of that was registering citizens to vote.
+                    Caktus helped develop a text-message-based voter registration system,
+                    and later a web site for checking registrations and to administer the
+                    system.  Over 1.5 million citizens used the system to register for two elections
+                    a few years ago.</p>
+
+                <p>Registration was opened again just this past December, and a million
+                    more people had registered as of the beginning of February.</p>
+            </aside>
+        </section>
+
+        <section>
+            <h3>Keep it running</h3>
+            <img height="70%" width="70%" src="UP_track_maintenance_vehicle.jpg">
+
+            <aside class="notes">
+                <p>If a web site or online service is worth setting up,
+                    it's worth keeping it running.</p>
+
+                <p>Mostly they just keep going and don't need much work.</p>
+
+                <p>So if 2 months after you set up a site, it goes down,
+                    you might not notice right away. Your site users might not notify
+                    you - and if your site is completely down, they might not
+                    be able to. And more likely, they'll
+                    just go to another site.</p>
+
+                <p>We can keep checking the site to see if it's all working -
+                    but that's boring, and we're likely to get tired of it
+                    and do a poor job or stop doing it completely. This is
+                    the kind of thing computers are good at.
+                </p>
+                <p>So, let's use computers to let us know when something's wrong.
+                </p>
+                <p>That's all pretty obvious, of course.  As they
+                    say, the devil's in the details.</p>
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Is my site down?</h3>
+            <img height="80%" width="80%" src="18-01-08_08:58:29_.png">
+
+
+            <aside class="notes">
+
+                <p>Let's start with what's really the simplest - getting notified
+                    when your site goes completely down. In that case, we really
+                    can't rely on anything in our site code, or even on our site's
+                    servers, to notify us - they're not working right.
+                    So we need an external service.</p>
+
+                <p>Like most of the tools I'm going to talk about today, there
+                    are multiple options, and I make no pretense of having done
+                    a comprehensive survey. I'll talk about tools that have worked
+                    for us, but I make no claim that there aren't better alternatives.</p>
+
+                <p>What I'd like you to take away today are the kinds of things
+                    you should consider and watch out for when deciding what to
+                    use for your own site.</p>
+
+                <p>For getting notified when your site goes down, the most well-known
+                    service is pingdom.com.  Some other choices are New Relic, and
+                    the new statuscake.com.</p>
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Site down</h3>
+            <img height="80%" width="80%" src="statuscake_worldchecks.png">
+
+            <aside class="notes">
+
+                <p>Any of these can notify you in various ways when your site goes down.
+                    Both pricing and other services offered vary. Your
+                    decision here is likely to depend somewhat on your choices
+                    in other areas of monitoring your site.</p>
+
+                <p>For example, New Relic can check your sites' reachability from
+                    places all around the world. If for some reason your site is
+                    working fine from North America, but not from Europe, they
+                    can let you know. New Relic is a more expensive option, but they
+                    offer a *lot* of other services. Just saying...
+                </p>
+                <p>And status cake does the same thing.
+                </p>
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Considerations for web page monitoring</h3>
+            <ul>
+                <li>Test non-trivial pages:<ul>
+                    <li>behind login</li>
+                    <li>database access required</li>
+                </ul> </li>
+                <li>Don't get flooded with alerts</li>
+            </ul>
+            <aside class="notes">
+
+                <p>
+                    A home page is the obvious page to point a "site down" checker at, but it's
+                    often your most trivial page. It might work fine even when things are so broken
+                    no other pages work. Or maybe people can't log in, or only the pages behind
+                    logins are broken.
+                </p>
+                <p>
+                    You might want to set up a special page just for the site monitor to check.
+                    It might do some database access or whatever would give you confidence that
+                    all the important parts of your site are healthy.
+                </p>
+                <p>
+                    You don't want repeated notices every time the service sees a failure to load
+                    a page. I know someone with a site that has a small bug that only shows up for
+                    one hour a year - that hours when daylight saving time causes the same hour to
+                    happen twice. And for every second of that hour, he gets an alert that his site
+                    is broken. Then it stops for another year... so he puts off fixing it.... and then
+                    another year has gone by and it happens again :-)
+                </p>
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Site outage in Libya</h3>
+            <img height="70%" width="70%" src="connection_timeout.png">
+
+            <aside class="notes">
+        <p>        Tell story of site going down a couple of weeks ago, project lead getting notified
+                and working with sys admin on Slack to diagnose. Turned out to be the ISP having
+                blackholed our IP address after a DOS attack.</p>
+
+               <p> Luckily, the web site is not the most important part of the Libya project and the
+                text messages continued being processed without interruption.</p>
+            </aside>
+        </section>
+
+        <section>
+            <h3>Performance</h3>
+            <img height="70%" width="70%" src="statuscake_monitoring.png">
+
+
+            <aside class="notes">
+                <p>What if your site is responding, but abnormally slowly? You'd like
+                    to know that, but a simple check that it's reachable won't tell you.
+                    Most of the same services that can let you know your site is down,
+                    can also tell you if it's working poorly. Statuscake can let you
+                    know that. New Relic can not only let you know that, but show you
+                    exactly where in your request processing the slowdown is.</p>
+
+
+
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Memory, CPU, Disk</h3>
+            <img height="80%" width="80%" src="statuscake_hw_monitoring.png">
+
+            <aside class="notes">
+                Another thing to think about is whether you can get advance notice
+                that trouble is coming. It's a good idea to set up warnings for
+                things like disk space and CPU usage going over some threshold.
+                Then you can take action - enlarge your disk, add servers, etc -
+                before it starts causing problems for your users.
+
+                New Relic and Status Cake can both do this. Here's a screenshot
+                from Status Cake.
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Domain expiration</h3>
+            <img height="80%" width="80%" src="statuscake_domain_monitoring.png">
+
+
+            <aside class="notes">
+                And then there's the infamous problem of having your domain expire
+                without noticing.  Microsoft let passport.com expire in 1999, causing
+                a total outage for Hotmail. You don't want to make the news for something like that.
+
+                You guessed it, there are tools to warn you about  that.
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Certificate expiration</h3>
+            <img height="80%" width="80%" src="statuscake_cert_monitoring.png">
+
+            <aside class="notes">
+                And the same thing for SSL certificates.
+            </aside>
+        </section>
+
+        <section>
+            <h3>Gather your logs</h3>
+            <img height="80%" width="90%" src="Logs-Port-of-Burnie-20160208-004.jpg">
+            <aside class="notes">
+               <p> When you're trying to figure out a problem, sooner or later you'll end up
+                looking at logs.</p>
+
+                <p>By default, every application that helps keep your site or service running
+                will put its log messages somewhere different, and you'll have to login to
+                every system individually to look at them. This is a nuisance even for a
+                small, single-server site, and almost unusable as your site grows beyond that.</p>
+
+               <p> You might also not want your developers even to be able to log into your
+                production servers, depending on your service's security requirements.</p>
+
+                <p>The solution is to gather your logs in a central place.</p>
+
+               <p> You can actually do this without any additional software. Unix logging systems
+                have had the capability for decades to forward messages to other servers and
+                to accept incoming ones and store them in a single place, or route them based
+                on various criteria.</p>
+
+              <p>  In these days of the cloud, there are lots of online servers where you can
+                forward your log messages, and they'll store them, make them easily searchable,
+                allow setting up patterns that'll trigger notifications. Some can even analyze
+                the messages and extract data about your site.</p>
+
+            <p>    We've used Papertrail, a paid cloud service with a free tier if you don't have
+                a large volume of log messages. ELK can also do this, which I'll talk about later.</p>
+            </aside>
+        </section>
+
+        <section>
+            <h3>View logs from any server</h3>
+            <img src="log_dashboard.png">
+        </section>
+        <section>
+            <h3>Save searches</h3>
+            <img src="log_searches.png">
+        </section>
+        <section>
+            <h3>View messages</h3>
+            <img src="log_messages.png">
+        </section>
+        <section>
+            <h3>Be alerted when searches match</h3>
+            <img src="log_alerts.png">
+        </section>
+
+        <section>
+            <h3>Details for central logging</h3>
+            <ol>
+                <li>Security: logs sent to a service that is append-only cannot be modifed by an
+                    attacker to hide their trail</li>
+                <li>Security: if the logs are accessible elsewhere, you might not even need to
+                let your developers have login access to the servers</li>
+                <li>There are different kinds of logs, so consider treating them individually.
+                    Some might warrant long storage, others fairly short, for example.</li>
+            </ol>
+        </section>
+
+        <section>
+            <h3>Logging on the Libya project</h3>
+            We have over a dozen servers running haproxy, vumi, postgresql, nginx, Django,
+            and other services that all have their own logs. It wouldn't be feasible to
+            check those logs directly on every server.
+        </section>
+
+        <section>
+            <h3>Configuring log message forwarding</h3>
+            <h2>Python logging configuration</h2>
+            <pre><code data-trim>
+{
+    ...
+    'handlers': {
+        'SysLog': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.SysLogHandler',
+            'formatter': 'simple',
+            'address': ('logsN.papertrailapp.com', XXXXX)
+        },
+        ...
+}
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>The dog in the nighttime</h3>
+
+            <img width="80%" height="80%" src="dog-647528_1280.jpg">
+
+            <aside class="notes">
+                In the Sherlock Holmes story "Silver Blaze", Holmes is the only one who notices what *didn't* happen but
+                should have -- the dog didn't bark in the nighttime.
+<br>
+                The lesson for us is that we tend not to notice when things that are supposed to happen,
+                don't.  Like our automated backups. Or sending out monthly invoices. Often important stuff.
+<br>
+                This is a really good thing to assign a computer to do for us.
+<br>
+                There are numerous online services that will help you with this.  The one I've used
+                is healthchecks.io, which is free for everything I've needed to do with it.
+<br>
+                You tell it you want to monitor some periodic event, and how often it's supposed to happen.
+                It assigns a unique URL, and you arrange to ping that URL when the event completes successfully.
+                For example, you might add "&amp;&amp; wget &lt;URL&gt;" to a cron command.
+<br>
+                If healthchecks.io *doesn't* hear from your task when it should, it notifies you.
+
+            </aside>
+
+        </section>
+
+        <section>
+            <h3>Healthchecks.io and remote logging</h3>
+            <p>Example crontab:</p>
+            <p>
+<pre class="nocenter"><code data-noescape=""># crontab
+@daily <span class="string">/usr/local/bin/daily</span><span class="fragment" data-fragment-index="1"> \</span>
+<span class="fragment" data-fragment-index="2">| logger</span><span class="fragment current-visible" data-fragment-index="2">\</span><span class="fragment" data-fragment-index="3">-n log.example.com -p XXX \</span>
+<span class="fragment" data-fragment-index="1">&& curl https://hchk.io/8fae4...</span>
+</code></pre></p>
+
+            <aside class="notes">
+                <p>We run a daily command with cron. </p>
+                <p>Adding "&amp;&amp; curl &lt;URL&gt;" pings that URL only if the previous command succeeds.</p>
+                <p>We can also redirect the output to "logger", a Unix utility that sends its input to syslog.
+                In this case we're sending it to our remote log server.</p>
+            </aside>
+        </section>
+
+        <section>
+            <h3>healthchecks.io from Python</h3>
+            <pre><code class="python">
+import requests
+
+requests.get("https://hchk.io/327b...")
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>Recap</h3>
+            <ul>
+                <li>Site down</li>
+                <li>Site slow</li>
+                <li>Possible upcoming problems:
+                    <ol>
+                        <li>Resources: Memory, CPU, Disk, ...</li>
+                        <li>Expirations: Domains, SSL certificates</li>
+                    </ol>
+                </li>
+                <li>Collect logs</li>
+                <li>Monitor periodic tasks</li>
+            </ul>
+
+            <aside class="notes">
+                So far we've been talking about things that can affect our entire site
+                or service, and how to get advance notice of upcoming problems, and
+                urgent notice when problems actually occur.  We've gone beyond just
+                seeing if the home page works, to checking the site from around the
+                world, watching things like disk space, cpu, and memory, and even
+                getting reminded when a domain or certificate needs to be renewed.
+            </aside>
+
+
+        </section>
+
+        <section>
+            <h3>Errors on your site</h3>
+            <img height="70%" width="70%" src="Http_error_500.jpg">
+
+            <aside class="notes">
+
+                <p>But there are also problems that only affect some of your users, or
+                only when users do certain things.  Again, some users might let you
+                know, but most won't. You can't rely on it.</p>
+
+             <p>   At Caktus, we use the Django framework to build our web sites using
+                Python. Django has a neat feature where it can email the site admins
+                whenever an uncaught exception happens during request processing.
+                That won't tell you if a user is getting shown a wrong answer, but
+                it will let you know if a user is getting an error page. The email
+                message includes the exception, the stack trace, and details of the
+                request and the site settings.</p>
+
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Django's error emails</h3>
+            <pre><code>
+From: django@yoursite.com
+To: your_inbox
+Subject: Someone hit an error
+
+Request URL & headers
+Reponse status
+Stack trace
+Django settings
+            </code></pre>
+
+            <aside class="notes">
+
+               <p> This is great during testing, and when you're just getting your site
+                going. It not only notifies you, it gathers a lot of information that
+                is often all you need to figure out exactly what happened.
+</p>
+                <p>If you're using Django, I recommend enabling this during your site
+                development. When your testers hit problems, it'll gather more information
+                than your tester could have gotten for you at the time.</p>
+
+        <p>        I imagine there are ways to do something similar when errors occur
+                if you're not using Django.</p>
+
+                <p>Once your site starts getting any significant traffic, though, you should
+                turn this off and replace it with something better.</p>
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>A flood of error emails</h3>
+            <img width="70%" height="70%" src="The_Great_Wave_off_Kanagawa.jpg">
+
+            <aside class="notes">
+
+
+                Imagine this scenario.
+                Your site is getting hundreds or thousands of requests per hour. That's
+                per *hour*, not minute or second; it's not really all that much traffic.
+
+                Overnight, something happens that starts making every request fail. Maybe
+                your database goes down, or somebody changes the password on the search
+                backend - whatever.
+
+                And every time a request fails, the site send you
+                another email message.
+                Picture your inbox when you come in the next morning. It won't be pretty -
+                thousands or tens of thousands of these error messages.
+
+                And as you try
+                to fix the problem, they'll keep pouring in.
+
+                And after you fix the problem,
+                more will keep coming, and you'll notice they are dated hours ago, and
+                that the flood of email was so great that a lot of it is backed up somewhere
+                in the internet and is going to keep getting delivered for hours and hours
+                more.
+
+                Your SMTP provider (handling the outgoing mail from your servers) might
+                not be too happy with you either.
+
+                As you might gather, I've been there.
+
+                And when it happens, I kick myself because I should have set up Sentry
+                earlier.
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Sentry</h3>
+            <img height="80%" src="18-01-08_09:31:46_.png">
+            <aside class="notes">
+
+               <p> Sentry is an open source service to sit between your site's error reports
+                and you. You can subscribe to a hosted service, or set up your own server.
+                Then you configure your site to notify Sentry about problems instead of
+                sending emails to you.</p>
+
+              <p>  Sentry is smart. It not only gathers *more* information about the problem
+                than Django includes in its emails, it also recognizes when the same problem
+                happens over and over, and only notifies you *once*.</p>
+
+                <p>It keeps track, of course. You can go to the Sentry web interface for
+                that problem and see how many times people have hit that problem, how
+                long it's been happening, and whether it's getting more frequent.
+                Then you can drill down into one of the occurrences to see the exception,
+                the stack trace, the request data, plus local variables and function
+                arguments.</p>
+
+               <p> Once you think you've fixed a problem, you can mark it _resolved_ in
+                Sentry. Once you do that, if it ever happens again, Sentry will send
+                you a fresh notice, and also let you know this problem has happened
+                before and so this is a possible reggresion.</p>
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Configure Sentry</h3>
+                <pre><code data-noescape class="bash"># Python package
+$ pip install raven --upgrade</code><code class="python">
+# Django config
+INSTALLED_APPS = (
+    ...
+    'raven.contrib.django.raven_compat'
+)
+RAVEN_CONFIG = {
+    'dsn': 'https://&lt;key>:&lt;secret>@sentry.io/&lt;project>'
+}
+</code></pre>
+
+        </section>
+
+        <section>
+            <h3>Sentry in Libya</h3>
+            <p>We have our own sentry server in the datacenter in Libya that
+            handles all the errors from Django and Vumi, and notifies us
+            of problems while gathering diagnostic information.</p>
+        </section>
+
+        <section>
+            <h3>New Relic</h3>
+            <img src="newrelic.png">
+            <aside class="notes">
+
+                <p>Now I'm going to say a little more about New Relic, which I've already
+                mentioned. New Relic is the gold standard of monitoring tools. A surprising
+                number of well-known sites use it, because it's worth it - it's expensive,
+                but it does almost everything I've mentioned here, and does it as well
+                or better than any other tool I know of.</p>
+
+                <p>It can check that your site is up from places around the world.</p>
+
+              <p>  It can notify you when there's a performance or resource problem.</p>
+
+              <p>  It's so well integrated into your application that if, for example, a
+                request is slow, New Relic can show you which part of the code processing
+                that request is taking most of the time. It's incredibly helpful to
+                know whether a query is slow, or you're doing a query more times than
+                you need to, or maybe rendering some templates is taking a long time,
+                or some 3rd-party service is responding slowly.</p>
+
+              <p>  There's a free tier that provides enough of the New Relic service to
+                get a feel for it.</p>
+            </aside>
+        </section>
+
+        <section>
+            <h3>Configuring New Relic to monitor your Python-based server</h3>
+            <pre><code class="bash"># Install
+$ pip install newrelic
+# Create config file
+$ newrelic-admin generate-config YOUR_LICENSE_KEY \
+    &lt;path>/newrelic.ini
+# Run your server
+$ NEW_RELIC_CONFIG_FILE=&lt;path>/newrelic.ini \
+    newrelic-admin run-program \
+    COMMAND_THAT_STARTS_YOUR_SERVER
+            </code></pre>
+        </section>
+
+        <section>
+            <h3>ELK: ElasticSearch, Logstash, Kibana</h3>
+            <img src="kibana.png">
+            <aside class="notes">
+
+               <p> I'm going to finish up by talking about another set of open source tools
+                that we've been trying out lately that shows some real promise. It's
+                the combination of Elasticsearch, Logstash, and Kibana, or more briefly,
+                "ELK".</p>
+<p>
+                These tools have been around for a while, but putting them together was
+                left as an exercise. Now the developers are providing a container with
+                the whole set configured to work together.</p>
+
+           <p>     Logstash stores information gathered from your servers, both log messages
+                and statistics.</p>
+
+         <p>       Then Kibana provides a very flexible front-end to analyze and visualize
+                all that data, using Elasticsearch to efficiently process the data.</p>
+
+             <p>   There are agents to install on your servers that forward log messages,
+                or gather metrics.</p>
+<p>
+                So ELK can replace several other services that run on your serve</p>rs.
+            </aside>
+        </section>
+        <section>
+            <h3>ELK monitors resources and gathers logs</h3>
+            <img width="40%" height="80%" src="kibana_logs.png">
+            <img width="40%" height="80%" src="kibana_cpu.png">
+            <img width="40%" height="80%" src="kibana_disk.png">
+            <aside class="notes">
+                Like papertrail, ELK can collect your logs, search them, etc.
+
+                Like status cake or New Relic, ELK can monitor memory, disk, etc.
+            </aside>
+        </section>
+        <section>
+            <h3>ELK gathers data</h3>
+            <p>Send any numbers you want to ELK</p>
+            <p>Then you can list them, graph them, set up alerts from them, compare them
+            to other metrics, etc.</p>
+        </section>
+        <section>
+            <h3>ELK and Libya project</h3>
+            <ul>
+                <li>Performance</li>
+                <li>Resources: CPU, Memory, Disk</li>
+            </ul>
+        </section>
+        <section>
+            <h3>Kibana complexity</h3>
+            <img width="80%" height="80%" src="kibana_console.png">
+            <aside class="notes">
+                Where ELK still needs some work -  It's extremely powerful,
+                but unfortunately even the simple things require a pretty detailed
+                understanding of how it all works.
+
+            </aside>
+        </section>
+
+        <section>
+            <h3>Recap</h3>
+            <ul>
+                <li>Get notified when users hit errors</li>
+                <li>Don't get flooded - use Sentry</li>
+                <li>For more in-depth data, New Relic</li>
+                <li>Build it yourself using ELK</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Image sources</h3>
+            <ul>
+                <li>Shoggoth: https://commons.wikimedia.org/wiki/File:Shoggoth_by_Nottsuo.jpg</li>
+                <li>Libyan Voter Registration: https://www.caktusgroup.com/case-study/worlds-first-sms-voter-registration-system/</li>
+                <li>Track maintenance vehicle: https://commons.wikimedia.org/wiki/File:UP_track_maintenance_vehicle.jpg</li>
+                <li>Logs: https://commons.wikimedia.org/wiki/File:Logs-Port-of-Burnie-20160208-004.jpg</li>
+                <li>Dog in the nighttime: https://pixabay.com/en/dog-howl-moon-tree-sky-star-647533/</li>
+                <li>Great Wave: https://en.wikipedia.org/wiki/File:The_Great_Wave_off_Kanagawa.jpg</li>
+            </ul>
+        </section>
+
+        <section><h3>Questions?</h3></section>
+
+    </div>
+
+</div>
+
+<script src="../../conf/themes/reveal.js-3.6.0/lib/js/head.min.js"></script>
+<script src="../../conf/themes/reveal.js-3.6.0/js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: false,
+        history: true,
+        center: true,
+
+        // Include speaker notes when printing, on a separate page after each slide
+        // showNotes: true,
+        showNotes: 'separate-page',
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 960,
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+        maxScale: 1.5,
+
+        controlsTutorial: false,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        //transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+        transition: 'none',  // effects too slow for google hangouts
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [
+            { src: '../../conf/themes/reveal.js-3.6.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            { src: '../../conf/themes/reveal.js-3.6.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../conf/themes/reveal.js-3.6.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: '../../conf/themes/reveal.js-3.6.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: '../../conf/themes/reveal.js-3.6.0/plugin/search/search.js', async: true },
+            { src: '../../conf/themes/reveal.js-3.6.0/plugin/zoom-js/zoom.js', async: true },
+            { src: '../../conf/themes/reveal.js-3.6.0/plugin/notes/notes.js', async: true }
+        ]
+
+
+        // // Optional libraries used to extend on reveal.js
+        // // Note: Don't forget to add preceding commas when enabling!
+        // dependencies: [
+        // 	{ src: '../../../conf/themes/reveal.js-3.6.0/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+        // 	{ src: '../../../conf/themes/reveal.js-3.6.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        // 	{ src: '../../../conf/themes/reveal.js-3.6.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+        // 	{ src: '../../../conf/themes/reveal.js-3.6.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        // 	{ src: '../../../conf/themes/reveal.js-3.6.0/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+        // 	// { src: '../../../conf/themes/reveal.js-3.6.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        // 	// { src: '../../../conf/themes/reveal.js/plugin/fullscreen-img/fullscreen-img.js', async: true, condition: function() { return !!document.body.classList; } }
+        // 	// { src: '../../../conf/themes/reveal.js/plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } }
+        // 	// { src: '../../../conf/themes/reveal.js/plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        // ]
+    });
+
+</script>
+
+</body>
+</html>
