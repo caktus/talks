@@ -253,7 +253,7 @@ Notes:
 
 - Introduce conventions
 
-```
+```django
     {% extends "base.html" %}
     {% includes "includes/some_include.html" %}
 ```
